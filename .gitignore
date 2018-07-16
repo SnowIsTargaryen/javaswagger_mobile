@@ -1,0 +1,53 @@
+/.metadata/
+/Servers/
+swagger/target/test-classes/log4j.xml
+swagger/target/m2e-wtp/web-resources/META-INF/maven/com.bit/swagger/pom.xml
+swagger/target/m2e-wtp/web-resources/META-INF/maven/com.bit/swagger/pom.properties
+swagger/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+swagger/target/classes/log4j.xml
+swagger/target/classes/com/bit/swagger/HomeController.class
+swagger/src/main/webapp/WEB-INF/spring/root-context.xml
+swagger/.springBeans
+swagger/.settings/org.springframework.ide.eclipse.core.prefs
+swagger/.settings/org.springframework.ide.eclipse.beans.core.prefs
+swagger/.settings/org.eclipse.wst.validation.prefs
+swagger/.settings/org.eclipse.wst.common.project.facet.core.xml
+swagger/.settings/org.eclipse.wst.common.component
+swagger/.settings/org.eclipse.m2e.core.prefs
+swagger/.settings/org.eclipse.jdt.core.prefs
+swagger/.project
+swagger/.classpath
+RemoteSystemsTempFiles/.project
+*.name
+boottest/WebContent/video/The Sun In The Space - 15299.mp4
+boottest/WebContent/video/Fog - 14206.mp4
+boottest/WebContent/video/Film - 9615.mp4
+boottest/WebContent/video/Aurora Borealis - 3117.mp4
+boottest/WebContent/video/Atoms - 13232.mp4
+boottest/WebContent/test1.jsp
+boottest/WebContent/openingTest3.jsp
+boottest/WebContent/openingTest2.jsp
+boottest/WebContent/openingTest.jsp
+boottest/WebContent/META-INF/MANIFEST.MF
+boottest/WebContent/login.jsp
+boottest/WebContent/css/boot.css
+boottest/WebContent/bootTest1.jsp
+boottest/WebContent/boot.jsp
+boottest/.tern-project
+boottest/.settings/org.eclipse.wst.jsdt.ui.superType.container
+boottest/.settings/org.eclipse.wst.common.project.facet.core.xml
+boottest/.settings/org.eclipse.wst.common.component
+boottest/.settings/org.eclipse.jdt.core.prefs
+boottest/.settings/.jsdtscope
+boottest/.project
+boottest/.classpath
+.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/segments_1
+.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/segments.gen
+.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.tis
+.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.tii
+.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.prx
+.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.nrm
+.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.frq
+.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.fnm
+.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.fdx
+.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.fdt
