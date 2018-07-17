@@ -22,6 +22,10 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="javaa.swagger.controller" />
+	<context:component-scan base-package="javaa.swagger.dao" />
+	
+	
+	
 	
 	
 	
