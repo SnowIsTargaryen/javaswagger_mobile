@@ -5,6 +5,7 @@
 <configuration>
    <typeAliases>
       <typeAlias type="javaa.swagger.vo.PostVo" alias="postVo"/>
+      <typeAlias type="javaa.swagger.vo.CommentVo" alias="commentVo"/>
    </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -19,5 +20,6 @@
   </environments>
   <mappers>
     <mapper resource="javaa/swagger/db/postMapper.xml"/> 
+    <mapper resource="javaa/swagger/db/commentMapper.xml"/> 
   </mappers>
 </configuration>

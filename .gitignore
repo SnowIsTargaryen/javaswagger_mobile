@@ -8,3 +8,6 @@ Servers/Tomcat v8.5 Server at localhost-config/context.xml
 Servers/Tomcat v8.5 Server at localhost-config/server.xml
 Servers/Tomcat v8.5 Server at localhost-config/tomcat-users.xml
 Servers/Tomcat v8.5 Server at localhost-config/web.xml
+javaSwagger/src/main/java/javaa/swagger/controller/HomeController.java
+javaSwagger/src/main/webapp/WEB-INF/views/home.jsp
+javaSwagger/target/classes/javaa/swagger/controller/HomeController.class

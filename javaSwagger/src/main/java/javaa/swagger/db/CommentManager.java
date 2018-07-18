@@ -9,9 +9,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import javaa.swagger.vo.PostVo;
+import javaa.swagger.vo.CommentVo;
 
-public class PostManager {
+public class CommentManager {
 	private static SqlSessionFactory factory;
 	static{
 		try{
@@ -24,31 +24,31 @@ public class PostManager {
 	    }
 	 }
 	 
-	 public static List<PostVo> readPost(){
-		 List<PostVo> list;
+	 public static List<CommentVo> listComment(){
+		 List<CommentVo> list;
 		 SqlSession s = factory.openSession();
-		 list = s.selectList("post.readPost");
+		 list = s.selectList("comment.readComment");
 		 return list;
 	 }
 	 
-	 public static int insertPost(HashMap map) {
+	 public static int newComment(HashMap map) {
 		 int re = 0;
 		 SqlSession s = factory.openSession();
-		 re = s.insert("post.insertPost", map);
+		 re = s.insert("comment.insertComment", map);
 		 return re;
 	 }
 	 
-	 public static int deletePost(HashMap map) {
+	 public static int deleteComment(HashMap map) {
 		 int re = 0;
 		 SqlSession s = factory.openSession();
-		 re = s.delete("post.deletePost", map);
+		 re = s.delete("comment.deleteComment", map);
 		 return re;
 	 }
 	 
-	 public static int updatePost(HashMap map) {
+	 public static int updateComment(HashMap map) {
 		 int re = 0;
 		 SqlSession s = factory.openSession();
-		 re = s.update("post.updatePost", map);
+		 re = s.update("comment.updateComment", map);
 		 return re;
 	 }
 }
