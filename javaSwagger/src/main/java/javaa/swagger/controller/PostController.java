@@ -20,14 +20,14 @@ public class PostController {
 		this.dao = dao;
 	}
 	
-	public ModelAndView readPost() {
+	public ModelAndView listPost() {
 		ModelAndView mav = new ModelAndView();
 		List<PostVo> list = null;
 		mav.addObject("list", dao.readPost());
 		return mav;
 	}
 	
-	public ModelAndView newPost(PostVo pv) {
+	public ModelAndView insertPost(PostVo pv) {
 		ModelAndView mav = new ModelAndView();
 		HashMap map = new HashMap();
 		map.put("pv", pv);
