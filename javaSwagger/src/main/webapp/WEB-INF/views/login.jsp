@@ -29,15 +29,15 @@
         <div class="card card-signin my-5">
           <div class="card-body">
             <h5 class="card-title text-center">로그인</h5>
-            <form class="form-signin">
+            <form class="form-signin" action="login" method="post">
               <div class="form-label-group">
-                <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                <label for="inputEmail">ID</label>
+                <input type="text" id="user_ID" name="user_ID" class="form-control" placeholder="ID" required autofocus>
+                <label for="user_ID">ID</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                <label for="inputPassword">Password</label>
+                <input type="password" id="user_Password" name="user_Password" class="form-control" placeholder="Password" required>
+                <label for="user_Password">Password</label>
               </div>
 
               <div class="custom-control custom-checkbox mb-3">

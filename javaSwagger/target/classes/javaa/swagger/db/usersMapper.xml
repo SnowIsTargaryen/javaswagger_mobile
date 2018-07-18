@@ -11,4 +11,8 @@
 <!--   	insert into users values(#{user_ID,jdbcType=VARCHAR},#{user_Password,jdbcType=VARCHAR},#{user_Email,jdbcType=VARCHAR},#{user_Phone,jdbcType=VARCHAR}) -->
   </insert>
   
+  <select id="isUser" resultType="userVo">
+  	select * from users where user_ID=#{user_ID} and user_Password=#{user_Password}
+  </select>
+  
 </mapper>
