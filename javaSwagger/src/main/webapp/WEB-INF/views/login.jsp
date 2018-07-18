@@ -12,6 +12,13 @@
 <!--부트 스트랩 CDN  -->
 <link rel="stylesheet" type="text/css" href="resources/css/login.css" >
 
+<script type="text/javascript">
+	$(function() {
+		$("#btnAccount").click(function() {
+			location.href="account/create";
+		})
+	})
+</script>
 
 <title>Insert title here</title>
 </head>
@@ -43,17 +50,22 @@
              <!--  <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> -->
             </form>
             
-            <button class="btn btn-lg btn-account btn-block text-uppercase" data-toggle="modal" data-target=".account-modal-lg">회원가입</button>	
+            <button class="btn btn-lg btn-account btn-block text-uppercase" id="btnAccount">회원가입</button>	
+<!--             <button class="btn btn-lg btn-account btn-block text-uppercase" data-toggle="modal" data-target=".account-modal-lg">회원가입</button>	 -->
             <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> 구글 계정으로 로그인</button>
           </div>
         </div>
+   		</div>
+    </div>
+  </div>
+</body>
+</html>        
         
-        
-        <div class="modal fade account-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade account-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 		  <div class="modal-dialog modal-lg">
 		    <div class="modal-content">
 		      	<form>
-				  <!-- <div class="form-row"> -->
+				  <div class="form-row">
 				    <div class="form-group col-md-6">
 				      <label for="inputEmail4">Email</label>
 				      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
@@ -61,7 +73,7 @@
 				    <div class="form-group col-md-6">
 				      <label for="inputPassword4">Password</label>
 				      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-				    <!-- </div> -->
+				    </div>
 				  </div>
 				  <div class="form-group col-md-6">
 				    <label for="inputAddress">Email</label>
@@ -72,7 +84,7 @@
 				    <input type="text" class="form-control" id="phone" placeholder="0101234567">
 				  </div>
 				  
-				  <div class="form-group">
+				  <div class="form-group col-md-6">
 				    <div class="form-check">
 				      <input class="form-check-input" type="checkbox" id="gridCheck">
 				      <label class="form-check-label" for="gridCheck">
@@ -84,11 +96,7 @@
 				</form>
 		    </div>
 		  </div>
-		</div> <!-- 모달  -->
+		</div> 모달  -->
 		        
         
-      </div>
-    </div>
-  </div>
-</body>
-</html>
+   
