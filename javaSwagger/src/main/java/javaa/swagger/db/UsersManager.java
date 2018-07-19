@@ -1,6 +1,7 @@
 package javaa.swagger.db;
 
 import java.io.Reader;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -21,7 +22,7 @@ public class UsersManager {
 		}
 	}
 	
-	
+	//회원가입 메소드 
 	public static int insertUser(UsersVo u)
 	{
 		
@@ -34,6 +35,22 @@ public class UsersManager {
 		}
 		session.close();
 		return re;
+	}
+	
+	public static boolean isUser(Map map)
+	{
+		boolean r = false;
+		
+		SqlSession session = factory.openSession();
+		UsersVo u=session.selectOne("users.isUser",map);
+		
+		if(u!=null)
+		{
+			r=true;
+		}
+		session.close();
+		
+		return r;
 		
 	}
 }
