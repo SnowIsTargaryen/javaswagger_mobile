@@ -14,6 +14,7 @@ javaSwagger/src/main/java/javaa/swagger/controller/HomeController.java
 javaSwagger/src/main/webapp/WEB-INF/views/home.jsp
 javaSwagger/target/classes/javaa/swagger/controller/HomeController.class
 
+
 .recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.fdt
 .recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.fdx
 .recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.fnm
@@ -23,3 +24,12 @@ javaSwagger/target/classes/javaa/swagger/controller/HomeController.class
 .recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.tii
 .recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.tis
 .recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/segments_1
+
+/.recommenders/
+Servers/Tomcat v8.0 Server at localhost-config/catalina.policy
+Servers/Tomcat v8.0 Server at localhost-config/catalina.properties
+Servers/Tomcat v8.0 Server at localhost-config/context.xml
+Servers/Tomcat v8.0 Server at localhost-config/server.xml
+Servers/Tomcat v8.0 Server at localhost-config/tomcat-users.xml
+Servers/Tomcat v8.0 Server at localhost-config/web.xml
+
