@@ -34,21 +34,21 @@ public class PostManager {
 	 public static int insertPost(HashMap map) {
 		 int re = 0;
 		 SqlSession s = factory.openSession();
-		 re = s.insert("insertPost", map);
+		 re = s.insert("post.insertPost", map);
 		 return re;
 	 }
 	 
 	 public static int deletePost(HashMap map) {
 		 int re = 0;
 		 SqlSession s = factory.openSession();
-		 re = s.delete("deletePost", map);
+		 re = s.delete("post.deletePost", map);
 		 return re;
 	 }
 	 
 	 public static int updatePost(HashMap map) {
 		 int re = 0;
 		 SqlSession s = factory.openSession();
-		 re = s.update("updatePost", map);
+		 re = s.update("post.updatePost", map);
 		 return re;
 	 }
 }
