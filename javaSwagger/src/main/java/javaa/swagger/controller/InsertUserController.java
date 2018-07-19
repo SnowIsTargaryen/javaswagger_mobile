@@ -35,12 +35,12 @@ public class InsertUserController {
 	{
 		ModelAndView mav = new ModelAndView("redirect:/login.jsp");
 		
-		System.out.println(request.getParameter("user_ID"));
+		/*System.out.println(request.getParameter("user_ID"));
 		System.out.println("controller"+u.getUser_ID());
 		System.out.println("controller"+u.getUser_Password());
 		System.out.println("controller"+u.getUser_Email());
 		System.out.println("controller"+u.getUser_Phone() );
-		
+		*/
 
 		
 		int re = dao.insertUser(u);

@@ -36,7 +36,7 @@ public class UsersManager {
 		session.close();
 		return re;
 	}
-	
+	//로그인 메소드
 	public static boolean isUser(Map map)
 	{
 		boolean r = false;
@@ -52,5 +52,14 @@ public class UsersManager {
 		
 		return r;
 		
+	}
+	//프로필 정보 메소드
+	public static UsersVo profil(Map map) {
+		// TODO Auto-generated method stub
+		SqlSession session =factory.openSession();
+		UsersVo u = session.selectOne("users.profil", map);
+		session.close();
+		
+		return u;
 	}
 }

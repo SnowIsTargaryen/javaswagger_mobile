@@ -15,4 +15,8 @@
   	select * from users where user_ID=#{user_ID} and user_Password=#{user_Password}
   </select>
   
+  <select id="profil" resultType="userVo">
+  	select*from users where user_ID=#{user_ID}
+  </select>
+  
 </mapper>

@@ -21,4 +21,9 @@ public class UsersDao {
 	{
 		return UsersManager.isUser(map);
 	}
+
+	public UsersVo profil(Map map) {
+		// TODO Auto-generated method stub
+		return UsersManager.profil(map);
+	}
 }
