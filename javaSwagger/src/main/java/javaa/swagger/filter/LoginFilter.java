@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet Filter implementation class LoginFilter
@@ -38,7 +39,13 @@ public class LoginFilter implements Filter {
 		System.out.println(user_ID);
 		
 		// pass the request along the filter chain
-		chain.doFilter(request, response);
+		if(user_ID!=null) {
+			chain.doFilter(request, response);
+		}
+		else
+		{
+			((HttpServletResponse)response).sendRedirect("login");
+		}
 	}
 
 	/**

@@ -16,7 +16,7 @@
 		<div class="container">
 			<div class="row" id="header">
 				<div class="col-sm-9">
-					
+					<h2>${profil.user_ID }</h2>
 				</div>
 			</div>
 			<div class="row" id="content">
