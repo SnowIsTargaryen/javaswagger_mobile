@@ -25,6 +25,5 @@
     <mapper resource="javaa/swagger/db/commentMapper.xml"/> 
     <mapper resource="javaa/swagger/db/timelineMapper.xml"/> 
     <mapper resource="javaa/swagger/db/usersMapper.xml"/> 
-
   </mappers>
 </configuration>
