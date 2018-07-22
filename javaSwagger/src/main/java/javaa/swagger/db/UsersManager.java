@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import javaa.swagger.vo.UsersVo;
+import oracle.net.aso.s;
 
 public class UsersManager {
 	private static SqlSessionFactory factory;
@@ -54,12 +55,27 @@ public class UsersManager {
 		
 	}
 	//프로필 정보 메소드
-	public static UsersVo profil(Map map) {
+	public static UsersVo profile(Map map) {
 		// TODO Auto-generated method stub
 		SqlSession session =factory.openSession();
-		UsersVo u = session.selectOne("users.profil", map);
+		UsersVo u = session.selectOne("users.profile", map);
 		session.close();
 		
 		return u;
 	}
+	//프로필 수정
+	public static int editProfile(UsersVo u) {
+		int re=-1;
+		
+		SqlSession session = factory.openSession();
+		re=session.update("users.edit", u);
+		if(re>0)
+		{
+			session.commit();
+		}
+		session.close();
+
+		return re;
+	}
+	
 }

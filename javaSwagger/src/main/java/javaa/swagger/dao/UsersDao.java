@@ -22,8 +22,13 @@ public class UsersDao {
 		return UsersManager.isUser(map);
 	}
 
-	public UsersVo profil(Map map) {
+	public UsersVo profile(Map map) {
 		// TODO Auto-generated method stub
-		return UsersManager.profil(map);
+		return UsersManager.profile(map);
+	}
+
+	public int editProfile(UsersVo u) {
+		// TODO Auto-generated method stub
+		return UsersManager.editProfile(u);
 	}
 }

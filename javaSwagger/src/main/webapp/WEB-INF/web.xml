@@ -28,6 +28,6 @@
   <filter-mapping>
     <filter-name>LoginFilter</filter-name>
     <!-- <url-pattern>/account/*</url-pattern> -->
-    <url-pattern>/profil/*</url-pattern>
+    <url-pattern>/profile/*</url-pattern>
   </filter-mapping>
 </web-app>
