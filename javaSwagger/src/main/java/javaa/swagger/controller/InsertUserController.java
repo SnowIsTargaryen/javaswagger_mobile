@@ -33,7 +33,7 @@ public class InsertUserController {
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView insertUser(UsersVo u,HttpServletRequest request)
 	{
-		ModelAndView mav = new ModelAndView("redirect:/login.jsp");
+		ModelAndView mav = new ModelAndView("redirect:/login");
 		
 		/*System.out.println(request.getParameter("user_ID"));
 		System.out.println("controller"+u.getUser_ID());

@@ -3,6 +3,7 @@ package javaa.swagger.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,17 @@ public class UsersControrller {
 		this.dao = dao;
 	}
 
+	@RequestMapping(value="/logout",method=RequestMethod.GET)
+	public ModelAndView logout(HttpSession session)
+	{
+		ModelAndView mav = new ModelAndView("redirect:/login");
+		session.invalidate();
+		
+		return mav;
+		
+	}
+	
+	
 	@RequestMapping(value="/login",method=RequestMethod.GET)  //·Î±×ÀÎ Æû
 	public void form()
 	{
@@ -43,14 +55,14 @@ public class UsersControrller {
 		if(re == true)
 		{
 			session.setAttribute("user_ID", user_ID);
-			mav.setViewName("redirect:/profil/userProfil");
+			mav.setViewName("redirect:/profile/userProfile");
 		}
 		
 		return mav;
 	}
 	
-	@RequestMapping(value="/profil/userProfil",method=RequestMethod.GET)
-	public ModelAndView profil(HttpSession session)
+	@RequestMapping(value="/profile/userProfile",method=RequestMethod.GET)
+	public ModelAndView profile(HttpSession session)
 	{
 		String user_ID=(String)session.getAttribute("user_ID");
 		ModelAndView mav = new ModelAndView();
@@ -59,7 +71,7 @@ public class UsersControrller {
 		
 		map.put("user_ID", user_ID);
 		
-		mav.addObject("profil", dao.profil(map));
+		mav.addObject("profile", dao.profile(map));
 		
 		return mav;
 		

@@ -19,28 +19,28 @@
 		이메일:<input type="text" name="user_Email"><br>
 		폰:<input type="text" name="user_Phone"><br>
 		<input type="submit" value="등록">
-	</form>   -->
-
-	<form action="../account/create" method="post">
-	  <div class="form-group col-md-4">
-	    <label for="user_ID">아이디</label>
-	    <input type="text" class="form-control" id="user_ID" name="user_ID" placeholder="아이디를 입력하세요">
-	  </div>
-	  <div class="form-group col-md-4">
-	    <label for="user_Password ">암호</label>
-	    <input type="password" class="form-control" id="user_Password" name="user_Password" placeholder="비밀번호를 입력하세요">
-	  </div>
-	  <div class="form-group col-md-4">
-	    <label for="user_Password ">Email</label>
-	    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="email을 입력하세요">
-	  </div>
-	  <div class="form-group col-md-4">
-	    <label for="user_Password ">Phone</label>
-	    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="Phone 번호를 입력하세요">
-	  </div>
-	  <button type="submit" class="btn btn-success col-md-4">제출</button>
-	</form>
-		
+	</form>   -->	
+	<div class="container">
+		<form action="../account/create" method="post">
+		  <div class="form-group col-md-4">
+		    <label for="user_ID">아이디</label>
+		    <input type="text" class="form-control" id="user_ID" name="user_ID" placeholder="아이디를 입력하세요">
+		  </div>
+		  <div class="form-group col-md-4">
+		    <label for="user_Password ">암호</label>
+		    <input type="password" class="form-control" id="user_Password" name="user_Password" placeholder="비밀번호를 입력하세요">
+		  </div>
+		  <div class="form-group col-md-4">
+		    <label for="user_Password ">Email</label>
+		    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="email을 입력하세요">
+		  </div>
+		  <div class="form-group col-md-4">
+		    <label for="user_Password ">Phone</label>
+		    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="Phone 번호를 입력하세요">
+		  </div>
+		  <button type="submit" class="btn btn-success col-md-4">제출</button>
+		</form>
+	</div>
 
 
 </body>

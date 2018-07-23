@@ -15,8 +15,12 @@
   	select * from users where user_ID=#{user_ID} and user_Password=#{user_Password}
   </select>
   
-  <select id="profil" resultType="userVo">
+  <select id="profile" resultType="userVo">
   	select*from users where user_ID=#{user_ID}
   </select>
+  
+  <update id="edit">
+	update users set  user_Password=#{user_Password},user_Email=#{user_Email},user_Phone=#{user_Phone} where user_ID=#{user_ID}
+  </update>
   
 </mapper>

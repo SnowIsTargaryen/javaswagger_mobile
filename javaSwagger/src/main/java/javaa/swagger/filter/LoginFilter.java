@@ -44,7 +44,7 @@ public class LoginFilter implements Filter {
 		}
 		else
 		{
-			((HttpServletResponse)response).sendRedirect("login");
+			((HttpServletResponse)response).sendRedirect("../login");
 		}
 	}
 
