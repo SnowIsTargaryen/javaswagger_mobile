@@ -14,7 +14,7 @@ public class TimelineManager {
 	private static SqlSessionFactory factory;
 	static{
 		try{
-			Reader reader = Resources.getResourceAsReader("com/db/mybatisConfig.xml");
+			Reader reader = Resources.getResourceAsReader("javaa/swagger/db/mybatisConfig.xml");
 	        factory = new SqlSessionFactoryBuilder().build(reader);
 	        reader.close();
 		}catch (Exception e){
