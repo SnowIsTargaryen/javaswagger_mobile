@@ -31,4 +31,9 @@ public class UsersDao {
 		// TODO Auto-generated method stub
 		return UsersManager.editProfile(u);
 	}
+
+	public int withdrawUser(Map map) {
+		// TODO Auto-generated method stub
+		return UsersManager.withdrawUser(map);
+	}
 }

@@ -77,5 +77,20 @@ public class UsersManager {
 
 		return re;
 	}
+	public static int withdrawUser(Map map) {
+		// TODO Auto-generated method stub
+		
+		int re =-1;
+		
+		SqlSession session = factory.openSession();
+		re=session.delete("users.withDraw", map);
+		if(re>0)
+		{
+			session.commit();
+		}
+		session.close();
+		
+		return re;
+	}
 	
 }

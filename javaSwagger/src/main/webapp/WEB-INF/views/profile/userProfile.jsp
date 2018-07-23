@@ -16,7 +16,7 @@
 <body>
 <!--  네비게이션  -->
 	<nav class="navbar">
-	<div class="container">
+	<div class="container-fluid">
 			<div class="col-4">
 				<div class="navbar-header navbar-left">
 					<h1><a class="navbar-brand" href="../profile/userProfile">Eden</a></h1>
