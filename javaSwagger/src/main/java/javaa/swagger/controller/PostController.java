@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,7 +57,9 @@ public class PostController {
 //	@ResponseBody
 //	public String listPost(@RequestParam(value="user_id") String user_id) {
 //		ArrayList<PostVo> list = new ArrayList<PostVo>();
-//		Hashmap map = new Hashmap();
+//		
+//		System.out.println(user_id);
+//		HashMap map = new HashMap();
 //		map.put("user_id",user_id);
 //		List<PostVo> listt = dao.readPost(map);
 //		for(PostVo p : listt) {
@@ -72,7 +75,7 @@ public class PostController {
 //		}
 //		return str;
 //	}
-	
+//	
 	
 	
 //	**** AJAX 방식 필요시 위에 MAV방식 메서드 지우고 요 녀석 주석 풀어서 사용 ****
@@ -96,7 +99,7 @@ public class PostController {
 	
 	
 	
-	@RequestMapping(value="insertPost.do",method=RequestMethod.POST)
+	@RequestMapping(value="/board/insertPost.do",method=RequestMethod.POST)
 	public ModelAndView insertPost(PostVo pv, HttpServletRequest request) {
 		MultipartFile multi = pv.getUploadFile();
 		String path = request.getRealPath("resources/img");
@@ -121,7 +124,7 @@ public class PostController {
 		return mav;
 	}
 	
-	@RequestMapping(value="insertPost.do",method=RequestMethod.GET)
+	@RequestMapping(value="/board/insertPost.do",method=RequestMethod.GET)
 	public void insertPostForm() {
 		
 	}
