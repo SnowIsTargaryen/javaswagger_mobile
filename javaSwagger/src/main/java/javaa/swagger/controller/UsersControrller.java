@@ -60,7 +60,7 @@ public class UsersControrller {
 		
 		return mav;
 	}
-	
+	//프로필 정보
 	@RequestMapping(value="/profile/userProfile",method=RequestMethod.GET)
 	public ModelAndView profile(HttpSession session)
 	{
@@ -74,6 +74,29 @@ public class UsersControrller {
 		mav.addObject("profile", dao.profile(map));
 		
 		return mav;
+		
+	}
+	
+	@RequestMapping(value="/profile/withdrawUser",method=RequestMethod.POST)
+	public ModelAndView withdrawUser(String user_ID, String user_Password)
+	{
+		ModelAndView mav = new ModelAndView();
+		Map map = new HashMap();
+		map.put("user_ID", user_ID);
+		map.put("user_Password", user_Password);
+		System.out.println(user_ID);
+		int re=dao.withdrawUser(map);
+		
+		if(re>0)
+		{
+			mav.setViewName("redirect:/login");
+		}
+		else
+		{	System.out.println("삭제 실패");
+			mav.setViewName("redirect:/profile/userProfile");
+		}
+		return mav;
+		
 		
 	}
 	
