@@ -12,9 +12,9 @@
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@203.236.209.100:1521:XE"/>
-        <property name="username" value="madang"/>
-        <property name="password" value="madang"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+        <property name="username" value="javaswagger"/>
+        <property name="password" value="javaswagger"/>
       </dataSource>
     </environment>
   </environments>
@@ -22,5 +22,6 @@
     <mapper resource="javaa/swagger/db/postMapper.xml"/> 
     <mapper resource="javaa/swagger/db/commentMapper.xml"/> 
     <mapper resource="javaa/swagger/db/timelineMapper.xml"/> 
+    <mapper resource="javaa/swagger/db/usersMapper.xml"/> 
   </mappers>
 </configuration>

@@ -16,16 +16,16 @@
 <body>
 <!--  네비게이션  -->
 	<nav class="navbar">
-	<div class="container">
+	<div class="container-fluid">
 			<div class="col-4">
 				<div class="navbar-header navbar-left">
 					<h1><a class="navbar-brand" href="../profile/userProfile">Eden</a></h1>
 				</div>
 			</div>
 			<div class="col-4">
-				<form class="navbar-form navbar-center" action="#">
+				<form class="navbar-form navbar-center" action="../search">
 			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="search">
+			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
 			        <div class="input-group-append">
 			          <button class="btn btn-outline-secondary" type="submit" >
 							<img src="../resources/icon/search2.png" width="18" height="18">
