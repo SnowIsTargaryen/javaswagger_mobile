@@ -36,7 +36,7 @@ public class LoginFilter implements Filter {
 		// TODO Auto-generated method stub
 		// place your code here
 		String user_ID = (String)((HttpServletRequest)request).getSession().getAttribute("user_ID");
-		System.out.println(user_ID);
+		System.out.println("filter: "+user_ID);
 		
 		// pass the request along the filter chain
 		if(user_ID!=null) {

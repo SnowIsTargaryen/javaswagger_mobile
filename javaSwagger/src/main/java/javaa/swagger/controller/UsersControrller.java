@@ -49,7 +49,7 @@ public class UsersControrller {
 		
 		map.put("user_ID", user_ID);
 		map.put("user_Password", user_Password);
-		System.out.println(user_ID);
+//		System.out.println(user_ID);
 		boolean re = dao.isUser(map);
 		
 		if(re == true)
@@ -84,7 +84,7 @@ public class UsersControrller {
 		Map map = new HashMap();
 		map.put("user_ID", user_ID);
 		map.put("user_Password", user_Password);
-		System.out.println(user_ID);
+//		System.out.println(user_ID);
 		int re=dao.withdrawUser(map);
 		
 		if(re>0)

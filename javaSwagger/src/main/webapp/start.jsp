@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="listPost.do?user_id=1">유저의 프로필 화면에서 나타나는 포스트모음</a><br>
+	<a href="listPost.do">유저의 프로필 화면에서 나타나는 포스트모음</a><br>
 	<a href="detailPost.do?post_no=1">타임라인에서 하나를 선택했을 때 나오는 포스트</a><br>
 	<a href="timeLine.do">타임라인</a><br>
-	<a href="insertPost.do">insert post</a><br>
+	<a href="board/insertPost.do">insert post</a><br>
 	<a href="updatePost.do?post_no=1">update post</a><br>
 	<!-- 포스트 업데이트 /삭제쪽은 아직 파일형식이 아닌 텍스트 형식입니다. -->
 </body>
