@@ -1,6 +1,7 @@
 package javaa.swagger.db;
 
 import java.io.Reader;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
@@ -91,6 +92,14 @@ public class UsersManager {
 		session.close();
 		
 		return re;
+	}
+	public static List<UsersVo> search(Map map) {
+
+		SqlSession session = factory.openSession();	
+		List<UsersVo> list = session.selectList("users.search", map);
+		session.close();
+		
+		return list;
 	}
 	
 }

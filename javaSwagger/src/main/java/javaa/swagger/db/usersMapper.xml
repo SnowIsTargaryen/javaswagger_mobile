@@ -18,6 +18,12 @@
   <select id="profile" resultType="userVo">
   	select*from users where user_ID=#{user_ID}
   </select>
+
+  <select id="search" resultType="userVo">
+  	select*from users where user_ID like '%' || #{user_ID} || '%'
+  </select>
+  
+  
   
   <update id="edit">
 	update users set  

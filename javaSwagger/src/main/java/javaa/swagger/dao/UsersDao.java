@@ -1,5 +1,6 @@
 package javaa.swagger.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -35,5 +36,10 @@ public class UsersDao {
 	public int withdrawUser(Map map) {
 		// TODO Auto-generated method stub
 		return UsersManager.withdrawUser(map);
+	}
+
+	public List<UsersVo> search(Map map) {
+		// TODO Auto-generated method stub
+		return UsersManager.search(map);
 	}
 }
