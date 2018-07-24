@@ -21,7 +21,7 @@ public class CommentDao {
 	      return CommentManager.updateComment(map);
 	   }
 	   
-	   public List<CommentVo> readComment(){
-	      return CommentManager.listComment();
+	   public List<CommentVo> readComment(HashMap map){
+	      return CommentManager.readComment(map);
 	   }
 }

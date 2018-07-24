@@ -21,7 +21,10 @@ public class PostDao {
 	      return PostManager.updatePost(map);
 	   }
 	   
-	   public List<PostVo> readPost(){
-	      return PostManager.readPost();
+	   public List<PostVo> readPost(HashMap map){
+	      return PostManager.readPost(map);
+	   }
+	   public PostVo detailPost(HashMap map){
+		   return PostManager.detailPost(map);
 	   }
 }

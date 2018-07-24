@@ -7,7 +7,6 @@
       <typeAlias type="javaa.swagger.vo.PostVo" alias="postVo"/>
       <typeAlias type="javaa.swagger.vo.CommentVo" alias="commentVo"/>
       <typeAlias type="javaa.swagger.vo.UsersVo" alias="userVo"/>
-
    </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -15,8 +14,8 @@
       <dataSource type="POOLED">
         <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
-        <property name="username" value="madang"/>
-        <property name="password" value="madang"/>
+        <property name="username" value="javaswagger"/>
+        <property name="password" value="javaswagger"/>
       </dataSource>
     </environment>
   </environments>

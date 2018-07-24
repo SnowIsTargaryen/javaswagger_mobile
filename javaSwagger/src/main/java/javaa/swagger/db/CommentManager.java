@@ -15,7 +15,7 @@ public class CommentManager {
 	private static SqlSessionFactory factory;
 	static{
 		try{
-			Reader reader = Resources.getResourceAsReader("com/db/mybatisConfig.xml");
+			Reader reader = Resources.getResourceAsReader("javaa/swagger/db/mybatisConfig.xml");
 	        factory = new SqlSessionFactoryBuilder().build(reader);
 	        reader.close();
 		}catch (Exception e){
@@ -24,17 +24,18 @@ public class CommentManager {
 	    }
 	 }
 	 
-	 public static List<CommentVo> listComment(){
+	 public static List<CommentVo> readComment(HashMap map){
 		 List<CommentVo> list;
 		 SqlSession s = factory.openSession();
-		 list = s.selectList("comment.readComment");
+		 list = s.selectList("comment.readComment",map);
 		 return list;
 	 }
 	 
 	 public static int newComment(HashMap map) {
 		 int re = 0;
+		 CommentVo cv = (CommentVo) map.get("cv");
 		 SqlSession s = factory.openSession();
-		 re = s.insert("comment.insertComment", map);
+		 re = s.insert("comment.insertComment", cv);
 		 return re;
 	 }
 	 

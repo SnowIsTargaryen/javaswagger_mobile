@@ -21,11 +21,10 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
 	<context:component-scan base-package="javaa.swagger.controller" />
 	<context:component-scan base-package="javaa.swagger.dao" />
-	
-	
-	
 	
 	
 	

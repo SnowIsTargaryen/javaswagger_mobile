@@ -7,18 +7,18 @@ public class CommentVo {
 	private String post_no;
 	private String user_id;
 	private String comment_content;
-	private Date comment_date;
+	private Date comment_time;
 	public CommentVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public CommentVo(String comment_no, String post_no, String user_id, String comment_content, Date comment_date) {
+	public CommentVo(String comment_no, String post_no, String user_id, String comment_content, Date comment_time) {
 		super();
 		this.comment_no = comment_no;
 		this.post_no = post_no;
 		this.user_id = user_id;
 		this.comment_content = comment_content;
-		this.comment_date = comment_date;
+		this.comment_time = comment_time;
 	}
 	public String getComment_no() {
 		return comment_no;
@@ -44,10 +44,11 @@ public class CommentVo {
 	public void setComment_content(String comment_content) {
 		this.comment_content = comment_content;
 	}
-	public Date getComment_date() {
-		return comment_date;
+	public Date getComment_time() {
+		return comment_time;
 	}
-	public void setComment_date(Date comment_date) {
-		this.comment_date = comment_date;
+	public void setComment_time(Date comment_time) {
+		this.comment_time = comment_time;
 	}
+	
 }
