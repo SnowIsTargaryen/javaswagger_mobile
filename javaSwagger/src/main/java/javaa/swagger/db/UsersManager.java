@@ -55,6 +55,18 @@ public class UsersManager {
 		return r;
 		
 	}
+	//중복검사할 수 있도록 ID를 불러오는 메소드
+		public static int idCheck(String user_id) {
+			// TODO Auto-generated method stub
+			SqlSession session =factory.openSession();
+			System.out.println("Muser_id:"+user_id);
+			int re = session.selectOne("users.idCheck",user_id);
+			System.out.println("re:"+re);
+			session.close();
+			
+			return re;
+	}
+	
 	//프로필 정보 메소드
 	public static UsersVo profile(Map map) {
 		// TODO Auto-generated method stub

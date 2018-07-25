@@ -8,9 +8,51 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<!--부트 스트랩 CDN  -->
+<!-- 부트 스트랩 CDN  -->
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+<script type="text/javascript">
+//아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
+var idck = 0;
+$(function() {
+   alert("function_ok")
+         
+	//idck 버튼을 클릭했을 때 
+    $("#idck").click(function() {
+    	alert("btnOK")
+    	  //userid 를 param.
+            var userid =  $("#user_ID").val();
+     	    $.ajax({
+            async: true,
+            type : 'post',
+            data : userid,
+            url : "idCheck.do",
+            dataType : "json",
+            contentType: "application/json; charset=UTF-8",
+            success : function(data){
+ 		
+            if (data > 0) {
+                 alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
+          
+                } else {
+                    alert("사용가능한 아이디입니다.");
+                 	idck = 1;
+                 
+                } 
+            },
+           error : function(error) {
+                
+                alert("error : " + error);
+            } 
+     	    
+        }); 
+    });
+});
+ 
+ 
+</script>
 <title>회원가입</title>
 </head>
+
 <body>
 
 	<!--   <form action="../account/create" method="post">
@@ -21,10 +63,11 @@
 		<input type="submit" value="등록">
 	</form>   -->	
 	<div class="container">
-		<form action="../account/create" method="post">
-		  <div class="form-group col-md-4">
-		    <label for="user_ID">아이디</label>
-		    <input type="text" class="form-control" id="user_ID" name="user_ID" placeholder="아이디를 입력하세요">
+	<form action="../account/create" id="userInfo" method="post">
+	  <div class="form-group col-md-4">
+	    <label for="user_ID">아이디</label>
+	    <input type="text" class="form-control" id="user_ID" name="user_ID" placeholder="아이디를 입력하세요">
+	    <input type="button" value="중복확인" id="idck">
 		  </div>
 		  <div class="form-group col-md-4">
 		    <label for="user_Password ">암호</label>

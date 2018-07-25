@@ -23,7 +23,9 @@
   	select*from users where user_ID like '%' || #{user_ID} || '%'
   </select>
   
-  
+  <select id="idCheck" resultType="Integer" parameterType="String"> 
+  	SELECT COUNT(*) FROM users WHERE user_ID = #{user_ID} 
+  </select>
   
   <update id="edit">
 	update users set  
