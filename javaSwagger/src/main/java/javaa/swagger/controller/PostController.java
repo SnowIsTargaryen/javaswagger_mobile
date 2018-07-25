@@ -43,7 +43,7 @@ public class PostController {
 //	}
 	
 	@RequestMapping("detailPost.do")
-	public ModelAndView detailPost(@RequestParam(value="post_no") String post_no) {
+	public ModelAndView detailPost(@RequestParam(value="post_no") int post_no) {
 		ModelAndView mav = new ModelAndView();
 		HashMap map = new HashMap();
 		map.put("post_no", post_no);
@@ -101,7 +101,7 @@ public class PostController {
 	
 	
 	
-	@RequestMapping(value="/board/insertPost.do",method=RequestMethod.POST)
+	@RequestMapping(value="/insertPost.do",method=RequestMethod.POST)
 	public ModelAndView insertPost(PostVo pv, HttpServletRequest request) {
 		MultipartFile multi = pv.getUploadFile();
 		String path = request.getRealPath("resources/image");
@@ -119,10 +119,13 @@ public class PostController {
 				System.out.println(e.getMessage());
 			}
 		}
+		int no = dao.getNextNo();
+		pv.setPost_no(no);
 		HashMap map = new HashMap();
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile");
 		map.put("pv", pv);
 		mav.addObject("tof", dao.newPost(map)); // 반환값 어떻게 처리할까요?
+		
 		return mav;
 	}
 	
@@ -132,7 +135,7 @@ public class PostController {
 	}
 	
 	@RequestMapping("deletePost.do")
-	public ModelAndView deletePost(String post_no) {
+	public ModelAndView deletePost(int post_no) {
 		ModelAndView mav = new ModelAndView();
 		HashMap map = new HashMap();
 		map.put("post_no", post_no);
@@ -150,7 +153,7 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="updatePost.do",method=RequestMethod.GET)
-	public ModelAndView updatePostForm(String post_no) {
+	public ModelAndView updatePostForm(int post_no) {
 		ModelAndView mav = new ModelAndView();
 		HashMap map = new HashMap();
 		map.put("post_no", post_no);

@@ -24,4 +24,13 @@
 	<select id="detailPost" resultType="postVo"> <!-- 하나의 포스트 보는 sql -->
 		select * from post where post_no=#{user_ID}
 	</select>
+	
+	<select id="nextNo" resultType="java.lang.Integer">
+		select nvl(max(post_no),0)+1 from post
+	</select>
+
+
+
+	
+	
 </mapper>

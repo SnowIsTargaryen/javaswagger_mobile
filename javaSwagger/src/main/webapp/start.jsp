@@ -1,3 +1,4 @@
+<%@page import="org.springframework.web.filter.CharacterEncodingFilter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
 	<!-- listPost.do?user_id=1 -->
 	<!-- <a href="listPost.do?user_id=tiger">유저의 프로필 화면에서 나타나는 포스트모음</a><br> -->
 	<a href="detailPost.do?post_no=1">타임라인에서 하나를 선택했을 때 나오는 포스트</a><br>

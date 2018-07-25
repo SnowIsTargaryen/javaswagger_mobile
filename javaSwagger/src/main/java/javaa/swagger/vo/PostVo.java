@@ -5,7 +5,7 @@ import java.sql.Date;
 import org.springframework.web.multipart.MultipartFile;
 
 public class PostVo {
-	private String post_no;
+	private int post_no;
 	private String user_ID;
 	private Date post_time;
 	private Date post_delTime;   
@@ -19,10 +19,10 @@ public class PostVo {
 	public void setUploadFile(MultipartFile uploadFile) {
 		this.uploadFile = uploadFile;
 	}
-	public String getPost_no() {
+	public int getPost_no() {
 		return post_no;
 	}
-	public void setPost_no(String post_no) {
+	public void setPost_no(int post_no) {
 		this.post_no = post_no;
 	}
 	public String getuser_ID() {
@@ -59,7 +59,7 @@ public class PostVo {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public PostVo(String post_no, String user_ID, Date post_time, Date post_delTime, String post_content,
+	public PostVo(int post_no, String user_ID, Date post_time, Date post_delTime, String post_content,
 			String post_fname) {
 		super();
 		this.post_no = post_no;

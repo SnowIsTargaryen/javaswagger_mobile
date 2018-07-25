@@ -29,7 +29,7 @@ public class CommentController {
 //	ajax방식
 	@RequestMapping(value="listComment.do", produces="text/plain;charset=utf-8")
 	@ResponseBody // ajax 반환
-	public String readComment(@RequestParam(value="post_no") String post_no) {
+	public String readComment(@RequestParam(value="post_no") int post_no) {
 		ArrayList<CommentVo> list = new ArrayList<CommentVo>();
 		System.out.println(post_no);
 		HashMap map = new HashMap();
