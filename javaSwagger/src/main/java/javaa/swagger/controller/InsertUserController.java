@@ -4,15 +4,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javaa.swagger.dao.UsersDao;
 import javaa.swagger.vo.UsersVo;
 
 @Controller
-@RequestMapping("account/create")
 public class InsertUserController {
 	
 	@Autowired
@@ -24,13 +27,35 @@ public class InsertUserController {
 		this.dao = dao;
 	}
 
-	@RequestMapping(method=RequestMethod.GET)
+	//吝汗贸府-------------------------------------
+		@RequestMapping("account/idCheck.do")
+	    @ResponseBody
+	    public String idcheck(@RequestBody String user_id) {
+	        
+			String str="";
+	        int count = 0;
+	        ObjectMapper mapper = new ObjectMapper();
+	        count = dao.idCheck(user_id);
+	        System.out.println("count:"+count);
+	        try {
+				str = mapper.writeValueAsString(count);
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println(e.getMessage());
+			}
+	        System.out.println("Cuser_id:"+user_id);
+	        	 
+	        return str;
+	    }//吝汗贸府-------------------------------------
+	
+	
+	@RequestMapping(value="account/create",method=RequestMethod.GET)
 	public void form()
 	{
 		
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(value="account/create",method=RequestMethod.POST)
 	public ModelAndView insertUser(UsersVo u,HttpServletRequest request)
 	{
 		ModelAndView mav = new ModelAndView("redirect:/login");
