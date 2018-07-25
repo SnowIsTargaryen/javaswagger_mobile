@@ -33,10 +33,10 @@ public class PostController {
 	}
 	
 //	@RequestMapping("listPost.do")
-//	public ModelAndView listPost(@RequestParam(value="user_id") String user_id) {
+//	public ModelAndView listPost(@RequestParam(value="user_ID") String user_ID) {
 //		ModelAndView mav = new ModelAndView();
 //		HashMap map = new HashMap();
-//		map.put("user_id", user_id);
+//		map.put("user_ID", user_ID);
 //		List<PostVo> list = null;
 //		mav.addObject("list", dao.readPost(map));
 //		return mav;
@@ -53,18 +53,18 @@ public class PostController {
 	}
 	
 //	**** AJAX 방식 필요시 위에 MAV방식 메서드 지우고 요 녀석 주석 풀어서 사용 ****
-	@RequestMapping(value="listPost.do", produces="text/plain;charset=utf-8")
+	@RequestMapping(value="/board/listPost", produces="text/plain;charset=utf-8")
 	@ResponseBody
-	public String listPost(@RequestParam(value="user_id") String user_id) {
+	public String listPost(@RequestParam(value="user_ID") String user_ID) {
 //		ArrayList<PostVo> list = new ArrayList<PostVo>();
 //		List<PostVo> listt = dao.readPost(map);
 //		for(PostVo p : listt) {
 //			list.add(p);
 //		}
 		
-		System.out.println(user_id);
+		System.out.println(user_ID);
 		HashMap map = new HashMap();
-		map.put("user_id",user_id);
+		map.put("user_ID",user_ID);
 		
 		List<PostVo> list = dao.readPost(map);
 		String str = "";
@@ -104,7 +104,7 @@ public class PostController {
 	@RequestMapping(value="/board/insertPost.do",method=RequestMethod.POST)
 	public ModelAndView insertPost(PostVo pv, HttpServletRequest request) {
 		MultipartFile multi = pv.getUploadFile();
-		String path = request.getRealPath("resources/img");
+		String path = request.getRealPath("resources/image");
 		System.out.println(path);
 		if(multi != null) {
 			try {
