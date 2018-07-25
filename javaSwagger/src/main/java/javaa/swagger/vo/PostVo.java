@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class PostVo {
 	private String post_no;
-	private String user_id;
+	private String user_ID;
 	private Date post_time;
 	private Date post_delTime;   
 	private String post_content;
@@ -25,11 +25,11 @@ public class PostVo {
 	public void setPost_no(String post_no) {
 		this.post_no = post_no;
 	}
-	public String getUser_id() {
-		return user_id;
+	public String getuser_ID() {
+		return user_ID;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setuser_ID(String user_ID) {
+		this.user_ID = user_ID;
 	}
 	public Date getPost_time() {
 		return post_time;
@@ -59,11 +59,11 @@ public class PostVo {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public PostVo(String post_no, String user_id, Date post_time, Date post_delTime, String post_content,
+	public PostVo(String post_no, String user_ID, Date post_time, Date post_delTime, String post_content,
 			String post_fname) {
 		super();
 		this.post_no = post_no;
-		this.user_id = user_id;
+		this.user_ID = user_ID;
 		this.post_time = post_time;
 		this.post_delTime = post_delTime;
 		this.post_content = post_content;
