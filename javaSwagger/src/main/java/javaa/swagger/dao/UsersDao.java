@@ -23,6 +23,13 @@ public class UsersDao {
 		return UsersManager.isUser(map);
 	}
 
+	//중복확인
+	public int idCheck(String user_id) {
+		// TODO Auto-generated method stub
+		
+		return UsersManager.idCheck(user_id);
+	}
+	
 	public UsersVo profile(Map map) {
 		// TODO Auto-generated method stub
 		return UsersManager.profile(map);
