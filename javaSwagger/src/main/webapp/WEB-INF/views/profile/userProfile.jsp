@@ -48,9 +48,6 @@
 				
 				
 			
-	               /*  <img class="card-img-top" src="../resources/image/new zealand.jpg" alt="Card image cap"> */
-	                
-	              
 				
 			});
 			
@@ -98,7 +95,7 @@
 	        </div>
 		</div> <!-- 컨테이너  -->
 	</nav>
-	<a href="../board/listPost?user_ID=${profile.user_ID }">리스트 </a>
+	
 <!--사용자 프로필  -->
 	<div class="container">
 		<div class="jumbotron">
