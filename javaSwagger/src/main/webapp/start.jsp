@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="listPost.do">유저의 프로필 화면에서 나타나는 포스트모음</a><br>
+	<!-- listPost.do?user_id=1 -->
+	<a href="listPost.do?user_id=tiger">유저의 프로필 화면에서 나타나는 포스트모음</a><br>
 	<a href="detailPost.do?post_no=1">타임라인에서 하나를 선택했을 때 나오는 포스트</a><br>
 	<a href="timeLine.do">타임라인</a><br>
 	<a href="board/insertPost.do">insert post</a><br>

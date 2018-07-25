@@ -61,42 +61,7 @@
 </body>
 </html>        
         
-        <!-- <div class="modal fade account-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-lg">
-		    <div class="modal-content">
-		      	<form>
-				  <div class="form-row">
-				    <div class="form-group col-md-6">
-				      <label for="inputEmail4">Email</label>
-				      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-				    </div>
-				    <div class="form-group col-md-6">
-				      <label for="inputPassword4">Password</label>
-				      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-				    </div>
-				  </div>
-				  <div class="form-group col-md-6">
-				    <label for="inputAddress">Email</label>
-				    <input type="email" class="form-control" id="email" placeholder="1234@gmail.com">
-				  </div>
-				  <div class="form-group col-md-6">
-				    <label for="inputPhone">Phone</label>
-				    <input type="text" class="form-control" id="phone" placeholder="0101234567">
-				  </div>
-				  
-				  <div class="form-group col-md-6">
-				    <div class="form-check">
-				      <input class="form-check-input" type="checkbox" id="gridCheck">
-				      <label class="form-check-label" for="gridCheck">
-				        Check me out
-				      </label>
-				    </div>
-				  </div>
-				  <button type="submit" class="btn btn-primary">Sign in</button>
-				</form>
-		    </div>
-		  </div>
-		</div> 모달  -->
+       
 		        
         
    

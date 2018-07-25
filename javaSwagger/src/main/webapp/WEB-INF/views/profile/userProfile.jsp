@@ -15,9 +15,45 @@
 <script type="text/javascript">
 	$(function() {
 		var arr;
+		<% String id=(String)session.getAttribute("user_ID"); %>
 		
-		$.ajax({url:"/listPost.do",success:function(data){
-			alert("ok")
+		$.ajax({url:"../board/listPost?user_ID=<%=id%>",success:function(data){
+			var list = eval("("+data+")") //게시물 리스트
+			
+			$.each(list, function(idx, p) {
+				
+				var div_col_md_4 = $("<div></div>").addClass("col-md-4");
+				var div_card_mb4_box = $("<div></div>").addClass("card mb-4 box-shadow");
+				var div_card_body = $("<div></div>").addClass("card-body");
+				var p_card_text =$("<p></p>").addClass("card-text").html(p.post_content);
+				var d_flex = $("<div></div>").addClass("d-flex justify-content-between align-items-center")
+				var btn_group = $("<div></div>").addClass("btn-group")
+				var btn_view  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("View")
+				var btn_edit =  $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("Edit")
+				var small = $("<small></small>").addClass("text-muted").html(p.post_time)
+				
+				var img = $("<img/>").addClass("card-img-top").attr({
+					src :"../resources/image/"+p.post_fname,
+					alt : "Card image cap"
+				})
+				
+				$(btn_group).append(btn_view,btn_edit)
+				$(d_flex).append(btn_group,small)
+				$(div_card_body).append(p_card_text,d_flex)
+				$(div_card_mb4_box).append(img,div_card_body)
+				
+				$(div_col_md_4).append(div_card_mb4_box)
+				
+				$("#row1").append(div_col_md_4)
+				
+				
+			
+	               /*  <img class="card-img-top" src="../resources/image/new zealand.jpg" alt="Card image cap"> */
+	                
+	              
+				
+			});
+			
 		}});
 		
 	});
@@ -62,7 +98,7 @@
 	        </div>
 		</div> <!-- 컨테이너  -->
 	</nav>
-	<a href="../listPost.do">리스트 </a>
+	<a href="../board/listPost?user_ID=${profile.user_ID }">리스트 </a>
 <!--사용자 프로필  -->
 	<div class="container">
 		<div class="jumbotron">
@@ -79,7 +115,7 @@
 	
 	<!-- 썸네일 게시판  -->
 	<div class="container">
-		<div class="row">
+		<div class="row" id="row1">
 	            <div class="col-md-4">
 	              <div class="card mb-4 box-shadow">
 	                <img class="card-img-top" src="../resources/image/new zealand.jpg" alt="Card image cap">
