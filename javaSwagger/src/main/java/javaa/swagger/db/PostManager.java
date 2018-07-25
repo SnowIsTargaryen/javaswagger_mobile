@@ -61,4 +61,12 @@ public class PostManager {
 		 re = s.update("post.updatePost", pv);
 		 return re;
 	 }
+	 
+	 public static int getNextNo() {
+		 int no=0;
+		 SqlSession session = factory.openSession();
+		 no=session.selectOne("post.nextNo");
+		 session.close();
+		 return no;
+	 }
 }

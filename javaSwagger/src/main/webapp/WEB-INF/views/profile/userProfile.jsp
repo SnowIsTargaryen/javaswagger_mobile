@@ -104,11 +104,43 @@
 					<h2>${profile.user_ID }</h2>
 					<p>${profile.user_Email }</p>
 					<p>${profile.user_Phone }</p>
-					<a href="../board/insertPost.do?user_ID=${profile.user_ID }"><img src="../resources/icon/contract.png"></a>
+					<a data-toggle="modal" data-target="#insertPost" ><img src="../resources/icon/contract.png"></a>
 				</div>
 			</div>
 		</div> 
 	</div>
+	
+	<!-- 글쓰기 Modal -->
+	<div class="modal fade" id="insertPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document" >
+	    <div class="modal-content">
+	    <form class="form"  action="/insertPost.do" method="post" enctype="multipart/form-data">
+	      <div class="modal-header">
+	        <h5 class="modal-title">새 글 쓰기</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="form-group">
+	        	<input type="hidden" class="form-contorl" id="user_ID" name="user_ID" value="${profile.user_ID }">
+	        </div>
+	        <div class="form-group">
+	        	<textarea class="form-control" rows="5" name="post_content" placeholder="내용을 입력하세요"></textarea>
+	        </div>
+	        <div class="form-group">
+	        	<input type="file" class="form-contorl-file" name="uploadFile">
+	        </div>
+	      </div>
+	       <div class="modal-footer">
+	        <button type="reset" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="submit" class="btn btn-primary">글쓰기</button>
+	      </div>
+	      </form> 
+	    </div>
+	  </div>
+	</div>
+	
 	
 	<!-- 썸네일 게시판  -->
 	<div class="container">

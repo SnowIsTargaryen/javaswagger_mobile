@@ -27,4 +27,8 @@ public class PostDao {
 	   public PostVo detailPost(HashMap map){
 		   return PostManager.detailPost(map);
 	   }
+	   public int getNextNo()
+	   {
+		   return PostManager.getNextNo();
+	   }
 }
