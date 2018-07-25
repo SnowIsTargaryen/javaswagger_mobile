@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+  <!-- <select id="selectBlog" resultType="Blog">
+    select * from Blog where id = #{id}
+  </select> -->
+  <insert id="insert" >
+  	insert into users values(#{user_ID},#{user_Password},#{user_Email},#{user_Phone})
+<!--   	insert into users values(#{user_ID,jdbcType=VARCHAR},#{user_Password,jdbcType=VARCHAR},#{user_Email,jdbcType=VARCHAR},#{user_Phone,jdbcType=VARCHAR}) -->
+  </insert>
+  
+  <select id="isUser" resultType="userVo">
+  	select * from users where user_ID=#{user_ID} and user_Password=#{user_Password}
+  </select>
+  
+  <select id="profile" resultType="userVo">
+  	select*from users where user_ID=#{user_ID}
+  </select>
+
+  <select id="search" resultType="userVo">
+  	select*from users where user_ID like '%' || #{user_ID} || '%'
+  </select>
+  
+  
+  
+  <update id="edit">
+	update users set  
+	<if test="user_Password != null and user_Password !=''">
+		user_Password=#{user_Password}
+	</if>
+	<if test="user_Email != null and user_Email !='' and user_Phone != null and user_Phone !='' ">
+		user_Email=#{user_Email},user_Phone=#{user_Phone} 
+	</if>
+	where user_ID=#{user_ID}
+  </update>
+  
+  <delete id="withDraw">
+  	delete users where user_ID=#{user_ID} and user_Password=#{user_Password}
+  </delete>
+  
+</mapper>
