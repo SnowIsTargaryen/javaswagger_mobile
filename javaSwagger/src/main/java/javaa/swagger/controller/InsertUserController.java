@@ -36,14 +36,14 @@ public class InsertUserController {
 	        int count = 0;
 	        ObjectMapper mapper = new ObjectMapper();
 	        count = dao.idCheck(user_id);
-	        System.out.println("count:"+count);
+	        
 	        try {
 				str = mapper.writeValueAsString(count);
 			} catch (Exception e) {
 				// TODO: handle exception
 				System.out.println(e.getMessage());
 			}
-	        System.out.println("Cuser_id:"+user_id);
+	        
 	        	 
 	        return str;
 	    }//중복처리-------------------------------------

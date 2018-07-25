@@ -59,9 +59,7 @@ public class UsersManager {
 		public static int idCheck(String user_id) {
 			// TODO Auto-generated method stub
 			SqlSession session =factory.openSession();
-			System.out.println("Muser_id:"+user_id);
 			int re = session.selectOne("users.idCheck",user_id);
-			System.out.println("re:"+re);
 			session.close();
 			
 			return re;

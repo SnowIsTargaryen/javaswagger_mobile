@@ -26,7 +26,7 @@ public class UsersDao {
 	//중복확인
 	public int idCheck(String user_id) {
 		// TODO Auto-generated method stub
-		System.out.println("Duser_id:"+user_id);
+		
 		return UsersManager.idCheck(user_id);
 	}
 	
