@@ -14,7 +14,7 @@
 			<c:if test="${i.first and i.count%5 == 0 }">
 				<tr>
 			</c:if>
-				<td><a href="detailPost.do?post_no=${p.post_no }">${p.post_Fname }</a></td>
+				<td><a href="detailPost.do?post_no="></a>${p.post_fname }</td>
 			<c:if test="${not i.first and i.count%5 == 0 }">
 				</tr>
 			</c:if>

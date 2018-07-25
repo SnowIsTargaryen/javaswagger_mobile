@@ -62,7 +62,7 @@
 	        </div>
 		</div> <!-- 컨테이너  -->
 	</nav>
-	<a href="../listPost.do">리스트 </a>
+	<a href="../listPost.do?user_id=${profile.user_ID }">리스트 </a>
 <!--사용자 프로필  -->
 	<div class="container">
 		<div class="jumbotron">
