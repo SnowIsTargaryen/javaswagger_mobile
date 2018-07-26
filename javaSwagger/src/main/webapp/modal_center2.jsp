@@ -4,17 +4,43 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<style type="text/css">
+ <style type="text/css">
 	.modal-dialog{
-		 max-width: 80% !important;
-		height: 600px;
+		max-width: 50% !important; 
+		
 	}
 	.modal-content{
-		  width: 80% !important;
-		height: 300px;
+		height: 650px;
 	}
 	
-</style>
+	.modal.modal-center { 
+	
+		text-align: center;
+		text-align: left;
+		top:15%;
+		right:10%
+		left: 15%;
+	}
+
+	/* .container{
+	
+		width: 100%;
+	}
+	.row{
+		height: 100%
+		
+	} */
+	
+	.container-fluid{
+	
+		padding-left: 0 !important;
+	}
+
+
+
+
+	
+</style> 
 
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
@@ -34,22 +60,35 @@
 <!-- modal 구동 버튼 (trigger) -->
 
 
-<div class="modal fade" id="xl" role="dialog">
-	<div class="modla-dialog" role="document">
-		<div class="modal-content">
-			dd
+<div class="modal modal-center fade " id="xl" role="dialog"  tabindex="-1">
+	<div class="modal-dialog modal-dialog-center"  role="document">
+		<div class="modal-content h-100 d-flex">
+			<div class="container-fluid">
+				<div class="row d-flex no-gutters">
+					<div class="col-md-8 box-shadow h-100" >
+					<img src="resources\image\new york.jpg" class="img-fluid d-inline-block">
+					</div>
+					<div class="col-md-4">	
+						<div class="modal-header">
+							<h3>작성자</h3>
+						</div>
+						<div class="modal-body">
+							<p>글내용</p>
+						</div>
+						<div class="modal-footer">
+							<p>댓글 좋아요 등?</p>
+						</div>
+						
+						
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 
-<!-- <div class="modal fade" id="xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      ...
-    </div>
-  </div>
-</div>
 
- -->
+
+
 </body>
 </html>
