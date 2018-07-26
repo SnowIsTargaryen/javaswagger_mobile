@@ -29,7 +29,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< HEAD
+
 	<input type="hidden" value="${pv.post_no }" id="ppn">
 	<table>
 		<tr colspan="2"><td><a href="listPost.do?user_id=${pv.user_id }">${pv.user_id }</a></td></tr>
