@@ -1,5 +1,6 @@
 package javaa.swagger.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class UsersDao {
 		return UsersManager.idCheck(user_id);
 	}
 	
-	public UsersVo profile(Map map) {
+	public UsersVo profile(HashMap map) {
 		// TODO Auto-generated method stub
 		return UsersManager.profile(map);
 	}
@@ -40,12 +41,12 @@ public class UsersDao {
 		return UsersManager.editProfile(u);
 	}
 
-	public int withdrawUser(Map map) {
+	public int withdrawUser(HashMap map) {
 		// TODO Auto-generated method stub
 		return UsersManager.withdrawUser(map);
 	}
 
-	public List<UsersVo> search(Map map) {
+	public List<UsersVo> search(HashMap map) {
 		// TODO Auto-generated method stub
 		return UsersManager.search(map);
 	}

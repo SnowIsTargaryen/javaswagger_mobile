@@ -32,7 +32,7 @@ public class UpdateUsersController {
 		String user_ID=(String)session.getAttribute("user_ID");
 		ModelAndView mav = new ModelAndView();
 		
-		Map map = new HashMap();
+		HashMap map = new HashMap();
 		
 		map.put("user_ID", user_ID);
 		

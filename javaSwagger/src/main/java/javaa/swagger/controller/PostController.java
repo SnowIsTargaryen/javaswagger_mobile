@@ -44,6 +44,7 @@ public class PostController {
 	
 	@RequestMapping("detailPost.do")
 	public ModelAndView detailPost(@RequestParam(value="post_no") int post_no) {
+		
 		ModelAndView mav = new ModelAndView();
 		HashMap map = new HashMap();
 		map.put("post_no", post_no);
@@ -81,23 +82,23 @@ public class PostController {
 	
 	
 //	**** AJAX 방식 필요시 위에 MAV방식 메서드 지우고 요 녀석 주석 풀어서 사용 ****
-//	@RequestMapping(value="listPost.do", produces="text/plain;charset=utf-8")
-//	@ResponseBody
-//	public String detailPost(@RequestParam(value="post_no") String post_no) {
-//		PostVo pv;
-//		HashMap map = new HashMap();
-//		map.put("post_no",post_no);
-//		pv = dao.detailPost(map);
-//		String str = "";
-//		ObjectMapper mapper = new ObjectMapper();
-//		try {
-//			str = mapper.writeValueAsString(pv);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			System.out.println(e.getMessage());
-//		}
-//		return str;
-//	}
+	@RequestMapping(value="/detailPost", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String detailPost(@RequestParam(value="post_no") String post_no) {
+		PostVo pv;
+		HashMap map = new HashMap();
+		map.put("post_no",post_no);
+		//dao.detailPost(map);
+		String str = "";
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(dao.detailPost(map));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		return str;
+	}
 	
 	
 	

@@ -29,6 +29,7 @@ public class PostManager {
 		 List<PostVo> list;
 		 SqlSession s = factory.openSession();
 		 list = s.selectList("post.readPost",map);
+		 s.close();
 		 return list;
 	 }
 	 
@@ -36,6 +37,7 @@ public class PostManager {
 		 PostVo pv;
 		 SqlSession s = factory.openSession();
 		 pv = s.selectOne("post.detailPost",map);
+		 s.close();
 		 return pv;
 	 }
 	 
@@ -44,6 +46,7 @@ public class PostManager {
 		 PostVo pv = (PostVo) map.get("pv");
 		 SqlSession s = factory.openSession(true);
 		 re = s.insert("post.insertPost", pv);
+		 s.close();
 		 return re;
 	 }
 	 
@@ -51,6 +54,7 @@ public class PostManager {
 		 int re = 0;
 		 SqlSession s = factory.openSession(true);
 		 re = s.delete("post.deletePost", map);
+		 s.close();
 		 return re;
 	 }
 	 
@@ -59,6 +63,7 @@ public class PostManager {
 		 PostVo pv = (PostVo) map.get("pv");
 		 SqlSession s = factory.openSession(true);
 		 re = s.update("post.updatePost", pv);
+		 s.close();
 		 return re;
 	 }
 	 

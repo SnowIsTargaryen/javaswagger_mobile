@@ -9,7 +9,7 @@
 		max-width: 50% !important; 
 		
 	}
-	.modal-content{
+	#content{
 		height: 650px;
 	}
 	
@@ -56,13 +56,13 @@
 <body>
 
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#xl">Large modal</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detail_Dialog">Large modal</button>
 <!-- modal 구동 버튼 (trigger) -->
-
-
-<div class="modal modal-center fade " id="xl" role="dialog"  tabindex="-1">
+<a data-toggle="modal" data-target="#detail_Dialog">d</a>
+<!-- detail modal -->
+<div class="modal modal-center fade " id="detail_Dialog" role="dialog"  tabindex="-1">
 	<div class="modal-dialog modal-dialog-center"  role="document">
-		<div class="modal-content h-100 d-flex">
+		<div class="modal-content h-100 d-flex" id="content">
 			<div class="container-fluid">
 				<div class="row d-flex no-gutters">
 					<div class="col-md-8 box-shadow h-100" >
@@ -78,7 +78,6 @@
 						<div class="modal-footer">
 							<p>댓글 좋아요 등?</p>
 						</div>
-						
 						
 					</div>
 				</div>

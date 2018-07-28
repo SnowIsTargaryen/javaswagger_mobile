@@ -22,7 +22,7 @@
 	</select>
 	
 	<select id="detailPost" resultType="postVo"> <!-- 하나의 포스트 보는 sql -->
-		select * from post where post_no=#{user_ID}
+		select * from post where post_no=#{post_no}
 	</select>
 	
 	<select id="nextNo" resultType="java.lang.Integer">

@@ -28,28 +28,40 @@ public class CommentManager {
 		 List<CommentVo> list;
 		 SqlSession s = factory.openSession();
 		 list = s.selectList("comment.readComment",map);
+		 s.close();
 		 return list;
 	 }
 	 
 	 public static int newComment(HashMap map) {
 		 int re = 0;
+		 SqlSession s = factory.openSession(true);
 		 CommentVo cv = (CommentVo) map.get("cv");
-		 SqlSession s = factory.openSession();
 		 re = s.insert("comment.insertComment", cv);
+		 s.close();
 		 return re;
 	 }
 	 
 	 public static int deleteComment(HashMap map) {
 		 int re = 0;
-		 SqlSession s = factory.openSession();
+		 SqlSession s = factory.openSession(true);
 		 re = s.delete("comment.deleteComment", map);
+		 s.close();
 		 return re;
 	 }
 	 
 	 public static int updateComment(HashMap map) {
 		 int re = 0;
-		 SqlSession s = factory.openSession();
+		 SqlSession s = factory.openSession(true);
 		 re = s.update("comment.updateComment", map);
+		 s.close();
 		 return re;
+	 }
+	 
+	 public static int getNextNo() {
+		 int no=0;
+		 SqlSession session = factory.openSession();
+		 no=session.selectOne("comment.nextNo");
+		 session.close();
+		 return no;
 	 }
 }
