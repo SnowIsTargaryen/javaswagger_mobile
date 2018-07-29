@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import javaa.swagger.db.CommentManager;
-import javaa.swagger.db.PostManager;
 import javaa.swagger.vo.CommentVo;
 @Repository
 public class CommentDao {

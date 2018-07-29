@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import javaa.swagger.vo.CommentVo;
+
 import javaa.swagger.vo.PostVo;
 
 public class PostManager {

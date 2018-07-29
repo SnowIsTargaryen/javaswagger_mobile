@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import javaa.swagger.vo.UsersVo;
-import oracle.net.aso.s;
+
 
 public class UsersManager {
 	private static SqlSessionFactory factory;

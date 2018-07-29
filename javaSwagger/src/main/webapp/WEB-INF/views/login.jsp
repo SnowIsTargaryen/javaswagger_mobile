@@ -14,9 +14,9 @@
 
 <script type="text/javascript">
 	$(function() {
-		/* $("#btnAccount").click(function() {
-			location.href="timeLine";
-		}) */
+		$("#btnAccount").click(function() {
+			location.href="account/create";
+		}) 
 	})
 </script>
 

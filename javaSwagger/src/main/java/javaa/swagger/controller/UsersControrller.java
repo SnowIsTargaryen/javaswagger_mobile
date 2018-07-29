@@ -23,7 +23,6 @@ public class UsersControrller {
 
 	@Autowired
 	private UsersDao dao;
-	private PostDao pdao;
 	
 	
 	public void setDao(UsersDao dao) {

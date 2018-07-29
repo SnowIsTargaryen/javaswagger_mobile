@@ -226,9 +226,6 @@
 	    <form class="form"  action="../insertPost.do" method="post" enctype="multipart/form-data">
 	      <div class="modal-header">
 	        <h5 class="modal-title">새 글 쓰기</h5>
-	      	<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>  -->
 	      </div>
 	      <div class="modal-body">
 	        <div class="form-group">

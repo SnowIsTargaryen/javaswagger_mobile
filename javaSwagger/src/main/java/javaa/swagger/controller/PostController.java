@@ -85,7 +85,6 @@ public class PostController {
 	@RequestMapping(value="/detailPost", produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String detailPost(@RequestParam(value="post_no") String post_no) {
-		PostVo pv;
 		HashMap map = new HashMap();
 		map.put("post_no",post_no);
 		//dao.detailPost(map);
