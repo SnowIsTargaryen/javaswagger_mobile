@@ -37,6 +37,8 @@ public class LoginFilter implements Filter {
 		// place your code here
 		String user_ID = (String)((HttpServletRequest)request).getSession().getAttribute("user_ID");
 		System.out.println("filter: "+user_ID);
+		String uri=((HttpServletRequest)request).getRequestURI();
+		//System.out.println(uri.contains("timeLine"));
 		
 		// pass the request along the filter chain
 		if(user_ID!=null) {
@@ -44,7 +46,16 @@ public class LoginFilter implements Filter {
 		}
 		else
 		{
-			((HttpServletResponse)response).sendRedirect("../login");
+			if(uri.contains("timeLine")==true)
+			{
+				((HttpServletResponse)response).sendRedirect("login");
+			}
+			else
+			{
+				((HttpServletResponse)response).sendRedirect("../login");
+			}
+			
+			
 		}
 	}
 

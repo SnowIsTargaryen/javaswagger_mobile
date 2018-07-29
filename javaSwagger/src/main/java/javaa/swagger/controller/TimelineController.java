@@ -23,31 +23,37 @@ public class TimelineController {
 		this.dao = dao;
 	}
 	
-	@RequestMapping("/timeLine.do")
+/*	@RequestMapping("/timeLine")
 	public ModelAndView listTimeline() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", dao.getTimeline());
 		mav.setViewName("timeLine");
 		return mav;
+	}*/
+	
+	@RequestMapping(value="/timeLine")
+	public void timeLineForm()
+	{
+		
 	}
 	
 //	**** AJAX 방식 필요시 위에 MAV방식 메서드 지우고 요 녀석 주석 풀어서 사용 ****
-//	@RequestMapping(value="listGoods.do", produces="text/plain;charset=utf-8")
-//	@ResponseBody
-//	public String listTimelin() {
-//		ArrayList<PostVo> list = new ArrayList<PostVo>();
-//		List<PostVo> listt = dao.getTimeline();
-//		for(PostVo p : listt) {
-//			list.add(p);
-//		}
-//		String str = "";
-//		ObjectMapper mapper = new ObjectMapper();
-//		try {
-//			str = mapper.writeValueAsString(list);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			System.out.println(e.getMessage());
-//		}
-//		return str;
-//	}
+	@RequestMapping(value="/timeLinePost", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String listTimelin() {
+		ArrayList<PostVo> list = new ArrayList<PostVo>();
+		List<PostVo> listt = dao.getTimeline();
+		for(PostVo p : listt) {
+			list.add(p);
+		}
+		String str = "";
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(list);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		return str;
+	}
 }

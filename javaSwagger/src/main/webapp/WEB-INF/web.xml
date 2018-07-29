@@ -30,6 +30,7 @@
     <!-- <url-pattern>/account/*</url-pattern> -->
     <url-pattern>/profile/*</url-pattern>
     <url-pattern>/board/*</url-pattern>
+    <url-pattern>/timeLine</url-pattern>
   </filter-mapping>
   
   <filter>

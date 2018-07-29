@@ -50,7 +50,7 @@ public class CommentController {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
-		System.out.println(str);
+		//System.out.println(str);
 		return str;
 	}
 	
