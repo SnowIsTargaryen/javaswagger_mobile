@@ -199,7 +199,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<form class="form-inline" action="../insertComment.do" method="post">
+								<form class="form-inline" action="insertComment.do" method="post">
 								  <input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
 								  <input type="hidden" name="post_no" id="post_no">
 								  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="comment_content" name="comment_content" placeholder="댓글 달기">

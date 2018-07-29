@@ -122,7 +122,7 @@ public class PostController {
 		int no = dao.getNextNo();
 		pv.setPost_no(no);
 		HashMap map = new HashMap();
-		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile");
+		ModelAndView mav = new ModelAndView("redirect:/timeLine");
 		map.put("pv", pv);
 		mav.addObject("tof", dao.newPost(map)); // 반환값 어떻게 처리할까요?
 		

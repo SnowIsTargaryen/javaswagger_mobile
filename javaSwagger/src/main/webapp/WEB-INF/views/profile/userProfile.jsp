@@ -247,7 +247,7 @@
 	  </div>
 	</div>
 	
-	<!-- 글 수정 Modal -->
+	<%-- <!-- 글 수정 Modal -->
 	<div class="modal fade " id="updatePost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document" >
 	    <div class="modal-content"> 
@@ -279,7 +279,7 @@
 	      </form> 
 	    </div>
 	  </div>
-	</div>
+	</div> --%>
 	
 	<!-- detail modal -->
 	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
