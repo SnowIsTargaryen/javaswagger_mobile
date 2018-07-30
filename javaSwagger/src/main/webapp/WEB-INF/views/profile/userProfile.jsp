@@ -145,8 +145,37 @@
 								$.each(arr, function(i,p){
 									var h6 = $("<h6></h6>").html(p.user_ID+" ");
 									var small = $("<small></small>").html(p.comment_content);
+									var btn_DeleteComment=$("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>")
+									$(small).append(btn_DeleteComment)
 									$(h6).append(small);
+									$(h6).attr({
+										id:"h6_"+i
+									})
+									$(btn_DeleteComment).attr("idx", i)
+									
+									$(btn_DeleteComment).click(function() {
+										var cno=p.comment_no;
+										var pno=p.post_no;
+										var h=$(this).attr("idx")
+										
+										//alert(h)
+										$.ajax({url:"../deleteComment",
+											type:"post",
+											data:{"comment_no":cno,"post_no":pno},
+											success:function(data){
+												if(data>=1)
+												{
+													 alert("삭제되었습니다.")
+													 $("#h6_"+h).remove()
+												}
+												else
+												{
+													alert("삭제에 실패했습니다")
+												}
+											}})
+									})
 									$("#col_comment_content").append(h6);
+									
 				
 								}) 
 							}})

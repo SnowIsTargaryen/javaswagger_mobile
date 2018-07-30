@@ -1,5 +1,6 @@
 package javaa.swagger.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javaa.swagger.dao.CommentDao;
 import javaa.swagger.vo.CommentVo;
+import javaa.swagger.vo.PostVo;
 
 @Controller
 public class CommentController {
@@ -98,6 +100,29 @@ public class CommentController {
 		map.put("comment_no", comment_no);
 		mav.addObject("tof", dao.deleteComment(map));
 		return mav;
+	}
+	
+	@RequestMapping(value="/deleteComment", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String deletePost(int comment_no,int post_no,HttpServletRequest request) {
+		String str="";
+		HashMap map = new HashMap();
+		PostVo pv = new PostVo();
+		map.put("comment_no", comment_no);
+		map.put("post_no", post_no);
+		//map.put("user_ID", user_ID);
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			
+			
+			//cdao.deleteComment(map);
+			str=mapper.writeValueAsString(dao.deleteComment(map));
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return str;
 	}
 	
 	@RequestMapping("updateComment.do") // ajax 방식으로 자료 받아오기
