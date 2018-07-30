@@ -1,0 +1,37 @@
+package javaa.swagger.dao;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import javaa.swagger.db.FollowManager;
+import javaa.swagger.vo.FollowVo;
+
+@Repository
+public class FollowDao {
+
+	public List<FollowVo> following(String following_ID)
+	{
+		return FollowManager.following(following_ID);
+	}
+	
+	public List<FollowVo> follower(String user_ID) 
+	{
+		return FollowManager.follower(user_ID);
+	}
+	
+	public int insertFollow(FollowVo f)
+	{
+		return FollowManager.insertFollower(f);
+	}
+	
+	public int deleteFollow(FollowVo f)
+	{
+		return FollowManager.deleteFollower(f);
+	}
+	
+	public int isFollow(FollowVo f) {
+		return FollowManager.isFollower(f);
+	}
+}
