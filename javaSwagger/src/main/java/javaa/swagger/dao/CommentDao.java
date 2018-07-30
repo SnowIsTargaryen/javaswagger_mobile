@@ -24,4 +24,9 @@ public class CommentDao {
 	   public List<CommentVo> readComment(HashMap map){
 	      return CommentManager.readComment(map);
 	   }
+	   
+	   public int getNextNo()
+	   {
+		   return CommentManager.getNextNo();
+	   }
 }

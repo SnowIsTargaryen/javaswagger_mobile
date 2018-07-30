@@ -12,14 +12,23 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <!--부트 스트랩 CDN  -->
+<script type="text/javascript">
+	$(function() {
+		<% String sesseing_id=(String)session.getAttribute("user_ID"); %>
+		$("#btnUserProfile").click(function() {
+			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>";
+		})
+	})
+
+</script>
 </head>
 <body>
 <!--  네비게이션  -->
 	<nav class="navbar">
-	<div class="container-fluid">
+	<div class="container">
 			<div class="col-4">
 				<div class="navbar-header navbar-left">
-					<h1><a class="navbar-brand" href="../profile/userProfile">Eden</a></h1>
+					<h1><a class="navbar-brand" href="../timeLine">Eden</a></h1>
 				</div>
 			</div>
 			<div class="col-4">
@@ -37,7 +46,7 @@
 			<div class="col-4 d-flex justify-content-end align-items-center">
 	            <div class="btn-group">
 	            
-			    <button type="button" class="btn btn-default">${profile.user_ID }</button>
+			    <button type="button" class="btn btn-default" id="btnUserProfile">${user_ID }</button>
 			    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			    </button>
 			    <div class="dropdown-menu">
@@ -52,21 +61,18 @@
 	
 	
 <!--사용자 프로필  -->
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
 			<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
 	          <ul class="nav nav-pills flex-column" role="tablist">
 	            <li class="nav-item">
-	              <a class="nav-link active" href="#editProfile" role="tab" data-toggle="pill">프로필 수정</span></a>
+	              <a class="nav-link active" href="#editProfile" role="tab" data-toggle="pill">프로필 수정</a>
 	            </li>
 	            <li class="nav-item">
 	              <a class="nav-link" href="#pwdChange" role="tab" data-toggle="pill">비밀번호 변경</a>
 	            </li>
 	            <li class="nav-item">
 	              <a class="nav-link" href="#dropUser" role="tab" data-toggle="pill">회원탈퇴</a>
-	            </li>
-	            <li class="nav-item">
-	              <a class="nav-link" href="#" role="tab" data-toggle="pill">Setting</a>
 	            </li>
 	          </ul>
 	

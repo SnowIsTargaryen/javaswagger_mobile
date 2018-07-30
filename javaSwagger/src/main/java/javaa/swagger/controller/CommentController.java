@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,7 +35,7 @@ public class CommentController {
 	@ResponseBody // ajax 반환
 	public String readComment(@RequestParam(value="post_no") int post_no) {
 		ArrayList<CommentVo> list = new ArrayList<CommentVo>();
-		System.out.println(post_no);
+//		System.out.println(post_no);
 		HashMap map = new HashMap();
 		map.put("post_no", post_no);
 		List<CommentVo> listt = dao.readComment(map);
@@ -46,7 +50,7 @@ public class CommentController {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
-		System.out.println(str);
+		//System.out.println(str);
 		return str;
 	}
 	
@@ -60,23 +64,35 @@ public class CommentController {
 //		return mav;
 //	}
 	
-	@RequestMapping("insertComment.do") // ajax 방식으로 자료 받아오기
+	@RequestMapping(value="insertComment.do",method=RequestMethod.POST) // ajax 방식으로 자료 받아오기
 	public ModelAndView newComment(CommentVo cv) {
+		
+		/*System.out.println(request.getParameter("comment_no"));
+		System.out.println(request.getParameter("user_ID"));
+		System.out.println(request.getParameter("post_no"));
+		System.out.println(request.getParameter("comment_content"));*/
+		/*System.out.println(cv.getUser_ID());*/
+		
 		ModelAndView mav = new ModelAndView();
 		HashMap map = new HashMap();
+
+		int no=dao.getNextNo();
+		cv.setComment_no(no);
+		
 		map.put("cv", cv);
 		int re = dao.newComment(map);
+		
 		if(re <= 0) {
 			mav.addObject("msg", "댓글 등록에 실패하였습니다.");
 			mav.setViewName("error.do");
 		} else {
-			mav.setViewName("redirect:/detailPost.do?post_no="+cv.getPost_no());
+			mav.setViewName("redirect:/profile/userProfile?user_ID="+cv.getUser_ID());
 		}
 		return mav;
 	}
 	
 	@RequestMapping("deleteComment.do") // ajax 방식으로 comment_no 받아오기
-	public ModelAndView deleteComment(String comment_no) {
+	public ModelAndView deleteComment(int comment_no) {
 		ModelAndView mav = new ModelAndView();
 		HashMap map = new HashMap();
 		map.put("comment_no", comment_no);
@@ -92,4 +108,6 @@ public class CommentController {
 		mav.addObject("tof", dao.updateComment(map));
 		return mav;
 	}
+	
+	
 }

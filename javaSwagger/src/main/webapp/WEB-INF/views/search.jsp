@@ -20,7 +20,7 @@
 		
 		<c:forEach var="v" items="${value }">
 			<tr>
-				<td>${v.user_ID }</td>
+				<td><a href="profile/userProfile?user_ID=${v.user_ID }">${v.user_ID }</a></td>
 			</tr>
 		</c:forEach>	
 	</table>

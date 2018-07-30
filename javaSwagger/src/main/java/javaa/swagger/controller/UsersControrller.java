@@ -3,6 +3,7 @@ package javaa.swagger.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -10,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javaa.swagger.dao.PostDao;
 import javaa.swagger.dao.UsersDao;
+import javaa.swagger.vo.PostVo;
 
 @Controller
 public class UsersControrller {
@@ -55,23 +59,23 @@ public class UsersControrller {
 		if(re == true)
 		{
 			session.setAttribute("user_ID", user_ID);
-			mav.setViewName("redirect:/profile/userProfile");
+			mav.setViewName("redirect:/timeLine");
 		}
 		
 		return mav;
 	}
 	//프로필 정보
 	@RequestMapping(value="/profile/userProfile",method=RequestMethod.GET)
-	public ModelAndView profile(HttpSession session)
+	public ModelAndView profile(@RequestParam(value="user_ID") String user_ID,HttpSession session)
 	{
-		String user_ID=(String)session.getAttribute("user_ID");
+		//System.out.println(user_ID);
+	//	String user_ID2=(String)session.getAttribute("user_ID");
+		
 		ModelAndView mav = new ModelAndView();
-		
-		Map map = new HashMap();
-		
+		HashMap map = new HashMap();
 		map.put("user_ID", user_ID);
-		
 		mav.addObject("profile", dao.profile(map));
+	
 		
 		return mav;
 		
@@ -81,7 +85,7 @@ public class UsersControrller {
 	public ModelAndView withdrawUser(String user_ID, String user_Password)
 	{
 		ModelAndView mav = new ModelAndView();
-		Map map = new HashMap();
+		HashMap map = new HashMap();
 		map.put("user_ID", user_ID);
 		map.put("user_Password", user_Password);
 //		System.out.println(user_ID);

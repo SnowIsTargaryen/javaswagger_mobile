@@ -12,11 +12,12 @@
 		$.ajax({
 			url:"listComment.do?post_no="+post_no,
 			success:function(data){
+				alert(data)
 				var arr = eval("("+data+")")
 				alert(arr)
 				$.each(arr, function(i,p){
 					var tr = $("<tr></tr>");
-					var td1 = $("<td></td>").append(p.user_id);
+					var td1 = $("<td></td>").append(p.user_ID);
 					var td2 = $("<td></td>").append(p.comment_content);
 					var td3 = $("<td></td>").append(p.comment_time);
 					$(tr).append(td1, td2, td3);
@@ -29,12 +30,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< HEAD
+
 	<input type="hidden" value="${pv.post_no }" id="ppn">
 	<table>
-		<tr colspan="2"><td><a href="listPost.do?user_id=${pv.user_id }">${pv.user_id }</a></td></tr>
+		<tr><td><a href="listPost.do?user_ID=${pv.user_ID }">${pv.user_ID }</a></td></tr>
 		<tr><td>작성일 : ${pv.post_time }</td><td>삭제예정 : ${pv.post_delTime }</td></tr>
-		<tr colspan="2"><td><img src="resources/img/${pv.post_Fname }" width="300" height="300"></td></tr>
+		
 	</table>
 	<textarea rows="5" cols="20" readonly="readonly">${pv.post_content }</textarea>
 	<table>
@@ -51,17 +52,14 @@
 		</tr>
 	</table>
 		<form action="insertComment.do" method="post">
-			<input type="text" name="comment_no" value="comment_no"> <!-- 현재 로그인한 유저의 user_id -->
-			<input type="text" name="user_id" value=#{user_id }> <!-- 현재 로그인한 유저의 user_id -->
-			<input type="text" name="post_no" value="#{pv.post_no }"> <!-- 현재 보고 있는 게시글의 post_no -->
-			<table>
-				<tr>
-					<td><input type="text" name="comment_content"></td> <!-- 텍스트 에이리어로 하는게 나을까요? -->
-					<td><input type="submit"></td>
-				</tr>
-			</table>
+			댓글번호:<input type="text" name="comment_no"><br> <!-- 현재 로그인한 유저의 user_ID -->
+			유저:<input type="text" name="user_ID" value=${pv.user_ID }><br> <!-- 현재 로그인한 유저의 user_ID --> 
+			포스트번호:<input type="text" name="post_no" value="${pv.post_no }"><br> <!-- 현재 보고 있는 게시글의 post_no -->
+			내용:<input type="text" name="comment_content"><br><!-- 텍스트 에이리어로 하는게 나을까요? -->
+			<input type="submit" value="입력">
+	
 		</form>
-	</table>
+
 	<!-- 해당 게시글의 주인이라면 수정/삭제 버튼 -->
 </body>
 </html>

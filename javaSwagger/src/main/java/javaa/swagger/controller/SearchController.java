@@ -1,7 +1,7 @@
 package javaa.swagger.controller;
 
 import java.util.HashMap;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class SearchController {
 	public ModelAndView serach(String user_ID)
 	{
 		ModelAndView mav = new ModelAndView();
-		Map map = new HashMap();
+		HashMap map = new HashMap();
 		System.out.println(user_ID);
 		map.put("user_ID", user_ID);
 		

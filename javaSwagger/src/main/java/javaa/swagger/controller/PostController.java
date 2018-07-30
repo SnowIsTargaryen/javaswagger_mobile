@@ -44,6 +44,7 @@ public class PostController {
 	
 	@RequestMapping("detailPost.do")
 	public ModelAndView detailPost(@RequestParam(value="post_no") int post_no) {
+		
 		ModelAndView mav = new ModelAndView();
 		HashMap map = new HashMap();
 		map.put("post_no", post_no);
@@ -62,7 +63,7 @@ public class PostController {
 //			list.add(p);
 //		}
 		
-		System.out.println(user_ID);
+		//System.out.println(user_ID);
 		HashMap map = new HashMap();
 		map.put("user_ID",user_ID);
 		
@@ -81,23 +82,22 @@ public class PostController {
 	
 	
 //	**** AJAX 방식 필요시 위에 MAV방식 메서드 지우고 요 녀석 주석 풀어서 사용 ****
-//	@RequestMapping(value="listPost.do", produces="text/plain;charset=utf-8")
-//	@ResponseBody
-//	public String detailPost(@RequestParam(value="post_no") String post_no) {
-//		PostVo pv;
-//		HashMap map = new HashMap();
-//		map.put("post_no",post_no);
-//		pv = dao.detailPost(map);
-//		String str = "";
-//		ObjectMapper mapper = new ObjectMapper();
-//		try {
-//			str = mapper.writeValueAsString(pv);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			System.out.println(e.getMessage());
-//		}
-//		return str;
-//	}
+	@RequestMapping(value="/detailPost", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String detailPost(@RequestParam(value="post_no") String post_no) {
+		HashMap map = new HashMap();
+		map.put("post_no",post_no);
+		//dao.detailPost(map);
+		String str = "";
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(dao.detailPost(map));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		return str;
+	}
 	
 	
 	
@@ -122,7 +122,7 @@ public class PostController {
 		int no = dao.getNextNo();
 		pv.setPost_no(no);
 		HashMap map = new HashMap();
-		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile");
+		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+pv.getUser_ID());
 		map.put("pv", pv);
 		mav.addObject("tof", dao.newPost(map)); // 반환값 어떻게 처리할까요?
 		
@@ -145,20 +145,20 @@ public class PostController {
 	
 	@RequestMapping(value="updatePost.do", method=RequestMethod.POST)
 	public ModelAndView updatePost(PostVo pv) {
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+pv.getUser_ID());
 		HashMap map = new HashMap();
 		map.put("pv", pv);
 		mav.addObject("tof", dao.updatePost(map));
 		return mav;
 	}
 	
-	@RequestMapping(value="updatePost.do",method=RequestMethod.GET)
-	public ModelAndView updatePostForm(int post_no) {
-		ModelAndView mav = new ModelAndView();
-		HashMap map = new HashMap();
-		map.put("post_no", post_no);
-		PostVo pv = dao.detailPost(map);
-		mav.addObject("pv", pv);
-		return mav;
-	}
+//	@RequestMapping(value="updatePost.do",method=RequestMethod.GET)
+//	public ModelAndView updatePostForm(int post_no) {
+//		ModelAndView mav = new ModelAndView();
+//		HashMap map = new HashMap();
+//		map.put("post_no", post_no);
+//		PostVo pv = dao.detailPost(map);
+//		mav.addObject("pv", pv);
+//		return mav;
+//	}
 }
