@@ -56,8 +56,11 @@ public class FollowController {
 	public ModelAndView follow(FollowVo f) {
 		ModelAndView mav = new ModelAndView();
 		int re = dao.insertFollow(f);
+		System.out.println(f.getUser_ID());
+		System.out.println(f.getFollower_ID());
 		if(re > 0) {
-			mav.setViewName("redirect:/listPost.do?user_id="+f.getUser_ID());
+			System.out.println("ÆÈ·ÎÀ× ¼º°ø");
+			//mav.setViewName("redirect:/listPost.do?user_id="+f.getUser_ID());
 		} else {
 			mav.addObject("msg", "ÆÈ·ÎÀ×¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù.");
 			mav.setViewName("error");

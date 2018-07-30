@@ -27,9 +27,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" id="F">
-		<input type="text" id="user_ID" name="user_ID" value="1"> <!-- 요부분은 고객이 보고있는 listPost.do?user_id=?? 부분의 ?? -->
-		<input type="text" id="follower_ID" name="follower_ID" value="2"><!-- 현재 로그인하고 있는 유저의 ID -->
+	<form method="post" id="F" action="follow.do">
+		<input type="text" id="user_ID" name="user_ID"> <!-- 요부분은 고객이 보고있는 listPost.do?user_id=?? 부분의 ?? -->
+		<input type="text" id="follower_ID" name="follower_ID"><!-- 현재 로그인하고 있는 유저의 ID -->
 		<input type="submit" id="sm">
 	</form>
 </body>
