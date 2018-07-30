@@ -46,6 +46,11 @@
 		<% String sesseing_id=(String)session.getAttribute("user_ID"); %>
 		<% String get_id=(String)request.getParameter("user_ID"); %>
 		
+		var myID=$("#btnUserProfile").html()
+		var guestID=$("#jumboUserID").html()
+		
+		if(myID!=guestID){$("#write").hide();}
+		
 		$("#btnUserProfile").click(function() {
 			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>"
 		})
@@ -63,16 +68,13 @@
 				var p_card_text =$("<p></p>").addClass("card-text").html(p.post_content);
 				var d_flex = $("<div></div>").addClass("d-flex justify-content-between align-items-center")
 				var btn_group = $("<div></div>").addClass("btn-group")
-				var btn_view  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("View")
+				var btn_delete  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("Delete")
 				var btn_edit =  $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary").html("Edit")
 				var pno_hidden = $("<p></p>").html(p.post_no)
 				var small = $("<small></small>").addClass("text-muted").html(p.post_time)
 				
-				$(btn_edit).attr({
-					no:p.post_no
-				})
-				
-				
+				$(btn_edit).attr({no:p.post_no})
+				$(btn_delete).attr({no:p.post_no})
 				
 				var detail_a=$("<a></a>").attr({
 					href: "#",
@@ -86,30 +88,47 @@
 				})
 				
 				$(detail_a).append(img)
-				
-				$(btn_group).append(btn_view,btn_edit)
+				$(btn_group).append(btn_delete,btn_edit)
 				$(d_flex).append(btn_group,small)
 				$(div_card_body).append(p_card_text,d_flex)
 				$(div_card_mb4_box).append(detail_a,div_card_body)
 				
 				$(div_col_md_4).append(div_card_mb4_box)
 				
+				if(myID!=guestID){$(btn_group).hide()}
 				
+				$(btn_delete).click(function() {
+					var no=$(this).attr("no");
+					$.ajax({url:"../deletePost",
+						type:"post",
+						data:{"post_no":no,"user_ID":myID},
+						success:function(data){
+							if(data>=1)
+							{
+								 alert("삭제되었습니다.")
+								 $(div_col_md_4).empty()
+							}
+							else
+							{
+								alert("삭제에 실패했습니다")
+							}
+						}})
+				})
 				
 				$(btn_edit).click(function() {
-					no=$(this).attr("no");
+				 	var no=$(this).attr("no");
 					
 					$.ajax({url:"../detailPost?post_no="+no,success:function(data){ //게시글 상세
 						detail=eval("("+data+")")
-						//alert(data)
+						//alert(detail.post_no)
 						$('#post_content').html(detail.post_content);
-						$('#updatate_Post_no').val(datail.post_no)
+						$('#updatate_Post_no').val(detail.post_no)
 
 					}})
 				})
 				
 				$(detail_a).click(function() {
-					no=$(this).attr("no");
+					var no=$(this).attr("no");
 					$("#col_comment_content").empty();
 					$.ajax({url:"../detailPost?post_no="+no,success:function(data){ //게시글 상세
 						detail=eval("("+data+")")
@@ -126,8 +145,37 @@
 								$.each(arr, function(i,p){
 									var h6 = $("<h6></h6>").html(p.user_ID+" ");
 									var small = $("<small></small>").html(p.comment_content);
+									var btn_DeleteComment=$("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>")
+									$(small).append(btn_DeleteComment)
 									$(h6).append(small);
+									$(h6).attr({
+										id:"h6_"+i
+									})
+									$(btn_DeleteComment).attr("idx", i)
+									
+									$(btn_DeleteComment).click(function() {
+										var cno=p.comment_no;
+										var pno=p.post_no;
+										var h=$(this).attr("idx")
+										
+										//alert(h)
+										$.ajax({url:"../deleteComment",
+											type:"post",
+											data:{"comment_no":cno,"post_no":pno},
+											success:function(data){
+												if(data>=1)
+												{
+													 alert("삭제되었습니다.")
+													 $("#h6_"+h).remove()
+												}
+												else
+												{
+													alert("삭제에 실패했습니다")
+												}
+											}})
+									})
 									$("#col_comment_content").append(h6);
+									
 				
 								}) 
 							}})
@@ -135,21 +183,11 @@
 					}})
 					$('#detail_Dialog').modal('show')
 				})
-				
 				$("#row1").append(div_col_md_4)
-	
 			});
-			
 		}}); //게시물 생성 ajax
+
 		
-		
-		var myID=$("#btnUserProfile").html()
-		var guestID=$("#jumboUserID").html()
-		
-		if(myID!=guestID)
-		{
-			$("#write").hide();	
-		}
 		
 	});
 	
@@ -247,7 +285,7 @@
 	  </div>
 	</div>
 	
-	<%-- <!-- 글 수정 Modal -->
+	<!-- 글 수정 Modal -->
 	<div class="modal fade " id="updatePost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document" >
 	    <div class="modal-content"> 
@@ -279,7 +317,7 @@
 	      </form> 
 	    </div>
 	  </div>
-	</div> --%>
+	</div> 
 	
 	<!-- detail modal -->
 	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
@@ -326,7 +364,7 @@
 	<!-- 썸네일 게시판  -->
 	<div class="container">
 		<div class="row" id="row1">
-			<div class="col-md-4">
+			<!-- <div class="col-md-4">
 				<div class="card mb-4 box-shadow">
 					<img class="card-img-top" src="../resources/image/new zealand.jpg" alt="Card image cap">
 	                <div class="card-body">
@@ -340,7 +378,7 @@
 	                    </div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 	     </div>
      </div>
 	

@@ -69,7 +69,7 @@ public class InsertUserController {
 
 		
 		int re = dao.insertUser(u);
-		System.out.println(re);
+		//System.out.println(re);
 		
 		if(re<0)
 		{

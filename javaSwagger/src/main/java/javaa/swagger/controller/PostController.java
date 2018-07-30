@@ -1,5 +1,7 @@
 package javaa.swagger.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javaa.swagger.dao.CommentDao;
 import javaa.swagger.dao.PostDao;
 import javaa.swagger.vo.PostVo;
 
@@ -27,10 +31,16 @@ public class PostController {
 
 	@Autowired
 	PostDao dao;
+	/*CommentDao cdao;*/
 
 	public void setDao(PostDao dao) {
 		this.dao = dao;
 	}
+	
+	/*public void setCdao(CommentDao cdao) {
+		this.cdao = cdao;
+	}*/
+	
 	
 //	@RequestMapping("listPost.do")
 //	public ModelAndView listPost(@RequestParam(value="user_ID") String user_ID) {
@@ -42,6 +52,9 @@ public class PostController {
 //		return mav;
 //	}
 	
+
+
+
 	@RequestMapping("detailPost.do")
 	public ModelAndView detailPost(@RequestParam(value="post_no") int post_no) {
 		
@@ -57,13 +70,7 @@ public class PostController {
 	@RequestMapping(value="/board/listPost", produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String listPost(@RequestParam(value="user_ID") String user_ID) {
-//		ArrayList<PostVo> list = new ArrayList<PostVo>();
-//		List<PostVo> listt = dao.readPost(map);
-//		for(PostVo p : listt) {
-//			list.add(p);
-//		}
-		
-		System.out.println(user_ID);
+
 		HashMap map = new HashMap();
 		map.put("user_ID",user_ID);
 		
@@ -87,7 +94,6 @@ public class PostController {
 	public String detailPost(@RequestParam(value="post_no") String post_no) {
 		HashMap map = new HashMap();
 		map.put("post_no",post_no);
-		//dao.detailPost(map);
 		String str = "";
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -105,7 +111,6 @@ public class PostController {
 	public ModelAndView insertPost(PostVo pv, HttpServletRequest request) {
 		MultipartFile multi = pv.getUploadFile();
 		String path = request.getRealPath("resources/image");
-		System.out.println(path);
 		if(multi != null) {
 			try {
 				String fname = multi.getOriginalFilename();
@@ -122,7 +127,7 @@ public class PostController {
 		int no = dao.getNextNo();
 		pv.setPost_no(no);
 		HashMap map = new HashMap();
-		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+pv.getuser_ID());
+		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+pv.getUser_ID());
 		map.put("pv", pv);
 		mav.addObject("tof", dao.newPost(map)); // 반환값 어떻게 처리할까요?
 		
@@ -134,31 +139,54 @@ public class PostController {
 		
 	}
 	
-	@RequestMapping("deletePost.do")
-	public ModelAndView deletePost(int post_no) {
-		ModelAndView mav = new ModelAndView();
+	
+	@RequestMapping(value="/deletePost", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String deletePost(int post_no,String user_ID,HttpServletRequest request) {
+		String str="";
 		HashMap map = new HashMap();
+		String path = request.getRealPath("resources/image");
+		PostVo pv = new PostVo();
 		map.put("post_no", post_no);
-		mav.addObject("tof", dao.deletePost(map));
-		return mav;
+		map.put("user_ID", user_ID);
+		
+		String fname = dao.detailPost(map).getPost_fname();
+		System.out.println(path+"/"+fname);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			//int re=cdao.deleteAllComment(map);
+			//System.out.println(re);
+			str=mapper.writeValueAsString(dao.deletePost(map));
+			if(fname!=null && !fname.equals(""))
+			{
+				File file = new File(path+"/"+fname);
+				file.delete();
+			}
+			//int re=dao.deletePost(map);
+		
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return str;
 	}
 	
 	@RequestMapping(value="updatePost.do", method=RequestMethod.POST)
 	public ModelAndView updatePost(PostVo pv) {
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+pv.getUser_ID());
 		HashMap map = new HashMap();
 		map.put("pv", pv);
 		mav.addObject("tof", dao.updatePost(map));
 		return mav;
 	}
 	
-	@RequestMapping(value="updatePost.do",method=RequestMethod.GET)
-	public ModelAndView updatePostForm(int post_no) {
-		ModelAndView mav = new ModelAndView();
-		HashMap map = new HashMap();
-		map.put("post_no", post_no);
-		PostVo pv = dao.detailPost(map);
-		mav.addObject("pv", pv);
-		return mav;
-	}
+//	@RequestMapping(value="updatePost.do",method=RequestMethod.GET)
+//	public ModelAndView updatePostForm(int post_no) {
+//		ModelAndView mav = new ModelAndView();
+//		HashMap map = new HashMap();
+//		map.put("post_no", post_no);
+//		PostVo pv = dao.detailPost(map);
+//		mav.addObject("pv", pv);
+//		return mav;
+//	}
 }
