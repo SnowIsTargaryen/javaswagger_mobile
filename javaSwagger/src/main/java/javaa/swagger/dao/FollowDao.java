@@ -1,5 +1,6 @@
 package javaa.swagger.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -10,9 +11,14 @@ import javaa.swagger.vo.FollowVo;
 @Repository
 public class FollowDao {
 
-	public List<FollowVo> listFollow()
+	public List<FollowVo> following(String following_ID)
 	{
-		return FollowManager.listFollow();
+		return FollowManager.following(following_ID);
+	}
+	
+	public List<FollowVo> follower(String user_ID) 
+	{
+		return FollowManager.follower(user_ID);
 	}
 	
 	public int insertFollow(FollowVo f)
@@ -20,8 +26,12 @@ public class FollowDao {
 		return FollowManager.insertFollower(f);
 	}
 	
-	public int deleteFollow(String follower_ID)
+	public int deleteFollow(FollowVo f)
 	{
-		return FollowManager.deleteFollower(follower_ID);
+		return FollowManager.deleteFollower(f);
+	}
+	
+	public int isFollow(FollowVo f) {
+		return FollowManager.isFollower(f);
 	}
 }
