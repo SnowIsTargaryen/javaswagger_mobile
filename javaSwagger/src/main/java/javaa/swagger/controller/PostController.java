@@ -31,15 +31,15 @@ public class PostController {
 
 	@Autowired
 	PostDao dao;
-	CommentDao cdao;
+	/*CommentDao cdao;*/
 
 	public void setDao(PostDao dao) {
 		this.dao = dao;
 	}
 	
-	public void setCdao(CommentDao cdao) {
+	/*public void setCdao(CommentDao cdao) {
 		this.cdao = cdao;
-	}
+	}*/
 	
 	
 //	@RequestMapping("listPost.do")
@@ -70,13 +70,7 @@ public class PostController {
 	@RequestMapping(value="/board/listPost", produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String listPost(@RequestParam(value="user_ID") String user_ID) {
-//		ArrayList<PostVo> list = new ArrayList<PostVo>();
-//		List<PostVo> listt = dao.readPost(map);
-//		for(PostVo p : listt) {
-//			list.add(p);
-//		}
-		
-		//System.out.println(user_ID);
+
 		HashMap map = new HashMap();
 		map.put("user_ID",user_ID);
 		
@@ -100,7 +94,6 @@ public class PostController {
 	public String detailPost(@RequestParam(value="post_no") String post_no) {
 		HashMap map = new HashMap();
 		map.put("post_no",post_no);
-		//dao.detailPost(map);
 		String str = "";
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -118,7 +111,6 @@ public class PostController {
 	public ModelAndView insertPost(PostVo pv, HttpServletRequest request) {
 		MultipartFile multi = pv.getUploadFile();
 		String path = request.getRealPath("resources/image");
-		//System.out.println(path);
 		if(multi != null) {
 			try {
 				String fname = multi.getOriginalFilename();
@@ -147,15 +139,6 @@ public class PostController {
 		
 	}
 	
-//	@RequestMapping("deletePost.do")
-//	public ModelAndView deletePost(int post_no,String user_ID) {
-//		ModelAndView mav = new ModelAndView();
-//		HashMap map = new HashMap();
-//		map.put("post_no", post_no);
-//		map.put("user_ID", user_ID);
-//		mav.addObject("tof", dao.deletePost(map));
-//		return mav;
-//	}
 	
 	@RequestMapping(value="/deletePost", produces="text/plain;charset=utf-8")
 	@ResponseBody
@@ -171,14 +154,14 @@ public class PostController {
 		System.out.println(path+"/"+fname);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			
+			//int re=cdao.deleteAllComment(map);
+			//System.out.println(re);
+			str=mapper.writeValueAsString(dao.deletePost(map));
 			if(fname!=null && !fname.equals(""))
 			{
 				File file = new File(path+"/"+fname);
 				file.delete();
 			}
-			//cdao.deleteComment(map);
-			str=mapper.writeValueAsString(dao.deletePost(map));
 			//int re=dao.deletePost(map);
 		
 		}catch (Exception e) {
