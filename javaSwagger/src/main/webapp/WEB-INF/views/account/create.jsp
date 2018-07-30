@@ -45,6 +45,11 @@ $(function() {
      	    
         }); 
     });
+	
+	$("#mailck").click(function(){
+		var user_Email = $("#user_Email").val()
+		 location.href="mailTest.do?user_emil="+user_Email 
+	});
 });
  
  
@@ -75,6 +80,8 @@ $(function() {
 		  <div class="form-group col-md-4">
 		    <label for="user_Password ">Email</label>
 		    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="email을 입력하세요">
+		     <input type="button" value="메일인증" id="mailck">
+		   	<span>${msg}</span>
 		  </div>
 		  <div class="form-group col-md-4">
 		    <label for="user_Password ">Phone</label>
@@ -84,6 +91,7 @@ $(function() {
 		</form>
 	</div>
 
+	
 
 </body>
 </html>

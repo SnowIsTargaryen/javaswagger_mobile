@@ -27,6 +27,7 @@ public class TimelineManager {
 		// TODO Auto-generated method stub
 		SqlSession s = factory.openSession();
 		List<PostVo> list = s.selectList("timeline.getTimeline");
+		s.close();
 		return list;
 	}
 
