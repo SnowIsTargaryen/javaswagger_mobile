@@ -47,7 +47,7 @@
 		<% String get_id=(String)request.getParameter("user_ID"); %>
 		
 		$("#btnUserProfile").click(function() {
-			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>";
+			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>"
 		})
 		
 		$.ajax({url:"../board/listPost?user_ID=<%=get_id%>",

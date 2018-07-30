@@ -69,7 +69,7 @@ public class UsersControrller {
 	public ModelAndView profile(@RequestParam(value="user_ID") String user_ID,HttpSession session)
 	{
 		//System.out.println(user_ID);
-		//String user_ID=(String)session.getAttribute("user_ID");
+	//	String user_ID2=(String)session.getAttribute("user_ID");
 		
 		ModelAndView mav = new ModelAndView();
 		HashMap map = new HashMap();
