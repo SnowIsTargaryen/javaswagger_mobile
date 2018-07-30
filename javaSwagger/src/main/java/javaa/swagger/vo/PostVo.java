@@ -19,16 +19,33 @@ public class PostVo {
 	public void setUploadFile(MultipartFile uploadFile) {
 		this.uploadFile = uploadFile;
 	}
+	
+	
+	public PostVo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public PostVo(int post_no, String user_ID, Date post_time, Date post_delTime, String post_content,
+			String post_fname, MultipartFile uploadFile) {
+		super();
+		this.post_no = post_no;
+		this.user_ID = user_ID;
+		this.post_time = post_time;
+		this.post_delTime = post_delTime;
+		this.post_content = post_content;
+		this.post_fname = post_fname;
+		this.uploadFile = uploadFile;
+	}
 	public int getPost_no() {
 		return post_no;
 	}
 	public void setPost_no(int post_no) {
 		this.post_no = post_no;
 	}
-	public String getuser_ID() {
+	public String getUser_ID() {
 		return user_ID;
 	}
-	public void setuser_ID(String user_ID) {
+	public void setUser_ID(String user_ID) {
 		this.user_ID = user_ID;
 	}
 	public Date getPost_time() {
@@ -53,20 +70,6 @@ public class PostVo {
 		return post_fname;
 	}
 	public void setPost_fname(String post_fname) {
-		this.post_fname = post_fname;
-	}
-	public PostVo() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public PostVo(int post_no, String user_ID, Date post_time, Date post_delTime, String post_content,
-			String post_fname) {
-		super();
-		this.post_no = post_no;
-		this.user_ID = user_ID;
-		this.post_time = post_time;
-		this.post_delTime = post_delTime;
-		this.post_content = post_content;
 		this.post_fname = post_fname;
 	}
 	

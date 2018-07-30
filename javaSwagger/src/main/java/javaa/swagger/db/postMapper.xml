@@ -14,7 +14,7 @@
 	<update id="updatePost">
 		update post set post_content=#{post_content} 
 		<if test="post_fname != null"> , post_fname = #{post_fname} </if>
-		where post_no=#{post_no} and user_ID={#user_ID} 
+		where post_no=#{post_no} and user_ID=#{user_ID} 
 	</update>
 	
 	<select id="readPost" resultType="postVo"> <!-- 개인의 포스트 보는 sql -->
