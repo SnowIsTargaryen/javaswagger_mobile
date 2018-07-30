@@ -1,7 +1,9 @@
 package javaa.swagger.db;
 
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -24,30 +26,42 @@ public class FollowManager {
 		}
 	}
 	
-	public static List<FollowVo> listFollow()
-	{
-		SqlSession session = factory.openSession(); 
-		List<FollowVo> listFollow = session.selectList("follower.selectAll");
-		session.commit();
-		session.close();
-		return listFollow;
-	}
-	
-	public static int insertFollower(FollowVo f)
-	{
-		SqlSession session = factory.openSession(); 
-		int re = session.insert("follower.insert", f);
-		session.commit();
-		session.close();
+	public static int isFollower(FollowVo f) {
+		int re = 0;
+		SqlSession s = factory.openSession();
+		re = s.selectOne("follow.isFollower",f);
 		return re;
 	}
 	
-	public static int deleteFollower(String follower_ID)
-	{
-		SqlSession session = factory.openSession(); 
-		int re = session.delete("follower.delete", follower_ID);
-		session.commit();
-		session.close();
+	// follower_IDÀÇ ÆÈ·ÎÀ® ¸ñ·Ï »Ì±â
+	public static List<FollowVo> following(String follower_ID){
+		SqlSession s = factory.openSession(); 
+		List<FollowVo> list = s.selectList("follow.following", follower_ID); 
+		s.close();
+		return list;
+	}
+	
+	// user_IDÀÇ ÆÈ·Î¿ö ¸ñ·Ï »Ì±â
+	public static List<FollowVo> follower(String user_ID){
+		SqlSession s = factory.openSession(); 
+		List<FollowVo> list = s.selectList("follow.follower", user_ID); 
+		s.close();
+		return list;
+	}
+	
+	// follower_ID°¡ user_ID¸¦ ÆÈ·Î¿ìÇÏ´Â °æ¿ì 
+	public static int insertFollower(FollowVo f) {
+		SqlSession s = factory.openSession(true);
+		int re = s.insert("follow.insert", f);
+		s.close();
+		return re;
+	}
+	
+	// follower_ID°¡ user_ID¸¦ ¾ðÆÈ·Î¿ìÇÏ´Â °æ¿ì 
+	public static int deleteFollower(FollowVo f){
+		SqlSession s = factory.openSession(true); 
+		int re = s.delete("follow.delete", f);
+		s.close();
 		return re;
 	}
 }

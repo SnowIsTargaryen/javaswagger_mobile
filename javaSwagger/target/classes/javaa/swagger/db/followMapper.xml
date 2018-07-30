@@ -2,16 +2,24 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="follower">
-  <select id="selectAll" resultType="followerVo">
-    select * from Follower
+<mapper namespace="follow">
+  <select id="following" resultType="followVo"> <!-- follower_id의 팔로잉 목록 -->
+    select * from follow where follower_id = #{follower_ID}
   </select>
   
-  <insert id="insert">
-  	insert into follower values(#{user_ID},#{follower_ID})
+  <select id="follower" resultType="followVo"> <!-- user_id의 팔로워 목록 -->
+  	select * from follow where user_id=#{user_ID}
+  </select>	
+  
+  <insert id="insert"> <!-- user_id를 follower_id가 팔로우 -->
+  	insert into follow values(#{follower_ID},#{user_ID})
   </insert>
   
-  <delete id="delete">
-  	delete follower where follower_ID = #{follower_ID}
+  <delete id="delete"> <!-- follower_ID가 user_id를 언팔 -->
+  	delete follow where user_ID = #{user_ID} and follower_ID = #{follower_ID}
   </delete>
+  
+  <select id="isFollower" parameterType="followVo" resultType="java.lang.Integer">
+  	select count(*) from follow where user_ID = #{user_ID} and follower_ID = #{follower_ID}
+  </select>
 </mapper>
