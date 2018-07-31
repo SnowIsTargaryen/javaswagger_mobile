@@ -162,7 +162,6 @@ public class PostController {
 				File file = new File(path+"/"+fname);
 				file.delete();
 			}
-			//int re=dao.deletePost(map);
 		
 		}catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -175,7 +175,7 @@
 												}
 											}})
 									})
-									if(myID!=guestID){$(btn_DeleteComment).hide()}
+									//if(myID!=guestID){$(btn_DeleteComment).hide()}
 									$("#col_comment_content").append(h6);
 									
 				

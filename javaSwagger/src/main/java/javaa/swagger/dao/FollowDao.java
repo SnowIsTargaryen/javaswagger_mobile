@@ -21,9 +21,9 @@ public class FollowDao {
 		return FollowManager.follower(user_ID);
 	}
 	
-	public int insertFollow(FollowVo f)
+	public int insertFollow(HashMap map)
 	{
-		return FollowManager.insertFollower(f);
+		return FollowManager.insertFollower(map);
 	}
 	
 	public int deleteFollow(FollowVo f)

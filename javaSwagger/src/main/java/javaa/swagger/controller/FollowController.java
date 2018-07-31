@@ -52,21 +52,42 @@ public class FollowController {
 		return str;
 	}
 	
-	@RequestMapping("/follow.do")
-	public ModelAndView follow(FollowVo f) {
-		ModelAndView mav = new ModelAndView();
-		int re = dao.insertFollow(f);
-		System.out.println(f.getUser_ID());
-		System.out.println(f.getFollower_ID());
-		if(re > 0) {
-			System.out.println("ÆÈ·ÎÀ× ¼º°ø");
-			//mav.setViewName("redirect:/listPost.do?user_id="+f.getUser_ID());
-		} else {
-			mav.addObject("msg", "ÆÈ·ÎÀ×¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù.");
-			mav.setViewName("error");
+//	@RequestMapping("/follow.do")
+//	public ModelAndView follow(FollowVo f) {
+//		ModelAndView mav = new ModelAndView();
+//		int re = dao.insertFollow(f);
+//		System.out.println(f.getUser_ID());
+//		System.out.println(f.getFollower_ID());
+//		if(re > 0) {
+//			System.out.println("ÆÈ·ÎÀ× ¼º°ø");
+//			//mav.setViewName("redirect:/listPost.do?user_id="+f.getUser_ID());
+//		} else {
+//			mav.addObject("msg", "ÆÈ·ÎÀ×¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù.");
+//			mav.setViewName("error");
+//		}
+//		return mav;
+//	}
+	
+	@RequestMapping(value="/follow.do",produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String follow(String user_ID, String follower_ID ){
+		System.out.println(user_ID);
+		System.out.println(follower_ID);
+		String str ="";
+		HashMap map = new HashMap();
+		map.put("user_ID", user_ID);
+		map.put("follower_ID", follower_ID);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str= mapper.writeValueAsString(dao.insertFollow(map));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
 		}
-		return mav;
+		return str;
 	}
+	
 	
 	@RequestMapping("/unFollow.do")
 	public ModelAndView unFollow(FollowVo f) {

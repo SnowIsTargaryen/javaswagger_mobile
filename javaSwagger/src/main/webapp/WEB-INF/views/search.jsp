@@ -11,6 +11,51 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <!--부트 스트랩 CDN  -->
+<script type="text/javascript">
+	$(function() {
+		
+		<%String user_ID=request.getParameter("user_ID");%>
+		var user_ID="${user_ID}"
+		$.ajax({
+				url:"searchList?user_ID=<%=user_ID%>",
+				success:function(data){
+					list=eval("("+data+")")
+					$.each(list, function(idx, s) {
+						
+						var tr = $("<tr></tr>")
+						var th = $("<th></th>").html(idx)
+						var a_userID = $("<a></a>").attr({
+							href:"profile/userProfile?user_ID="+s.user_ID
+						}).html(s.user_ID)
+						var td_userID = $("<td></td>")
+						var td_email = $("<td></td>").html(s.user_Email)
+						var td_btn=$("<td></td>")
+						var btn_follow = $("<button></button>").addClass("btn btn-outline-primary").html("follow")
+						
+						$(td_userID).append(a_userID)
+						$(td_btn).append(btn_follow)
+						if(s.user_ID!=user_ID)
+						{
+							$(tr).append(th,td_userID,td_email,td_btn)
+						}
+						$(btn_follow).click(function() {
+							$.ajax({url:"follow.do",
+								type:"post",
+								data:{"user_ID":s.user_ID,"follower_ID":user_ID},
+								success:function(data){
+									$(btn_follow).removeClass("btn-outline-primary").addClass("btn-primary").html("following");
+										
+								}})
+						})
+						
+						$("#listTbody").append(tr)
+						
+					})
+				}})
+	
+		})
+			
+</script>
 </head>
 <body>
 <!--  네비게이션  -->
@@ -58,15 +103,7 @@
 		      <th scope="col">#</th>
 		    </tr>
 		  </thead>
-		  <tbody>
-		  	<c:forEach var="v" items="${value }" varStatus="status">
-				<tr>
-					<th scope="row">${status.count }</th>
-					<td><a href="profile/userProfile?user_ID=${v.user_ID }">${v.user_ID }</a></td>
-					<td>${v.user_Email }</td>
-					<td><button type="button" class="btn btn-outline-primary">Follow</button></td>
-				</tr>
-			</c:forEach>	
+		  <tbody id="listTbody">
 		  </tbody>
 		</table>
 	</div>

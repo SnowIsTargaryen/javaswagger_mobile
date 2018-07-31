@@ -50,9 +50,9 @@ public class FollowManager {
 	}
 	
 	// follower_ID가 user_ID를 팔로우하는 경우 
-	public static int insertFollower(FollowVo f) {
+	public static int insertFollower(HashMap map) {
 		SqlSession s = factory.openSession(true);
-		int re = s.insert("follow.insert", f);
+		int re = s.insert("follow.insert", map);
 		s.close();
 		return re;
 	}
