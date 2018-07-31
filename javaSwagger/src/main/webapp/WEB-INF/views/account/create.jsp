@@ -15,6 +15,7 @@
 var idck = 0;
 $(function() {
   
+	
 	//idck 버튼을 클릭했을 때 
     $("#idck").click(function() {
     	
@@ -52,8 +53,11 @@ $(function() {
     });
 	
 	$("#mailck").click(function(){
+		
 		var user_Email = $("#user_Email").val()
-		 location.href="mailTest.do?user_emil="+user_Email 
+		
+		 
+		location.href="mailTest.do?user_emil="+user_Email 
 	});
 });
  
