@@ -322,15 +322,15 @@
 	</div> 
 	
 	<!-- detail modal -->
-	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
+	<div class="modal modal-center fade no-gutters" id="detail_Dialog" role="dialog"  tabindex="-1">
 		<div class="modal-dialog modal-dialog-center"  role="document">
-			<div class="modal-content h-100 d-flex" id="content">
+			<div class="modal-content h-100 d-flex no-gutters" id="content">
 				<div class="container-fluid">
 					<div class="row d-flex no-gutters">
-						<div class="col-md-8 box-shadow h-100" >
+						<div class="col-md-8 box-shadow h-100 w-100" >
 						<img  id="detail_Img" class="img-fluid d-inline-block">
 						</div>
-						<div class="col-md-4">	
+						<div class="col-md-4 fluid h-100 w-100 no-gutters">	
 							<div class="modal-header">
 								<h3 id="h3_detail_userID"></h3>
 							</div>

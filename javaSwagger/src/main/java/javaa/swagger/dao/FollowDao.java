@@ -26,12 +26,12 @@ public class FollowDao {
 		return FollowManager.insertFollower(map);
 	}
 	
-	public int deleteFollow(FollowVo f)
+	public int deleteFollow(HashMap map)
 	{
-		return FollowManager.deleteFollower(f);
+		return FollowManager.deleteFollower(map);
 	}
 	
-	public int isFollow(FollowVo f) {
-		return FollowManager.isFollower(f);
+	public int isFollow(HashMap map) {
+		return FollowManager.isFollower(map);
 	}
 }

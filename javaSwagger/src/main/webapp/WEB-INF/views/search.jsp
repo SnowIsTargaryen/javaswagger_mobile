@@ -16,7 +16,8 @@
 		
 		<%String user_ID=request.getParameter("user_ID");%>
 		var user_ID="${user_ID}"
-		$.ajax({
+		//alert(getp)
+		$.ajax({ //검색 
 				url:"searchList?user_ID=<%=user_ID%>",
 				success:function(data){
 					list=eval("("+data+")")
@@ -30,7 +31,48 @@
 						var td_userID = $("<td></td>")
 						var td_email = $("<td></td>").html(s.user_Email)
 						var td_btn=$("<td></td>")
-						var btn_follow = $("<button></button>").addClass("btn btn-outline-primary").html("follow")
+						var btn_follow = $("<button></button>").addClass("btn")
+						//var fId = $("#follower_ID").val();
+						//var uId = $("#user_ID").val();
+						
+						
+						$.ajax({ // 팔로우 중복 검사
+							url:"isFollower.do",
+							type:"post",
+							data:{"user_ID":s.user_ID,"follower_ID":user_ID},
+							success:function(data){
+								
+								var arr = eval("("+data+")");
+								if(arr == 0){//팔로우 기록이 없을떄
+									$(btn_follow).html("follow").addClass("btn-outline-primary")
+									$(btn_follow).click(function() {
+										$.ajax({url:"follow.do",
+											type:"post",
+											data:{"user_ID":s.user_ID,"follower_ID":user_ID},
+											success:function(data){
+												//alert(data)
+												$(btn_follow).removeClass("btn-outline-primary").addClass("btn-primary").html("following");
+												if(data>=1)
+												{
+													//event.stopImmediatePropagation();//이벤트가 상위로 전파되지 않도록 중단?
+												}
+											}})
+									})
+								}//if end
+								else{//팔로우 기록이 있을때
+									$(btn_follow).addClass("btn-primary").html("following")
+									$(btn_follow).click(function() {
+										$.ajax({url:"unFollow.do",
+											type:"post",
+											data:{"user_ID":s.user_ID,"follower_ID":user_ID},
+											success:function(data){
+												$(btn_follow).removeClass("btn-primary").addClass("btn-outline-primary").html("follow");
+													
+											}})
+									})
+								}//else end
+							}//isFollwer success end
+						})//isFollower end
 						
 						$(td_userID).append(a_userID)
 						$(td_btn).append(btn_follow)
@@ -38,7 +80,7 @@
 						{
 							$(tr).append(th,td_userID,td_email,td_btn)
 						}
-						$(btn_follow).click(function() {
+						/* $(btn_follow).click(function() {
 							$.ajax({url:"follow.do",
 								type:"post",
 								data:{"user_ID":s.user_ID,"follower_ID":user_ID},
@@ -46,7 +88,7 @@
 									$(btn_follow).removeClass("btn-outline-primary").addClass("btn-primary").html("following");
 										
 								}})
-						})
+						}) */
 						
 						$("#listTbody").append(tr)
 						

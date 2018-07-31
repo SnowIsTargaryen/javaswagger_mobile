@@ -78,9 +78,41 @@ public class FollowController {
 		map.put("user_ID", user_ID);
 		map.put("follower_ID", follower_ID);
 		
+		int re=dao.isFollow(map);
+		System.out.println("follow "+re);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			str= mapper.writeValueAsString(dao.insertFollow(map));
+			if(re==0) // 팔로우 테이블  같은 데이터가 있으면 추가 불가
+			{ 
+				str= mapper.writeValueAsString(dao.insertFollow(map));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		return str;
+	}
+	
+	@RequestMapping(value="/unFollow.do",produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String unFollow(String user_ID, String follower_ID ){
+		System.out.println(user_ID);
+		System.out.println(follower_ID);
+		String str ="";
+		HashMap map = new HashMap();
+		map.put("user_ID", user_ID);
+		map.put("follower_ID", follower_ID);
+		
+		int re=dao.isFollow(map);
+		System.out.println("unfollow "+re);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			if(re!=0) // 팔로우에 테이블에 데이터가 있을떄 삭제
+			{
+				str= mapper.writeValueAsString(dao.deleteFollow(map));
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
@@ -89,18 +121,18 @@ public class FollowController {
 	}
 	
 	
-	@RequestMapping("/unFollow.do")
-	public ModelAndView unFollow(FollowVo f) {
-		ModelAndView mav = new ModelAndView();
-		int re = dao.deleteFollow(f);
-		if(re > 0) {
-			mav.setViewName("redirect:/listPost.do?user_id="+f.getUser_ID());
-		} else {
-			mav.addObject("msg", "언팔로우에 실패하였습니다.");
-			mav.setViewName("error");
-		}
-		return mav;
-	}
+//	@RequestMapping("/unFollow.do")
+//	public ModelAndView unFollow(FollowVo f) {
+//		ModelAndView mav = new ModelAndView();
+//		int re = dao.deleteFollow(f);
+//		if(re > 0) {
+//			mav.setViewName("redirect:/listPost.do?user_id="+f.getUser_ID());
+//		} else {
+//			mav.addObject("msg", "언팔로우에 실패하였습니다.");
+//			mav.setViewName("error");
+//		}
+//		return mav;
+//	}
 	
 	@RequestMapping("/listFollower.do")
 	public ModelAndView listFollower(String user_ID) {
@@ -121,10 +153,13 @@ public class FollowController {
 	
 	@RequestMapping(value="/isFollower.do",produces="text/plain;charset=utf-8")
 	@ResponseBody
-	public String isFollow(FollowVo f){
-		System.out.println(f.getFollower_ID());
-		System.out.println(f.getUser_ID());
-		int re = dao.isFollow(f);
+	public String isFollow(String user_ID, String follower_ID){
+		
+		
+		HashMap map = new HashMap();
+		map.put("user_ID", user_ID);
+		map.put("follower_ID", follower_ID);
+		int re = dao.isFollow(map);
 		return re+"";
 	}
 }

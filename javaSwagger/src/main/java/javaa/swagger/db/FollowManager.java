@@ -26,10 +26,10 @@ public class FollowManager {
 		}
 	}
 	
-	public static int isFollower(FollowVo f) {
+	public static int isFollower(HashMap map) {
 		int re = 0;
 		SqlSession s = factory.openSession();
-		re = s.selectOne("follow.isFollower",f);
+		re = s.selectOne("follow.isFollower",map);
 		return re;
 	}
 	
@@ -58,9 +58,9 @@ public class FollowManager {
 	}
 	
 	// follower_ID가 user_ID를 언팔로우하는 경우 
-	public static int deleteFollower(FollowVo f){
+	public static int deleteFollower(HashMap map){
 		SqlSession s = factory.openSession(true); 
-		int re = s.delete("follow.delete", f);
+		int re = s.delete("follow.delete", map);
 		s.close();
 		return re;
 	}
