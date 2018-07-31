@@ -43,8 +43,8 @@
 <script type="text/javascript">
 	$(function() {
 		var arr;
-		<% String sesseing_id=(String)session.getAttribute("user_ID"); %>
-		<% String get_id=(String)request.getParameter("user_ID"); %>
+		<% String sesseing_id=(String)session.getAttribute("user_ID"); %> //로그인한 사용자
+		<% String get_id=(String)request.getParameter("user_ID"); %> //사용자
 		
 		var myID=$("#btnUserProfile").html()
 		var guestID=$("#jumboUserID").html()
@@ -60,7 +60,7 @@
 				success:function(data){
 			var list = eval("("+data+")") //게시물 리스트
 			
-			$.each(list, function(idx, p) {
+			$.each(list, function(idx, p) { //게시글 생성
 				
 				var div_col_md_4 = $("<div></div>").addClass("col-md-4");
 				var div_card_mb4_box = $("<div></div>").addClass("card mb-4 box-shadow");
@@ -80,7 +80,6 @@
 					href: "#",
 					no: p.post_no
 				})
-					/* href: "../detailPost.do?post_no="+p.post_no */
 				
 				var img = $("<img/>").addClass("card-img-top").attr({
 					src :"../resources/image/"+p.post_fname,
@@ -97,7 +96,7 @@
 				
 				if(myID!=guestID){$(btn_group).hide()}
 				
-				$(btn_delete).click(function() {
+				$(btn_delete).click(function() { //게시글 삭제
 					var no=$(this).attr("no");
 					$.ajax({url:"../deletePost",
 						type:"post",
@@ -115,10 +114,10 @@
 						}})
 				})
 				
-				$(btn_edit).click(function() {
+				$(btn_edit).click(function() { //게시글 수정
 				 	var no=$(this).attr("no");
 					
-					$.ajax({url:"../detailPost?post_no="+no,success:function(data){ //게시글 상세
+					$.ajax({url:"../detailPost?post_no="+no,success:function(data){
 						detail=eval("("+data+")")
 						//alert(detail.post_no)
 						$('#post_content').html(detail.post_content);
@@ -127,10 +126,10 @@
 					}})
 				})
 				
-				$(detail_a).click(function() {
+				$(detail_a).click(function() { //게시글 상세
 					var no=$(this).attr("no");
 					$("#col_comment_content").empty();
-					$.ajax({url:"../detailPost?post_no="+no,success:function(data){ //게시글 상세
+					$.ajax({url:"../detailPost?post_no="+no,success:function(data){ 
 						detail=eval("("+data+")")
 						//alert(data)
 						$('#post_no').val(detail.post_no);
@@ -146,14 +145,16 @@
 									var h6 = $("<h6></h6>").html(p.user_ID+" ");
 									var small = $("<small></small>").html(p.comment_content);
 									var btn_DeleteComment=$("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>")
+			
 									$(small).append(btn_DeleteComment)
+									if(myID!=p.user_ID){$(btn_DeleteComment).hide()}
 									$(h6).append(small);
 									$(h6).attr({
 										id:"h6_"+i
 									})
 									$(btn_DeleteComment).attr("idx", i)
 									
-									$(btn_DeleteComment).click(function() {
+									$(btn_DeleteComment).click(function() { //댓글 삭제
 										var cno=p.comment_no;
 										var pno=p.post_no;
 										var h=$(this).attr("idx")
@@ -174,6 +175,7 @@
 												}
 											}})
 									})
+									if(myID!=guestID){$(btn_DeleteComment).hide()}
 									$("#col_comment_content").append(h6);
 									
 				
