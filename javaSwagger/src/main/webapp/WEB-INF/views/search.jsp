@@ -14,14 +14,20 @@
 <script type="text/javascript">
 	$(function() {
 		
-		<%String user_ID=request.getParameter("user_ID");%>
-		var user_ID="${user_ID}"
+		<%String user_ID=request.getParameter("user_ID");%>//url 아이디
+		var user_SessionID="${user_ID}"//세션 아이디
+		
+		$("#btnUserProfile").click(function() {
+				location.href="profile/userProfile?user_ID=${user_ID}"
+		})
+		
 		//alert(getp)
 		$.ajax({ //검색 
 				url:"searchList?user_ID=<%=user_ID%>",
 				success:function(data){
 					list=eval("("+data+")")
 					$.each(list, function(idx, s) {
+						
 						
 						var tr = $("<tr></tr>")
 						var th = $("<th></th>").html(idx)
@@ -39,57 +45,55 @@
 						$.ajax({ // 팔로우 중복 검사
 							url:"isFollower.do",
 							type:"post",
-							data:{"user_ID":s.user_ID,"follower_ID":user_ID},
+							data:{"user_ID":s.user_ID,"follower_ID":user_SessionID},
 							success:function(data){
-								
+								var state;
 								var arr = eval("("+data+")");
-								if(arr == 0){//팔로우 기록이 없을떄
+								//alert(arr)
+								
+								if(arr==0){
 									$(btn_follow).html("follow").addClass("btn-outline-primary")
-									$(btn_follow).click(function() {
+									state=0;
+								}
+								else
+								{
+									$(btn_follow).html("following").addClass("btn-primary")
+									state=1;
+								}
+								
+								$(btn_follow).click(function() {
+									if(state==0)
+									{	
 										$.ajax({url:"follow.do",
 											type:"post",
-											data:{"user_ID":s.user_ID,"follower_ID":user_ID},
+											data:{"user_ID":s.user_ID,"follower_ID":user_SessionID},
 											success:function(data){
 												//alert(data)
 												$(btn_follow).removeClass("btn-outline-primary").addClass("btn-primary").html("following");
-												if(data>=1)
-												{
-													//event.stopImmediatePropagation();//이벤트가 상위로 전파되지 않도록 중단?
-												}
 											}})
-									})
-								}//if end
-								else{//팔로우 기록이 있을때
-									$(btn_follow).addClass("btn-primary").html("following")
-									$(btn_follow).click(function() {
+										state=1
+										return;
+									}//if end
+									else if(state==1)
+									{
 										$.ajax({url:"unFollow.do",
 											type:"post",
-											data:{"user_ID":s.user_ID,"follower_ID":user_ID},
+											data:{"user_ID":s.user_ID,"follower_ID":user_SessionID},
 											success:function(data){
 												$(btn_follow).removeClass("btn-primary").addClass("btn-outline-primary").html("follow");
 													
 											}})
-									})
-								}//else end
+										state=0
+										return;
+									}
+								})
+
 							}//isFollwer success end
 						})//isFollower end
 						
 						$(td_userID).append(a_userID)
 						$(td_btn).append(btn_follow)
-						if(s.user_ID!=user_ID)
-						{
-							$(tr).append(th,td_userID,td_email,td_btn)
-						}
-						/* $(btn_follow).click(function() {
-							$.ajax({url:"follow.do",
-								type:"post",
-								data:{"user_ID":s.user_ID,"follower_ID":user_ID},
-								success:function(data){
-									$(btn_follow).removeClass("btn-outline-primary").addClass("btn-primary").html("following");
-										
-								}})
-						}) */
-						
+						if(s.user_ID!=user_SessionID){$(tr).append(th,td_userID,td_email,td_btn)}	//
 						$("#listTbody").append(tr)
 						
 					})
