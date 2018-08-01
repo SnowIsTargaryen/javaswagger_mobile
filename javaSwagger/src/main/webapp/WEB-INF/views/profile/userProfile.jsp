@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
-	.modal-dialog{
-		max-width: 60% !important; 
+	#modal-detail{
+		max-width: 50% !important; 
 		
 	}
 	#content{
@@ -53,6 +53,44 @@
 		
 		$("#btnUserProfile").click(function() {
 			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>"
+		})
+		
+		
+		$.ajax({ // 팔로잉 목록 받아옴
+			url:"../following.do",
+			type:"post",
+			data:{"follower_ID":guestID},
+			success:function(data)
+			{
+				var f_List = eval("("+data+")")
+				$.each(f_List, function(i, f) {
+					var tr = $("<tr></tr>")
+					var td_ID = $("<td class='col-sm-8'></td>").html(f.user_ID)
+					var td_btn=$("<td class='col-sm-4'></td>")
+					var btn_f=$("<button class='btn btn-outline-primary'></button>").html("팔로잉")
+					$(td_btn).append(btn_f)
+					$(tr).append(td_ID,td_btn)
+					$("#followingTbody").append(tr)
+				})
+			}
+		})
+		$.ajax({ // 팔로워 목록 받아옴
+			url:"../follower.do",
+			type:"post",
+			data:{"user_ID":guestID},
+			success:function(data)
+			{
+				var f_List = eval("("+data+")")
+				$.each(f_List, function(i, f) {
+					var tr = $("<tr></tr>")
+					var td_ID = $("<td class='col-sm-8'></td>").html(f.follower_ID)
+					var td_btn=$("<td class='col-sm-4'></td>")
+					var btn_f=$("<button class='btn btn-outline-primary'></button>").html("팔로우")
+					$(td_btn).append(btn_f)
+					$(tr).append(td_ID,td_btn)
+					$("#followerTbody").append(tr)
+				})
+			}
 		})
 		
 		$.ajax({url:"../board/listPost?user_ID=<%=get_id%>",
@@ -249,7 +287,7 @@
 						<a data-toggle="modal" data-target="#insertPost" id="write" ><img src="../resources/icon/contract.png"></a>
 					</div>
 					<div class="col-sm-12">
-						<span>팔로워</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>팔로잉</span>
+						<span><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>&nbsp;&nbsp;&nbsp;&nbsp;<span><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>
 					</div>
 					<div class="col-sm-12">
 						<p>${profile.user_Email }</p>
@@ -323,7 +361,7 @@
 	
 	<!-- detail modal -->
 	<div class="modal modal-center fade no-gutters" id="detail_Dialog" role="dialog"  tabindex="-1">
-		<div class="modal-dialog modal-dialog-center"  role="document">
+		<div class="modal-dialog modal-dialog-center" id="modal-detail" role="document">
 			<div class="modal-content h-100 d-flex no-gutters" id="content">
 				<div class="container-fluid">
 					<div class="row d-flex no-gutters">
@@ -360,6 +398,48 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	
+	<!--following  -->
+	<div class="modal fade" id="followingList_Modal" tabindex="-1" role="dialog"  aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">팔로잉</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+		      <table class="table table-hover">
+				  
+				  <tbody id="followingTbody">
+				  </tbody>
+			</table>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!--follower  -->
+	<div class="modal fade" id="followerList_Modal" tabindex="-1" role="dialog"  aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">팔로잉</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+		      <table class="table table-hover">
+				  
+				  <tbody id="followerTbody">
+				  </tbody>
+			</table>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	
 	
