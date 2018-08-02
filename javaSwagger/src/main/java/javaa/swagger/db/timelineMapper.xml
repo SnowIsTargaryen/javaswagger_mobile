@@ -9,4 +9,8 @@
 	<!-- <select id="getTimeline" resultType="postVo">
 		select * from post, (select post_no, count(*) like_cnts from likes group by post_no order by count(*) desc) P where post.post_no = p.post_no order by like_cnts desc
 	</select> -->
+	
+	<!-- <select id="getTimeline" resultType="postVo">
+		select TM.post_no from (select distinct post.post_no, like_cnt from (select post_no, count(*) like_cnt from likes group by post_no) P, post, follow f where P.post_no = post.post_no and post.user_id = f.user_id and f.follower_id = #{follower_ID} order by like_cnt desc) TM
+	</select> -->
 </mapper>

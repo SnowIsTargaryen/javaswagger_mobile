@@ -16,6 +16,9 @@ public class CommentDao {
 	   public int deleteComment(HashMap map){
 	      return CommentManager.deleteComment(map);
 	   }
+	   public int deleteAllComment(HashMap map){
+		   return CommentManager.deleteAllComment(map);
+	   }
 	   
 	   public int updateComment(HashMap map){
 	      return CommentManager.updateComment(map);

@@ -11,8 +11,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import javaa.swagger.vo.FollowVo;
+import javaa.swagger.vo.LikeVo;
 
-public class FollowManager {
+public class LikeManager {
 
 	private static SqlSessionFactory factory;
 	static {
@@ -26,41 +27,44 @@ public class FollowManager {
 		}
 	}
 	
-	public static int isFollower(HashMap map) {
-		int re = 0;
-		SqlSession s = factory.openSession();
-		re = s.selectOne("follow.isFollower",map);
+	public static List<LikeVo> whoLike(HashMap map){
+		SqlSession s = factory.openSession(); 
+		List<LikeVo> list = s.selectList("like.whoLike", map); 
+		s.close();
+		return list;
+	}
+	
+	public static int cntLike(HashMap map){
+		SqlSession s = factory.openSession(); 
+		int re = s.selectOne("like.cntLike", map);
+		s.close();
 		return re;
 	}
 	
-	// follower_IDÀÇ ÆÈ·ÎÀ® ¸ñ·Ï »Ì±â
-	public static List<FollowVo> following(String follower_ID){
-		SqlSession s = factory.openSession(); 
-		List<FollowVo> list = s.selectList("follow.following", follower_ID); 
-		s.close();
-		return list;
-	}
-	
-	// user_IDÀÇ ÆÈ·Î¿ö ¸ñ·Ï »Ì±â
-	public static List<FollowVo> follower(String user_ID){
-		SqlSession s = factory.openSession(); 
-		List<FollowVo> list = s.selectList("follow.follower", user_ID); 
-		s.close();
-		return list;
-	}
-	
-	// follower_ID°¡ user_ID¸¦ ÆÈ·Î¿ìÇÏ´Â °æ¿ì 
-	public static int insertFollower(HashMap map) {
+	public static int doLike(HashMap map) {
 		SqlSession s = factory.openSession(true);
-		int re = s.insert("follow.insert", map);
+		int re = s.insert("like.doLike", map);
 		s.close();
 		return re;
 	}
 	
-	// follower_ID°¡ user_ID¸¦ ¾ðÆÈ·Î¿ìÇÏ´Â °æ¿ì 
-	public static int deleteFollower(HashMap map){
+	public static int cancelLike(HashMap map){
 		SqlSession s = factory.openSession(true); 
-		int re = s.delete("follow.delete", map);
+		int re = s.delete("like.cancelLike", map);
+		s.close();
+		return re;
+	}
+	
+	public static int getPno(String comment_NO) {
+		SqlSession s = factory.openSession(true); 
+		int re = s.selectOne("like.getPno", comment_NO);
+		s.close();
+		return re;
+	}
+
+	public static int isLike(HashMap map) {
+		SqlSession s = factory.openSession(true); 
+		int re = s.selectOne("like.isLike", map);
 		s.close();
 		return re;
 	}

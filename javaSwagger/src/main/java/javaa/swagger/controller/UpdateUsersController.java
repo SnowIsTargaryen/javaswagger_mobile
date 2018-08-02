@@ -45,7 +45,7 @@ public class UpdateUsersController {
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView edit(UsersVo u) 
 	{
-		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile");
+		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+u.getUser_ID());
 		
 		int re =dao.editProfile(u);
 		if(re<1)

@@ -48,6 +48,13 @@ public class CommentManager {
 		 s.close();
 		 return re;
 	 }
+	 public static int deleteAllComment(HashMap map) {
+		 int re = 0;
+		 SqlSession s = factory.openSession(true);
+		 re = s.delete("comment.deleteAllComment", map);
+		 s.close();
+		 return re;
+	 }
 	 
 	 public static int updateComment(HashMap map) {
 		 int re = 0;

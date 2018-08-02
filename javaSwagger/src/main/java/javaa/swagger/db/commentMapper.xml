@@ -10,6 +10,9 @@
 	<delete id="deleteComment">
 		delete comments where comment_no=#{comment_no}
 	</delete>
+	<delete id="deleteAllComment">
+		delete comments where post_no=#{post_no}
+	</delete>
 
 	<update id="updateComment">
 		update comments set comment_content=#{comment_content} where post_no=#{post_no} and user_ID={#user_ID} and comment_no=#{comment_no}

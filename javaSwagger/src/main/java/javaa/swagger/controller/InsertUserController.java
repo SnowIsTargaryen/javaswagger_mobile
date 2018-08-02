@@ -1,8 +1,10 @@
 package javaa.swagger.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +23,11 @@ public class InsertUserController {
 	@Autowired
 	private UsersDao dao;
 	
-	
-	
+
 	public void setDao(UsersDao dao) {
 		this.dao = dao;
 	}
-
+	
 	//吝汗贸府-------------------------------------
 		@RequestMapping("account/idCheck.do")
 	    @ResponseBody
@@ -47,8 +48,7 @@ public class InsertUserController {
 	        	 
 	        return str;
 	    }//吝汗贸府-------------------------------------
-	
-	
+		
 	@RequestMapping(value="account/create",method=RequestMethod.GET)
 	public void form()
 	{
@@ -69,7 +69,7 @@ public class InsertUserController {
 
 		
 		int re = dao.insertUser(u);
-		System.out.println(re);
+		//System.out.println(re);
 		
 		if(re<0)
 		{

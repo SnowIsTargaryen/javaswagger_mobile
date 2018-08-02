@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
-	.modal-dialog{
-		max-width: 60% !important; 
+	#modal-detail{
+		max-width: 50% !important; 
 		
 	}
 	#content{
@@ -43,11 +43,54 @@
 <script type="text/javascript">
 	$(function() {
 		var arr;
-		<% String sesseing_id=(String)session.getAttribute("user_ID"); %>
-		<% String get_id=(String)request.getParameter("user_ID"); %>
+		<% String sesseing_id=(String)session.getAttribute("user_ID"); %> //로그인한 사용자
+		<% String get_id=(String)request.getParameter("user_ID"); %> //사용자
+		
+		var myID=$("#btnUserProfile").html()
+		var guestID=$("#jumboUserID").html()
+		
+		if(myID!=guestID){$("#write").hide();}
 		
 		$("#btnUserProfile").click(function() {
 			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>"
+		})
+		
+		
+		$.ajax({ // 팔로잉 목록 받아옴
+			url:"../following.do",
+			type:"post",
+			data:{"follower_ID":guestID},
+			success:function(data)
+			{
+				var f_List = eval("("+data+")")
+				$.each(f_List, function(i, f) {
+					var tr = $("<tr></tr>")
+					var td_ID = $("<td class='col-sm-8'></td>").html(f.user_ID)
+					var td_btn=$("<td class='col-sm-4'></td>")
+					var btn_f=$("<button class='btn btn-outline-primary'></button>").html("팔로잉")
+					$(td_btn).append(btn_f)
+					$(tr).append(td_ID,td_btn)
+					$("#followingTbody").append(tr)
+				})
+			}
+		})
+		$.ajax({ // 팔로워 목록 받아옴
+			url:"../follower.do",
+			type:"post",
+			data:{"user_ID":guestID},
+			success:function(data)
+			{
+				var f_List = eval("("+data+")")
+				$.each(f_List, function(i, f) {
+					var tr = $("<tr></tr>")
+					var td_ID = $("<td class='col-sm-8'></td>").html(f.follower_ID)
+					var td_btn=$("<td class='col-sm-4'></td>")
+					var btn_f=$("<button class='btn btn-outline-primary'></button>").html("팔로우")
+					$(td_btn).append(btn_f)
+					$(tr).append(td_ID,td_btn)
+					$("#followerTbody").append(tr)
+				})
+			}
 		})
 		
 		$.ajax({url:"../board/listPost?user_ID=<%=get_id%>",
@@ -55,7 +98,7 @@
 				success:function(data){
 			var list = eval("("+data+")") //게시물 리스트
 			
-			$.each(list, function(idx, p) {
+			$.each(list, function(idx, p) { //게시글 생성
 				
 				var div_col_md_4 = $("<div></div>").addClass("col-md-4");
 				var div_card_mb4_box = $("<div></div>").addClass("card mb-4 box-shadow");
@@ -63,22 +106,18 @@
 				var p_card_text =$("<p></p>").addClass("card-text").html(p.post_content);
 				var d_flex = $("<div></div>").addClass("d-flex justify-content-between align-items-center")
 				var btn_group = $("<div></div>").addClass("btn-group")
-				var btn_view  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("View")
+				var btn_delete  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("Delete")
 				var btn_edit =  $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary").html("Edit")
 				var pno_hidden = $("<p></p>").html(p.post_no)
 				var small = $("<small></small>").addClass("text-muted").html(p.post_time)
 				
-				$(btn_edit).attr({
-					no:p.post_no
-				})
-				
-				
+				$(btn_edit).attr({no:p.post_no})
+				$(btn_delete).attr({no:p.post_no})
 				
 				var detail_a=$("<a></a>").attr({
 					href: "#",
 					no: p.post_no
 				})
-					/* href: "../detailPost.do?post_no="+p.post_no */
 				
 				var img = $("<img/>").addClass("card-img-top").attr({
 					src :"../resources/image/"+p.post_fname,
@@ -86,20 +125,37 @@
 				})
 				
 				$(detail_a).append(img)
-				
-				$(btn_group).append(btn_view,btn_edit)
+				$(btn_group).append(btn_delete,btn_edit)
 				$(d_flex).append(btn_group,small)
 				$(div_card_body).append(p_card_text,d_flex)
 				$(div_card_mb4_box).append(detail_a,div_card_body)
 				
 				$(div_col_md_4).append(div_card_mb4_box)
 				
+				if(myID!=guestID){$(btn_group).hide()}
 				
+				$(btn_delete).click(function() { //게시글 삭제
+					var no=$(this).attr("no");
+					$.ajax({url:"../deletePost",
+						type:"post",
+						data:{"post_no":no,"user_ID":myID},
+						success:function(data){
+							if(data>=1)
+							{
+								 alert("삭제되었습니다.")
+								 $(div_col_md_4).empty()
+							}
+							else
+							{
+								alert("삭제에 실패했습니다")
+							}
+						}})
+				})
 				
-				$(btn_edit).click(function() {
-					no=$(this).attr("no");
+				$(btn_edit).click(function() { //게시글 수정
+				 	var no=$(this).attr("no");
 					
-					$.ajax({url:"../detailPost?post_no="+no,success:function(data){ //게시글 상세
+					$.ajax({url:"../detailPost?post_no="+no,success:function(data){
 						detail=eval("("+data+")")
 						//alert(detail.post_no)
 						$('#post_content').html(detail.post_content);
@@ -108,10 +164,10 @@
 					}})
 				})
 				
-				$(detail_a).click(function() {
-					no=$(this).attr("no");
+				$(detail_a).click(function() { //게시글 상세
+					var no=$(this).attr("no");
 					$("#col_comment_content").empty();
-					$.ajax({url:"../detailPost?post_no="+no,success:function(data){ //게시글 상세
+					$.ajax({url:"../detailPost?post_no="+no,success:function(data){ 
 						detail=eval("("+data+")")
 						//alert(data)
 						$('#post_no').val(detail.post_no);
@@ -126,8 +182,40 @@
 								$.each(arr, function(i,p){
 									var h6 = $("<h6></h6>").html(p.user_ID+" ");
 									var small = $("<small></small>").html(p.comment_content);
+									var btn_DeleteComment=$("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>")
+			
+									$(small).append(btn_DeleteComment)
+									if(myID!=p.user_ID){$(btn_DeleteComment).hide()}
 									$(h6).append(small);
+									$(h6).attr({
+										id:"h6_"+i
+									})
+									$(btn_DeleteComment).attr("idx", i)
+									
+									$(btn_DeleteComment).click(function() { //댓글 삭제
+										var cno=p.comment_no;
+										var pno=p.post_no;
+										var h=$(this).attr("idx")
+										
+										//alert(h)
+										$.ajax({url:"../deleteComment",
+											type:"post",
+											data:{"comment_no":cno,"post_no":pno},
+											success:function(data){
+												if(data>=1)
+												{
+													 alert("삭제되었습니다.")
+													 $("#h6_"+h).remove()
+												}
+												else
+												{
+													alert("삭제에 실패했습니다")
+												}
+											}})
+									})
+									//if(myID!=guestID){$(btn_DeleteComment).hide()}
 									$("#col_comment_content").append(h6);
+									
 				
 								}) 
 							}})
@@ -135,21 +223,11 @@
 					}})
 					$('#detail_Dialog').modal('show')
 				})
-				
 				$("#row1").append(div_col_md_4)
-	
 			});
-			
 		}}); //게시물 생성 ajax
+
 		
-		
-		var myID=$("#btnUserProfile").html()
-		var guestID=$("#jumboUserID").html()
-		
-		if(myID!=guestID)
-		{
-			$("#write").hide();	
-		}
 		
 	});
 	
@@ -209,7 +287,7 @@
 						<a data-toggle="modal" data-target="#insertPost" id="write" ><img src="../resources/icon/contract.png"></a>
 					</div>
 					<div class="col-sm-12">
-						<span>팔로워</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>팔로잉</span>
+						<span><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>&nbsp;&nbsp;&nbsp;&nbsp;<span><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>
 					</div>
 					<div class="col-sm-12">
 						<p>${profile.user_Email }</p>
@@ -282,15 +360,15 @@
 	</div> 
 	
 	<!-- detail modal -->
-	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
-		<div class="modal-dialog modal-dialog-center"  role="document">
-			<div class="modal-content h-100 d-flex" id="content">
+	<div class="modal modal-center fade no-gutters" id="detail_Dialog" role="dialog"  tabindex="-1">
+		<div class="modal-dialog modal-dialog-center" id="modal-detail" role="document">
+			<div class="modal-content h-100 d-flex no-gutters" id="content">
 				<div class="container-fluid">
 					<div class="row d-flex no-gutters">
-						<div class="col-md-8 box-shadow h-100" >
+						<div class="col-md-8 box-shadow h-100 w-100" >
 						<img  id="detail_Img" class="img-fluid d-inline-block">
 						</div>
-						<div class="col-md-4">	
+						<div class="col-md-4 fluid h-100 w-100 no-gutters">	
 							<div class="modal-header">
 								<h3 id="h3_detail_userID"></h3>
 							</div>
@@ -322,11 +400,53 @@
 		</div>
 	</div>
 	
+	<!--following  -->
+	<div class="modal fade" id="followingList_Modal" tabindex="-1" role="dialog"  aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">팔로잉</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+		      <table class="table table-hover">
+				  
+				  <tbody id="followingTbody">
+				  </tbody>
+			</table>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!--follower  -->
+	<div class="modal fade" id="followerList_Modal" tabindex="-1" role="dialog"  aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">팔로워</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+		      <table class="table table-hover">
+				  
+				  <tbody id="followerTbody">
+				  </tbody>
+			</table>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 	
 	<!-- 썸네일 게시판  -->
 	<div class="container">
 		<div class="row" id="row1">
-			<div class="col-md-4">
+			<!-- <div class="col-md-4">
 				<div class="card mb-4 box-shadow">
 					<img class="card-img-top" src="../resources/image/new zealand.jpg" alt="Card image cap">
 	                <div class="card-body">
@@ -340,7 +460,7 @@
 	                    </div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 	     </div>
      </div>
 	
