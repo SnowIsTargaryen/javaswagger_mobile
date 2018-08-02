@@ -46,14 +46,63 @@
 		<% String sesseing_id=(String)session.getAttribute("user_ID"); %> //로그인한 사용자
 		<% String get_id=(String)request.getParameter("user_ID"); %> //사용자
 		
-		var myID=$("#btnUserProfile").html()
+		var user_SessionID=$("#btnUserProfile").html()
 		var guestID=$("#jumboUserID").html()
 		
-		if(myID!=guestID){$("#write").hide();}
+		if(user_SessionID!=guestID){$("#write").hide();}
 		
 		$("#btnUserProfile").click(function() {
 			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>"
 		})
+		if(user_SessionID==guestID){$("#btn_Follow").hide()}
+		$.ajax({ // 팔로우 중복 검사
+				url:"../isFollower.do",
+				type:"post",
+				data:{"user_ID":guestID,"follower_ID":user_SessionID},
+				success:function(data){
+					var state;
+					var arr = eval("("+data+")");
+					//alert(arr)
+								
+					if(arr==0){
+						$("#btn_Follow").html("follow").addClass("btn-outline-primary")
+						state=0;
+					}
+					else
+					{
+						$("#btn_Follow").html("following").addClass("btn-primary")
+						state=1;
+					}
+								
+					$("#btn_Follow").on("click",function() {
+							if(state==0)
+							{	
+								$.ajax({url:"../follow.do",
+								type:"post",
+								data:{"user_ID":guestID,"follower_ID":user_SessionID},
+								success:function(data){
+								//alert(data)
+								$("#btn_Follow").removeClass("btn-outline-primary").addClass("btn-primary").html("following");
+								}})
+									state=1
+									return;
+								}//if end
+							else if(state==1)
+							{
+								$.ajax({url:"../unFollow.do",
+								type:"post",
+								data:{"user_ID":guestID,"follower_ID":user_SessionID},
+								success:function(data){
+								$("#btn_Follow").removeClass("btn-primary").addClass("btn-outline-primary").html("follow");
+													
+							}})
+							state=0
+							return;
+						}
+					})
+	
+				}//isFollwer success end
+			})//isFollower end */ 
 		
 		
 		$.ajax({ // 팔로잉 목록 받아옴
@@ -132,13 +181,13 @@
 				
 				$(div_col_md_4).append(div_card_mb4_box)
 				
-				if(myID!=guestID){$(btn_group).hide()}
+				if(user_SessionID!=guestID){$(btn_group).hide()}
 				
 				$(btn_delete).click(function() { //게시글 삭제
 					var no=$(this).attr("no");
 					$.ajax({url:"../deletePost",
 						type:"post",
-						data:{"post_no":no,"user_ID":myID},
+						data:{"post_no":no,"user_ID":user_SessionID},
 						success:function(data){
 							if(data>=1)
 							{
@@ -185,7 +234,7 @@
 									var btn_DeleteComment=$("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>")
 			
 									$(small).append(btn_DeleteComment)
-									if(myID!=p.user_ID){$(btn_DeleteComment).hide()}
+									if(user_SessionID!=p.user_ID){$(btn_DeleteComment).hide()}
 									$(h6).append(small);
 									$(h6).attr({
 										id:"h6_"+i
@@ -213,7 +262,7 @@
 												}
 											}})
 									})
-									//if(myID!=guestID){$(btn_DeleteComment).hide()}
+									//if(user_SessionID!=guestID){$(btn_DeleteComment).hide()}
 									$("#col_comment_content").append(h6);
 									
 				
@@ -260,8 +309,8 @@
 			<div class="col-4 d-flex justify-content-end align-items-center">
 	            <div class="btn-group">
 	            
-			    <button type="button" class="btn btn-default" id="btnUserProfile">${user_ID }</button>
-			    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			    <button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			    <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			    </button>
 			    <div class="dropdown-menu">
 			      <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
@@ -274,7 +323,7 @@
 	
 <!--사용자 프로필  -->
 	<div class="container">
-		<div class="jumbotron">
+		<div class="jumbotron" style="background-color: #FFFFFF" >
 			<div class="row" id="header">
 				<div class="col-sm-2">
 					<img src="../resources/icon/user2.png">
@@ -287,7 +336,9 @@
 						<a data-toggle="modal" data-target="#insertPost" id="write" ><img src="../resources/icon/contract.png"></a>
 					</div>
 					<div class="col-sm-12">
-						<span><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>&nbsp;&nbsp;&nbsp;&nbsp;<span><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>
+						<span><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<span><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<span><button id="btn_Follow" class="btn ">Follow</button></span>
 					</div>
 					<div class="col-sm-12">
 						<p>${profile.user_Email }</p>
@@ -303,7 +354,7 @@
 	    <div class="modal-content"> 
 	    <form class="form"  action="../insertPost.do" method="post" enctype="multipart/form-data">
 	      <div class="modal-header">
-	        <h5 class="modal-title">새 글 쓰기</h5>
+	        <h5 class="modal-title">메일 인증</h5>
 	      </div>
 	      <div class="modal-body">
 	        <div class="form-group">
@@ -311,9 +362,6 @@
 	        </div>
 	        <div class="form-group">
 	        	<textarea class="form-control" rows="5" name="post_content" placeholder="내용을 입력하세요"></textarea>
-	        </div>
-	        <div class="form-group">
-	        	<input type="file" class="form-contorl-file" name="uploadFile">
 	        </div>
 	      </div>
 	       <div class="modal-footer">

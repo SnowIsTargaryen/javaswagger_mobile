@@ -27,6 +27,14 @@
   	SELECT COUNT(*) FROM users WHERE user_ID = #{user_ID} 
   </select>
   
+  <select id="phoneCheck" resultType="userVo"> 
+  	SELECT user_Phone FROM users WHERE user_Phone = #{user_Phone} 
+  </select>
+  
+   <select id="emailCheck" resultType="java.lang.Integer"> 
+  	SELECT count(*) FROM users WHERE user_email = #{user_email} 
+  </select>
+  
   <update id="edit">
 	update users set  
 	<if test="user_Password != null and user_Password !=''">

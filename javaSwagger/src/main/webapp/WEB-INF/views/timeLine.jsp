@@ -12,12 +12,15 @@
 		  	width: 300px;
 	}
 	 
-	.item
-	{
-		margin: 0 auto;
-	}
 	.item img{
 		margin: 3px;
+	}
+	
+	.item {
+		margin: 0 auto;
+	   display: grid;
+	   grid-gap: 10px;
+	   grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
 	}
 	
 		.modal-dialog{
@@ -151,8 +154,8 @@
 			<div class="col-4 d-flex justify-content-end align-items-center">
 	            <div class="btn-group">
 	            
-			    <button type="button" class="btn btn-default" id="btnUserProfile">${user_ID }</button>
-			    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			    <button type="button" class="btn btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			    <button type="button" class="btn btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			    </button>
 			    <div class="dropdown-menu">
 			      <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>

@@ -31,13 +31,13 @@
 		})
 		
 		var user_List=[];
-		user_List=$("#a_userID").html()
+		//user_List=$("#a_userID").html()
 		//var btn_follow;
 		console.log(user_List)
 		
 		
 		
-		/* $.ajax({ // 팔로우 중복 검사
+		/*  $.ajax({ // 팔로우 중복 검사
 				url:"isFollower.do",
 				type:"post",
 				data:{"user_ID":s.user_ID,"follower_ID":user_SessionID},
@@ -84,9 +84,9 @@
 					})
 	
 				}//isFollwer success end
-			})//isFollower end */
+			})//isFollower end */ 
 			
-		<%-- //alert(getp)
+	
 		$.ajax({ //검색 
 				url:"searchList?user_ID=<%=user_ID%>",
 				success:function(data){
@@ -168,7 +168,7 @@
 					})
 				}})
 				
-				 --%>
+				
 	
 		})
 			
@@ -201,9 +201,9 @@
 			<div class="col-4 d-flex justify-content-end align-items-center">
 				<div class="btn-group">
 
-					<button type="button" class="btn btn-default" id="btnUserProfile">${user_ID }</button>
+					<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
 					<button type="button"
-						class="btn btn-default btn-sm dropdown-toggle"
+						class="btn btn btn-outline-primary btn-sm dropdown-toggle"
 						data-toggle="dropdown" aria-expanded="false"></button>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="profile/editProfile">프로필 설정</a> <a
@@ -226,14 +226,14 @@
 				</tr>
 			</thead>
 			<tbody id="listTbody">
-				<c:forEach var="v" items="${list }" varStatus="status">
+				<%-- <c:forEach var="v" items="${list }" varStatus="status">
 					<tr>
 						<th scope="row">${status.count }</th>
 						<td><a id="a_userID" href="profile/userProfile?user_ID=${v.user_ID }">${v.user_ID }</a></td>
 						<td>${v.user_Email }</td>
 						<td><button type="button" class="btn btn-outline-primary">Follow</button></td>
 					</tr>
-				</c:forEach>
+				</c:forEach> --%>
 			</tbody>
 		</table>
 	</div>
