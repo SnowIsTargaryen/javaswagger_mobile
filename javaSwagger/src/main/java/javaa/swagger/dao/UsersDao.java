@@ -50,4 +50,13 @@ public class UsersDao {
 		// TODO Auto-generated method stub
 		return UsersManager.search(map);
 	}
+
+	public UsersVo phoneCheck(String user_phone) {
+		// TODO Auto-generated method stub
+		return UsersManager.phoneCheck(user_phone);
+	}
+	public int emailCheck(String user_email) {
+		// TODO Auto-generated method stub
+		return UsersManager.emailCheck(user_email);
+	}
 }
