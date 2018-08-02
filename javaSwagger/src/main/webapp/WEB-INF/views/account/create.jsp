@@ -198,7 +198,7 @@ $("#mailck").click(function(){//메일 인증-----------------------------------
 	
 	$("#btnPrimary").click(function () {
 		inpCode = $("#inputNum").val();
-		alert(conCode + ":" + inpCode)
+		
 		if(conCode == inpCode){
 			$(this).attr("data-dismiss","modal");
 			$("#isMail").val(1)
