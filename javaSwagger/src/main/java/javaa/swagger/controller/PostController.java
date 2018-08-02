@@ -31,16 +31,16 @@ public class PostController {
 
 	@Autowired
 	PostDao dao;
-	/*CommentDao cdao;*/
+	@Autowired
+	CommentDao cdao;
 
 	public void setDao(PostDao dao) {
 		this.dao = dao;
 	}
 	
-	/*public void setCdao(CommentDao cdao) {
+	public void setCdao(CommentDao cdao) {
 		this.cdao = cdao;
-	}*/
-	
+	}
 	
 //	@RequestMapping("listPost.do")
 //	public ModelAndView listPost(@RequestParam(value="user_ID") String user_ID) {
@@ -154,15 +154,14 @@ public class PostController {
 		System.out.println(path+"/"+fname);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			//int re=cdao.deleteAllComment(map);
-			//System.out.println(re);
+			int re=cdao.deleteAllComment(map);
+			System.out.println(re);
 			str=mapper.writeValueAsString(dao.deletePost(map));
 			if(fname!=null && !fname.equals(""))
 			{
 				File file = new File(path+"/"+fname);
 				file.delete();
 			}
-			//int re=dao.deletePost(map);
 		
 		}catch (Exception e) {
 			System.out.println(e.getMessage());

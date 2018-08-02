@@ -15,6 +15,7 @@
 	<a href="timeLine">타임라인</a><br>
 	<a href="board/insertPost.do">insert post</a><br>
 	<a href="updatePost.do?post_no=1">update post</a><br>
+	<a href="chkFollower.do">팔로우?</a>
 	<!-- 포스트 업데이트 /삭제쪽은 아직 파일형식이 아닌 텍스트 형식입니다. -->
 </body>
 </html>
