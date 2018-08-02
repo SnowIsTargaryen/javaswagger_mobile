@@ -354,7 +354,7 @@
 	    <div class="modal-content"> 
 	    <form class="form"  action="../insertPost.do" method="post" enctype="multipart/form-data">
 	      <div class="modal-header">
-	        <h5 class="modal-title">새 글 쓰기</h5>
+	        <h5 class="modal-title">메일 인증</h5>
 	      </div>
 	      <div class="modal-body">
 	        <div class="form-group">
@@ -362,9 +362,6 @@
 	        </div>
 	        <div class="form-group">
 	        	<textarea class="form-control" rows="5" name="post_content" placeholder="내용을 입력하세요"></textarea>
-	        </div>
-	        <div class="form-group">
-	        	<input type="file" class="form-contorl-file" name="uploadFile">
 	        </div>
 	      </div>
 	       <div class="modal-footer">
