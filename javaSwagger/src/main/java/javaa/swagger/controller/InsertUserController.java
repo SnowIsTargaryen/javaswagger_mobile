@@ -27,8 +27,55 @@ public class InsertUserController {
 	public void setDao(UsersDao dao) {
 		this.dao = dao;
 	}
+	//Email중복처리-------------------------------------
+	@RequestMapping("account/emailCheck.do")
+    @ResponseBody
+    public String emailcheck(@RequestBody String user_email) {
+		System.out.println("controller userEmail:"+user_email);
+		String str="";
+		int re = dao.emailCheck(user_email);
+		
+		/*System.out.println("uv:"+uv);
+        ObjectMapper mapper = new ObjectMapper();
+        
+        
+        try {
+			str = mapper.writeValueAsString(uv);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}*/
+        
+       
+        return re+"";
+    }//Email중복처리-------------------------------------
+
 	
-	//중복처리-------------------------------------
+	//Phone중복처리-------------------------------------
+			@RequestMapping("account/phoneCheck.do")
+		    @ResponseBody
+		    public String phonecheck(@RequestBody String user_phone) {
+		        
+				System.out.println("폰넘버:"+user_phone);
+				
+				String str="";
+				UsersVo uv= dao.phoneCheck(user_phone);;
+		        ObjectMapper mapper = new ObjectMapper();
+		        
+		        
+		        try {
+					str = mapper.writeValueAsString(uv);
+				} catch (Exception e) {
+					// TODO: handle exception
+					System.out.println(e.getMessage());
+				}
+		        
+		       
+		        return str;
+		    }//Phone중복처리-------------------------------------
+	
+	
+	//ID중복처리-------------------------------------
 		@RequestMapping("account/idCheck.do")
 	    @ResponseBody
 	    public String idcheck(@RequestBody String user_id) {
@@ -47,7 +94,7 @@ public class InsertUserController {
 	        
 	        	 
 	        return str;
-	    }//중복처리-------------------------------------
+	    }//ID중복처리-------------------------------------
 		
 	@RequestMapping(value="account/create",method=RequestMethod.GET)
 	public void form()

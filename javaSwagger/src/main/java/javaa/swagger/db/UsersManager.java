@@ -111,5 +111,23 @@ public class UsersManager {
 		
 		return list;
 	}
+	public static UsersVo phoneCheck(String user_phone) {
+		// TODO Auto-generated method stub
+		SqlSession session =factory.openSession();
+		UsersVo uv = session.selectOne("users.phoneCheck",user_phone);
+		session.close();
+		
+		return uv;
+		
+	}
+	public static int emailCheck(String user_email) {
+		// TODO Auto-generated method stub
+		SqlSession session =factory.openSession();
+		int re = session.selectOne("users.emailCheck",user_email);
+		session.close();
+		
+		return re;
+		
+	}
 	
 }
