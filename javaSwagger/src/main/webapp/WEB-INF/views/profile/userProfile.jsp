@@ -55,6 +55,22 @@
 			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>"
 		})
 		if(user_SessionID==guestID){$("#btn_Follow").hide()}
+		
+		 var insertComment = function() {
+			var params = $("#insertCommentForm").serialize();
+				$.ajax({
+					url:"../insertComment",
+					data:params,
+					type:'post',
+					async:false,
+					success:function(data)
+					{
+						alert(data)
+					}
+				})
+			}//댓글 ajax */
+				
+		
 		$.ajax({ // 팔로우 중복 검사
 				url:"../isFollower.do",
 				type:"post",
@@ -105,6 +121,7 @@
 			})//isFollower end */ 
 		
 		
+
 		$.ajax({ // 팔로잉 목록 받아옴
 			url:"../following.do",
 			type:"post",
@@ -141,6 +158,8 @@
 				})
 			}
 		})
+		
+		//insertComment();
 		
 		$.ajax({url:"../board/listPost?user_ID=<%=get_id%>",
 				/* async:false, */
@@ -213,10 +232,17 @@
 					}})
 				})
 				
+			/* 	$("#commentSumbit").click(function() { //댓글 달기 ajax
+							insertComment();
+						})	 */
+				
 				$(detail_a).click(function() { //게시글 상세
 					var no=$(this).attr("no");
 					$("#col_comment_content").empty();
+					
+					
 					$.ajax({url:"../detailPost?post_no="+no,success:function(data){ 
+						
 						detail=eval("("+data+")")
 						//alert(data)
 						$('#post_no').val(detail.post_no);
@@ -265,7 +291,7 @@
 									//if(user_SessionID!=guestID){$(btn_DeleteComment).hide()}
 									$("#col_comment_content").append(h6);
 									
-				
+									
 								}) 
 							}})
 						
@@ -276,7 +302,7 @@
 			});
 		}}); //게시물 생성 ajax
 
-		
+			
 		
 	});
 	
@@ -324,26 +350,28 @@
 <!--사용자 프로필  -->
 	<div class="container">
 		<div class="jumbotron" style="background-color: #FFFFFF" >
-			<div class="row" id="header">
-				<div class="col-sm-2">
+			<div class="row d-flex" id="header">
+				<div class="col-sm-9 d-flex">
 					<img src="../resources/icon/user2.png">
+					<div class="row">
+						<div class="col-sm-2 offset-md-2 ">
+							<h2 id="jumboUserID">${profile.user_ID }</h2>
+						</div>
+						<div class="col col-sm-auto">
+							<span><button id="btn_Follow" class="btn ">Follow</button></span>
+						</div>
+						<div class="col col-sm-auto">
+							<a data-toggle="modal" data-target="#insertPost" id="write" ><img src="../resources/icon/contract.png"></a>
+						</div>
+						<div class="col-sm-6 offset-md-2">
+							<span><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+							<span><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+						</div>
+						<div class="col-sm-12 offset-md-2">
+							<p>${profile.user_Email }</p>
+						</div>
+					</div><!--inner row1  -->
 				</div>
-				<div class="row">
-					<div class="col-sm-2">
-						<h2 id="jumboUserID">${profile.user_ID }</h2>
-					</div>
-					<div class="col-sm-10">
-						<a data-toggle="modal" data-target="#insertPost" id="write" ><img src="../resources/icon/contract.png"></a>
-					</div>
-					<div class="col-sm-12">
-						<span><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-						<span><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-						<span><button id="btn_Follow" class="btn ">Follow</button></span>
-					</div>
-					<div class="col-sm-12">
-						<p>${profile.user_Email }</p>
-					</div>
-				</div><!--inner row1  -->
 			</div><!--header row  -->
 		</div> 
 	</div>
@@ -436,11 +464,12 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<form class="form-inline" action="../insertComment.do" method="post">
+								<form class="form-inline" action="../insertComment" method="post" id="insertCommentForm">
+<!-- 								<form class="form-inline" action="../insertComment" method="post" id="insertCommentForm" onsubmit="return false;"> -->
 								  <input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
 								  <input type="hidden" name="post_no" id="post_no">
 								  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="comment_content" name="comment_content" placeholder="댓글 달기">
-								  <button type="submit" class="btn btn-primary">등록</button>
+								  <button type="submit" class="btn btn-primary" id="commentSumbit">등록</button>
 								</form>
 							</div>
 							
