@@ -21,17 +21,17 @@ public class FollowDao {
 		return FollowManager.follower(user_ID);
 	}
 	
-	public int insertFollow(FollowVo f)
+	public int insertFollow(HashMap map)
 	{
-		return FollowManager.insertFollower(f);
+		return FollowManager.insertFollower(map);
 	}
 	
-	public int deleteFollow(FollowVo f)
+	public int deleteFollow(HashMap map)
 	{
-		return FollowManager.deleteFollower(f);
+		return FollowManager.deleteFollower(map);
 	}
 	
-	public int isFollow(FollowVo f) {
-		return FollowManager.isFollower(f);
+	public int isFollow(HashMap map) {
+		return FollowManager.isFollower(map);
 	}
 }

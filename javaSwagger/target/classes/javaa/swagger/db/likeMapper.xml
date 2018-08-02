@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="like">
+	<select id="cntLike" resultType="java.lang.Integer">
+		select count(*) from likes where
+		<choose>
+			<when test="post_NO != null">
+				post_no = #{post_NO}
+			</when>
+			<when test="comment_NO != null">
+				comment_no = #{comment_NO}
+			</when>
+		</choose>
+		and user_id is not null
+	</select>
+	
+	<select id="whoLike" resultType="likeVo">
+		select distinct user_id from likes where
+		<choose>
+			<when test="post_NO != null">
+				post_no = #{post_NO}
+			</when>
+			<when test="comment_NO != null">
+				comment_no = #{comment_NO}
+			</when>
+		</choose>
+		and user_id is not null
+	</select>
+	
+	<insert id="doLike">
+		insert into likes values(
+		#{user_ID},
+		<choose>
+			<when test="post_NO != null">
+				#{post_NO},
+			</when>
+			<when test="post_NO == null">
+				null,
+			</when>
+		</choose>
+		<choose>
+			<when test="comment_NO != null">
+				#{comment_NO})
+			</when>
+			<when test="comment_NO == null">
+				null)
+			</when>
+		</choose>		
+	</insert>
+	
+	<insert id="cancelLike">
+		delete likes where user_id = #{user_ID}
+		<choose>
+			<when test="post_NO != null">
+				and post_no = #{post_NO}
+			</when>
+			<when test="comment_NO != null">
+				and comment_no = #{comment_NO}
+			</when>
+		</choose>
+	</insert>
+	
+	<select id="isLike" resultType="java.lang.Integer">
+		select count(*) from likes where 
+		<choose>
+			<when test="post_NO != null">
+				post_no = #{post_NO} and
+			</when>
+			<when test="comment_NO != null">
+				comment_no = #{comment_NO} and
+			</when>
+		</choose>
+		user_id=#{user_ID}
+	</select>
+	
+	<select id="getPno" resultType="java.lang.Integer">
+		select distinct(c.post_no) from comments c, likes l where l.comment_no = #{comment_NO} and c.comment_no = l.comment_no
+	</select>
+</mapper>
