@@ -71,15 +71,15 @@ public class FollowController {
 	@RequestMapping(value="/follow.do",produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String follow(String user_ID, String follower_ID ){
-		System.out.println(user_ID);
-		System.out.println(follower_ID);
+		//System.out.println(user_ID);
+		//System.out.println(follower_ID);
 		String str ="";
 		HashMap map = new HashMap();
 		map.put("user_ID", user_ID);
 		map.put("follower_ID", follower_ID);
 		
 		int re=dao.isFollow(map);
-		System.out.println("follow "+re);
+		//System.out.println("follow "+re);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -97,15 +97,15 @@ public class FollowController {
 	@RequestMapping(value="/unFollow.do",produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String unFollow(String user_ID, String follower_ID ){
-		System.out.println(user_ID);
-		System.out.println(follower_ID);
+		//System.out.println(user_ID);
+		//System.out.println(follower_ID);
 		String str ="";
 		HashMap map = new HashMap();
 		map.put("user_ID", user_ID);
 		map.put("follower_ID", follower_ID);
 		
 		int re=dao.isFollow(map);
-		System.out.println("unfollow "+re);
+		//System.out.println("unfollow "+re);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		try {
