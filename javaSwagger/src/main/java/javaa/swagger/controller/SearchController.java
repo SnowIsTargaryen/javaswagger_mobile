@@ -27,7 +27,7 @@ public class SearchController {
 	}
 	
 	
-	@RequestMapping("/search")
+	/*@RequestMapping("/search")
 	public ModelAndView serach(String user_ID)
 	{
 		ModelAndView mav = new ModelAndView();
@@ -39,14 +39,14 @@ public class SearchController {
 		
 	
 		return mav;
-	}
-/*	@RequestMapping("/search")
+	}*/
+	@RequestMapping("/search")
 	public void search()
 	{
 		
-	}*/
+	}
 	
-	/*@RequestMapping(value="/searchList", produces="text/plain;charset=utf-8")
+	@RequestMapping(value="/searchList", produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String search(String user_ID)
 	{
@@ -64,5 +64,5 @@ public class SearchController {
 		}
 		return str;
 		
-	}*/
+	}
 }
