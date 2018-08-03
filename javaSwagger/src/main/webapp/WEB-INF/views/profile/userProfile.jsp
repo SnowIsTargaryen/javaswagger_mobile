@@ -46,16 +46,82 @@
 		<% String sesseing_id=(String)session.getAttribute("user_ID"); %> //로그인한 사용자
 		<% String get_id=(String)request.getParameter("user_ID"); %> //사용자
 		
-		var myID=$("#btnUserProfile").html()
+		var user_SessionID=$("#btnUserProfile").html()
 		var guestID=$("#jumboUserID").html()
 		
-		if(myID!=guestID){$("#write").hide();}
+		if(user_SessionID!=guestID){$("#write").hide();}
 		
 		$("#btnUserProfile").click(function() {
 			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>"
 		})
+		if(user_SessionID==guestID){$("#btn_Follow").hide()}
+		
+		 var insertComment = function() {
+			var params = $("#insertCommentForm").serialize();
+				$.ajax({
+					url:"../insertComment",
+					data:params,
+					type:'post',
+					async:false,
+					success:function(data)
+					{
+						alert(data)
+					}
+				})
+			}//댓글 ajax */
+				
+		
+		$.ajax({ // 팔로우 중복 검사
+				url:"../isFollower.do",
+				type:"post",
+				data:{"user_ID":guestID,"follower_ID":user_SessionID},
+				success:function(data){
+					var state;
+					var arr = eval("("+data+")");
+					//alert(arr)
+								
+					if(arr==0){
+						$("#btn_Follow").html("follow").addClass("btn-outline-primary")
+						state=0;
+					}
+					else
+					{
+						$("#btn_Follow").html("following").addClass("btn-primary")
+						state=1;
+					}
+								
+					$("#btn_Follow").on("click",function() {
+							if(state==0)
+							{	
+								$.ajax({url:"../follow.do",
+								type:"post",
+								data:{"user_ID":guestID,"follower_ID":user_SessionID},
+								success:function(data){
+								//alert(data)
+								$("#btn_Follow").removeClass("btn-outline-primary").addClass("btn-primary").html("following");
+								}})
+									state=1
+									return;
+								}//if end
+							else if(state==1)
+							{
+								$.ajax({url:"../unFollow.do",
+								type:"post",
+								data:{"user_ID":guestID,"follower_ID":user_SessionID},
+								success:function(data){
+								$("#btn_Follow").removeClass("btn-primary").addClass("btn-outline-primary").html("follow");
+													
+							}})
+							state=0
+							return;
+						}
+					})
+	
+				}//isFollwer success end
+			})//isFollower end */ 
 		
 		
+
 		$.ajax({ // 팔로잉 목록 받아옴
 			url:"../following.do",
 			type:"post",
@@ -92,6 +158,8 @@
 				})
 			}
 		})
+		
+		//insertComment();
 		
 		$.ajax({url:"../board/listPost?user_ID=<%=get_id%>",
 				/* async:false, */
@@ -132,13 +200,13 @@
 				
 				$(div_col_md_4).append(div_card_mb4_box)
 				
-				if(myID!=guestID){$(btn_group).hide()}
+				if(user_SessionID!=guestID){$(btn_group).hide()}
 				
 				$(btn_delete).click(function() { //게시글 삭제
 					var no=$(this).attr("no");
 					$.ajax({url:"../deletePost",
 						type:"post",
-						data:{"post_no":no,"user_ID":myID},
+						data:{"post_no":no,"user_ID":user_SessionID},
 						success:function(data){
 							if(data>=1)
 							{
@@ -164,10 +232,17 @@
 					}})
 				})
 				
+			/* 	$("#commentSumbit").click(function() { //댓글 달기 ajax
+							insertComment();
+						})	 */
+				
 				$(detail_a).click(function() { //게시글 상세
 					var no=$(this).attr("no");
 					$("#col_comment_content").empty();
+					
+					
 					$.ajax({url:"../detailPost?post_no="+no,success:function(data){ 
+						
 						detail=eval("("+data+")")
 						//alert(data)
 						$('#post_no').val(detail.post_no);
@@ -185,7 +260,7 @@
 									var btn_DeleteComment=$("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>")
 			
 									$(small).append(btn_DeleteComment)
-									if(myID!=p.user_ID){$(btn_DeleteComment).hide()}
+									if(user_SessionID!=p.user_ID){$(btn_DeleteComment).hide()}
 									$(h6).append(small);
 									$(h6).attr({
 										id:"h6_"+i
@@ -213,10 +288,10 @@
 												}
 											}})
 									})
-									//if(myID!=guestID){$(btn_DeleteComment).hide()}
+									//if(user_SessionID!=guestID){$(btn_DeleteComment).hide()}
 									$("#col_comment_content").append(h6);
 									
-				
+									
 								}) 
 							}})
 						
@@ -227,7 +302,7 @@
 			});
 		}}); //게시물 생성 ajax
 
-		
+			
 		
 	});
 	
@@ -260,8 +335,8 @@
 			<div class="col-4 d-flex justify-content-end align-items-center">
 	            <div class="btn-group">
 	            
-			    <button type="button" class="btn btn-default" id="btnUserProfile">${user_ID }</button>
-			    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			    <button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			    <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			    </button>
 			    <div class="dropdown-menu">
 			      <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
@@ -274,25 +349,29 @@
 	
 <!--사용자 프로필  -->
 	<div class="container">
-		<div class="jumbotron">
-			<div class="row" id="header">
-				<div class="col-sm-2">
+		<div class="jumbotron" style="background-color: #FFFFFF" >
+			<div class="row d-flex" id="header">
+				<div class="col-sm-9 d-flex">
 					<img src="../resources/icon/user2.png">
+					<div class="row">
+						<div class="col-sm-2 offset-md-2 ">
+							<h2 id="jumboUserID">${profile.user_ID }</h2>
+						</div>
+						<div class="col col-sm-auto">
+							<span><button id="btn_Follow" class="btn ">Follow</button></span>
+						</div>
+						<div class="col col-sm-auto">
+							<a data-toggle="modal" data-target="#insertPost" id="write" ><img src="../resources/icon/contract.png"></a>
+						</div>
+						<div class="col-sm-6 offset-md-2">
+							<span><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+							<span><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+						</div>
+						<div class="col-sm-12 offset-md-2">
+							<p>${profile.user_Email }</p>
+						</div>
+					</div><!--inner row1  -->
 				</div>
-				<div class="row">
-					<div class="col-sm-2">
-						<h2 id="jumboUserID">${profile.user_ID }</h2>
-					</div>
-					<div class="col-sm-10">
-						<a data-toggle="modal" data-target="#insertPost" id="write" ><img src="../resources/icon/contract.png"></a>
-					</div>
-					<div class="col-sm-12">
-						<span><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>&nbsp;&nbsp;&nbsp;&nbsp;<span><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>
-					</div>
-					<div class="col-sm-12">
-						<p>${profile.user_Email }</p>
-					</div>
-				</div><!--inner row1  -->
 			</div><!--header row  -->
 		</div> 
 	</div>
@@ -303,7 +382,7 @@
 	    <div class="modal-content"> 
 	    <form class="form"  action="../insertPost.do" method="post" enctype="multipart/form-data">
 	      <div class="modal-header">
-	        <h5 class="modal-title">새 글 쓰기</h5>
+	        <h5 class="modal-title">메일 인증</h5>
 	      </div>
 	      <div class="modal-body">
 	        <div class="form-group">
@@ -311,9 +390,6 @@
 	        </div>
 	        <div class="form-group">
 	        	<textarea class="form-control" rows="5" name="post_content" placeholder="내용을 입력하세요"></textarea>
-	        </div>
-	        <div class="form-group">
-	        	<input type="file" class="form-contorl-file" name="uploadFile">
 	        </div>
 	      </div>
 	       <div class="modal-footer">
@@ -385,11 +461,12 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<form class="form-inline" action="../insertComment.do" method="post">
+								<form class="form-inline" action="../insertComment" method="post" id="insertCommentForm">
+<!-- 								<form class="form-inline" action="../insertComment" method="post" id="insertCommentForm" onsubmit="return false;"> -->
 								  <input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
 								  <input type="hidden" name="post_no" id="post_no">
 								  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="comment_content" name="comment_content" placeholder="댓글 달기">
-								  <button type="submit" class="btn btn-primary">등록</button>
+								  <button type="submit" class="btn btn-primary" id="commentSumbit">등록</button>
 								</form>
 							</div>
 							
