@@ -71,7 +71,7 @@ function checkPhone() {//phone 중복처리-------------------------------------
     
     var userphone = $("#user_Phone").val();
    sessionStorage.setItem("user_phone", userphone);
-   var re = sessionStorage.getItem("user_phone");
+  
    
     $.ajax({
     async: true,
@@ -82,7 +82,13 @@ function checkPhone() {//phone 중복처리-------------------------------------
     contentType: "application/json; charset=UTF-8",
     success : function(data){
     	sessionStorage.setItem("data", data);
-    	 
+    	 var re = sessionStorage.getItem("user_phone");
+    	
+    	/* var phonenum = $('#user_phone').val(); */
+    	
+    	// var regPhone = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+    	
+    	
     	if (data) {//data의 값을 스트링으로 형변환해서 session에 유지된 값과 비교하여 중복처리
     	 
     	   $("#user_Phone").css("background-color", "#FFCECE");
@@ -101,15 +107,26 @@ function checkPhone() {//phone 중복처리-------------------------------------
         	$("#user_Phone_span").append(a);
          	idck = 1;
         }  
-       else 
+     
+
+   /*   else if(!regPhone.test(re)) ///수정해야함
     	{
     	   
-    	   $("#user_Phone").css("background-color", "#FFCECE");
+    	$("#user_Phone").css("background-color", "#FFCECE");
        	
        	var warning = $("<span>정확한 번호를입력하세요.</span>");
        	$("#user_Phone_span").empty();
        	$("#user_Phone_span").append(warning);
-    	}
+    	}  */
+       else
+	   	{
+	   	   
+	   	$("#user_Phone").css("background-color", "#FFCECE");
+	      	
+	      	var warning = $("<span>정확한 번호를입력하세요.</span>");
+	      	$("#user_Phone_span").empty();
+	      	$("#user_Phone_span").append(warning);
+	   	}
     },
     error : function(error) {
         
