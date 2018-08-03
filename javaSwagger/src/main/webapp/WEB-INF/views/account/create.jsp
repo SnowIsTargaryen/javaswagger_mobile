@@ -166,20 +166,27 @@ $("#mailck").click(function(){//메일 인증-----------------------------------
 			});
 				
 			 $(function() {
-					var time = 179;
-					setInterval(function() {
+					var time = 30;
+					var interv = setInterval(function() {
 						var m = time/60;
 						if(m >= 2) { m = 2 }
 						else if(m >= 1) { m = 1 }
 						else { m = 0 }
 						
 						var s = time%60;
-						$("#second").html(m+"분"+s+"초");
+						$("#second").html("남은 인증시간:"+m+"분"+s+"초");
 						time -= 1;
+						if(time == -1)
+						{
+							clearInterval(interv);
+							alert("인증 시간 3분이 모두 지났습니다. 다시 메일을 인증하세요")
+							$("#checkEmil").modal("hide")
+						}
 					}, 1000);
+					
 			
 		setTimeout(function(){
-				$("input").remove();
+				$("#inputNum").remove();
 				$("<span></span>").html("메일인증 시간 3분이 모두 지났습니다.").appendTo("mailCheck");
 				$("#second").remove;
 			}, 180000);
@@ -270,14 +277,14 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 			<form action="../account/create" id="userInfo" method="post">
 			  <div class="form-group ">
 			    <label for="user_ID">아이디</label>
-			    <input type="text" class="form-control" id="user_ID" name="user_ID" placeholder="아이디를 입력하세요">
+			    <input type="text" class="form-control" id="user_ID" name="user_ID" placeholder="아이디를 입력하세요" required="required">
 			    <input type="button" value="중복확인"  id="idck">
 			    <span id="user_ID_span"></span>
 			  </div>
 				
 			   <div class="form-group">
 				    <label for="user_Password">비밀번호</label>
-				    <input type="password" class="form-control" id="user_Password" name="user_Password" placeholder="비밀번호를 입력하세요">
+				    <input type="password" class="form-control" id="user_Password" name="user_Password" placeholder="비밀번호를 입력하세요" required="required">
 				  </div>
 				   <div class="form-group">
 				  <label for="repwd">비밀번호 확인</label> 
@@ -288,7 +295,7 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 		        
 				  <div class="form-group ">
 				  	    <label for="user_Password ">Email</label>
-					    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="email을 입력하세요" oninput="checkMail()">
+					    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="email을 입력하세요" oninput="checkMail()" required="required">
 					     <span id="user_Mail_span"></span>
 					     
 					    <input type="button" value="메일인증" id="mailck" data-toggle="modal" data-target="#checkEmil">
@@ -297,7 +304,7 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 				  </div>
 				  <div class="form-group">
 				    <label for="user_Password ">Phone</label>
-				    <input type="text" class="form-control" id="user_Phone" name="user_Phone" oninput="checkPhone()" placeholder="핸드폰 번호 입력 ex)010-0000-0000">
+				    <input type="text" class="form-control" id="user_Phone" name="user_Phone" oninput="checkPhone()" placeholder="핸드폰 번호 입력 ex)010-0000-0000" required="required">
 				    <span id="user_Phone_span"></span>
 				  </div>
 				  <button type="submit" class="btn btn-success col-md-4" id="join" disabled="true">회원가입</button>
@@ -310,7 +317,7 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 
 	
 
-	<!-- 글쓰기 Modal -->
+	<!-- 메일인증 Modal -->
 	<div class="modal fade " id="checkEmil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document" >
 	    <div class="modal-content"> 
