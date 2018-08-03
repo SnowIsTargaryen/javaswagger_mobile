@@ -66,7 +66,7 @@ public class CommentController {
 //		return mav;
 //	}
 	
-	@RequestMapping(value="insertComment.do",method=RequestMethod.POST) // ajax 방식으로 자료 받아오기
+	@RequestMapping(value="insertComment",method=RequestMethod.POST) // ajax 방식으로 자료 받아오기
 	public ModelAndView newComment(CommentVo cv) {
 		
 		/*System.out.println(request.getParameter("comment_no"));
@@ -93,18 +93,47 @@ public class CommentController {
 		return mav;
 	}
 	
-	@RequestMapping("deleteComment.do") // ajax 방식으로 comment_no 받아오기
+	/*@RequestMapping(value="/insertComment",produces="text/plain;charset=utf-8") // ajax 방식으로 자료 받아오기
+	@ResponseBody
+	public String newComment(CommentVo cv) {
+		
+		System.out.println(cv.getComment_no());
+		System.out.println(cv.getUser_ID());
+		System.out.println(cv.getPost_no());
+		System.out.println(cv.getComment_content());
+		System.out.println(cv.getUser_ID());
+		
+		ObjectMapper mapper = new ObjectMapper();
+		HashMap map = new HashMap();
+		String str="";
+		
+		int no=dao.getNextNo();
+		System.out.println(no);
+		cv.setComment_no(no);
+		
+		map.put("cv", cv);
+		//int re = dao.newComment(map);
+		
+		try {
+			str=mapper.writeValueAsString(dao.newComment(map));
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return str;
+	}*/
+	
+/*	@RequestMapping("deleteComment.do") 
 	public ModelAndView deleteComment(int comment_no) {
 		ModelAndView mav = new ModelAndView();
 		HashMap map = new HashMap();
 		map.put("comment_no", comment_no);
 		mav.addObject("tof", dao.deleteComment(map));
 		return mav;
-	}
+	}*/
 	
-	@RequestMapping(value="/deleteComment", produces="text/plain;charset=utf-8")
+	@RequestMapping(value="/deleteComment", produces="text/plain;charset=utf-8")// ajax 방식으로 comment_no 받아오기
 	@ResponseBody
-	public String deletePost(int comment_no,int post_no,HttpServletRequest request) {
+	public String deleteComment(int comment_no,int post_no,HttpServletRequest request) {
 		String str="";
 		HashMap map = new HashMap();
 		PostVo pv = new PostVo();
@@ -114,8 +143,7 @@ public class CommentController {
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			
-			
+
 			//cdao.deleteComment(map);
 			str=mapper.writeValueAsString(dao.deleteComment(map));
 		}catch (Exception e) {
