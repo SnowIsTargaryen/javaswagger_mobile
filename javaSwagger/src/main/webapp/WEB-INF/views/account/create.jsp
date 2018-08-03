@@ -29,7 +29,19 @@ function checkMail() {//mail 중복처리---------------------------------------
     	var inpMail = sessionStorage.getItem("user_email");
    		console.log(arr)
    		$("#user_Mail_span").empty();
-		if(arr == 1 ){
+   		
+   		var regex=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;   
+     
+     if(regex.test(useremail) === false ) {  
+    	 //email형식확인
+    	 $("#user_Email").css("background-color", "#FFCECE");
+  	 	  $("#user_Mail_span").empty();
+  	 	$("#mailck").hide()
+  	 	var w = $("<span>올바른 Email 형식을 입력하세요.</span>");
+  	 	$("#user_Mail_span").append(w);
+   		 } 
+   		
+   		if(arr == 1 ){
 			//이메일이 중복됨
 			 $("#user_Email").css("background-color", "#FFCECE");
 		    	
@@ -39,7 +51,7 @@ function checkMail() {//mail 중복처리---------------------------------------
 		    	
 		    	$("#user_Mail_span").empty();
 		    	$("#user_Mail_span").append(warning);
-		} else if(arr ==0){
+		} else if(arr != 1 && regex.test(useremail) === true){
 			//이메일 사용 가능	
 			
 			$("#user_Mail_span").empty();
@@ -48,7 +60,7 @@ function checkMail() {//mail 중복처리---------------------------------------
         	 var a = $("<span>사용가능한 Email입니다.</span>");
         	 $("#mailck").show()
         	$("#user_Mail_span").append(a);
-		}
+		} 
     }
   });
 	     
@@ -126,8 +138,10 @@ $(function() {
             dataType : "json",
             contentType: "application/json; charset=UTF-8",
             success : function(data){
+ 			JSON.stringify(data)
  		
             if (data > 0) {
+            	
             	$("#user_ID").css("background-color", "#FFCECE");
             	
             	var warning = $("<span>다른아이디를 입력하세요.</span>");
@@ -167,19 +181,31 @@ $("#mailck").click(function(){//메일 인증-----------------------------------
 				
 			 $(function() {
 					var time = 179;
-					setInterval(function() {
+					var interv = setInterval(function() {
 						var m = time/60;
 						if(m >= 2) { m = 2 }
 						else if(m >= 1) { m = 1 }
 						else { m = 0 }
 						
 						var s = time%60;
-						$("#second").html(m+"분"+s+"초");
+						$("#second").html("남은 인증시간:"+m+"분"+s+"초");
 						time -= 1;
+						if(time == -1)
+						{
+							clearInterval(interv);
+							alert("인증 시간 3분이 모두 지났습니다. 다시 메일을 인증하세요")
+							$("#checkEmil").modal("hide")
+						}
+						$("#clearInter").click(function(){
+							clearInterval(interv);
+							console.log(clearInterval(interv));
+						})
+
 					}, 1000);
+					
 			
 		setTimeout(function(){
-				$("input").remove();
+				
 				$("<span></span>").html("메일인증 시간 3분이 모두 지났습니다.").appendTo("mailCheck");
 				$("#second").remove;
 			}, 180000);
@@ -187,6 +213,7 @@ $("#mailck").click(function(){//메일 인증-----------------------------------
 				 
 	});
 	 
+
 	//$("#btnPrimary").click(function () {
 	//	inpCode = $("#btnPrimary").val();
 	//	$("#inpCode").val(inpCode);
@@ -215,6 +242,7 @@ $("#mailck").click(function(){//메일 인증-----------------------------------
 		if($("#isMail").val()==1)
 		{
 			$("#join").attr("disabled", false);
+			$("#announce").hide()
 		}
 	});
 }); //메일 인증-----------------------------------------------------
@@ -248,9 +276,7 @@ function checkPwd(){//비밀번호 확인---------------------------------------
     }
 
 }//비밀번호 확인----------------------------------------------------------------------------
- 
- 
- 
+  
 </script>
 <title>회원가입</title>
 </head>
@@ -263,45 +289,55 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 		폰:<input type="text" name="user_Phone"><br>
 		<input type="submit" value="등록">
 	</form>   -->	
-	<div class="container" align="center">
-	<form action="../account/create" id="userInfo" method="post">
-	  <div class="form-group col-md-4">
-	    <label for="user_ID">아이디</label>
-	    <input type="text" class="form-control" id="user_ID" name="user_ID" placeholder="아이디를 입력하세요">
-	    <input type="button" value="중복확인"  id="idck">
-	    <span id="user_ID_span"></span>
-	  </div>
-		  <div class="form-group col-md-4">
-		    <label for="user_Password">비밀번호</label>
-		    <input type="password" class="form-control" id="user_Password" name="user_Password" placeholder="비밀번호를 입력하세요">
-		  </div>
-		   <div class="form-group col-md-4">
-		  <label for="repwd">비밀번호 확인</label> 
-            <input type="password"  placeholder="비밀번호를 다시 입력하세요" name="repwd" 
-               class="form-control" required class="pass" id="repwd" oninput="checkPwd()"> 
-          		<span id="pwdcheck"></span>
-          </div>
-        
-         
-		  <div class="form-group col-md-4">
-		  	    <label for="user_Password ">Email</label>
-			    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="email을 입력하세요" oninput="checkMail()">
-			     <span id="user_Mail_span"></span>
-			     
-			    <input type="button" value="메일인증" id="mailck" data-toggle="modal" data-target="#checkEmil">
-			    <input type="hidden" id="isMail" value="0"> <!-- 메일 통과 했는지 마는지 -->
-			  	<span id="msg"></span>
-		  </div>
-		  <div class="form-group col-md-4">
-		    <label for="user_Password ">Phone</label>
-		    <input type="text" class="form-control" id="user_Phone" name="user_Phone" oninput="checkPhone()" placeholder="핸드폰 번호 입력 ex)010-0000-0000">
-		    <span id="user_Phone_span"></span>
-		  </div>
-		  <button type="submit" class="btn btn-success col-md-4" id="join" disabled="true">제출</button>
-		</form>
-	</div>
 
-	<!-- 글쓰기 Modal -->
+
+<div class="container" >
+	<div class="row" >
+		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+			<form action="../account/create" id="userInfo" method="post">
+			  <div class="form-group ">
+			    <label for="user_ID">아이디</label>
+			    <input type="text" class="form-control" id="user_ID" name="user_ID" placeholder="아이디를 입력하세요" required="required">
+			    <input type="button" value="중복확인"  id="idck">
+			    <span id="user_ID_span"></span>
+			  </div>
+				
+			   <div class="form-group">
+				    <label for="user_Password">비밀번호</label>
+				    <input type="password" class="form-control" id="user_Password" name="user_Password" placeholder="비밀번호를 입력하세요" required="required">
+				  </div>
+				   <div class="form-group">
+				  <label for="repwd">비밀번호 확인</label> 
+		            <input type="password"  placeholder="비밀번호를 다시 입력하세요" name="repwd" 
+		               class="form-control" required class="pass" id="repwd" oninput="checkPwd()"> 
+		          		<span id="pwdcheck"></span>
+		          </div>
+		        
+				  <div class="form-group">
+				  	    <label for="user_Password ">Email</label>
+					    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="email을 입력하세요" oninput="checkMail()" required="required">
+					     <span id="user_Mail_span"></span>
+					     
+					    <input type="button" value="메일인증" id="mailck" data-toggle="modal" data-target="#checkEmil">
+					    <input type="hidden" id="isMail" value="0"> <!-- 메일 통과 했는지 마는지 -->
+					  	<span id="msg"></span>
+				  </div>
+				  <div class="form-group">
+				    <label for="user_Password ">Phone</label>
+				    <input type="text" class="form-control" id="user_Phone" name="user_Phone" oninput="checkPhone()" placeholder="핸드폰 번호 입력 ex)010-0000-0000" required="required">
+				    <span id="user_Phone_span"></span>
+				  </div>
+				  <button type="submit" class="btn btn-success col-md-4" id="join" disabled="true">회원가입</button>
+				  <span id="announce">*메일 인증시 버튼이 활성화 됩니다.</span>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	
+
+	<!-- 메일인증 Modal -->
 	<div class="modal fade " id="checkEmil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document" >
 	    <div class="modal-content"> 
@@ -321,7 +357,7 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 	        
 	      </div>
 	       <div class="modal-footer">
-	        <button type="reset" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="reset" class="btn btn-secondary" data-dismiss="modal" id="clearInter">취소</button>
 	        <button class="btn btn-primary" id="btnPrimary">인증하기</button>
 	      </div>
 	     <!-- </form>  --> 

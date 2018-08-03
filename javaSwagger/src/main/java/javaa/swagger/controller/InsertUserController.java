@@ -1,6 +1,5 @@
 package javaa.swagger.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +34,9 @@ public class InsertUserController {
 		String str="";
 		int re = dao.emailCheck(user_email);
 		
+		   /*if(regex.test(user_email) == false) {  
+			   
+		   }*/
 		/*System.out.println("uv:"+uv);
         ObjectMapper mapper = new ObjectMapper();
         
