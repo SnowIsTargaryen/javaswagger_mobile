@@ -25,6 +25,7 @@
 	.container-fluid{
 	
 		padding-left: 0 !important;
+		padding-right: 0 !important;
 	}
 
 
@@ -301,6 +302,8 @@
 				$("#row1").append(div_col_md_4)
 			});
 		}}); //게시물 생성 ajax
+		
+		
 
 			
 		
@@ -463,14 +466,32 @@
 									</div>
 								</div>
 							</div>
+
+			
 							<div class="modal-footer">
-								<form class="form-inline" action="../insertComment" method="post" id="insertCommentForm">
+								<div class="row">
+									<div class="col-sm-12">
 <!-- 								<form class="form-inline" action="../insertComment" method="post" id="insertCommentForm" onsubmit="return false;"> -->
-								  <input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
-								  <input type="hidden" name="post_no" id="post_no">
-								  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="comment_content" name="comment_content" placeholder="댓글 달기">
-								  <button type="submit" class="btn btn-primary" id="commentSumbit">등록</button>
-								</form>
+										<form action="insertComment.do" method="post">
+										  <div class="form-row align-items-left">
+										  	<div class="col-auto">
+										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
+										  	</div>
+										  	<div class="col-auto">
+										  		<input type="hidden" name="post_no" id="post_no">
+										  	</div>
+										  	<div class="col-sm-10">
+										  		<div class="input-group mb-3">
+										  			<input type="text" class="form-control" id="comment_content" name="comment_content" placeholder="댓글 달기">
+													<div class="input-group-append">
+														<button type="submit" class="btn btn-primary">등록</button>
+													</div>
+										  		</div>
+										  	</div>
+										  </div>				
+										</form>
+									</div>
+								</div>
 							</div>
 							
 						</div>

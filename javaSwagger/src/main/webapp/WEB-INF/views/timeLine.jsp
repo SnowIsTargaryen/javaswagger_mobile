@@ -43,6 +43,7 @@
 	.container-fluid{
 	
 		padding-left: 0 !important;
+		padding-right: 0 !important;
 	}
 		
 </style>
@@ -179,8 +180,8 @@
 	<!-- detail modal -->
 	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
 		<div class="modal-dialog modal-dialog-center"  role="document">
-			<div class="modal-content h-100 d-flex" id="content">
-				<div class="container-fluid">
+			<div class="modal-content h-100 d-flex no-gutters" id="content">
+				<div class="container-fluid no-gutters" id="detailModalContainer">
 					<div class="row d-flex no-gutters">
 						<div class="col-md-8 box-shadow h-100" >
 						<img  id="detail_Img" class="img-fluid d-inline-block">
@@ -202,12 +203,29 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<form class="form-inline" action="insertComment.do" method="post">
-								  <input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
-								  <input type="hidden" name="post_no" id="post_no">
-								  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="comment_content" name="comment_content" placeholder="댓글 달기">
-								  <button type="submit" class="btn btn-primary">등록</button>
-								</form>
+								<div class="row">
+									<div class="col-sm-12">
+										<form action="insertComment.do" method="post">
+										  <div class="form-row align-items-left">
+										  	<div class="col-auto">
+										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
+										  	</div>
+										  	<div class="col-auto">
+										  		<input type="hidden" name="post_no" id="post_no">
+										  	</div>
+										  	<div class="col-sm-10">
+										  		<div class="input-group mb-3">
+										  			<input type="text" class="form-control" id="comment_content" name="comment_content" placeholder="댓글 달기">
+													<div class="input-group-append">
+														<button type="submit" class="btn btn-primary">등록</button>
+													</div>
+										  		</div>
+										  	</div>
+										  	
+										  </div>				
+										</form>
+									</div>
+								</div>
 							</div>
 							
 						</div>

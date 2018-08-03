@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="timeline">
 	<select id="getTimeline" resultType="postVo">
-		select * from post
+		select*from post order by post_time desc
 	</select>
 	<!-- <select id="getTimeline" resultType="postVo">
 		select * from post, (select post_no, count(*) like_cnts from likes group by post_no order by count(*) desc) P where post.post_no = p.post_no order by like_cnts desc
