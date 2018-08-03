@@ -29,7 +29,19 @@ function checkMail() {//mail 중복처리---------------------------------------
     	var inpMail = sessionStorage.getItem("user_email");
    		console.log(arr)
    		$("#user_Mail_span").empty();
-		if(arr == 1 ){
+   		
+   		var regex=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;   
+     
+     if(regex.test(useremail) === false ) {  
+    	 //email형식확인
+    	 $("#user_Email").css("background-color", "#FFCECE");
+  	 	  $("#user_Mail_span").empty();
+  	 	$("#mailck").hide()
+  	 	var w = $("<span>올바른 Email 형식을 입력하세요.</span>");
+  	 	$("#user_Mail_span").append(w);
+   		 } 
+   		
+   		if(arr == 1 ){
 			//이메일이 중복됨
 			 $("#user_Email").css("background-color", "#FFCECE");
 		    	
@@ -39,7 +51,7 @@ function checkMail() {//mail 중복처리---------------------------------------
 		    	
 		    	$("#user_Mail_span").empty();
 		    	$("#user_Mail_span").append(warning);
-		} else if(arr ==0){
+		} else if(arr != 1 && regex.test(useremail) === true){
 			//이메일 사용 가능	
 			
 			$("#user_Mail_span").empty();
@@ -48,7 +60,7 @@ function checkMail() {//mail 중복처리---------------------------------------
         	 var a = $("<span>사용가능한 Email입니다.</span>");
         	 $("#mailck").show()
         	$("#user_Mail_span").append(a);
-		}
+		} 
     }
   });
 	     
@@ -126,8 +138,10 @@ $(function() {
             dataType : "json",
             contentType: "application/json; charset=UTF-8",
             success : function(data){
+ 			JSON.stringify(data)
  		
             if (data > 0) {
+            	
             	$("#user_ID").css("background-color", "#FFCECE");
             	
             	var warning = $("<span>다른아이디를 입력하세요.</span>");
@@ -166,7 +180,7 @@ $("#mailck").click(function(){//메일 인증-----------------------------------
 			});
 				
 			 $(function() {
-					var time = 30;
+					var time = 179;
 					var interv = setInterval(function() {
 						var m = time/60;
 						if(m >= 2) { m = 2 }
@@ -182,11 +196,16 @@ $("#mailck").click(function(){//메일 인증-----------------------------------
 							alert("인증 시간 3분이 모두 지났습니다. 다시 메일을 인증하세요")
 							$("#checkEmil").modal("hide")
 						}
+						$("#clearInter").click(function(){
+							clearInterval(interv);
+							console.log(clearInterval(interv));
+						})
+
 					}, 1000);
 					
 			
 		setTimeout(function(){
-				$("#inputNum").remove();
+				
 				$("<span></span>").html("메일인증 시간 3분이 모두 지났습니다.").appendTo("mailCheck");
 				$("#second").remove;
 			}, 180000);
@@ -194,6 +213,7 @@ $("#mailck").click(function(){//메일 인증-----------------------------------
 				 
 	});
 	 
+
 	//$("#btnPrimary").click(function () {
 	//	inpCode = $("#btnPrimary").val();
 	//	$("#inpCode").val(inpCode);
@@ -293,7 +313,7 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 		          		<span id="pwdcheck"></span>
 		          </div>
 		        
-				  <div class="form-group ">
+				  <div class="form-group">
 				  	    <label for="user_Password ">Email</label>
 					    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="email을 입력하세요" oninput="checkMail()" required="required">
 					     <span id="user_Mail_span"></span>
@@ -337,7 +357,7 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 	        
 	      </div>
 	       <div class="modal-footer">
-	        <button type="reset" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="reset" class="btn btn-secondary" data-dismiss="modal" id="clearInter">취소</button>
 	        <button class="btn btn-primary" id="btnPrimary">인증하기</button>
 	      </div>
 	     <!-- </form>  --> 
