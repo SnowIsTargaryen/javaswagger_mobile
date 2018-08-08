@@ -1,5 +1,8 @@
 package javaa.swagger.controller;
 
+import java.io.FileOutputStream;
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -109,13 +113,26 @@ public class InsertUserController {
 	{
 		ModelAndView mav = new ModelAndView("redirect:/login");
 		
-		/*System.out.println(request.getParameter("user_ID"));
-		System.out.println("controller"+u.getUser_ID());
-		System.out.println("controller"+u.getUser_Password());
-		System.out.println("controller"+u.getUser_Email());
-		System.out.println("controller"+u.getUser_Phone() );
-		*/
+		MultipartFile multi = u.getUploadFile();
+		String path = request.getRealPath("resources/image");
+		System.out.println("path:"+path);
+		
+		if(multi != null) {
+			try {
+				String fname = multi.getOriginalFilename();
+				byte data[] = multi.getBytes();
+				u.setUser_fname(fname);
+				FileOutputStream fos = new FileOutputStream(path + "/" + fname);
+				fos.write(data);
+				fos.close();
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println(e.getMessage());
+			}
+		}
 
+		HashMap map = new HashMap();
+		map.put("u", u);
 		
 		int re = dao.insertUser(u);
 		//System.out.println(re);
