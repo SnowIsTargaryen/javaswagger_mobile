@@ -311,7 +311,7 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 <div class="container" >
 	<div class="row" >
 		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-			<form action="../account/create" id="userInfo" method="post">
+			<form action="../account/create" id="userInfo" method="post" enctype="multipart/form-data">
 			  <div class="form-group ">
 			    <label for="user_ID">아이디</label>
 			    <input type="text" class="form-control" id="user_ID" name="user_ID" placeholder="아이디를 입력하세요" required="required">
@@ -344,6 +344,11 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 				    <input type="text" class="form-control" id="user_Phone" name="user_Phone" oninput="checkPhone()" placeholder="핸드폰 번호 입력 ex)010-0000-0000" required="required">
 				    <span id="user_Phone_span"></span>
 				  </div>
+								   
+				  <div class="form-group">
+				    <label for="user_Password ">Profile Photo</label>
+	        		<input type="file" class="form-contorl-file" name="uploadFile">
+	        	 </div>
 				  <button type="submit" class="btn btn-success col-md-4" id="join" disabled="true">회원가입</button>
 				  <span id="announce">*메일 인증시 버튼이 활성화 됩니다.</span>
 				</form>
