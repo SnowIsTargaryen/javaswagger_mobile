@@ -27,7 +27,11 @@
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}
-
+	#proPhoto{
+	width: 120px;
+    height:120px;
+    border-radius: 60px; /* 이미지 반크기만큼 반경을 잡기*/
+	}
 
 
 
@@ -56,7 +60,7 @@
 			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>"
 		})
 		if(user_SessionID==guestID){$("#btn_Follow").hide()}
-		
+				
 		 var insertComment = function() {
 			var params = $("#insertCommentForm").serialize();
 				$.ajax({
@@ -69,7 +73,7 @@
 						alert(data)
 					}
 				})
-			}//댓글 ajax */
+		}//댓글 ajax */
 				
 		
 		$.ajax({ // 팔로우 중복 검사
@@ -354,11 +358,13 @@
 	<div class="container">
 		<div class="jumbotron" style="background-color: #FFFFFF" >
 			<div class="row d-flex" id="header">
-				<div class="col-sm-9 d-flex">
-					<img src="../resources/icon/user2.png">
+				<div class="col-sm-9 d-flex" >
+					<div >
+						<img id="proPhoto" src="../resources/image/${profile.user_fname }">
+					</div>
 					<div class="row">
 						<div class="col-sm-2 offset-md-2 ">
-							<h2 id="jumboUserID">${profile.user_ID }</h2>
+							<h4 id="jumboUserID">${profile.user_ID }</h4>
 						</div>
 						<div class="col col-sm-auto">
 							<span><button id="btn_Follow" class="btn ">Follow</button></span>
