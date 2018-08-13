@@ -153,13 +153,14 @@ public class FollowController {
 	
 	@RequestMapping(value="/isFollower.do",produces="text/plain;charset=utf-8")
 	@ResponseBody
-	public String isFollow(String user_ID, String follower_ID){
+	public String isFollow(String user_ID[], String follower_ID){
 		
 		
 		HashMap map = new HashMap();
 		map.put("user_ID", user_ID);
 		map.put("follower_ID", follower_ID);
 		int re = dao.isFollow(map);
+		System.out.println(re);
 		return re+"";
 	}
 }

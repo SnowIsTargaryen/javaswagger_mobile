@@ -33,7 +33,7 @@
 		var user_List=[];
 		//user_List=$("#a_userID").html()
 		//var btn_follow;
-		console.log(user_List)
+		//console.log(user_List)
 		
 		
 		
@@ -86,14 +86,15 @@
 				}//isFollwer success end
 			})//isFollower end */ 
 			
-	
+		
 		$.ajax({ //검색 
 				url:"searchList?user_ID=<%=user_ID%>",
 				success:function(data){
 					list=eval("("+data+")")
 					$.each(list, function(idx, s) {
 						
-						
+						console.log(s.user_ID+"/"+idx)
+				
 						var tr = $("<tr></tr>")
 						var th = $("<th></th>").html(idx)
 						var a_userID = $("<a></a>").attr({
@@ -111,7 +112,7 @@
 						console.log(a)
 						
 						//alert(btn_follow)
-						$.ajax({ // 팔로우 중복 검사
+						/* $.ajax({ // 팔로우 중복 검사
 							url:"isFollower.do",
 							type:"post",
 							data:{"user_ID":s.user_ID,"follower_ID":user_SessionID},
@@ -158,11 +159,12 @@
 								})
 
 							}//isFollwer success end
-						})//isFollower end
+						})//isFollower end  */
+						
 						
 						$(td_userID).append(a_userID)
 						$(td_btn).append(btn_follow)
-						if(s.user_ID!=user_SessionID){$(tr).append(th,td_userID,td_email,td_btn)}	//
+						if(s.user_ID!=user_SessionID){$(tr).append(th,td_userID,td_email,td_btn)}
 						$("#listTbody").append(tr)
 						
 					})
