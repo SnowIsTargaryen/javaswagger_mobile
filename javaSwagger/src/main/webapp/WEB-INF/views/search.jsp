@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>검색</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
 	integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
@@ -24,154 +25,106 @@
 	$(function() {
 		
 		<%String user_ID = request.getParameter("user_ID");%>//url 아이디
-		var user_SessionID="${user_ID}"//세션 아이디
+	//	var user_SessionID="${user_ID}"//세션 아이디
 		
 		$("#btnUserProfile").click(function() {
 				location.href="profile/userProfile?user_ID=${user_ID}"
 		})
 		
 		var user_List=[];
-		//user_List=$("#a_userID").html()
-		//var btn_follow;
-		//console.log(user_List)
 		
 		
 		
-		/*  $.ajax({ // 팔로우 중복 검사
-				url:"isFollower.do",
-				type:"post",
-				data:{"user_ID":s.user_ID,"follower_ID":user_SessionID},
-				success:function(data){
-					var state;
-					var arr = eval("("+data+")");
-					//alert(arr)
-								
-					if(arr==0){
-						$(btn_follow).html("follow").addClass("btn-outline-primary")
-						state=0;
-					}
-					else
-					{
-						$(btn_follow).html("following").addClass("btn-primary")
-						state=1;
-					}
-								
-					$(btn_follow).on("click",function() {
-							if(state==0)
-							{	
-								$.ajax({url:"follow.do",
-								type:"post",
-								data:{"user_ID":s.user_ID,"follower_ID":user_SessionID},
-								success:function(data){
-								//alert(data)
-								$(btn_follow).removeClass("btn-outline-primary").addClass("btn-primary").html("following");
-								}})
-									state=1
-									return;
-								}//if end
-							else if(state==1)
-							{
-								$.ajax({url:"unFollow.do",
-								type:"post",
-								data:{"user_ID":s.user_ID,"follower_ID":user_SessionID},
-								success:function(data){
-								$(btn_follow).removeClass("btn-primary").addClass("btn-outline-primary").html("follow");
-													
-							}})
-							state=0
-							return;
-						}
-					})
-	
-				}//isFollwer success end
-			})//isFollower end */ 
-			
-		
-		$.ajax({ //검색 
-				url:"searchList?user_ID=<%=user_ID%>",
-				success:function(data){
+			$.ajax({//팔로우 버튼 확인용
+				url:"following.do",
+				data:{"follower_ID":"${user_ID}"},
+				success:function(data)
+				{
 					list=eval("("+data+")")
-					$.each(list, function(idx, s) {
-						
-						console.log(s.user_ID+"/"+idx)
-				
-						var tr = $("<tr></tr>")
-						var th = $("<th></th>").html(idx)
-						var a_userID = $("<a></a>").attr({
-							href:"profile/userProfile?user_ID="+s.user_ID
-						}).html(s.user_ID).addClass("a_userID")
-						var td_userID = $("<td></td>")
-						var td_email = $("<td></td>").html(s.user_Email)
-						var td_btn=$("<td></td>")
-						var btn_follow = $("<button></button>").addClass("btn")
-						//var fId = $("#follower_ID").val();
-						//var uId = $("#user_ID").val();
-						user_List[idx]=s.user_ID
-						var a=[]
-						a=btn_follow
-						console.log(a)
-						
-						//alert(btn_follow)
-						/* $.ajax({ // 팔로우 중복 검사
-							url:"isFollower.do",
-							type:"post",
-							data:{"user_ID":s.user_ID,"follower_ID":user_SessionID},
-							success:function(data){
-								var state;
-								var arr = eval("("+data+")");
-								//alert(arr)
+					$.each(list, function(idx, f) {
+						user_List[idx]=f.user_ID
+						console.log(user_List[idx])
+					})
+					
+					$.ajax({ //검색 
+					url:"searchList?user_ID=<%=user_ID%>",
+					success:function(data){
+						list=eval("("+data+")")
+						$.each(list, function(idx, s) {
+							
+							
+							var tr = $("<tr></tr>")
+							var th = $("<th></th>").html(idx)
+							var a_userID = $("<a></a>").attr({
+								href:"profile/userProfile?user_ID="+s.user_ID
+							}).html(s.user_ID).addClass("a_userID")
+							var td_userID = $("<td></td>")
+							var td_email = $("<td></td>").html(s.user_Email)
+							var td_btn=$("<td></td>")
+							var btn_follow = $("<button></button>").addClass("btn")
+							
+							var state=0;
+							$(btn_follow).html("follow").addClass("btn-outline-primary")
+							
+							$.each(user_List, function(i, b) {
+								if(b==s.user_ID)
+								{
+									console.log(b+"/"+s.user_ID)
+									$(btn_follow).html("following").addClass("btn-primary").removeClass("btn-outline-primary")
+									state=1;
 								
-								if(arr==0){
+								}
+								/* else
+								{
 									$(btn_follow).html("follow").addClass("btn-outline-primary")
 									state=0;
-								}
-								else
-								{
-									$(btn_follow).html("following").addClass("btn-primary")
-									state=1;
-								}
-								
-								$(btn_follow).on("click",function() {
-									if(state==0)
-									{	
-										$.ajax({url:"follow.do",
-											type:"post",
-											data:{"user_ID":s.user_ID,"follower_ID":user_SessionID},
-											success:function(data){
-												//alert(data)
-												$(btn_follow).removeClass("btn-outline-primary").addClass("btn-primary").html("following");
-											}})
-										state=1
-										return;
-									}//if end
-									else if(state==1)
-									{
-										$.ajax({url:"unFollow.do",
-											type:"post",
-											data:{"user_ID":s.user_ID,"follower_ID":user_SessionID},
-											success:function(data){
-												$(btn_follow).removeClass("btn-primary").addClass("btn-outline-primary").html("follow");
-													
-											}})
-										state=0
-										return;
-									}
-								})
-
-							}//isFollwer success end
-						})//isFollower end  */
-						
-						
-						$(td_userID).append(a_userID)
-						$(td_btn).append(btn_follow)
-						if(s.user_ID!=user_SessionID){$(tr).append(th,td_userID,td_email,td_btn)}
-						$("#listTbody").append(tr)
-						
-					})
-				}})
-				
-				
+								} */
+							})
+							
+							$(btn_follow).on("click",function() {
+										if(state==0)
+										{	
+											$.ajax({url:"follow.do",
+												type:"post",
+												data:{"user_ID":s.user_ID,"follower_ID":"${user_ID}"},
+												success:function(data){
+													//alert(data)
+													$(btn_follow).removeClass("btn-outline-primary").addClass("btn-primary").html("following");
+												}})
+											state=1
+											return;
+										}//if end
+										else if(state==1)
+										{
+											$.ajax({url:"unFollow.do",
+												type:"post",
+												data:{"user_ID":s.user_ID,"follower_ID":"${user_ID}"},
+												success:function(data){
+													$(btn_follow).removeClass("btn-primary").addClass("btn-outline-primary").html("follow");
+														
+												}})
+											state=0
+											return;
+										}
+							})//팔로우 버튼
 	
+							
+							
+							$(td_userID).append(a_userID)
+							$(td_btn).append(btn_follow)
+							if(s.user_ID!="${user_ID}"){$(tr).append(th,td_userID,td_email,td_btn)}	//
+							$("#listTbody").append(tr)
+							
+						})
+					}})
+					
+				
+				}
+			})
+			
+	
+		
+				
 		})
 			
 </script>
@@ -218,26 +171,30 @@
 	</nav>
 	<!--테이블 검색 유저 목록  -->
 	<div class="container">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">ID</th>
-					<th scope="col">이메일</th>
-					<th scope="col">#</th>
-				</tr>
-			</thead>
-			<tbody id="listTbody">
-				<%-- <c:forEach var="v" items="${list }" varStatus="status">
-					<tr>
-						<th scope="row">${status.count }</th>
-						<td><a id="a_userID" href="profile/userProfile?user_ID=${v.user_ID }">${v.user_ID }</a></td>
-						<td>${v.user_Email }</td>
-						<td><button type="button" class="btn btn-outline-primary">Follow</button></td>
-					</tr>
-				</c:forEach> --%>
-			</tbody>
-		</table>
+		<div class="row">
+			<div class="col-12">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">ID</th>
+							<th scope="col">이메일</th>
+							<th scope="col">#</th>
+						</tr>
+					</thead>
+					<tbody id="listTbody">
+						<%-- <c:forEach var="v" items="${list }" varStatus="status">
+							<tr>
+								<th scope="row">${status.count }</th>
+								<td><a id="a_userID" href="profile/userProfile?user_ID=${v.user_ID }">${v.user_ID }</a></td>
+								<td>${v.user_Email }</td>
+								<td><button type="button" class="btn btn-outline-primary">Follow</button></td>
+							</tr>
+						</c:forEach> --%>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 
 
