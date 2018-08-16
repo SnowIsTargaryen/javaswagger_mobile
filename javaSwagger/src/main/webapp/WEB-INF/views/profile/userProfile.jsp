@@ -49,16 +49,15 @@
 <script type="text/javascript">
 	$(function() {
 		var arr;
-		<% String sesseing_id=(String)session.getAttribute("user_ID"); %> //로그인한 사용자
 		<% String get_id=(String)request.getParameter("user_ID"); %> //사용자
 		
-		var user_SessionID=$("#btnUserProfile").html()
+		var user_SessionID="${user_ID}"
 		var guestID=$("#jumboUserID").html()
 		
-		if(user_SessionID!=guestID){$("#write").hide();}
+		if(user_SessionID!=guestID){$("#write").hide();} // 글쓰기 권한 로그인한 사용자 전용
 		
 		$("#btnUserProfile").click(function() {
-			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>"
+			location.href="../profile/userProfile?user_ID="+user_SessionID+""
 		})
 		if(user_SessionID==guestID){$("#btn_Follow").hide()}
 				
