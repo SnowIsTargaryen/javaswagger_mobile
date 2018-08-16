@@ -12,6 +12,8 @@
 <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 <script type="text/javascript">
 
+var phoneArr;
+
 function checkMail() {//mail 중복처리--------------------------------------------------------
     
     var useremail = $("#user_Email").val();
@@ -65,13 +67,11 @@ function checkMail() {//mail 중복처리---------------------------------------
   });
 	     
 }//mail 중복처리--------------------------------------------------------
-  
-  
-function checkPhone() {//phone 중복처리--------------------------------------------------------
     
+function checkPhone() {//phone 중복처리------------oninput 으로  한글자 쓸때마다 작동함--------------------------------------------
+	$("#phoneck").hide();
     var userphone = $("#user_Phone").val();
    sessionStorage.setItem("user_phone", userphone);
-  
    
     $.ajax({
     async: true,
@@ -83,11 +83,9 @@ function checkPhone() {//phone 중복처리-------------------------------------
     success : function(data){
     	sessionStorage.setItem("data", data);
     	 var re = sessionStorage.getItem("user_phone");
-    	
-    	/* var phonenum = $('#user_phone').val(); */
-    	
-    	// var regPhone = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
-    	
+    	/* alert("sessionStoreage"+re) */
+    
+    	var regPhone = /^01([0|1|6|7|8|9])([0-9]{4})([0-9]{4})$/;
     	
     	if (data) {//data의 값을 스트링으로 형변환해서 session에 유지된 값과 비교하여 중복처리
     	 
@@ -97,36 +95,28 @@ function checkPhone() {//phone 중복처리-------------------------------------
     	$("#user_Phone_span").empty();
     	$("#user_Phone_span").append(warning);
   
-        }       
+        }  
+    	else if(!regPhone.test(re)) 
+    	{
+    	 
+    	$("#user_Phone").css("background-color", "#FFCECE");
+       	
+       	var warning = $("<span>정확한 번호를입력하세요.</span>");
+       	$("#user_Phone_span").empty();
+       	$("#user_Phone_span").append(warning);
+    	} 
        else if(data == null && re.length < 14){   	   
     	  
     	   $("#user_Phone_span").empty();
         	$("#user_Phone").css("background-color", "#B0F6AC");
         	
         	 var a = $("<span>사용가능한 번호입니다.</span>");
+        	 $("#phoneck").show();
         	$("#user_Phone_span").append(a);
          	idck = 1;
         }  
      
-
-   /*   else if(!regPhone.test(re)) ///수정해야함
-    	{
-    	   
-    	$("#user_Phone").css("background-color", "#FFCECE");
-       	
-       	var warning = $("<span>정확한 번호를입력하세요.</span>");
-       	$("#user_Phone_span").empty();
-       	$("#user_Phone_span").append(warning);
-    	}  */
-       else
-	   	{
-	   	   
-	   	$("#user_Phone").css("background-color", "#FFCECE");
-	      	
-	      	var warning = $("<span>정확한 번호를입력하세요.</span>");
-	      	$("#user_Phone_span").empty();
-	      	$("#user_Phone_span").append(warning);
-	   	}
+      
     },
     error : function(error) {
         
@@ -135,6 +125,8 @@ function checkPhone() {//phone 중복처리-------------------------------------
   });
 	     
 }//phone 중복처리--------------------------------------------------------
+
+//------------------------------------------------------------------------------------
 
 //아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )--------------------------------------
 var idck = 0;
@@ -181,6 +173,86 @@ $(function() {
      	    
         }); 
 });//아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )--------------------------------------
+		
+$("#phoneck").click(function(){//sms핸드폰 인증모달 버튼 누를 때 문자 보내지면서 모달열림-----------------------------------------------------
+	
+ 	var user_phone = $("#user_Phone").val();
+ 	
+ 	
+   //sessionStorage.setItem("user_phone", user_phone);
+		 $.ajax({url:"send.do",
+			 type : "post",
+			 dataType : "json",
+	         contentType: "application/json; charset=UTF-8",
+	         data:user_phone,
+	         success:function(data){
+			 var da = eval("("+data+")")
+				alert(da)
+			
+			 	$("#btnPhone").click(function () { 
+					var inputPhone = $("#inputPhone").val();
+					
+					if(da == inputPhone){
+						$(this).attr("data-dismiss","modal");
+						$("#isPhone").val(1)
+						
+						$("#pmsg").html("인증에 성공!");
+						$("#user_Phone_span").empty();
+					} else {
+						$(this).attr("data-dismiss","modal");
+						$("#isPhone").val(2)
+						$("#pmsg").html("인증에 실패 .. 다시 시도해주세요.")
+						$("#user_Phone_span").empty();
+						
+					}
+					
+					if($("#isPhone").val()==1)
+					{
+						$("#join").attr("disabled", false);
+						
+					}
+				});
+				
+			}
+		});
+			 
+		 $(function() {
+				var time = 179;
+				var interver = setInterval(function() {
+					var min = time/60;
+					if(min >= 2) { min = 2 }
+					else if(min >= 1) { min = 1 }
+					else { min = 0 }
+					
+					var sec = time%60;
+					$("#countDown").html("남은 인증시간:"+min+"분"+sec+"초");
+					time -= 1;
+					if(time == -1)
+					{
+						clearInterval(interver);
+						alert("인증 시간 3분이 모두 지났습니다. 다시 인증하세요")
+						$("#checkPhone").modal("hide")
+					}
+					$("#clearPhone_modal").click(function(){
+						clearInterval(interver);
+						console.log(clearInterval(interver));
+					})
+
+				}, 1000);
+				
+		
+	setTimeout(function(){
+			
+			$("<span></span>").html("인증 시간 3분이 모두 지났습니다.").appendTo("#phoneCheck");
+			$("#checkPhone").remove;
+		}, 180000);
+	}); 
+			 
+});
+//-----------------------------------------------------------모달안의 버튼
+
+ 
+//-------------------------------------------------------------------------------------
 		
 $("#mailck").click(function(){//메일 인증-----------------------------------------------------
 		
@@ -341,8 +413,12 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 				  </div>
 				  <div class="form-group">
 				    <label for="user_Password ">Phone</label>
-				    <input type="text" class="form-control" id="user_Phone" name="user_Phone" oninput="checkPhone()" placeholder="핸드폰 번호 입력 ex)010-0000-0000" required="required">
+				    <input type="text" class="form-control" id="user_Phone" name="user_Phone" oninput="checkPhone()" placeholder="핸드폰 번호 입력 (-없이 입력해주세요!)" required="required">
 				    <span id="user_Phone_span"></span>
+				    
+				     <input type="button" value="핸드폰인증" id="phoneck" data-toggle="modal" data-target="#checkPhone">
+					    <input type="hidden" id="isPhone" value="0"> <!-- 유효성검사 통과 했는지 마는지 -->
+					  	<span id="pmsg"></span>
 				  </div>
 								   
 				  <div class="form-group">
@@ -350,7 +426,7 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 	        		<input type="file" class="form-contorl-file" name="uploadFile">
 	        	 </div>
 				  <button type="submit" class="btn btn-success col-md-4" id="join" disabled="true">회원가입</button>
-				  <span id="announce">*메일 인증시 버튼이 활성화 됩니다.</span>
+				  <span id="announce">*인증완료시 버튼이 활성화 됩니다.</span>
 				</form>
 			</div>
 		</div>
@@ -386,6 +462,35 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 	    </div>
 	  </div>
 	</div>
+
+	<!-- phone인증 Modal -->
+	<div class="modal fade " id="checkPhone" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document" >
+	    <div class="modal-content"> 
+	   <!-- <form class="form"  action="confirm.do" method="post">  --> 
+	      <div class="modal-header">
+	        <h5 class="modal-title">핸드폰 인증</h5>
+	      </div>
+	      <div class="modal-body">
+	        <div class="form-group">
+	        	<input type="hidden" class="form-contorl" id="code" name="code">
+	        </div>
+	        <div class="form-group">
+	        <input class="form-control" type="number" id="inputPhone" name="inputPhone" placeholder="코드 번호를 입력하세요">
+	        <span id="countDown"></span>
+		   	<span id="phoneCheck"></span>
+	        </div>
+	        
+	      </div>
+	       <div class="modal-footer">
+	        <button type="reset" class="btn btn-secondary" data-dismiss="modal" id="clearPhone_modal">취소</button>
+	        <button class="btn btn-primary" id="btnPhone">인증하기</button>
+	      </div>
+	     <!-- </form>  --> 
+	    </div>
+	  </div>
+	</div>
+
 
 </body>
 </html>
