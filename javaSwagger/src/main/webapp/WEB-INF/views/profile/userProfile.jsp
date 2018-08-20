@@ -478,7 +478,7 @@
 								<div class="row">
 									<div class="col-sm-12">
 <!-- 								<form class="form-inline" action="../insertComment" method="post" id="insertCommentForm" onsubmit="return false;"> -->
-										<form action="insertComment.do" method="post">
+										<form action="../insertComment" method="post">
 										  <div class="form-row align-items-left">
 										  	<div class="col-auto">
 										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
