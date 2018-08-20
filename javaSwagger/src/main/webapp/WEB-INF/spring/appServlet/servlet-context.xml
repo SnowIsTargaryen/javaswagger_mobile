@@ -44,7 +44,6 @@
 	<beans:bean class="javaa.swagger.mail.MailController">
 		<beans:property name="mailSender" ref="javaMailSender"/>
 	</beans:bean>
-
 	
 	<context:component-scan base-package="javaa.swagger.controller" />
 	<context:component-scan base-package="javaa.swagger.dao" />
