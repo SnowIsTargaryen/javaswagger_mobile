@@ -175,17 +175,36 @@
 				
 				var div_col_md_4 = $("<div></div>").addClass("col-md-4");
 				var div_card_mb4_box = $("<div></div>").addClass("card mb-4 box-shadow");
+				var div_card_header = $("<div></div>").addClass("card-header").html(p.user_ID);
 				var div_card_body = $("<div></div>").addClass("card-body");
+				var div_card_footer = $("<div></div>").addClass("card-footer claerfix");
 				var p_card_text =$("<p></p>").addClass("card-text").html(p.post_content);
-				var d_flex = $("<div></div>").addClass("d-flex justify-content-between align-items-center")
+			// 	var d_flex = $("<div></div>").addClass("d-flex justify-content-between align-items-center")
+			//	var btn_delete  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("Delete")
+			//	var btn_edit =  $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary").html("Edit")
 				var btn_group = $("<div></div>").addClass("btn-group")
-				var btn_delete  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("Delete")
-				var btn_edit =  $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary").html("Edit")
+				
+				var div_f_left = $("<div></div>").addClass("float-left")
+				var a_comment = $("<a></a>").addClass("d-inline").html("댓글   ")
+				var p_like_cnt = $("<p></p>").addClass("d-inline").html("likecnt")
+				
+				var btn_group = $("<div></div>").addClass("btn-group float-right")
+				var btn_like = $("<button></button>").addClass("btn btn-sm btn-outline-secondary border-0")
+				var btn_delete = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary border-0")
+				var btn_edit = $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary border-0")
+				
+				var icon_like = $("<img/>").attr({src:"../resources/icon/like_0.png"})
+				var icon_delete = $("<img/>").attr({src:"../resources/icon/delete-button.png"})
+				var icon_update = $("<img/>").attr({src:"../resources/icon/create-comment-button.png"})
+				
+				
+				
 				var pno_hidden = $("<p></p>").html(p.post_no)
 				var small = $("<small></small>").addClass("text-muted").html(p.post_time)
 				
 				$(btn_edit).attr({no:p.post_no})
 				$(btn_delete).attr({no:p.post_no})
+				$(btn_like).attr({no:p.post_no})
 				
 				var detail_a=$("<a></a>").attr({
 					href: "#",
@@ -197,15 +216,40 @@
 					alt : "Card image cap"
 				})
 				
+				$(div_f_left).append(a_comment,p_like_cnt)
+				$(btn_like).append(icon_like)
+				$(btn_delete).append(icon_delete)
+				$(btn_edit).append(icon_update)
+				
+				$(btn_group).append(btn_like,btn_delete,btn_edit)
+				
+				
+	//			$(btn_group).append(btn_delete,btn_edit)
+	//			$(d_flex).append(btn_group,small)
+	//			$(div_card_body).append(p_card_text,d_flex)
 				$(detail_a).append(img)
-				$(btn_group).append(btn_delete,btn_edit)
-				$(d_flex).append(btn_group,small)
-				$(div_card_body).append(p_card_text,d_flex)
-				$(div_card_mb4_box).append(detail_a,div_card_body)
+				$(div_card_body).append(p_card_text)
+				$(div_card_footer).append(div_f_left,btn_group)
+				$(div_card_mb4_box).append(div_card_header,detail_a,div_card_body,div_card_footer)
 				
 				$(div_col_md_4).append(div_card_mb4_box)
 				
-				if(user_SessionID!=guestID){$(btn_group).hide()}
+				if(user_SessionID!=guestID){ // 버튼별 권한 로그인한 사람이 아닐때
+					$(btn_delete).hide() 
+					$(btn_edit).hide() 
+				}
+				//else{$(btn_like).hide() } // 로그인한 사람일때
+				
+				$(btn_like).click(function() {
+					var no=$(this).attr("no");
+					$.ajax({
+						url:"../doLike.do",
+						success:function(data){
+							
+						
+					}})
+					
+				})
 				
 				$(btn_delete).click(function() { //게시글 삭제
 					var no=$(this).attr("no");
@@ -236,6 +280,8 @@
 
 					}})
 				})
+				
+
 				
 			/* 	$("#commentSumbit").click(function() { //댓글 달기 ajax
 							insertComment();
