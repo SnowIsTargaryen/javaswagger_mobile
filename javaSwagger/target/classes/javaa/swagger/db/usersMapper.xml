@@ -41,7 +41,7 @@
 		user_Password=#{user_Password}
 	</if>
 	<if test="user_Email != null and user_Email !='' and user_Phone != null and user_Phone !='' ">
-		user_Email=#{user_Email},user_Phone=#{user_Phone} 
+		user_Email=#{user_Email},user_Phone=#{user_Phone},user_fname=#{user_fname}
 	</if>
 	where user_ID=#{user_ID}
   </update>
