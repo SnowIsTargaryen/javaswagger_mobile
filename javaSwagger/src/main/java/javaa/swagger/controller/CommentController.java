@@ -69,10 +69,10 @@ public class CommentController {
 	@RequestMapping(value="insertComment",method=RequestMethod.POST) // ajax 방식으로 자료 받아오기
 	public ModelAndView newComment(CommentVo cv) {
 		
-		/*System.out.println(request.getParameter("comment_no"));
-		System.out.println(request.getParameter("user_ID"));
-		System.out.println(request.getParameter("post_no"));
-		System.out.println(request.getParameter("comment_content"));*/
+		System.out.println(cv.getComment_no());
+		System.out.println(cv.getUser_ID());
+		System.out.println(cv.getPost_no());
+		System.out.println(cv.getComment_content());
 		/*System.out.println(cv.getUser_ID());*/
 		
 		ModelAndView mav = new ModelAndView();

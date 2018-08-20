@@ -58,6 +58,7 @@ public class SearchController {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			str = mapper.writeValueAsString(dao.search(map));
+			//str=str+1;
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
