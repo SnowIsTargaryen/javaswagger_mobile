@@ -43,7 +43,7 @@
 					list=eval("("+data+")")
 					$.each(list, function(idx, f) {
 						user_List[idx]=f.user_ID
-						console.log(user_List[idx])
+						//console.log(user_List[idx])
 					})
 					
 					$.ajax({ //검색 

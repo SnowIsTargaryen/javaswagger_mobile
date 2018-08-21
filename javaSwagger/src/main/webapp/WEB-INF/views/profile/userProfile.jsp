@@ -54,6 +54,8 @@
 		var user_SessionID="${user_ID}"
 		var guestID=$("#jumboUserID").html()
 		
+		
+		
 		if(user_SessionID!=guestID){$("#write").hide();} // 글쓰기 권한 로그인한 사용자 전용
 		
 		$("#btnUserProfile").click(function() {
@@ -74,6 +76,229 @@
 					}
 				})
 		}//댓글 ajax */
+		
+		var l_post_no=[];
+		var like_cmt_no=[];
+		var like_post_no=[];
+		
+		$.ajax({
+			url:"../isLike.do",
+			data:{"user_ID":"${user_ID}"},
+			success:function(data){
+				alert(data)
+				list=eval("("+data+")")
+				$.each(list, function(i, l) {
+					
+					if(l.post_no!=null)
+					{
+						like_post_no=l.post_no;
+						console.log("postNo "+like_post_no)
+					}
+					if(l.comment_no!=null)
+					{
+						like_cmt_no=l.comment_no;
+						console.log("cmtNo "+like_cmt_no)
+					}
+				})// eachEnd
+				
+				//게시글 리스트
+				$.ajax({url:"../board/listPost?user_ID=<%=get_id%>",
+						success:function(data){
+						var list = eval("("+data+")") //게시물 리스트
+						
+						$.each(list, function(idx, p) { //게시글 생성
+							//l_post_no=p.post_no;
+							//console.log(l_post_no)
+							var div_col_md_4 = $("<div></div>").addClass("col-md-4");
+							var div_card_mb4_box = $("<div></div>").addClass("card mb-4 box-shadow");
+							var div_card_header = $("<div></div>").addClass("card-header").html(p.user_ID);
+							var div_card_body = $("<div></div>").addClass("card-body");
+							var div_card_footer = $("<div></div>").addClass("card-footer claerfix");
+							var p_card_text =$("<p></p>").addClass("card-text").html(p.post_content);
+						// 	var d_flex = $("<div></div>").addClass("d-flex justify-content-between align-items-center")
+						//	var btn_delete  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("Delete")
+						//	var btn_edit =  $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary").html("Edit")
+							var btn_group = $("<div></div>").addClass("btn-group")
+							
+							var div_f_left = $("<div></div>").addClass("float-left")
+							var a_comment = $("<a></a>").addClass("d-inline").html("댓글   ")
+							var p_like_cnt = $("<p></p>").addClass("d-inline").html("likecnt")
+							
+							var btn_group = $("<div></div>").addClass("btn-group float-right")
+							var btn_like = $("<button></button>").addClass("btn btn-sm btn-outline-secondary border-0")
+							var btn_delete = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary border-0")
+							var btn_edit = $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary border-0")
+							
+							var icon_like = $("<img/>").attr({src:"../resources/icon/like_0.png"})
+							var icon_delete = $("<img/>").attr({src:"../resources/icon/delete-button.png"})
+							var icon_update = $("<img/>").attr({src:"../resources/icon/create-comment-button.png"})
+							
+							
+							
+							var pno_hidden = $("<p></p>").html(p.post_no)
+							var small = $("<small></small>").addClass("text-muted").html(p.post_time)
+							
+							$(btn_edit).attr({no:p.post_no})
+							$(btn_delete).attr({no:p.post_no})
+							$(btn_like).attr({no:p.post_no})
+							
+							var detail_a=$("<a></a>").attr({
+								href: "#",
+								no: p.post_no
+							})
+							
+							var img = $("<img/>").addClass("card-img-top").attr({
+								src :"../resources/image/"+p.post_fname,
+								alt : "Card image cap"
+							})
+							
+							$(div_f_left).append(a_comment,p_like_cnt)
+							$(btn_like).append(icon_like)
+							$(btn_delete).append(icon_delete)
+							$(btn_edit).append(icon_update)
+							
+							$(btn_group).append(btn_like,btn_delete,btn_edit)
+							
+							
+				//			$(btn_group).append(btn_delete,btn_edit)
+				//			$(d_flex).append(btn_group,small)
+				//			$(div_card_body).append(p_card_text,d_flex)
+							$(detail_a).append(img)
+							$(div_card_body).append(p_card_text)
+							$(div_card_footer).append(div_f_left,btn_group)
+							$(div_card_mb4_box).append(div_card_header,detail_a,div_card_body,div_card_footer)
+							
+							$(div_col_md_4).append(div_card_mb4_box)
+							
+							if(user_SessionID!=guestID){ // 버튼별 권한 로그인한 사람이 아닐때
+								$(btn_delete).hide() 
+								$(btn_edit).hide() 
+							}
+							//else{$(btn_like).hide() } // 로그인한 사람일때
+							
+							$.ajax({
+								url:"../cntLike.do",
+								data:{"post_no":p.post_no,"comment_no":null},
+								success:function(data){
+									//var c = eval("("+data+")")
+									$(p_like_cnt).html("likes  "+data)
+								
+							}})
+							
+							$(btn_like).click(function() {
+								var no=$(this).attr("no");
+								$.ajax({
+									url:"../doLike.do",
+									success:function(data){
+										
+									
+								}})
+								
+							})
+							
+							$(btn_delete).click(function() { //게시글 삭제
+								var no=$(this).attr("no");
+								$.ajax({url:"../deletePost",
+									type:"post",
+									data:{"post_no":no,"user_ID":user_SessionID},
+									success:function(data){
+										if(data>=1)
+										{
+											 alert("삭제되었습니다.")
+											 $(div_col_md_4).empty()
+										}
+										else
+										{
+											alert("삭제에 실패했습니다")
+										}
+									}})
+							})
+							
+							$(btn_edit).click(function() { //게시글 수정
+							 	var no=$(this).attr("no");
+								
+								$.ajax({url:"../detailPost?post_no="+no,success:function(data){
+									detail=eval("("+data+")")
+									//alert(detail.post_no)
+									$('#post_content').html(detail.post_content);
+									$('#updatate_Post_no').val(detail.post_no)
+			
+								}})
+							})
+							
+			
+							
+						/* 	$("#commentSumbit").click(function() { //댓글 달기 ajax
+										insertComment();
+									})	 */
+							
+							$(detail_a).click(function() { //게시글 상세
+								var no=$(this).attr("no");
+								$("#col_comment_content").empty();
+								
+								
+								$.ajax({url:"../detailPost?post_no="+no,success:function(data){ 
+									
+									detail=eval("("+data+")")
+									//alert(data)
+									$('#post_no').val(detail.post_no);
+									$('#detail_Img').attr("src", "../resources/image/"+detail.post_fname);
+									$('#h3_detail_userID').html(detail.user_ID);
+									$('#small_detail_content').html(detail.post_content);
+									$.ajax({ //댓글 리스트
+										url:"../listComment.do?post_no="+detail.post_no,
+										success:function(data){
+											var arr = eval("("+data+")")
+											//alert(arr)
+											$.each(arr, function(i,p){
+												var h6 = $("<h6></h6>").html(p.user_ID+" ");
+												var small = $("<small></small>").html(p.comment_content);
+												var btn_DeleteComment=$("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>")
+						
+												$(small).append(btn_DeleteComment)
+												if(user_SessionID!=p.user_ID){$(btn_DeleteComment).hide()}
+												$(h6).append(small);
+												$(h6).attr({
+													id:"h6_"+i
+												})
+												$(btn_DeleteComment).attr("idx", i)
+												
+												$(btn_DeleteComment).click(function() { //댓글 삭제
+													var cno=p.comment_no;
+													var pno=p.post_no;
+													var h=$(this).attr("idx")
+													
+													//alert(h)
+													$.ajax({url:"../deleteComment",
+														type:"post",
+														data:{"comment_no":cno,"post_no":pno},
+														success:function(data){
+															if(data>=1)
+															{
+																 alert("삭제되었습니다.")
+																 $("#h6_"+h).remove()
+															}
+															else
+															{
+																alert("삭제에 실패했습니다")
+															}
+														}})
+												})
+												//if(user_SessionID!=guestID){$(btn_DeleteComment).hide()}
+												$("#col_comment_content").append(h6);
+												
+												
+											}) 
+										}})
+									
+								}})
+								$('#detail_Dialog').modal('show')
+							})
+						$("#row1").append(div_col_md_4)
+					});
+				}}); //게시물 생성 ajax
+				
+		}})//ajax islikeEnd
 				
 		
 		$.ajax({ // 팔로우 중복 검사
@@ -166,192 +391,205 @@
 		
 		//insertComment();
 		
+		<%-- //게시글 리스트
 		$.ajax({url:"../board/listPost?user_ID=<%=get_id%>",
-				/* async:false, */
 				success:function(data){
-			var list = eval("("+data+")") //게시물 리스트
-			
-			$.each(list, function(idx, p) { //게시글 생성
+				var list = eval("("+data+")") //게시물 리스트
 				
-				var div_col_md_4 = $("<div></div>").addClass("col-md-4");
-				var div_card_mb4_box = $("<div></div>").addClass("card mb-4 box-shadow");
-				var div_card_header = $("<div></div>").addClass("card-header").html(p.user_ID);
-				var div_card_body = $("<div></div>").addClass("card-body");
-				var div_card_footer = $("<div></div>").addClass("card-footer claerfix");
-				var p_card_text =$("<p></p>").addClass("card-text").html(p.post_content);
-			// 	var d_flex = $("<div></div>").addClass("d-flex justify-content-between align-items-center")
-			//	var btn_delete  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("Delete")
-			//	var btn_edit =  $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary").html("Edit")
-				var btn_group = $("<div></div>").addClass("btn-group")
-				
-				var div_f_left = $("<div></div>").addClass("float-left")
-				var a_comment = $("<a></a>").addClass("d-inline").html("댓글   ")
-				var p_like_cnt = $("<p></p>").addClass("d-inline").html("likecnt")
-				
-				var btn_group = $("<div></div>").addClass("btn-group float-right")
-				var btn_like = $("<button></button>").addClass("btn btn-sm btn-outline-secondary border-0")
-				var btn_delete = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary border-0")
-				var btn_edit = $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary border-0")
-				
-				var icon_like = $("<img/>").attr({src:"../resources/icon/like_0.png"})
-				var icon_delete = $("<img/>").attr({src:"../resources/icon/delete-button.png"})
-				var icon_update = $("<img/>").attr({src:"../resources/icon/create-comment-button.png"})
-				
-				
-				
-				var pno_hidden = $("<p></p>").html(p.post_no)
-				var small = $("<small></small>").addClass("text-muted").html(p.post_time)
-				
-				$(btn_edit).attr({no:p.post_no})
-				$(btn_delete).attr({no:p.post_no})
-				$(btn_like).attr({no:p.post_no})
-				
-				var detail_a=$("<a></a>").attr({
-					href: "#",
-					no: p.post_no
-				})
-				
-				var img = $("<img/>").addClass("card-img-top").attr({
-					src :"../resources/image/"+p.post_fname,
-					alt : "Card image cap"
-				})
-				
-				$(div_f_left).append(a_comment,p_like_cnt)
-				$(btn_like).append(icon_like)
-				$(btn_delete).append(icon_delete)
-				$(btn_edit).append(icon_update)
-				
-				$(btn_group).append(btn_like,btn_delete,btn_edit)
-				
-				
-	//			$(btn_group).append(btn_delete,btn_edit)
-	//			$(d_flex).append(btn_group,small)
-	//			$(div_card_body).append(p_card_text,d_flex)
-				$(detail_a).append(img)
-				$(div_card_body).append(p_card_text)
-				$(div_card_footer).append(div_f_left,btn_group)
-				$(div_card_mb4_box).append(div_card_header,detail_a,div_card_body,div_card_footer)
-				
-				$(div_col_md_4).append(div_card_mb4_box)
-				
-				if(user_SessionID!=guestID){ // 버튼별 권한 로그인한 사람이 아닐때
-					$(btn_delete).hide() 
-					$(btn_edit).hide() 
-				}
-				//else{$(btn_like).hide() } // 로그인한 사람일때
-				
-				$(btn_like).click(function() {
-					var no=$(this).attr("no");
+				$.each(list, function(idx, p) { //게시글 생성
+					//l_post_no=p.post_no;
+					//console.log(l_post_no)
+					var div_col_md_4 = $("<div></div>").addClass("col-md-4");
+					var div_card_mb4_box = $("<div></div>").addClass("card mb-4 box-shadow");
+					var div_card_header = $("<div></div>").addClass("card-header").html(p.user_ID);
+					var div_card_body = $("<div></div>").addClass("card-body");
+					var div_card_footer = $("<div></div>").addClass("card-footer claerfix");
+					var p_card_text =$("<p></p>").addClass("card-text").html(p.post_content);
+				// 	var d_flex = $("<div></div>").addClass("d-flex justify-content-between align-items-center")
+				//	var btn_delete  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("Delete")
+				//	var btn_edit =  $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary").html("Edit")
+					var btn_group = $("<div></div>").addClass("btn-group")
+					
+					var div_f_left = $("<div></div>").addClass("float-left")
+					var a_comment = $("<a></a>").addClass("d-inline").html("댓글   ")
+					var p_like_cnt = $("<p></p>").addClass("d-inline").html("likecnt")
+					
+					var btn_group = $("<div></div>").addClass("btn-group float-right")
+					var btn_like = $("<button></button>").addClass("btn btn-sm btn-outline-secondary border-0")
+					var btn_delete = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary border-0")
+					var btn_edit = $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary border-0")
+					
+					var icon_like = $("<img/>").attr({src:"../resources/icon/like_0.png"})
+					var icon_delete = $("<img/>").attr({src:"../resources/icon/delete-button.png"})
+					var icon_update = $("<img/>").attr({src:"../resources/icon/create-comment-button.png"})
+					
+					
+					
+					var pno_hidden = $("<p></p>").html(p.post_no)
+					var small = $("<small></small>").addClass("text-muted").html(p.post_time)
+					
+					$(btn_edit).attr({no:p.post_no})
+					$(btn_delete).attr({no:p.post_no})
+					$(btn_like).attr({no:p.post_no})
+					
+					var detail_a=$("<a></a>").attr({
+						href: "#",
+						no: p.post_no
+					})
+					
+					var img = $("<img/>").addClass("card-img-top").attr({
+						src :"../resources/image/"+p.post_fname,
+						alt : "Card image cap"
+					})
+					
+					$(div_f_left).append(a_comment,p_like_cnt)
+					$(btn_like).append(icon_like)
+					$(btn_delete).append(icon_delete)
+					$(btn_edit).append(icon_update)
+					
+					$(btn_group).append(btn_like,btn_delete,btn_edit)
+					
+					
+		//			$(btn_group).append(btn_delete,btn_edit)
+		//			$(d_flex).append(btn_group,small)
+		//			$(div_card_body).append(p_card_text,d_flex)
+					$(detail_a).append(img)
+					$(div_card_body).append(p_card_text)
+					$(div_card_footer).append(div_f_left,btn_group)
+					$(div_card_mb4_box).append(div_card_header,detail_a,div_card_body,div_card_footer)
+					
+					$(div_col_md_4).append(div_card_mb4_box)
+					
+					if(user_SessionID!=guestID){ // 버튼별 권한 로그인한 사람이 아닐때
+						$(btn_delete).hide() 
+						$(btn_edit).hide() 
+					}
+					//else{$(btn_like).hide() } // 로그인한 사람일때
+					
 					$.ajax({
-						url:"../doLike.do",
+						url:"../cntLike.do",
+						data:{"post_no":p.post_no,"comment_no":null},
 						success:function(data){
-							
+							//var c = eval("("+data+")")
+							$(p_like_cnt).html("likes  "+data)
 						
 					}})
 					
-				})
-				
-				$(btn_delete).click(function() { //게시글 삭제
-					var no=$(this).attr("no");
-					$.ajax({url:"../deletePost",
-						type:"post",
-						data:{"post_no":no,"user_ID":user_SessionID},
-						success:function(data){
-							if(data>=1)
-							{
-								 alert("삭제되었습니다.")
-								 $(div_col_md_4).empty()
-							}
-							else
-							{
-								alert("삭제에 실패했습니다")
-							}
-						}})
-				})
-				
-				$(btn_edit).click(function() { //게시글 수정
-				 	var no=$(this).attr("no");
-					
-					$.ajax({url:"../detailPost?post_no="+no,success:function(data){
-						detail=eval("("+data+")")
-						//alert(detail.post_no)
-						$('#post_content').html(detail.post_content);
-						$('#updatate_Post_no').val(detail.post_no)
-
-					}})
-				})
-				
-
-				
-			/* 	$("#commentSumbit").click(function() { //댓글 달기 ajax
-							insertComment();
-						})	 */
-				
-				$(detail_a).click(function() { //게시글 상세
-					var no=$(this).attr("no");
-					$("#col_comment_content").empty();
-					
-					
-					$.ajax({url:"../detailPost?post_no="+no,success:function(data){ 
-						
-						detail=eval("("+data+")")
-						//alert(data)
-						$('#post_no').val(detail.post_no);
-						$('#detail_Img').attr("src", "../resources/image/"+detail.post_fname);
-						$('#h3_detail_userID').html(detail.user_ID);
-						$('#small_detail_content').html(detail.post_content);
-						$.ajax({ //댓글 리스트
-							url:"../listComment.do?post_no="+detail.post_no,
+					$(btn_like).click(function() {
+						var no=$(this).attr("no");
+						$.ajax({
+							url:"../doLike.do",
 							success:function(data){
-								var arr = eval("("+data+")")
-								//alert(arr)
-								$.each(arr, function(i,p){
-									var h6 = $("<h6></h6>").html(p.user_ID+" ");
-									var small = $("<small></small>").html(p.comment_content);
-									var btn_DeleteComment=$("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>")
-			
-									$(small).append(btn_DeleteComment)
-									if(user_SessionID!=p.user_ID){$(btn_DeleteComment).hide()}
-									$(h6).append(small);
-									$(h6).attr({
-										id:"h6_"+i
-									})
-									$(btn_DeleteComment).attr("idx", i)
-									
-									$(btn_DeleteComment).click(function() { //댓글 삭제
-										var cno=p.comment_no;
-										var pno=p.post_no;
-										var h=$(this).attr("idx")
-										
-										//alert(h)
-										$.ajax({url:"../deleteComment",
-											type:"post",
-											data:{"comment_no":cno,"post_no":pno},
-											success:function(data){
-												if(data>=1)
-												{
-													 alert("삭제되었습니다.")
-													 $("#h6_"+h).remove()
-												}
-												else
-												{
-													alert("삭제에 실패했습니다")
-												}
-											}})
-									})
-									//if(user_SessionID!=guestID){$(btn_DeleteComment).hide()}
-									$("#col_comment_content").append(h6);
-									
-									
-								}) 
-							}})
+								
+							
+						}})
 						
-					}})
-					$('#detail_Dialog').modal('show')
-				})
+					})
+					
+					$(btn_delete).click(function() { //게시글 삭제
+						var no=$(this).attr("no");
+						$.ajax({url:"../deletePost",
+							type:"post",
+							data:{"post_no":no,"user_ID":user_SessionID},
+							success:function(data){
+								if(data>=1)
+								{
+									 alert("삭제되었습니다.")
+									 $(div_col_md_4).empty()
+								}
+								else
+								{
+									alert("삭제에 실패했습니다")
+								}
+							}})
+					})
+					
+					$(btn_edit).click(function() { //게시글 수정
+					 	var no=$(this).attr("no");
+						
+						$.ajax({url:"../detailPost?post_no="+no,success:function(data){
+							detail=eval("("+data+")")
+							//alert(detail.post_no)
+							$('#post_content').html(detail.post_content);
+							$('#updatate_Post_no').val(detail.post_no)
+	
+						}})
+					})
+					
+	
+					
+				/* 	$("#commentSumbit").click(function() { //댓글 달기 ajax
+								insertComment();
+							})	 */
+					
+					$(detail_a).click(function() { //게시글 상세
+						var no=$(this).attr("no");
+						$("#col_comment_content").empty();
+						
+						
+						$.ajax({url:"../detailPost?post_no="+no,success:function(data){ 
+							
+							detail=eval("("+data+")")
+							//alert(data)
+							$('#post_no').val(detail.post_no);
+							$('#detail_Img').attr("src", "../resources/image/"+detail.post_fname);
+							$('#h3_detail_userID').html(detail.user_ID);
+							$('#small_detail_content').html(detail.post_content);
+							$.ajax({ //댓글 리스트
+								url:"../listComment.do?post_no="+detail.post_no,
+								success:function(data){
+									var arr = eval("("+data+")")
+									//alert(arr)
+									$.each(arr, function(i,p){
+										var h6 = $("<h6></h6>").html(p.user_ID+" ");
+										var small = $("<small></small>").html(p.comment_content);
+										var btn_DeleteComment=$("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>")
+				
+										$(small).append(btn_DeleteComment)
+										if(user_SessionID!=p.user_ID){$(btn_DeleteComment).hide()}
+										$(h6).append(small);
+										$(h6).attr({
+											id:"h6_"+i
+										})
+										$(btn_DeleteComment).attr("idx", i)
+										
+										$(btn_DeleteComment).click(function() { //댓글 삭제
+											var cno=p.comment_no;
+											var pno=p.post_no;
+											var h=$(this).attr("idx")
+											
+											//alert(h)
+											$.ajax({url:"../deleteComment",
+												type:"post",
+												data:{"comment_no":cno,"post_no":pno},
+												success:function(data){
+													if(data>=1)
+													{
+														 alert("삭제되었습니다.")
+														 $("#h6_"+h).remove()
+													}
+													else
+													{
+														alert("삭제에 실패했습니다")
+													}
+												}})
+										})
+										//if(user_SessionID!=guestID){$(btn_DeleteComment).hide()}
+										$("#col_comment_content").append(h6);
+										
+										
+									}) 
+								}})
+							
+						}})
+						$('#detail_Dialog').modal('show')
+					})
 				$("#row1").append(div_col_md_4)
 			});
-		}}); //게시물 생성 ajax
+		}}); //게시물 생성 ajax --%>
+		
+		
+		
 		
 
 	});
