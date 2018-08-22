@@ -32,10 +32,6 @@
     height:120px;
     border-radius: 60px; /* 이미지 반크기만큼 반경을 잡기*/
 	}
-
-
-
-	
 </style> 
 
 <title>Profile</title>
@@ -85,18 +81,18 @@
 			url:"../isLike.do",
 			data:{"user_ID":"${user_ID}"},
 			success:function(data){
-				alert(data)
+				
 				list=eval("("+data+")")
 				$.each(list, function(i, l) {
 					
 					if(l.post_no!=null)
 					{
-						like_post_no=l.post_no;
+						like_post_no[i]=l.post_no;
 						console.log("postNo "+like_post_no)
 					}
 					if(l.comment_no!=null)
 					{
-						like_cmt_no=l.comment_no;
+						like_cmt_no[i]=l.comment_no;
 						console.log("cmtNo "+like_cmt_no)
 					}
 				})// eachEnd
@@ -107,8 +103,6 @@
 						var list = eval("("+data+")") //게시물 리스트
 						
 						$.each(list, function(idx, p) { //게시글 생성
-							//l_post_no=p.post_no;
-							//console.log(l_post_no)
 							var div_col_md_4 = $("<div></div>").addClass("col-md-4");
 							var div_card_mb4_box = $("<div></div>").addClass("card mb-4 box-shadow");
 							var div_card_header = $("<div></div>").addClass("card-header").html(p.user_ID);
@@ -151,6 +145,52 @@
 								src :"../resources/image/"+p.post_fname,
 								alt : "Card image cap"
 							})
+							var state=0;
+							$.each(like_post_no, function(i, no) {
+								if(no==p.post_no)
+								{
+									$(icon_like).attr({src:"../resources/icon/like_1.png"})	
+									state=1;
+								}
+							})
+							
+							$(btn_like).on("click",function() {
+								var no=$(this).attr("no");
+								if(state==0)
+								{
+									$.ajax({
+										url:"../doLike.do",
+										data:{"user_ID":"${user_ID}","post_no":p.post_no},
+										success:function(data){
+											$(icon_like).attr({src:"../resources/icon/like_1.png"})	
+											
+									}})
+									state=1
+									return;
+								}
+								else if(state==1)
+								{
+									$.ajax({
+										url:"../cancelLike.do",
+										data:{"user_ID":"${user_ID}","post_no":p.post_no},
+										success:function(data){
+											$(icon_like).attr({src:"../resources/icon/like_0.png"})	
+											
+									}})
+									state=0
+									return;
+								}	
+							})
+							
+							$.ajax({
+								url:"../cntLike.do",
+								data:{"post_no":p.post_no,"comment_no":null},
+								success:function(data){
+									//var c = eval("("+data+")")
+									$(p_like_cnt).html("likes  "+data)
+								
+							}})
+							
 							
 							$(div_f_left).append(a_comment,p_like_cnt)
 							$(btn_like).append(icon_like)
@@ -176,25 +216,8 @@
 							}
 							//else{$(btn_like).hide() } // 로그인한 사람일때
 							
-							$.ajax({
-								url:"../cntLike.do",
-								data:{"post_no":p.post_no,"comment_no":null},
-								success:function(data){
-									//var c = eval("("+data+")")
-									$(p_like_cnt).html("likes  "+data)
-								
-							}})
 							
-							$(btn_like).click(function() {
-								var no=$(this).attr("no");
-								$.ajax({
-									url:"../doLike.do",
-									success:function(data){
-										
-									
-								}})
-								
-							})
+							
 							
 							$(btn_delete).click(function() { //게시글 삭제
 								var no=$(this).attr("no");
@@ -588,15 +611,10 @@
 			});
 		}}); //게시물 생성 ajax --%>
 		
-		
-		
-		
 
 	});
-	
 
 </script>
-
 
 </head>
 <body>
