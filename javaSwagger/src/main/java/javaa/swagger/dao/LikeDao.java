@@ -37,7 +37,7 @@ public class LikeDao {
 		return LikeManager.getPno(comment_NO);
 	}
 
-	public int isLike(HashMap map) {
+	public List<LikeVo> isLike(HashMap map) {
 		// TODO Auto-generated method stub
 		return LikeManager.isLike(map);
 	}

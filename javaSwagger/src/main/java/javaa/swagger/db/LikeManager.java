@@ -62,10 +62,11 @@ public class LikeManager {
 		return re;
 	}
 
-	public static int isLike(HashMap map) {
+	public static List<LikeVo> isLike(HashMap map) {
 		SqlSession s = factory.openSession(true); 
-		int re = s.selectOne("like.isLike", map);
+		List<LikeVo> list = null;
+		list = s.selectList("like.isLike", map);
 		s.close();
-		return re;
+		return list;
 	}
 }
