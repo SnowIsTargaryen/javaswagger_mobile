@@ -40,6 +40,7 @@
 </style> 
 
 <title>Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
@@ -49,16 +50,15 @@
 <script type="text/javascript">
 	$(function() {
 		var arr;
-		<% String sesseing_id=(String)session.getAttribute("user_ID"); %> //로그인한 사용자
 		<% String get_id=(String)request.getParameter("user_ID"); %> //사용자
 		
-		var user_SessionID=$("#btnUserProfile").html()
+		var user_SessionID="${user_ID}"
 		var guestID=$("#jumboUserID").html()
 		
-		if(user_SessionID!=guestID){$("#write").hide();}
+		if(user_SessionID!=guestID){$("#write").hide();} // 글쓰기 권한 로그인한 사용자 전용
 		
 		$("#btnUserProfile").click(function() {
-			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>"
+			location.href="../profile/userProfile?user_ID="+user_SessionID+""
 		})
 		if(user_SessionID==guestID){$("#btn_Follow").hide()}
 				
@@ -478,7 +478,7 @@
 								<div class="row">
 									<div class="col-sm-12">
 <!-- 								<form class="form-inline" action="../insertComment" method="post" id="insertCommentForm" onsubmit="return false;"> -->
-										<form action="insertComment.do" method="post">
+										<form action="../insertComment" method="post">
 										  <div class="form-row align-items-left">
 										  	<div class="col-auto">
 										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
