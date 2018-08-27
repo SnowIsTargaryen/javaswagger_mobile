@@ -29,30 +29,37 @@ public class LikeController {
 	
 	@RequestMapping(value="cntLike.do", produces="text/plain;charset=utf-8")
 	@ResponseBody // ajax 반환
-	public String cntLike(String comment_NO, String post_NO) {
+	public String cntLike(String comment_no, String post_no) {
 		HashMap map = new HashMap();
-		map.put("comment_NO", comment_NO);
-		map.put("post_NO", post_NO);
-		int re = dao.cntLike(map);
-		return re+"";
+		String str = "";
+		ObjectMapper mapper = new ObjectMapper();
+		map.put("comment_no", comment_no);
+		map.put("post_no", post_no);
+		//int re = dao.cntLike(map);
+		try {
+		str=mapper.writeValueAsString(dao.cntLike(map));
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return str;
 	}
 	
 	@RequestMapping(value="whoLike.do", produces="text/plain;charset=utf-8")
 	@ResponseBody // ajax 반환
-	public String whoLike(String post_NO, String comment_NO, String user_ID) {
+	public String whoLike(String post_no, String comment_no, String user_ID) {
 		ArrayList<LikeVo> list = new ArrayList<LikeVo>();
 		HashMap map = new HashMap();
 		
-		if(post_NO ==  null) {
-			map.put("post_NO", null);			
+		if(post_no ==  null) {
+			map.put("post_no", null);			
 		}else {
-			map.put("post_NO", post_NO);
+			map.put("post_no", post_no);
 		}
 		
-		if(comment_NO == null) {
-			map.put("comment_NO",null);
+		if(comment_no == null) {
+			map.put("comment_no",null);
 		}else{
-			map.put("comment_NO", comment_NO);
+			map.put("comment_no", comment_no);
 		}
 		
 		if(user_ID == null) {
@@ -77,91 +84,171 @@ public class LikeController {
 		return str;
 	}
 	
-	@RequestMapping("doLike.do")
-	public ModelAndView doLike(String post_NO, String comment_NO, String user_ID) {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping(value="doLike.do",produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String doLike(String post_no, String comment_no, String user_ID){
+		String str ="";
+		ObjectMapper mapper = new ObjectMapper();
 		HashMap map = new HashMap();
-		if(post_NO ==  null) {
-			map.put("post_NO", null);			
+		if(post_no ==  null) {
+			map.put("post_no", null);			
 		}else {
-			map.put("post_NO", post_NO);
+			map.put("post_no", post_no);
 		}
 		
-		if(comment_NO == null) {
-			map.put("comment_NO",null);
+		if(comment_no == null) {
+			map.put("comment_no",null);
 		}else {
-			map.put("comment_NO", comment_NO);
+			map.put("comment_no", comment_no);
 		}
 		
 		map.put("user_ID", user_ID);
-		int re = dao.doLike(map);
-		if(post_NO != null) {
-			if(re > 0) {
-				mav.setViewName("redirect:/detailPost.do?post_no="+post_NO);
-			}else {
-				mav.addObject("msg", "게시물 좋아요에 실패하였습니다.");
-			}
-		} else {
-			if(re > 0) {
-				mav.setViewName("redirect:/detailPost.do?post_no="+dao.getPno(comment_NO));
-			}else {
-				mav.addObject("msg", "댓글 좋아요에 실패하였습니다.");
-			}
+		//int re = dao.doLike(map);
+		
+		try {
+			str = mapper.writeValueAsString(dao.doLike(map));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
 		}
-		return mav;
+		return str;
 	}
 	
-	@RequestMapping("cancelLike.do") // ajax 방식으로 comment_no 받아오기
-	public ModelAndView cancelLike(String post_NO, String comment_NO, String user_ID) {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping(value="cancelLike.do",produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String cancelLike(String post_no, String comment_no, String user_ID){
+		String str ="";
+		ObjectMapper mapper = new ObjectMapper();
 		HashMap map = new HashMap();
-		if(post_NO ==  null) {
-			map.put("post_NO", null);			
+		if(post_no ==  null) {
+			map.put("post_no", null);			
 		}else {
-			map.put("post_NO", post_NO);
+			map.put("post_no", post_no);
 		}
 	
-		if(comment_NO == null) {
-			map.put("comment_NO",null);
+		if(comment_no == null) {
+			map.put("comment_no",null);
 		}else {
-			map.put("comment_NO", comment_NO);
+			map.put("comment_no", comment_no);
 		}
 		
 		map.put("user_ID", user_ID);
-		int re = dao.cancelLike(map);
-		if(post_NO != null) {
-			if(re > 0) {
-				mav.setViewName("redirect:/detailPost.do?post_no="+post_NO);
-			}else {
-				mav.addObject("msg", "게시물 좋아요에 실패하였습니다.");
-			}
-		} else {
-			if(re > 0) {
-				mav.setViewName("redirect:/detailPost.do?post_no="+dao.getPno(comment_NO));
-			}else {
-				mav.addObject("msg", "댓글 좋아요에 실패하였습니다.");
-			}
-		}
+		//int re = dao.cancelLike(map);
 		
-		return mav;
+		try {
+			str = mapper.writeValueAsString(dao.cancelLike(map));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		return str;
 	}
 	
 	@RequestMapping("isLike.do")
 	@ResponseBody
-	public String isLike(String post_NO, String comment_NO, String user_ID) {
+	public String isLike(String user_ID) {
+		
 		HashMap map = new HashMap();
-		if(post_NO ==  null) {
-			map.put("post_NO", null);			
-		}else {
-			map.put("post_NO", post_NO);
-		}
-		if(comment_NO == null) {
-			map.put("comment_NO",null);
-		}else {
-			map.put("comment_NO", comment_NO);
-		}
+		ObjectMapper mapper = new ObjectMapper();
 		map.put("user_ID", user_ID);
-		int re = dao.isLike(map);
-		return re+"";
+		String str="";
+		try {
+			str=mapper.writeValueAsString(dao.isLike(map));
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return str;
 	}
+	
+//	@RequestMapping("doLike.do")
+//	public ModelAndView doLike(String post_no, String comment_no, String user_ID) {
+//		ModelAndView mav = new ModelAndView();
+//		HashMap map = new HashMap();
+//		if(post_no ==  null) {
+//			map.put("post_no", null);			
+//		}else {
+//			map.put("post_no", post_no);
+//		}
+//		
+//		if(comment_no == null) {
+//			map.put("comment_no",null);
+//		}else {
+//			map.put("comment_no", comment_no);
+//		}
+//		
+//		map.put("user_ID", user_ID);
+//		int re = dao.doLike(map);
+//		if(post_no != null) {
+//			if(re > 0) {
+//				mav.setViewName("redirect:../detailPost.do?post_no="+post_no);
+//			}else {
+//				mav.addObject("msg", "게시물 좋아요에 실패하였습니다.");
+//			}
+//		} else {
+//			if(re > 0) {
+//				mav.setViewName("redirect:../detailPost.do?post_no="+dao.getPno(comment_no));
+//			}else {
+//				mav.addObject("msg", "댓글 좋아요에 실패하였습니다.");
+//			}
+//		}
+//		return mav;
+//	}
+	
+//	@RequestMapping("cancelLike.do") // ajax 방식으로 comment_no 받아오기
+//	public ModelAndView cancelLike(String post_no, String comment_no, String user_ID) {
+//		ModelAndView mav = new ModelAndView();
+//		HashMap map = new HashMap();
+//		if(post_no ==  null) {
+//			map.put("post_no", null);			
+//		}else {
+//			map.put("post_no", post_no);
+//		}
+//	
+//		if(comment_no == null) {
+//			map.put("comment_no",null);
+//		}else {
+//			map.put("comment_no", comment_no);
+//		}
+//		
+//		map.put("user_ID", user_ID);
+//		int re = dao.cancelLike(map);
+//		if(post_no != null) {
+//			if(re > 0) {
+//				mav.setViewName("redirect:/detailPost.do?post_no="+post_no);
+//			}else {
+//				mav.addObject("msg", "게시물 좋아요에 실패하였습니다.");
+//			}
+//		} else {
+//			if(re > 0) {
+//				mav.setViewName("redirect:/detailPost.do?post_no="+dao.getPno(comment_no));
+//			}else {
+//				mav.addObject("msg", "댓글 좋아요에 실패하였습니다.");
+//			}
+//		}
+//		
+//		return mav;
+//	}
+	
+	
+
+	
+//	@RequestMapping("isLike.do")
+//	@ResponseBody
+//	public String isLike(String post_no, String comment_no, String user_ID) {
+//		HashMap map = new HashMap();
+//		if(post_no ==  null) {
+//			map.put("post_no", null);			
+//		}else {
+//			map.put("post_no", post_no);
+//		}
+//		if(comment_no == null) {
+//			map.put("comment_no",null);
+//		}else {
+//			map.put("comment_no", comment_no);
+//		}
+//		map.put("user_ID", user_ID);
+//		int re = dao.isLike(map);
+//		return re+"";
+//	}
 }
