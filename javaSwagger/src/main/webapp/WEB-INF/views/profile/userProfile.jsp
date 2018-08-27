@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <style type="text/css">
 	#modal-detail{
 		max-width: 50% !important; 
@@ -619,26 +620,28 @@
 </head>
 <body>
 <!--  네비게이션  -->
-	<nav class="navbar">
-		<div class="container">
-			<div class="col-4">
-				<div class="navbar-header navbar-left">
-					<h1><a class="navbar-brand" href="../timeLine">Eden</a></h1>
+	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+ 	 </button>
+ 	 
+				<div class="navbar-header navbar-center mx-auto">
+					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Eden</a>
 				</div>
-			</div>
-			<div class="col-4">
-				<form class="navbar-form navbar-center" action="../search">
+				
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<form class="form-inline my-lg-0 mx-auto" action="../search">
 			      <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
 			        <div class="input-group-append">
-			          <button class="btn btn-outline-secondary" type="submit" >
+			          <button class="btn btn-outline-success" type="submit" >
 							<img src="../resources/icon/search2.png" width="18" height="18">
 					  </button>
 			        </div>
 			      </div>
 			    </form>
 			</div>
-			<div class="col-4 d-flex justify-content-end align-items-center">
+			<div class="navbar-nav mx-2 my-2">
 	            <div class="btn-group">
 	            
 			    <button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
@@ -648,9 +651,9 @@
 			      <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
 			      <a class="dropdown-item" href="../logout">로그아웃</a>
 			    </div>
-			  </div>
-	        </div>
-		</div> <!-- 컨테이너  -->
+			 </div>
+	   		</div>
+		 
 	</nav>
 	
 <!--사용자 프로필  -->
@@ -658,17 +661,17 @@
 		<div class="jumbotron" style="background-color: #FFFFFF" >
 			<div class="row d-flex" id="header">
 				<div class="col-sm-9 d-flex" >
-					<div >
+					<div class="mx-auto"> 
 						<img id="proPhoto" src="../resources/image/${profile.user_fname }">
 					</div>
-					<div class="row">
+					<div class="row mx-auto">
 						<div class="col-sm-2 offset-md-2 ">
 							<h4 id="jumboUserID">${profile.user_ID }</h4>
 						</div>
 						<div class="col col-sm-auto">
 							<span><button id="btn_Follow" class="btn ">Follow</button></span>
 						</div>
-						<div class="col col-sm-auto">
+						<div class="col col-sm-auto mx-4">
 							<a data-toggle="modal" data-target="#insertPost" id="write" ><img src="../resources/icon/contract.png"></a>
 						</div>
 						<div class="col-sm-6 offset-md-2">

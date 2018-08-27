@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 
 <title>EditProfile</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,28 +40,34 @@
 <body>
 
 <!--  네비게이션  -->
-<nav class="nav class=navbar navbar-expand-lg navbar-light bg-light">
-	 <div class="navbar-header navbar-left">
-		<h1><a class="navbar-brand mx-auto" href="../timeLine">Eden</a></h1>
-	 </div>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
+	 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     	<span class="navbar-toggler-icon"></span>
  	 </button>
-	
+	 <div class="navbar-header navbar-center mx-auto">
+		<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Eden</a>
+	 </div>
+
+	 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		
-		<form class="form-inline my-1 my-lg-0 mx-auto" action="#">
-			<input type="text" class="form-control mr-sm-2" placeholder="Search" type="search" aria-label="Search">
-			<button  class="btn btn-outline-success my-2 my-sm-0" type="submit" >
-				<img src="../resources/icon/search2.png" width="18" height="18">
-			</button>
+		
+		<form class="form-inline my-lg-0 mx-auto" action="#">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search" type="search" aria-label="Search">
+				 <div class="input-group-append">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit" >
+					<img src="../resources/icon/search2.png" width="18" height="18">
+				</button>
+				</div>
+			</div>
 		</form>
-	
 	</div> <!-- 컨테이너  -->
-	<div class="navbar-nav mx-auto">
+	
+	<div class="navbar-nav mx-2 my-2">
 	     <div class="btn-group">    
-			<button type="button" class="btn btn-default" id="btnUserProfile">${user_ID }</button>
-			<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			</button>
 			<div class="dropdown-menu">
 			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
@@ -73,9 +79,9 @@
 	
 	
 <!--사용자 프로필  -->
-	<div class="container">
-		<div class="row">
-			<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+	<div class="container mx-0">
+		<div class="row justify-content-between">
+			<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar ">
 	          <ul class="nav nav-pills flex-column" role="tablist">
 	            <li class="nav-item">
 	              <a class="nav-link active" href="#editProfile" role="tab" data-toggle="pill">프로필 수정</a>
@@ -87,27 +93,16 @@
 	              <a class="nav-link" href="#dropUser" role="tab" data-toggle="pill">회원탈퇴</a>
 	            </li>
 	          </ul>
-	
-	          
-	        </nav>
-		
-			<!-- <div class="col-sm-3 col-md-2 sidebar">
-		         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-				  <a class="nav-link active"  data-toggle="pill" href="#v-pills-home" role="tab"  aria-selected="true">프로필 수정</a>
-				  <a class="nav-link"  data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">비밀번호 수정</a>
-				  <a class="nav-link"  data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">회원탈퇴</a>
-				  <a class="nav-link"  data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
-				</div>
-	        </div> -->
+	        </nav> 
 			<div class="col-sm-9">
 				<div class="tab-content">
 					<!--프로필 수정  -->
 					<div class="tab-pane container active" id="editProfile">
 						<form action="../profile/editProfile" method="post">
-						  <div class="form-group col-md-7">
+						  <div class="form-group col-md-7 ">
 						   	<img id="proPhoto" data-toggle="modal" data-target="#updatePost" src="../resources/image/${profile.user_fname }">
 						   
-							<div for="user_ID" >${profile.user_ID}</div>
+							<span class="ml-5" for="user_ID" >${profile.user_ID}</span>
 						    <input type="hidden" class="form-control" id="user_ID" name="user_ID" value="${profile.user_ID }">
 						  </div>
 						  
@@ -115,15 +110,15 @@
 			        	<input type="file" class="form-contorl-file" id="user_fname" name="user_fname">
 			        </div> -->
 						  
-						  <div class="form-group col-md-7">
+						  <div class="form-group .col-5 col-sm-12 col-md-10  col-lg-7">
 						    <label for="user_Password ">Email</label><!-- email 변경할때도 인증된 email인지 테스트해서 존재하는 email만 넣을 수 있도록 해야함-->
 						    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="변경 할 email을 입력하세요">
 						  </div>
-						  <div class="form-group col-md-7">
+						  <div class="form-group .col-5 col-sm-12 col-md-10  col-lg-7">
 						    <label for="user_Password ">Phone</label>
 						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 Phone 번호를 입력하세요">
 						  </div>
-						  <button type="submit" class="btn btn-success col-md-7">회원정보 변경</button>
+						  <button type="submit" class="btn btn-success .col-5 col-sm-12 col-md-10 col-lg-7">회원정보 변경</button>
 						</form>
 					</div>
 					<!-- 비밀번호 변경  -->
