@@ -109,7 +109,18 @@
 							var div_card_header = $("<div></div>").addClass("card-header").html(p.user_ID);
 							var div_card_body = $("<div></div>").addClass("card-body");
 							var div_card_footer = $("<div></div>").addClass("card-footer claerfix");
-							var p_card_text =$("<p></p>").addClass("card-text").html(p.post_content);
+							
+							var post_content=p.post_content;
+							if(post_content == "undefined" || post_content==null ) // 글내용이 없을댸
+							{
+								post_content="";
+							}
+							if(post_content.length>=20) // 글 내용이 20자 이상일때
+							{
+								post_content=p.post_content.substring(0, 20)+"...";
+							}			
+							
+							var p_card_text =$("<p></p>").addClass("card-text").html(post_content);
 						// 	var d_flex = $("<div></div>").addClass("d-flex justify-content-between align-items-center")
 						//	var btn_delete  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("Delete")
 						//	var btn_edit =  $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary").html("Edit")
@@ -415,7 +426,8 @@
 		})
 		
 		
-		function cntLike(postNo,commentNo){ //좋아요 카운트 함수
+		function cntLike(postNo,commentNo)
+		{ //좋아요 카운트 함수
 			var result;
 			$.ajax({
 				url:"../cntLike.do",
