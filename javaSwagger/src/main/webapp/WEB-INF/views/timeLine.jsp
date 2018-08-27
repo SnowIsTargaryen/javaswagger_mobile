@@ -93,12 +93,23 @@
 						var list = eval("("+data+")") //게시물 리스트
 						
 						$.each(list, function(idx, p) { //게시글 생성
-							var div_col_md_4 = $("<div></div>").addClass("col-md-4");
+							var div_col_md_4 = $("<div id='cols'></div>").addClass("col-md-4");
 							var div_card_mb4_box = $("<div></div>").addClass("card mb-4 box-shadow");
 							var div_card_header = $("<div></div>").addClass("card-header").html(p.user_ID);
 							var div_card_body = $("<div></div>").addClass("card-body");
 							var div_card_footer = $("<div></div>").addClass("card-footer claerfix");
-							var p_card_text =$("<p></p>").addClass("card-text").html(p.post_content);
+							
+							var post_content=p.post_content;
+							if(post_content == "undefined" || post_content==null ) // 글내용이 없을댸
+							{
+								post_content="";
+							}
+							if(post_content.length>=20) // 글 내용이 20자 이상일때
+							{
+								post_content=p.post_content.substring(0, 20)+"...";
+							}			
+							
+							var p_card_text =$("<p></p>").addClass("card-text").html(post_content);
 							var btn_group = $("<div></div>").addClass("btn-group")
 							
 							var div_f_left = $("<div></div>").addClass("float-left")
@@ -305,6 +316,13 @@
 				}}); //게시물 생성 ajax
 				
 		}})//ajax islikeEnd
+		
+		/* $imgs=$("#row1").imagesLoaded(function(){
+			$imgs.masonry({
+				itemSelector : '#cols', // img 태그를 대상으로 masonry 적용
+				fitWidth : true // 내용물을 가운데 정렬하기, CSS margin:0 auto; 설정이 필요함
+			});
+		});   */
 		
 			
 		/* $.ajax({
