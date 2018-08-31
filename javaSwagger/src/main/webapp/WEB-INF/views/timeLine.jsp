@@ -437,6 +437,17 @@
 			      <a class="dropdown-item" href="logout">로그아웃</a>
 			    </div>
 			  </div>
+	            
+	            <%-- <div class="btn-group">
+	            
+			    <button type="button" class="btn btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			    <button type="button" class="btn btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			    </button>
+			    <div class="dropdown-menu">
+			      <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
+			      <a class="dropdown-item" href="logout">로그아웃</a>
+			    </div>
+			  </div> --%>
 	        </div>
 		</div> <!-- 컨테이너  -->
 	</nav>

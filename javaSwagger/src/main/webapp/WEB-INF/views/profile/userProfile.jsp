@@ -455,6 +455,33 @@
 					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Eden</a>
 				</div>
 				
+<%-- 	<ul class="navbar-nav mx-4 my-2 d-block d-sm-none">
+		<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          ${user_ID }
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+           <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="../logout">로그아웃</a>
+        </div>
+      </li>
+      </ul>
+	  --%>
+	  
+	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
+	
+	     <div class="btn-group">  
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			</button>
+			<div class="dropdown-menu">
+			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+			  <a class="dropdown-item" href="../logout">로그아웃</a>
+			</div>
+		</div>
+	 </div>
+				
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<form class="form-inline my-lg-0 mx-auto" action="../search">
 			      <div class="input-group">
@@ -466,20 +493,33 @@
 			        </div>
 			      </div>
 			    </form>
+			 </div>   
+		<%-- 	 <ul class="navbar-nav mx-4 my-2 d-none d-sm-block">
+				<li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          ${user_ID }
+		        </a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+		           <div class="dropdown-divider"></div>
+		          <a class="dropdown-item" href="../logout">로그아웃</a>
+		        </div>
+		      </li>
+		      </ul>
+			</div> --%>
+			
+			 <div class="navbar-nav mx-4 my-2 d-none d-sm-block">
+	
+	     <div class="btn-group">  
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			</button>
+			<div class="dropdown-menu">
+			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+			  <a class="dropdown-item" href="../logout">로그아웃</a>
 			</div>
-			<div class="navbar-nav mx-2 my-2">
-	            <div class="btn-group">
-	            
-			    <button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
-			    <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			    </button>
-			    <div class="dropdown-menu">
-			      <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-			      <a class="dropdown-item" href="../logout">로그아웃</a>
-			    </div>
-			 </div>
-	   		</div>
-		 
+		</div>
+	 </div>
 	</nav>
 	
 <!--사용자 프로필  -->

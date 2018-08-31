@@ -35,7 +35,7 @@
 	</select> -->
 	
 	<select id="isLike" resultType="likeVo">
-		select*from likes where user_ID=#{user_ID}
+		select * from likes where user_ID=#{user_ID}
 	</select>
 	
 	<select id="whoLike" resultType="likeVo">
