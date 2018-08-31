@@ -129,5 +129,13 @@ public class UsersManager {
 		return re;
 		
 	}
+	public static int pro_emailCheck(String user_email) {
+		// TODO Auto-generated method stub
+		SqlSession session =factory.openSession();
+		int re = session.selectOne("users.emailCheck",user_email);
+		session.close();
+		
+		return re;
+	}
 	
 }
