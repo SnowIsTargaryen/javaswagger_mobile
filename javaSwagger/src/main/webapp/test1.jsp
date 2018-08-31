@@ -14,8 +14,8 @@
 </head>
 <body>
 
-<!-- ½æ³×ÀÏ °Ô½ÃÆÇ  -->
-	<div class="container">
+ <!-- ½æ³×ÀÏ °Ô½ÃÆÇ  -->
+	<!--<div class="container">
 		<div class="row" id="row1">
 		 	<div class="col-md-4">
 				<div class="card mb-4 box-shadow">
@@ -34,7 +34,7 @@
 			</div> 
 	     </div>
      </div>
-     
+      -->
      <div class="container">
      	<div class="row" id="row1">	
      		<div class="col col-md-4">
@@ -46,7 +46,8 @@
      				 </div>
      				 <div class="card-footer claerfix">
      				 	<div class="float-left">
-     				 		<a class="d-inline" href="#">´ñ±Û..</a>
+  							<a href="#"><small>test</small></a> 
+     				 		<button type="button" class="btn btn-sm btn-outline-secondary border-0 inline-block"><img src="resources/icon/like_0.png"></button>
      				 		<p class="d-inline">
      				 			<a href="#1">1</a>
      				 			<a href="#2">2</a>
@@ -54,7 +55,7 @@
      				 		</p>
      				 	</div>
                         <div class="btn-group float-right ">
-                       	 	<button type="button" class="btn btn-sm btn-outline-secondary border-0"><img src="resources/icon/like_0.png"></button>
+                       	 	
                        	 	<button type="button" class="btn btn-sm btn-outline-secondary border-0"><img src="resources/icon/delete-button.png"></button>
 		                    <button type="button" class="btn btn-sm btn-outline-secondary border-0"><img src="resources/icon/create-comment-button.png"></button>
                         </div>
@@ -65,7 +66,7 @@
      </div>
      
 
-<a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">Dismissible popover</a>
+<!-- <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">Dismissible popover</a> -->
 
 </body>
 </html>

@@ -127,8 +127,11 @@
 							var btn_group = $("<div></div>").addClass("btn-group")
 							
 							var div_f_left = $("<div></div>").addClass("float-left")
-							var a_comment = $("<a></a>").addClass("d-inline").html("댓글   ")
-							var p_like_cnt = $("<p></p>").addClass("d-inline").html("likecnt")
+							var s_comment = $("<small></small>").html("댓글보기 ")
+							var a_comment = $("<a data-role='button' data-transition='slide'></a>").addClass("d-block").attr({
+								href : '#test',	
+							})
+							var p_like_cnt = $("<p></p>").addClass("d-block").html("Likecnt")
 							
 							var btn_group = $("<div></div>").addClass("btn-group float-right")
 							var btn_like = $("<button></button>").addClass("btn btn-sm btn-outline-secondary border-0")
@@ -168,7 +171,7 @@
 							
 							var like = cntLike(p.post_no,null);  //게시글 좋아요 값 저장
 							
-							(p_like_cnt).html("likes  "+like); //좋아요 설정
+							(p_like_cnt).html("Like  "+like); //좋아요 설정
 							
 							$(btn_like).on("click",function() {
 								var no=$(this).attr("no");
@@ -203,9 +206,9 @@
 							})
 							
 							
+							$(a_comment).append(s_comment)
 							
-							
-							$(div_f_left).append(a_comment,p_like_cnt)
+							$(div_f_left).append(p_like_cnt,a_comment)
 							$(btn_like).append(icon_like)
 							$(btn_delete).append(icon_delete)
 							$(btn_edit).append(icon_update)
@@ -721,24 +724,10 @@
 	<!-- 썸네일 게시판  -->
 	<div class="container">
 		<div class="row" id="row1">
-			<!-- <div class="col-md-4">
-				<div class="card mb-4 box-shadow">
-					<img class="card-img-top" src="../resources/image/new zealand.jpg" alt="Card image cap">
-	                <div class="card-body">
-						<p class="card-text">뉴질랜드</p>
-						<div class="d-flex justify-content-between align-items-center">
-	                    <div class="btn-group">
-	                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-	                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-	                    </div>
-	                    <small class="text-muted">9 mins</small>
-	                    </div>
-					</div>
-				</div>
-			</div> -->
 	     </div>
      </div>
-	
+     
+   
 	
 </body>
 </html>
