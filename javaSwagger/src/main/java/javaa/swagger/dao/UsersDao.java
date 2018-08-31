@@ -59,4 +59,8 @@ public class UsersDao {
 		// TODO Auto-generated method stub
 		return UsersManager.emailCheck(user_email);
 	}
+	public int pro_emailCheck(String user_email) {
+		// TODO Auto-generated method stub
+		return UsersManager.pro_emailCheck(user_email);
+	}
 }
