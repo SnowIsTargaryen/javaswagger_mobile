@@ -32,6 +32,16 @@ public class CommentController {
 		this.dao = dao;
 	}
 	
+	@RequestMapping(value="/profile/commentList", method=RequestMethod.GET)
+	public ModelAndView commentList(@RequestParam(value="post_no") int post_no)
+	{
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("post_no", post_no);
+		
+		
+		return mav; 
+	}
+	
 //	ajax방식
 	@RequestMapping(value="listComment.do", produces="text/plain;charset=utf-8")
 	@ResponseBody // ajax 반환

@@ -121,15 +121,12 @@
 							}			
 							
 							var p_card_text =$("<p></p>").addClass("card-text").html(post_content);
-						// 	var d_flex = $("<div></div>").addClass("d-flex justify-content-between align-items-center")
-						//	var btn_delete  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("Delete")
-						//	var btn_edit =  $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary").html("Edit")
 							var btn_group = $("<div></div>").addClass("btn-group")
 							
 							var div_f_left = $("<div></div>").addClass("float-left")
 							var s_comment = $("<small></small>").html("댓글보기 ")
 							var a_comment = $("<a data-role='button' data-transition='slide'></a>").addClass("d-block").attr({
-								href : '#test',	
+								href : '../profile/commentList?post_no='+p.post_no,	
 							})
 							var p_like_cnt = $("<p></p>").addClass("d-block").html("Likecnt")
 							
@@ -214,11 +211,7 @@
 							$(btn_edit).append(icon_update)
 							
 							$(btn_group).append(btn_like,btn_delete,btn_edit)
-							
-							
-				//			$(btn_group).append(btn_delete,btn_edit)
-				//			$(d_flex).append(btn_group,small)
-				//			$(div_card_body).append(p_card_text,d_flex)
+
 							$(detail_a).append(img)
 							$(div_card_body).append(p_card_text)
 							$(div_card_footer).append(div_f_left,btn_group)
