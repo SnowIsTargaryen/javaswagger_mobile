@@ -56,7 +56,8 @@
 		if(user_SessionID!=guestID){$("#write").hide();} // 글쓰기 권한 로그인한 사용자 전용
 		
 		$("#btnUserProfile").click(function() {
-			location.href="../profile/userProfile?user_ID="+user_SessionID+""
+			alert("ok")
+			/* location.href="../profile/userProfile?user_ID="+user_SessionID; */
 		})
 		if(user_SessionID==guestID){$("#btn_Follow").hide()}
 				
@@ -121,14 +122,14 @@
 							}			
 							
 							var p_card_text =$("<p></p>").addClass("card-text").html(post_content);
-						// 	var d_flex = $("<div></div>").addClass("d-flex justify-content-between align-items-center")
-						//	var btn_delete  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("Delete")
-						//	var btn_edit =  $("<button type='button' data-toggle='modal' data-target='#updatePost'></button>").addClass("btn btn-sm btn-outline-secondary").html("Edit")
 							var btn_group = $("<div></div>").addClass("btn-group")
 							
 							var div_f_left = $("<div></div>").addClass("float-left")
-							var a_comment = $("<a></a>").addClass("d-inline").html("댓글   ")
-							var p_like_cnt = $("<p></p>").addClass("d-inline").html("likecnt")
+							var s_comment = $("<small></small>").html("댓글보기 ")
+							var a_comment = $("<a data-role='button' data-transition='slide'></a>").addClass("d-block").attr({
+								href : '../board/listComment?post_no='+p.post_no,	
+							})
+							var p_like_cnt = $("<p></p>").addClass("d-block").html("Likecnt")
 							
 							var btn_group = $("<div></div>").addClass("btn-group float-right")
 							var btn_like = $("<button></button>").addClass("btn btn-sm btn-outline-secondary border-0")
@@ -168,7 +169,7 @@
 							
 							var like = cntLike(p.post_no,null);  //게시글 좋아요 값 저장
 							
-							(p_like_cnt).html("likes  "+like); //좋아요 설정
+							(p_like_cnt).html("Like  "+like); //좋아요 설정
 							
 							$(btn_like).on("click",function() {
 								var no=$(this).attr("no");
@@ -203,19 +204,15 @@
 							})
 							
 							
+							$(a_comment).append(s_comment)
 							
-							
-							$(div_f_left).append(a_comment,p_like_cnt)
+							$(div_f_left).append(p_like_cnt,a_comment)
 							$(btn_like).append(icon_like)
 							$(btn_delete).append(icon_delete)
 							$(btn_edit).append(icon_update)
 							
 							$(btn_group).append(btn_like,btn_delete,btn_edit)
-							
-							
-				//			$(btn_group).append(btn_delete,btn_edit)
-				//			$(d_flex).append(btn_group,small)
-				//			$(div_card_body).append(p_card_text,d_flex)
+
 							$(detail_a).append(img)
 							$(div_card_body).append(p_card_text)
 							$(div_card_footer).append(div_f_left,btn_group)
@@ -472,7 +469,7 @@
 	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
 	
 	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
 			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			</button>
 			<div class="dropdown-menu">
@@ -494,24 +491,11 @@
 			      </div>
 			    </form>
 			 </div>   
-		<%-- 	 <ul class="navbar-nav mx-4 my-2 d-none d-sm-block">
-				<li class="nav-item dropdown">
-		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          ${user_ID }
-		        </a>
-		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-		           <div class="dropdown-divider"></div>
-		          <a class="dropdown-item" href="../logout">로그아웃</a>
-		        </div>
-		      </li>
-		      </ul>
-			</div> --%>
 			
-			 <div class="navbar-nav mx-4 my-2 d-none d-sm-block">
+	<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
 	
 	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
 			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			</button>
 			<div class="dropdown-menu">
@@ -721,24 +705,10 @@
 	<!-- 썸네일 게시판  -->
 	<div class="container">
 		<div class="row" id="row1">
-			<!-- <div class="col-md-4">
-				<div class="card mb-4 box-shadow">
-					<img class="card-img-top" src="../resources/image/new zealand.jpg" alt="Card image cap">
-	                <div class="card-body">
-						<p class="card-text">뉴질랜드</p>
-						<div class="d-flex justify-content-between align-items-center">
-	                    <div class="btn-group">
-	                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-	                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-	                    </div>
-	                    <small class="text-muted">9 mins</small>
-	                    </div>
-					</div>
-				</div>
-			</div> -->
 	     </div>
      </div>
-	
+     
+   
 	
 </body>
 </html>

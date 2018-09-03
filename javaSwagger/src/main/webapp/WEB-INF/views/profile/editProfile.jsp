@@ -19,7 +19,8 @@
 	$(function() {
 		<% String sesseing_id=(String)session.getAttribute("user_ID"); %>
 		$("#btnUserProfile").click(function() {
-			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>";
+			
+			 location.href="../profile/userProfile?user_ID=";
 		})
 	})
 	
@@ -36,131 +37,7 @@
 		$(this).siblings('.upload-name').val(filename); 
 		}); 
 	}); 
-	
-	$("#mailck").click(function(){//메일 인증-----------------------------------------------------
-		
-		 
-		var user_email = $("#user_Email").val()
-			
-				$.ajax({
-					url:"mailTest.do?user_email="+user_email,
-					success:function(data){
-						var cd = eval("("+data+")")
-						$("#code").val(data)
-						conCode = cd;
-					}
-				});
-					
-				 $(function() {
-						var time = 179;
-						var interv = setInterval(function() {
-							var m = time/60;
-							if(m >= 2) { m = 2 }
-							else if(m >= 1) { m = 1 }
-							else { m = 0 }
-							
-							var s = time%60;
-							$("#second").html("남은 인증시간:"+m+"분"+s+"초");
-							time -= 1;
-							if(time == -1)
-							{
-								clearInterval(interv);
-								alert("인증 시간 3분이 모두 지났습니다. 다시 메일을 인증하세요")
-								$("#checkEmil").modal("hide")
-							}
-							$("#clearInter").click(function(){
-								clearInterval(interv);
-								console.log(clearInterval(interv));
-							})
-
-						}, 1000);
-						
-			setTimeout(function(){
-					
-					$("<span></span>").html("메일인증 시간 3분이 모두 지났습니다.").appendTo("mailCheck");
-					$("#second").remove;
-				}, 180000);
-			});	 
-		
-		$("#btnPrimary").click(function () {
-			inpCode = $("#inputNum").val();
-			
-			if(conCode == inpCode){
-				$(this).attr("data-dismiss","modal");
-				$("#isMail").val(1)
-				$("#msg").html("인증에 성공");
-				$("#user_Mail_span").empty();
-			} else {
-				$(this).attr("data-dismiss","modal");
-				$("#isMail").val(2)
-				$("#msg").html("인증에 실패")
-				$("#user_Mail_span").empty();
-				
-			}
-			
-			if($("#isMail").val()==1)
-			{
-				$("#join").attr("disabled", false);
-				$("#announce").hide()
-			}
-		});
-	}); //메일 인증----------------------------------------------------- 
-	 
-	
-	function checkMail() {//mail 중복처리--------------------------------------------------------
-	    
-	    var useremail = $("#user_Email").val();
-	   sessionStorage.setItem("user_email", useremail);
-	alert(useremail)
-	    $.ajax({
-	    async: true,
-	    type : 'post',
-	    data : useremail,
-	    url : "emailCheck.do",
-	    dataType : "json",
-	    contentType: "application/json; charset=UTF-8",
-	    success : function(data){
-	    	var arr = eval(data)
-	    	var inpMail = sessionStorage.getItem("user_email");
-	   		console.log(arr)
-	   		$("#user_Mail_span").empty();
-	   		
-	   		var regex=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;   
-	     
-	     if(regex.test(useremail) === false ) {  
-	    	 //email형식확인
-	    	 $("#user_Email").css("background-color", "#FFCECE");
-	  	 	  $("#user_Mail_span").empty();
-	  	 	$("#mailck").hide()
-	  	 	var w = $("<span>올바른 Email 형식을 입력하세요.</span>");
-	  	 	$("#user_Mail_span").append(w);
-	   		 } 
-	   		
-	   		if(arr == 1 ){
-				//이메일이 중복됨
-				 $("#user_Email").css("background-color", "#FFCECE");
-			    	
-			    	var warning = $("<span>이미등록된 Email입니다.</span>");
-			    	
-			    	$("#mailck").hide()
-			    	
-			    	$("#user_Mail_span").empty();
-			    	$("#user_Mail_span").append(warning);
-			} else if(arr != 1 && regex.test(useremail) === true){
-				//이메일 사용 가능	
-				
-				$("#user_Mail_span").empty();
-	        	$("#user_Email").css("background-color", "#B0F6AC");
-	        	
-	        	 var a = $("<span>사용가능한 Email입니다.</span>");
-	        	 $("#mailck").show()
-	        	$("#user_Mail_span").append(a);
-			} 
-	    }
-	  });
-		     
-	}//mail 중복처리--------------------------------------------------------
-	    
+		    
 
 </script>
 
@@ -245,7 +122,7 @@
  <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
 	
 	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
 			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			</button>
 			<div class="dropdown-menu">
@@ -286,7 +163,7 @@
 	<div class="navbar-nav mx-2 my-2 d-none d-sm-block">
 	
 	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
 			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			</button>
 			<div class="dropdown-menu">
@@ -300,6 +177,32 @@
 	
 	
 <!--사용자 프로필  -->
+
+<!-- Jumbotrons -->
+<div class="jumbotron jumbotron-fluid">
+  <div class="container" align="center">
+    <p class="lead" >회원정보 수정</p>
+    <hr>
+    <div class="tab-pane container active" id="editProfile">
+						<form action="../profile/editProfile" method="post">
+						  <div class="form-group col-md-7 ">
+						   	<img id="proPhoto" data-toggle="modal" data-target="#updatePost" src="../resources/image/${profile.user_fname }">
+						   
+							<p for="user_ID" >${profile.user_ID}</p>
+						    <input type="hidden" class="form-control" id="user_ID" name="user_ID" value="${profile.user_ID }">
+						  </div>
+					 
+					<div class="filebox"> 
+						<label for="ex_filename" class="fa fa-photo"></label> 
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<input type="file" id="ex_filename" class="upload-hidden"> 
+					</div>
+						  <button type="submit" class="btn btn-success .col-5 col-sm-12 col-md-10 col-lg-7">회원정보 변경</button>
+						</form>
+					</div>
+  </div>
+</div>
+
 	<div class="container mx-0">
 		<div class="row justify-content-between">
 			<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar ">
@@ -320,18 +223,18 @@
 					<!--프로필 수정  -->
 					<div class="tab-pane container active" id="editProfile">
 						<form action="../profile/editProfile" method="post">
-						  <div class="form-group col-md-7 ">
+						 <%--  <div class="form-group col-md-7 ">
 						   	<img id="proPhoto" data-toggle="modal" data-target="#updatePost" src="../resources/image/${profile.user_fname }">
 						   
 							<span class="ml-5" for="user_ID" >${profile.user_ID}</span>
 						    <input type="hidden" class="form-control" id="user_ID" name="user_ID" value="${profile.user_ID }">
-						  </div>
+						  </div> --%>
 					 
-					<div class="filebox"> 
+					<!-- <div class="filebox"> 
 						<label for="ex_filename" class="fa fa-photo"></label> 
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<input type="file" id="ex_filename" class="upload-hidden"> 
-					</div>
+					</div> -->
 
 				<!-- <div class="form-group">
 				  	    <label for="user_Password ">Email</label>
@@ -344,13 +247,13 @@
 				  </div> -->
 
 						  <div class="form-group .col-5 col-sm-12 col-md-10  col-lg-7">
-						    <label for="user_Password ">Email</label><!-- email 변경할때도 인증된 email인지 테스트해서 존재하는 email만 넣을 수 있도록 해야함-->
-						    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="변경 할 email을 입력하세요" oninput="checkMail()" required="required">
-						  	<span id="user_Mail_span"></span>
+						    <label for="user_Password ">Email:</label><!-- email 변경할때도 인증된 email인지 테스트해서 존재하는 email만 넣을 수 있도록 해야함-->
+						    <!-- <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="변경 할 email을 입력하세요" oninput="checkMail()" required="required"> -->
+						  	<span id="user_Mail_span">${profile.user_Email}</span>
 						  
-						  	<input type="button" value="메일인증" id="mailck" data-toggle="modal" data-target="#checkEmil">
-					    	<input type="hidden" id="isMail" value="0"><!--  메일 통과 했는지 마는지 -->
-					  		<span id="msg"></span>
+						  	<!-- <input type="button" value="메일인증" id="mailck" data-toggle="modal" data-target="#checkEmil">
+					    	<input type="hidden" id="isMail" value="0"> 메일 통과 했는지 마는지
+					  		<span id="msg"></span> -->
 						  </div>
 						  <div class="form-group .col-5 col-sm-12 col-md-10  col-lg-7">
 						    <label for="user_Password ">Phone</label>
