@@ -73,7 +73,14 @@
 		var user_List=[]; // 팔로워 리시트 확인용 
 		
 		if(user_SessionID!=guestID){$("#write").hide();} // 글쓰기 권한 로그인한 사용자 전용
+		var profileImg='${profile.user_fname}';
 		
+		if(profileImg==null || profileImg=='') // 사진없으면 박보영 나옴
+		{
+			$("#profileImg").attr({
+				src:"../resources/image/박보영.gif"
+			})
+		}
 
 		/* $("#btnUserProfile").click(function() {
 			location.href="../profile/userProfile?user_ID="+user_SessionID;
