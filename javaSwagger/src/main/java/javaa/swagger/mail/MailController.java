@@ -70,4 +70,42 @@ public class MailController {
 		}
 		return msg;
 	}//email 확인-------------------------------------------------------
+	
+	//profile edit email 확인-------------------------------------------------------
+		@RequestMapping("profile/mailTest.do")
+		@ResponseBody
+		public String pro_emailcheck(String user_email)
+		{
+			String str = "";
+		
+			Random random = new Random();
+				int code = 0;
+				
+				while(true) {
+					code = random.nextInt(999999);
+					if(code > 100000) {
+						break;
+					}
+				}
+				str = code+"";
+				//mav.addObject("user_email",user_email);
+				
+				try {
+				SimpleMailMessage mailMessage = new SimpleMailMessage();
+				mailMessage.setSubject("eden 회원등록 인증 이메일발송");
+				mailMessage.setFrom("sanghyupz@naver.com");
+				mailMessage.setText("당신의 코드는 "+ code +"입니다. 페이지에 코드를 입력하세요");
+				//mailMessage.setTo("sanghyupz@naver.com");
+				mailMessage.setTo(user_email);
+
+				mailSender.send(mailMessage);
+				} catch (Exception e) {
+					
+					System.out.println("Exception:"+e.getMessage());
+				}	
+				
+				return str;
+		}
+	
+	
 }

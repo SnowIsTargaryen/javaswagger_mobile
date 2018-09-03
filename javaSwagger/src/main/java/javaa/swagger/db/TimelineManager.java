@@ -1,6 +1,7 @@
 package javaa.swagger.db;
 
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -23,10 +24,10 @@ public class TimelineManager {
 	    }
 	 }
 	
-	public static List<PostVo> getTimeline() {
+	public static List<PostVo> getTimeline(HashMap map) {
 		// TODO Auto-generated method stub
 		SqlSession s = factory.openSession();
-		List<PostVo> list = s.selectList("timeline.getTimeline");
+		List<PostVo> list = s.selectList("timeline.getTimeline",map);
 		s.close();
 		return list;
 	}

@@ -32,6 +32,16 @@ public class CommentController {
 		this.dao = dao;
 	}
 	
+	@RequestMapping(value="/board/listComment", method=RequestMethod.GET)
+	public ModelAndView commentList(@RequestParam(value="post_no") int post_no)
+	{
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("post_no", post_no);
+		
+		
+		return mav; 
+	}
+	
 //	ajax방식
 	@RequestMapping(value="listComment.do", produces="text/plain;charset=utf-8")
 	@ResponseBody // ajax 반환
@@ -69,10 +79,10 @@ public class CommentController {
 	@RequestMapping(value="insertComment",method=RequestMethod.POST) // ajax 방식으로 자료 받아오기
 	public ModelAndView newComment(CommentVo cv) {
 		
-		/*System.out.println(request.getParameter("comment_no"));
-		System.out.println(request.getParameter("user_ID"));
-		System.out.println(request.getParameter("post_no"));
-		System.out.println(request.getParameter("comment_content"));*/
+		System.out.println(cv.getComment_no());
+		System.out.println(cv.getUser_ID());
+		System.out.println(cv.getPost_no());
+		System.out.println(cv.getComment_content());
 		/*System.out.println(cv.getUser_ID());*/
 		
 		ModelAndView mav = new ModelAndView();

@@ -3,27 +3,49 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="like">
+
+	<!-- <select id="cntLike" resultType="java.lang.Integer">
+		select post_no,comment_no,count(*) from likes group by post_no,comment_no
+	</select> -->
+	
 	<select id="cntLike" resultType="java.lang.Integer">
 		select count(*) from likes where
 		<choose>
-			<when test="post_NO != null">
-				post_no = #{post_NO}
+			<when test="post_no != null">
+				post_no = #{post_no}
 			</when>
-			<when test="comment_NO != null">
-				comment_no = #{comment_NO}
+			<when test="comment_no != null">
+				comment_no = #{comment_no}
 			</when>
 		</choose>
 		and user_id is not null
 	</select>
 	
+	<!-- <select id="isLike" resultType="java.lang.Integer">
+		select count(*) from likes where 
+		<choose>
+			<when test="post_no != null">
+				post_no = #{post_no} and
+			</when>
+			<when test="comment_no != null">
+				comment_no = #{comment_no} and
+			</when>
+		</choose>
+		user_id=#{user_ID}
+	</select> -->
+	
+	<select id="isLike" resultType="likeVo">
+		select * from likes where user_ID=#{user_ID}
+	</select>
+	
 	<select id="whoLike" resultType="likeVo">
 		select distinct user_id from likes where
 		<choose>
-			<when test="post_NO != null">
-				post_no = #{post_NO}
+			<when test="post_no != null">
+				post_no = #{post_no}
 			</when>
-			<when test="comment_NO != null">
-				comment_no = #{comment_NO}
+			<when test="comment_no != null">
+				comment_no = #{comment_no}
 			</when>
 		</choose>
 		and user_id is not null
@@ -33,49 +55,41 @@
 		insert into likes values(
 		#{user_ID},
 		<choose>
-			<when test="post_NO != null">
-				#{post_NO},
+			<when test="post_no != null">
+				#{post_no},
 			</when>
-			<when test="post_NO == null">
+			<when test="post_no == null">
 				null,
 			</when>
 		</choose>
 		<choose>
-			<when test="comment_NO != null">
-				#{comment_NO})
+			<when test="comment_no != null">
+				#{comment_no})
 			</when>
-			<when test="comment_NO == null">
+			<when test="comment_no == null">
 				null)
 			</when>
 		</choose>		
 	</insert>
 	
+	<delete id="deleteLikePost">
+		delete likes where post_no=#{post_no}
+	</delete>
+	
 	<insert id="cancelLike">
 		delete likes where user_id = #{user_ID}
 		<choose>
-			<when test="post_NO != null">
-				and post_no = #{post_NO}
+			<when test="post_no != null">
+				and post_no = #{post_no}
 			</when>
-			<when test="comment_NO != null">
-				and comment_no = #{comment_NO}
+			<when test="comment_no != null">
+				and comment_no = #{comment_no}
 			</when>
 		</choose>
 	</insert>
 	
-	<select id="isLike" resultType="java.lang.Integer">
-		select count(*) from likes where 
-		<choose>
-			<when test="post_NO != null">
-				post_no = #{post_NO} and
-			</when>
-			<when test="comment_NO != null">
-				comment_no = #{comment_NO} and
-			</when>
-		</choose>
-		user_id=#{user_ID}
-	</select>
 	
 	<select id="getPno" resultType="java.lang.Integer">
-		select distinct(c.post_no) from comments c, likes l where l.comment_no = #{comment_NO} and c.comment_no = l.comment_no
+		select distinct(c.post_no) from comments c, likes l where l.comment_no = #{comment_no} and c.comment_no = l.comment_no
 	</select>
 </mapper>

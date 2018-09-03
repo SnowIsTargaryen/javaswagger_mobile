@@ -28,6 +28,10 @@ public class LikeDao {
 		return LikeManager.doLike(map);
 	}
 	
+	public int deleteLikePost(HashMap map)
+	{
+		return LikeManager.deleteLikePost(map);
+	}
 	public int cancelLike(HashMap map)
 	{
 		return LikeManager.cancelLike(map);
@@ -37,7 +41,7 @@ public class LikeDao {
 		return LikeManager.getPno(comment_NO);
 	}
 
-	public int isLike(HashMap map) {
+	public List<LikeVo> isLike(HashMap map) {
 		// TODO Auto-generated method stub
 		return LikeManager.isLike(map);
 	}

@@ -62,7 +62,7 @@ public class InsertUserController {
 		    @ResponseBody
 		    public String phonecheck(@RequestBody String user_phone) {
 		        
-				System.out.println("폰넘버:"+user_phone);
+				//System.out.println("폰넘버:"+user_phone);
 				
 				String str="";
 				UsersVo uv= dao.phoneCheck(user_phone);;

@@ -1,5 +1,6 @@
 package javaa.swagger.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ import javaa.swagger.vo.PostVo;
 
 @Repository
 public class TimelineDao {
-	public List<PostVo> getTimeline(){
-		return TimelineManager.getTimeline();
+	public List<PostVo> getTimeline(HashMap map){
+		return TimelineManager.getTimeline(map);
 	}
 }
