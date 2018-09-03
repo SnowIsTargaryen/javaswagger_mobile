@@ -89,7 +89,9 @@
 				
 				//게시글 리스트
 				$.ajax({url:"timeLinePost",
+						data:{"user_ID":"${user_ID}"},
 						success:function(data){
+
 						var list = eval("("+data+")") //게시물 리스트
 						
 						$.each(list, function(idx, p) { //게시글 생성

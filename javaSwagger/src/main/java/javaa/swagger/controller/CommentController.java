@@ -32,7 +32,7 @@ public class CommentController {
 		this.dao = dao;
 	}
 	
-	@RequestMapping(value="/profile/commentList", method=RequestMethod.GET)
+	@RequestMapping(value="/board/listComment", method=RequestMethod.GET)
 	public ModelAndView commentList(@RequestParam(value="post_no") int post_no)
 	{
 		ModelAndView mav = new ModelAndView();

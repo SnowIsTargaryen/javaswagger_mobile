@@ -28,6 +28,10 @@ public class LikeDao {
 		return LikeManager.doLike(map);
 	}
 	
+	public int deleteLikePost(HashMap map)
+	{
+		return LikeManager.deleteLikePost(map);
+	}
 	public int cancelLike(HashMap map)
 	{
 		return LikeManager.cancelLike(map);

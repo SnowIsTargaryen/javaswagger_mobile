@@ -18,9 +18,10 @@
 <script type="text/javascript">
 	$(function() {
 		<% String sesseing_id=(String)session.getAttribute("user_ID"); %>
-		$("#btnUserProfile").click(function() {
-			location.href="../profile/userProfile?user_ID=<%=sesseing_id%>";
-		})
+		/* $("#btnUserProfile").click(function() {
+			alert("ok")
+			location.href="../profile/userProfile?user_ID="+user_SessionID;
+		}) */
 	})
 	
 	$(document).ready(function(){ var fileTarget = $('.filebox .upload-hidden'); fileTarget.on('change', function(){
@@ -286,7 +287,7 @@
 	<div class="navbar-nav mx-2 my-2 d-none d-sm-block">
 	
 	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
 			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			</button>
 			<div class="dropdown-menu">

@@ -55,9 +55,9 @@
 		
 		if(user_SessionID!=guestID){$("#write").hide();} // 글쓰기 권한 로그인한 사용자 전용
 		
-		$("#btnUserProfile").click(function() {
-			location.href="../profile/userProfile?user_ID="+user_SessionID+""
-		})
+		/* $("#btnUserProfile").click(function() {
+			location.href="../profile/userProfile?user_ID="+user_SessionID;
+		}) */
 		if(user_SessionID==guestID){$("#btn_Follow").hide()}
 				
 		 var insertComment = function() {
@@ -126,7 +126,7 @@
 							var div_f_left = $("<div></div>").addClass("float-left")
 							var s_comment = $("<small></small>").html("댓글보기 ")
 							var a_comment = $("<a data-role='button' data-transition='slide'></a>").addClass("d-block").attr({
-								href : '../profile/commentList?post_no='+p.post_no,	
+								href : '../board/listComment?post_no='+p.post_no,	
 							})
 							var p_like_cnt = $("<p></p>").addClass("d-block").html("Likecnt")
 							
@@ -468,7 +468,7 @@
 	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
 	
 	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
 			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			</button>
 			<div class="dropdown-menu">
