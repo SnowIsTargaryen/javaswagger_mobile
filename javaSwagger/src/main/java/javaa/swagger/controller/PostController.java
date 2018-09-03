@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javaa.swagger.dao.CommentDao;
+import javaa.swagger.dao.LikeDao;
 import javaa.swagger.dao.PostDao;
 import javaa.swagger.vo.PostVo;
 
@@ -33,6 +34,13 @@ public class PostController {
 	PostDao dao;
 	@Autowired
 	CommentDao cdao;
+	@Autowired
+	LikeDao ldao;
+
+	
+	public void setLdao(LikeDao ldao) {
+		this.ldao = ldao;
+	}
 
 	public void setDao(PostDao dao) {
 		this.dao = dao;
@@ -155,8 +163,9 @@ public class PostController {
 		System.out.println(path+"/"+fname);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			int re=cdao.deleteAllComment(map);
-			System.out.println(re);
+			ldao.deleteLikePost(map);
+			cdao.deleteAllComment(map);
+		
 			str=mapper.writeValueAsString(dao.deletePost(map));
 			if(fname!=null && !fname.equals(""))
 			{

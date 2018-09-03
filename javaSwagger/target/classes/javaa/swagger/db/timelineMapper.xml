@@ -3,14 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="timeline">
-	<select id="getTimeline" resultType="postVo">
+	<!-- <select id="getTimeline" resultType="postVo">
 		select*from post order by post_time desc
+	</select>  -->
+	<select id="getTimeline" resultType="postVo">
+		select * from post where post_no in (select post_no from (select rownum, post_no from (select PP.post_no, count(*) like_cnt from likes right outer join (select post_no from post where user_id in (select user_id from follow where follower_id = #{user_ID})) PP on PP.post_no = likes.post_no group by PP.post_no order by like_cnt desc)))
 	</select> 
-	<!-- <select id="getTimeline" resultType="postVo">
-		select * from post, (select post_no, count(*) like_cnts from likes group by post_no order by count(*) desc) P where post.post_no = p.post_no order by like_cnts desc
-	</select> -->
 	
-	<!-- <select id="getTimeline" resultType="postVo">
-		select TM.post_no from (select distinct post.post_no, like_cnt from (select post_no, count(*) like_cnt from likes group by post_no) P, post, follow f where P.post_no = post.post_no and post.user_id = f.user_id and f.follower_id = #{follower_ID} order by like_cnt desc) TM
-	</select> -->
 </mapper>

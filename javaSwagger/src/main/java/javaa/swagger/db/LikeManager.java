@@ -55,6 +55,14 @@ public class LikeManager {
 		return re;
 	}
 	
+	public static int deleteLikePost(HashMap map) {
+		 int re = 0;
+		 SqlSession s = factory.openSession(true);
+		 re = s.delete("like.deleteLikePost", map);
+		 s.close();
+		 return re;
+	 }
+	
 	public static int getPno(String comment_NO) {
 		SqlSession s = factory.openSession(true); 
 		int re = s.selectOne("like.getPno", comment_NO);
