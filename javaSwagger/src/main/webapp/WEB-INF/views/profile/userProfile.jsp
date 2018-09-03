@@ -70,9 +70,16 @@
 		
 		if(user_SessionID!=guestID){$("#write").hide();} // 글쓰기 권한 로그인한 사용자 전용
 		
+
 		/* $("#btnUserProfile").click(function() {
 			location.href="../profile/userProfile?user_ID="+user_SessionID;
 		}) */
+
+		$("#btnUserProfile").click(function() {
+			alert("ok")
+			/* location.href="../profile/userProfile?user_ID="+user_SessionID; */
+		})
+
 		if(user_SessionID==guestID){$("#btn_Follow").hide()}
 				
 		 var insertComment = function() {
@@ -467,6 +474,7 @@
 		</div>
 				
 
+
 		<div class="navbar-nav mx-4 my-2 d-block d-sm-none">
 		  	<div class="btn-group">  
 				<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
@@ -475,9 +483,35 @@
 				  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
 				  <a class="dropdown-item" href="../logout">로그아웃</a>
 				</div>
+
+<%-- 	<ul class="navbar-nav mx-4 my-2 d-block d-sm-none">
+		<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          ${user_ID }
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+           <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="../logout">로그아웃</a>
+        </div>
+      </li>
+      </ul>
+	  --%>
+	  
+	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
+	
+	     <div class="btn-group">  
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
+			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			</button>
+			<div class="dropdown-menu">
+			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+			  <a class="dropdown-item" href="../logout">로그아웃</a>
+
 			</div>
 		</div>
 				
+
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<form class="form-inline my-lg-0 mx-auto" action="../search">
 		      <div class="input-group">
@@ -501,6 +535,30 @@
 				  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
 				  <a class="dropdown-item" href="../logout">로그아웃</a>
 				</div>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<form class="form-inline my-lg-0 mx-auto" action="../search">
+			      <div class="input-group">
+			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
+			        <div class="input-group-append">
+			          <button class="btn btn-outline-success" type="submit" >
+							<img src="../resources/icon/search2.png" width="18" height="18">
+					  </button>
+			        </div>
+			      </div>
+			    </form>
+			 </div>   
+			
+	<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
+	
+	     <div class="btn-group">  
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
+			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			</button>
+			<div class="dropdown-menu">
+			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+			  <a class="dropdown-item" href="../logout">로그아웃</a>
+
 			</div>
 		 </div>
 </nav>
