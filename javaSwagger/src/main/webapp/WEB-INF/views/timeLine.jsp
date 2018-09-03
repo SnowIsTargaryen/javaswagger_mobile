@@ -60,7 +60,8 @@
 	$(function() {
 		var user_SessionID="${user_ID}"
 		$("#btnUserProfile").click(function() {
-			location.href="profile/userProfile?user_ID="+user_SessionID;
+			
+			 location.href="profile/userProfile?user_ID="+user_SessionID;
 		})
 		
 		var l_post_no=[];
@@ -407,49 +408,67 @@
 </head>
 <body>
 <!--  네비게이션  -->
-	<nav class="navbar">
-	<div class="container">
-			<div class="col-4">
-				<div class="navbar-header navbar-left">
-					<h1><a class="navbar-brand" href="timeLine">Eden</a></h1>
+	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+ 	 </button>
+ 	 
+				<div class="navbar-header navbar-center mx-auto">
+					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Eden</a>
 				</div>
+				
+<%-- 	<ul class="navbar-nav mx-4 my-2 d-block d-sm-none">
+		<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          ${user_ID }
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+           <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="../logout">로그아웃</a>
+        </div>
+      </li>
+      </ul>
+	  --%>
+	  
+	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
+	
+	     <div class="btn-group">  
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
+			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			</button>
+			<div class="dropdown-menu">
+			  <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
+			  <a class="dropdown-item" href="logout">로그아웃</a>
 			</div>
-			<div class="col-4">
-				<form class="navbar-form navbar-center" action="search">
+		</div>
+	 </div>
+				
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<form class="form-inline my-lg-0 mx-auto" action="../search">
 			      <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
 			        <div class="input-group-append">
-			          <button class="btn btn-outline-secondary" type="submit" >
+			          <button class="btn btn-outline-success" type="submit" >
 							<img src="resources/icon/search2.png" width="18" height="18">
 					  </button>
 			        </div>
 			      </div>
 			    </form>
+			 </div>   
+			
+	<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
+	
+	     <div class="btn-group">  
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
+			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			</button>
+			<div class="dropdown-menu">
+			  <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
+			  <a class="dropdown-item" href="logout">로그아웃</a>
 			</div>
-			<div class="col-4 d-flex justify-content-end align-items-center">
-	            <div class="btn-group">
-	            
-			    <button type="button" class="btn btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
-			    <button type="button" class="btn btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			    </button>
-			    <div class="dropdown-menu">
-			      <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
-			      <a class="dropdown-item" href="logout">로그아웃</a>
-			    </div>
-			  </div>
-	            
-	            <%-- <div class="btn-group">
-	            
-			    <button type="button" class="btn btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
-			    <button type="button" class="btn btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			    </button>
-			    <div class="dropdown-menu">
-			      <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
-			      <a class="dropdown-item" href="logout">로그아웃</a>
-			    </div>
-			  </div> --%>
-	        </div>
-		</div> <!-- 컨테이너  -->
+		</div>
+	 </div>
 	</nav>
 	
 	<!-- <!-- 게시글  -->
