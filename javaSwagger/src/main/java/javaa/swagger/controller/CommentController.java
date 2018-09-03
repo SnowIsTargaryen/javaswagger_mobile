@@ -98,7 +98,7 @@ public class CommentController {
 			mav.addObject("msg", "댓글 등록에 실패하였습니다.");
 			mav.setViewName("error.do");
 		} else {
-			mav.setViewName("redirect:/profile/userProfile?user_ID="+cv.getUser_ID());
+			mav.setViewName("redirect:/board/listComment?post_no="+cv.getPost_no());
 		}
 		return mav;
 	}
