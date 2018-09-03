@@ -112,7 +112,7 @@
 	    
 	    var useremail = $("#user_Email").val();
 	   sessionStorage.setItem("user_email", useremail);
-	alert(useremail)
+	//alert(useremail)
 	    $.ajax({
 	    async: true,
 	    type : 'post',

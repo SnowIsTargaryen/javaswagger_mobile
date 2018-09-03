@@ -26,7 +26,7 @@
 	  -o-background-size: cover;
 	  }
   
-	  img{	
+	  #profileImg{	
 	  
 	  	width: 100px;
 	  	height: 100px;
@@ -72,30 +72,19 @@
       </div>
     </nav>
     
- 	<header class="masthead text-black text-center">
-      <div class="container">
-        <img class="img-fluid mb-5 d-block mx-auto rounded-circle" src="resources/image/hayeonsoo3.jpg" alt="">
-        <h1 class="text-uppercase mb-0">Start Bootstrap</h1>
-        <hr class="star-light">
-        <h2 class="font-weight-light mb-0">Web Developer - Graphic Artist - User Experience Designer</h2>
-      </div>
-    </header>
+
+
 
 <!--   Header - set the background image for the header in the line below -->
-    <header class="py-5 bg-image-full text-center" style="background-image: url('https://unsplash.it/1900/1080?image=1076');">
-      <img class="img-fluid d-block mx-auto rounded-circle" src="http://placehold.it/200x200&text=Logo" alt="">
+    <header class="py-5 bg-image-full text-white text-center" style="background-image: url('https://unsplash.it/1900/1080?image=1076');">
+      <img class="img-fluid d-block mx-auto rounded-circle" src="resources/image/hayeonsoo3.jpg" id="profileImg">
       <p class="d-inline">test1</p>
       <p class="d-inline">test2</p>
       <p class="d-inline">test3</p>
       <h1>주소</h1>
     </header>
     
-    <div class="container">
-    
-    	<div class="text-center" id="imggg">
-    		<img class="img-fluid d-block mx-auto rounded-circle rounded-circle"  src="resources/image/hayeonsoo3.jpg"/>
-    	</div>
-    </div> -
+  
 
 
 <%-- <!--사용자 프로필  -->

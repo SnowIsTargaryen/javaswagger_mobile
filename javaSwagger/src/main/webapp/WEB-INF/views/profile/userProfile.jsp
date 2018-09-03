@@ -28,11 +28,26 @@
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}
+	
+	.bg-image-full {
+	  background: no-repeat center center scroll;
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  background-size: cover;
+	  -o-background-size: cover;
+  	}
+  	
 	#proPhoto{
 	width: 120px;
     height:120px;
     border-radius: 60px; /* 이미지 반크기만큼 반경을 잡기*/
 	}
+	
+ 	#profileImg{	
+  	width: 100px;
+  	height: 100px; 
+  	}
+	
 </style> 
 
 <title>Profile</title>
@@ -447,76 +462,58 @@
     	<span class="navbar-toggler-icon"></span>
  	 </button>
  	 
-				<div class="navbar-header navbar-center mx-auto">
-					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Eden</a>
+		<div class="navbar-header navbar-center mx-auto">
+			<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Eden</a>
+		</div>
+				
+
+		<div class="navbar-nav mx-4 my-2 d-block d-sm-none">
+		  	<div class="btn-group">  
+				<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
+				<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></button>
+				<div class="dropdown-menu">
+				  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+				  <a class="dropdown-item" href="../logout">로그아웃</a>
 				</div>
-				
-<%-- 	<ul class="navbar-nav mx-4 my-2 d-block d-sm-none">
-		<li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ${user_ID }
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="../logout">로그아웃</a>
-        </div>
-      </li>
-      </ul>
-	  --%>
-	  
-	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
-	
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="../logout">로그아웃</a>
 			</div>
 		</div>
-	 </div>
 				
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" action="../search">
-			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
-			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" type="submit" >
-							<img src="../resources/icon/search2.png" width="18" height="18">
-					  </button>
-			        </div>
-			      </div>
-			    </form>
-			 </div>   
-		<%-- 	 <ul class="navbar-nav mx-4 my-2 d-none d-sm-block">
-				<li class="nav-item dropdown">
-		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          ${user_ID }
-		        </a>
-		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-		           <div class="dropdown-divider"></div>
-		          <a class="dropdown-item" href="../logout">로그아웃</a>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<form class="form-inline my-lg-0 mx-auto" action="../search">
+		      <div class="input-group">
+		        <input type="text" class="form-control" placeholder="Search" name="user_ID">
+		        <div class="input-group-append">
+		          <button class="btn btn-outline-success" type="submit" >
+						<img src="../resources/icon/search2.png" width="18" height="18">
+				  </button>
 		        </div>
-		      </li>
-		      </ul>
-			</div> --%>
-			
-			 <div class="navbar-nav mx-4 my-2 d-none d-sm-block">
+		      </div>
+		    </form>
+		 </div>   
 	
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="../logout">로그아웃</a>
+			
+		<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
+		     <div class="btn-group">  
+				<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
+				<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				</button>
+				<div class="dropdown-menu">
+				  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+				  <a class="dropdown-item" href="../logout">로그아웃</a>
+				</div>
 			</div>
-		</div>
-	 </div>
-	</nav>
+		 </div>
+</nav>
+	
+	
+<!--   Header - set the background image for the header in the line below -->
+    <header class="py-5 bg-image-full text-white text-center" style="background-image: url('https://unsplash.it/1900/1080?image=1076');">
+      <img class="img-fluid d-block mx-auto rounded-circle" src="../resources/image/${profile.user_fname }" id="profileImg">
+      <span class="d-inline"><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>
+      <span class="d-inline"><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+      <button class="btn" data-toggle="modal" data-target="#insertPost" id="write" ><img src="../resources/icon/contract.png"></button>
+      <h2>${profile.user_ID }</h2>
+    </header>
 	
 <!--사용자 프로필  -->
 	<div class="container">
