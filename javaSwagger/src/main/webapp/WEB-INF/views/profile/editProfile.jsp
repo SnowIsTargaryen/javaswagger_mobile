@@ -18,10 +18,17 @@
 <script type="text/javascript">
 	$(function() {
 		<% String sesseing_id=(String)session.getAttribute("user_ID"); %>
+
+		/* $("#btnUserProfile").click(function() {
+			alert("ok")
+			location.href="../profile/userProfile?user_ID="+user_SessionID;
+		}) */
+
 		$("#btnUserProfile").click(function() {
 			
 			 location.href="../profile/userProfile?user_ID=";
 		})
+
 	})
 	
 	$(document).ready(function(){ 
@@ -41,7 +48,133 @@
 		$(this).siblings('.upload-name').val(filename); 
 		}); 
 	}); 
-		    
+
+	
+	$("#mailck").click(function(){//메일 인증-----------------------------------------------------
+		
+		 
+		var user_email = $("#user_Email").val()
+			
+				$.ajax({
+					url:"mailTest.do?user_email="+user_email,
+					success:function(data){
+						var cd = eval("("+data+")")
+						$("#code").val(data)
+						conCode = cd;
+					}
+				});
+					
+				 $(function() {
+						var time = 179;
+						var interv = setInterval(function() {
+							var m = time/60;
+							if(m >= 2) { m = 2 }
+							else if(m >= 1) { m = 1 }
+							else { m = 0 }
+							
+							var s = time%60;
+							$("#second").html("남은 인증시간:"+m+"분"+s+"초");
+							time -= 1;
+							if(time == -1)
+							{
+								clearInterval(interv);
+								alert("인증 시간 3분이 모두 지났습니다. 다시 메일을 인증하세요")
+								$("#checkEmil").modal("hide")
+							}
+							$("#clearInter").click(function(){
+								clearInterval(interv);
+								console.log(clearInterval(interv));
+							})
+
+						}, 1000);
+						
+			setTimeout(function(){
+					
+					$("<span></span>").html("메일인증 시간 3분이 모두 지났습니다.").appendTo("mailCheck");
+					$("#second").remove;
+				}, 180000);
+			});	 
+		
+		$("#btnPrimary").click(function () {
+			inpCode = $("#inputNum").val();
+			
+			if(conCode == inpCode){
+				$(this).attr("data-dismiss","modal");
+				$("#isMail").val(1)
+				$("#msg").html("인증에 성공");
+				$("#user_Mail_span").empty();
+			} else {
+				$(this).attr("data-dismiss","modal");
+				$("#isMail").val(2)
+				$("#msg").html("인증에 실패")
+				$("#user_Mail_span").empty();
+				
+			}
+			
+			if($("#isMail").val()==1)
+			{
+				$("#join").attr("disabled", false);
+				$("#announce").hide()
+			}
+		});
+	}); //메일 인증----------------------------------------------------- 
+	 
+	
+	function checkMail() {//mail 중복처리--------------------------------------------------------
+	    
+	    var useremail = $("#user_Email").val();
+	   sessionStorage.setItem("user_email", useremail);
+	//alert(useremail)
+	    $.ajax({
+	    async: true,
+	    type : 'post',
+	    data : useremail,
+	    url : "emailCheck.do",
+	    dataType : "json",
+	    contentType: "application/json; charset=UTF-8",
+	    success : function(data){
+	    	var arr = eval(data)
+	    	var inpMail = sessionStorage.getItem("user_email");
+	   		console.log(arr)
+	   		$("#user_Mail_span").empty();
+	   		
+	   		var regex=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;   
+	     
+	     if(regex.test(useremail) === false ) {  
+	    	 //email형식확인
+	    	 $("#user_Email").css("background-color", "#FFCECE");
+	  	 	  $("#user_Mail_span").empty();
+	  	 	$("#mailck").hide()
+	  	 	var w = $("<span>올바른 Email 형식을 입력하세요.</span>");
+	  	 	$("#user_Mail_span").append(w);
+	   		 } 
+	   		
+	   		if(arr == 1 ){
+				//이메일이 중복됨
+				 $("#user_Email").css("background-color", "#FFCECE");
+			    	
+			    	var warning = $("<span>이미등록된 Email입니다.</span>");
+			    	
+			    	$("#mailck").hide()
+			    	
+			    	$("#user_Mail_span").empty();
+			    	$("#user_Mail_span").append(warning);
+			} else if(arr != 1 && regex.test(useremail) === true){
+				//이메일 사용 가능	
+				
+				$("#user_Mail_span").empty();
+	        	$("#user_Email").css("background-color", "#B0F6AC");
+	        	
+	        	 var a = $("<span>사용가능한 Email입니다.</span>");
+	        	 $("#mailck").show()
+	        	$("#user_Mail_span").append(a);
+			} 
+	    }
+	  });
+		     
+	}//mail 중복처리--------------------------------------------------------
+	    
+
 
 </script>
 

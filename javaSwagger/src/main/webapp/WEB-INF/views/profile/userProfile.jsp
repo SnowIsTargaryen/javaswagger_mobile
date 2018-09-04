@@ -28,11 +28,30 @@
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}
+	
+	.bg-image-full {
+	  background: no-repeat center center scroll;
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  background-size: cover;
+	  -o-background-size: cover;
+  	}
+  	
 	#proPhoto{
-	width: 120px;
-    height:120px;
-    border-radius: 60px; /* 이미지 반크기만큼 반경을 잡기*/
+		width: 120px;
+	    height:120px;
+	    border-radius: 60px; /* 이미지 반크기만큼 반경을 잡기*/
 	}
+	
+ 	#profileImg{	
+	  	width: 100px;
+	  	height: 100px; 
+  	}
+  	
+  	#profileHeader{
+  		margin-bottom: 50px;
+  	}
+	
 </style> 
 
 <title>Profile</title>
@@ -49,16 +68,29 @@
 		<% String get_id=(String)request.getParameter("user_ID"); %> //사용자
 		
 		var user_SessionID="${user_ID}"
-		var guestID=$("#jumboUserID").html()
+		var guestID=$("#guestID").html()
 		
-		
+		var user_List=[]; // 팔로워 리시트 확인용 
 		
 		if(user_SessionID!=guestID){$("#write").hide();} // 글쓰기 권한 로그인한 사용자 전용
+		var profileImg='${profile.user_fname}';
 		
+		if(profileImg==null || profileImg=='') // 사진없으면 박보영 나옴
+		{
+			$("#profileImg").attr({
+				src:"../resources/image/박보영.gif"
+			})
+		}
+
+		/* $("#btnUserProfile").click(function() {
+			location.href="../profile/userProfile?user_ID="+user_SessionID;
+		}) */
+
 		$("#btnUserProfile").click(function() {
 			alert("ok")
 			/* location.href="../profile/userProfile?user_ID="+user_SessionID; */
 		})
+
 		if(user_SessionID==guestID){$("#btn_Follow").hide()}
 				
 		 var insertComment = function() {
@@ -334,6 +366,8 @@
 		}})//ajax islikeEnd
 				
 		
+		
+		
 		$.ajax({ // 팔로우 중복 검사
 				url:"../isFollower.do",
 				type:"post",
@@ -391,37 +425,127 @@
 			data:{"follower_ID":guestID},
 			success:function(data)
 			{
+				var state=0;
 				var f_List = eval("("+data+")")
 				$.each(f_List, function(i, f) {
 					var tr = $("<tr></tr>")
 					var td_ID = $("<td class='col-sm-8'></td>").html(f.user_ID)
 					var td_btn=$("<td class='col-sm-4'></td>")
-					var btn_f=$("<button class='btn btn-outline-primary'></button>").html("팔로잉")
+					var btn_f=$("<button class='btn btn-primary'></button>").html("팔로잉")
+					
+					
+					$(btn_f).click(function() {
+						if(state==0)
+						{
+							$.ajax({url:"../unFollow.do",
+								type:"post",
+								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
+								success:function(data){
+									$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로우");
+									
+								}})
+							state=1
+							return;
+						}
+						else if(state==1)
+						{
+							$.ajax({url:"../follow.do",
+								type:"post",
+								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
+								success:function(data){
+									//alert(data)
+									$(btn_f).removeClass("btn-outline-primary").addClass("btn-primary").html("팔로잉");
+								}})
+							state=0
+							return;
+							
+						}
+						
+					})
+					
 					$(td_btn).append(btn_f)
 					$(tr).append(td_ID,td_btn)
 					$("#followingTbody").append(tr)
 				})
 			}
 		})
+		
+		
+		
+		
+		
+		$.ajax({//팔로우 버튼 확인용
+			url:"../following.do",
+			data:{"follower_ID":"${user_ID}"},
+			success:function(data)
+			{
+				list=eval("("+data+")")
+				$.each(list, function(idx, f) {
+					user_List[idx]=f.user_ID
+					console.log(user_List[idx])
+				})
+			}
+		})
+		
+		
+		
 		$.ajax({ // 팔로워 목록 받아옴
 			url:"../follower.do",
 			type:"post",
 			data:{"user_ID":guestID},
 			success:function(data)
 			{
+				var state=1;
 				var f_List = eval("("+data+")")
 				$.each(f_List, function(i, f) {
 					var tr = $("<tr></tr>")
 					var td_ID = $("<td class='col-sm-8'></td>").html(f.follower_ID)
 					var td_btn=$("<td class='col-sm-4'></td>")
-					var btn_f=$("<button class='btn btn-outline-primary'></button>").html("팔로우")
+					var btn_f=$("<button class='btn btn-primary'></button>").html("팔로우")
+					
+					$.each(user_List, function(i, v) {
+						if(v==f.follower_ID)
+						{
+							$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로잉");
+							state=0;
+						}
+					})
+					
+					$(btn_f).click(function() {
+						if(state==0)
+						{
+							$.ajax({url:"../unFollow.do",
+								type:"post",
+								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
+								success:function(data){
+									$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로우");
+									
+								}})
+							state=1
+							return;
+						}
+						else if(state==1)
+						{
+							$.ajax({url:"../follow.do",
+								type:"post",
+								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
+								success:function(data){
+									//alert(data)
+									$(btn_f).removeClass("btn-outline-primary").addClass("btn-primary").html("팔로잉");
+								}})
+							state=0
+							return;
+							
+						}
+						
+					})
 					$(td_btn).append(btn_f)
 					$(tr).append(td_ID,td_btn)
 					$("#followerTbody").append(tr)
 				})
 			}
 		})
-		
+	
 		
 		function cntLike(postNo,commentNo)
 		{ //좋아요 카운트 함수
@@ -451,20 +575,7 @@
 				<div class="navbar-header navbar-center mx-auto">
 					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Eden</a>
 				</div>
-				
-<%-- 	<ul class="navbar-nav mx-4 my-2 d-block d-sm-none">
-		<li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ${user_ID }
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="../logout">로그아웃</a>
-        </div>
-      </li>
-      </ul>
-	  --%>
+
 	  
 	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
 	
@@ -504,39 +615,25 @@
 			</div>
 		</div>
 	 </div>
-	</nav>
+</nav>
 	
-<!--사용자 프로필  -->
-	<div class="container">
-		<div class="jumbotron" style="background-color: #FFFFFF" >
-			<div class="row d-flex" id="header">
-				<div class="col-sm-9 d-flex" >
-					<div class="mx-auto"> 
-						<img id="proPhoto" src="../resources/image/${profile.user_fname }">
-					</div>
-					<div class="row mx-auto">
-						<div class="col-sm-2 offset-md-2 ">
-							<h4 id="jumboUserID">${profile.user_ID }</h4>
-						</div>
-						<div class="col col-sm-auto">
-							<span><button id="btn_Follow" class="btn ">Follow</button></span>
-						</div>
-						<div class="col col-sm-auto mx-4">
-							<a data-toggle="modal" data-target="#insertPost" id="write" ><img src="../resources/icon/contract.png"></a>
-						</div>
-						<div class="col-sm-6 offset-md-2">
-							<span><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-							<span><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-						</div>
-						<div class="col-sm-12 offset-md-2">
-							<p>${profile.user_Email }</p>
-						</div>
-					</div><!--inner row1  -->
-				</div>
-			</div><!--header row  -->
-		</div> 
-	</div>
 	
+<!--   Header 사용자 프로필 -->
+    <header class="py-5 bg-image-full text-white text-center" style="background-image: url('../resources/image/rain.gif');" id="profileHeader">
+      <img class="img-fluid d-block mx-auto rounded-circle" src="../resources/image/${profile.user_fname }" id="profileImg">
+      <div class="btn-group" role="group">
+      	<button type="button" class="btn btn-sm btn-outline-secondary border-0 text-white" data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</button>
+      	<button type="button" class="btn btn-sm btn-outline-secondary border-0 text-white" data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</button>
+      	<button type="button" class="btn btn-sm btn-outline-secondary border-0" data-toggle="modal" data-target="#insertPost" id="write" ><img  src="../resources/icon/quill-drawing-a-line24w.png"></button>
+      </div>
+      <!-- <span class="d-inline"><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>
+      <span class="d-inline"><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>
+       -->
+      <p>${profile.user_Email }</p>
+      <h2 id="guestID">${profile.user_ID }</h2>
+    </header>
+	
+
 	<!-- 글쓰기 Modal -->
 	<div class="modal fade " id="insertPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document" >

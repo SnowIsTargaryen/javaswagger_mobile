@@ -72,6 +72,10 @@
 		</choose>		
 	</insert>
 	
+	<delete id="deleteLikePost">
+		delete likes where post_no=#{post_no}
+	</delete>
+	
 	<insert id="cancelLike">
 		delete likes where user_id = #{user_ID}
 		<choose>

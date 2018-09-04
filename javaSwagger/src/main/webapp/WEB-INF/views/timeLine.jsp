@@ -90,7 +90,9 @@
 				
 				//게시글 리스트
 				$.ajax({url:"timeLinePost",
+						data:{"user_ID":"${user_ID}"},
 						success:function(data){
+
 						var list = eval("("+data+")") //게시물 리스트
 						
 						$.each(list, function(idx, p) { //게시글 생성
@@ -114,7 +116,10 @@
 							var btn_group = $("<div></div>").addClass("btn-group")
 							
 							var div_f_left = $("<div></div>").addClass("float-left")
-							var a_comment = $("<a></a>").addClass("d-inline").html("댓글   ")
+							var s_comment = $("<small></small>").html("댓글보기 ")
+							var a_comment = $("<a data-role='button' data-transition='slide'></a>").addClass("d-block").attr({
+								href : 'board/listComment?post_no='+p.post_no,	
+							})
 							var p_like_cnt = $("<p></p>").addClass("d-inline").html("likecnt")
 							
 							var btn_group = $("<div></div>").addClass("btn-group float-right")
@@ -157,6 +162,11 @@
 							
 							(p_like_cnt).html("likes  "+like); //좋아요 설정
 							
+							$(div_card_header).click(function() {
+								var followId=$(this).html();
+								location.href="profile/userProfile?user_ID="+followId;
+							})
+							
 							$(btn_like).on("click",function() {
 								var no=$(this).attr("no");
 								if(state==0)
@@ -190,9 +200,9 @@
 							})
 							
 							
+							$(a_comment).append(s_comment)
 							
-							
-							$(div_f_left).append(a_comment,p_like_cnt)
+							$(div_f_left).append(p_like_cnt,a_comment)
 							$(btn_like).append(icon_like)
 					//		$(btn_delete).append(icon_delete)
 					//		$(btn_edit).append(icon_update)
@@ -445,7 +455,7 @@
 	 </div>
 				
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" action="../search">
+				<form class="form-inline my-lg-0 mx-auto" action="search">
 			      <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
 			        <div class="input-group-append">
