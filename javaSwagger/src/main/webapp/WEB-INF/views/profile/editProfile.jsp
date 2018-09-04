@@ -24,15 +24,19 @@
 		})
 	})
 	
-	$(document).ready(function(){ var fileTarget = $('.filebox .upload-hidden'); fileTarget.on('change', function(){
+	$(document).ready(function(){ 
+		var fileTarget = $('.filebox .upload-hidden'); 
+		fileTarget.on('change', function(){
+		
 		// 값이 변경되면
 		if(window.FileReader){
 			// modern browser 
 		var filename = $(this)[0].files[0].name; } 
 		else { 	// old IE 
 			var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+			
 			} 
-		
+	 	alert(filename)
 		// 추출한 파일명 삽입 
 		$(this).siblings('.upload-name').val(filename); 
 		}); 
@@ -145,21 +149,7 @@
 			</div>
 		</div>
 	</form>
-	 </div> <!-- 컨테이너  -->
-	
-<%-- 	  <ul class="navbar-nav mx-4 my-2 d-none d-sm-block">
-		<li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ${user_ID }
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="../logout">로그아웃</a>
-        </div>
-      </li>
-      </ul> --%>
-	
+	 </div>	
 	<div class="navbar-nav mx-2 my-2 d-none d-sm-block">
 	
 	     <div class="btn-group">  
@@ -184,25 +174,19 @@
     <p class="lead" >회원정보 수정</p>
     <hr>
     <div class="tab-pane container active" id="editProfile">
-						<form action="../profile/editProfile" method="post">
-						  <div class="form-group col-md-7 ">
-						   	<img id="proPhoto" data-toggle="modal" data-target="#updatePost" src="../resources/image/${profile.user_fname }">
+					
+						  <div class=" ">
+						   	<img id="proPhoto" data-target="#updatePost" src="../resources/image/${profile.user_fname }">
 						   
 							<p for="user_ID" >${profile.user_ID}</p>
 						    <input type="hidden" class="form-control" id="user_ID" name="user_ID" value="${profile.user_ID }">
 						  </div>
 					 
-					<div class="filebox"> 
-						<label for="ex_filename" class="fa fa-photo"></label> 
-						<input class="upload-name" value="파일선택" disabled="disabled">
-						<input type="file" id="ex_filename" class="upload-hidden"> 
-					</div>
-						  <button type="submit" class="btn btn-success .col-5 col-sm-12 col-md-10 col-lg-7">회원정보 변경</button>
-						</form>
+						
 					</div>
   </div>
-</div>
-
+</div><!-- JumboTron end -->
+	
 	<div class="container mx-0">
 		<div class="row justify-content-between">
 			<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar ">
@@ -222,39 +206,26 @@
 				<div class="tab-content">
 					<!--프로필 수정  -->
 					<div class="tab-pane container active" id="editProfile">
-						<form action="../profile/editProfile" method="post">
-						 <%--  <div class="form-group col-md-7 ">
-						   	<img id="proPhoto" data-toggle="modal" data-target="#updatePost" src="../resources/image/${profile.user_fname }">
+						<form action="../profile/editProfile" method="post" enctype="multipart/form-data">
+						  <div class="form-group col-md-7 ">
+						   <img id="proPhoto" data-target="#updatePost" style="display: none;" src="../resources/image/${profile.user_fname }">
 						   
-							<span class="ml-5" for="user_ID" >${profile.user_ID}</span>
 						    <input type="hidden" class="form-control" id="user_ID" name="user_ID" value="${profile.user_ID }">
-						  </div> --%>
+						    <input type="hidden" class="form-control" id="user_Password" name="user_Password" value="${profile.user_Password}">
+						    <input type="hidden" class="form-control" id="user_fname" name="user_fname" value="${profile.user_fname}">
+						  </div> 
 					 
-					<!-- <div class="filebox"> 
-						<label for="ex_filename" class="fa fa-photo"></label> 
-						<input class="upload-name" value="파일선택" disabled="disabled">
-						<input type="file" id="ex_filename" class="upload-hidden"> 
-					</div> -->
-
-				<!-- <div class="form-group">
-				  	    <label for="user_Password ">Email</label>
-					    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="email을 입력하세요" oninput="checkMail()" required="required">
-					     <span id="user_Mail_span"></span>
-					     
-					    <input type="button" value="메일인증" id="mailck" data-toggle="modal" data-target="#checkEmil">
-					    <input type="hidden" id="isMail" value="0"> 메일 통과 했는지 마는지
-					  	<span id="msg"></span>
-				  </div> -->
+							 <div class="filebox"> <!-- 새로운 파일 처리를 할 부분 -->
+								<label for="ex_filename" class="fa fa-photo"></label> 
+								<input class="upload-name" value="파일선택" disabled="disabled">
+								<input type="file" id="ex_filename" class="upload-hidden" name="uploadFile"> 
+							</div>
 
 						  <div class="form-group .col-5 col-sm-12 col-md-10  col-lg-7">
-						    <label for="user_Password ">Email:</label><!-- email 변경할때도 인증된 email인지 테스트해서 존재하는 email만 넣을 수 있도록 해야함-->
-						    <!-- <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="변경 할 email을 입력하세요" oninput="checkMail()" required="required"> -->
+						    <label for="user_Password ">Email:</label>
 						  	<span id="user_Mail_span">${profile.user_Email}</span>
-						  
-						  	<!-- <input type="button" value="메일인증" id="mailck" data-toggle="modal" data-target="#checkEmil">
-					    	<input type="hidden" id="isMail" value="0"> 메일 통과 했는지 마는지
-					  		<span id="msg"></span> -->
 						  </div>
+						  
 						  <div class="form-group .col-5 col-sm-12 col-md-10  col-lg-7">
 						    <label for="user_Password ">Phone</label>
 						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 Phone 번호를 입력하세요">
@@ -298,34 +269,29 @@
 		</div>
 	</div>
 	
-	<!-- 메일인증 Modal -->
-	<div class="modal fade " id="checkEmil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document" >
-	    <div class="modal-content"> 
-	   <!-- <form class="form"  action="confirm.do" method="post">  --> 
-	      <div class="modal-header">
-	        <h5 class="modal-title">메일 인증</h5>
-	      </div>
-	      <div class="modal-body">
-	        <div class="form-group">
-	        	<input type="hidden" class="form-contorl" id="code" name="code">
-	        </div>
-	        <div class="form-group">
-	        <input class="form-control" type="number" id="inputNum" placeholder="코드번호를 입력하세요">
-	        <span id="second"></span>
-		   	<span id="mailCheck"></span>
-	        </div>
-	        
-	      </div>
-	       <div class="modal-footer">
-	        <button type="reset" class="btn btn-secondary" data-dismiss="modal" id="clearInter">취소</button>
-	        <button class="btn btn-primary" id="btnPrimary">인증하기</button>
-	      </div>
-	     <!-- </form>  --> 
-	    </div>
-	  </div>
-	</div>
-	
+	<!-- /footer-->
+			<div class="footer">
+				<div class="footer-content">
+					<div class="footer-main">
+						<div class="col-md-6 footer-logo ">
+							<div class="logo two">
+							    <a href="../timeLine"><h3>EDEM</h3></a>
+						     </div>
+						</div> 
+						<div class="col-md-6 footer-button">
+							<div class="footer-button"><a href="#">download</a></div>
+						</div> 
+						<div class="clearfix"> </div>  
+					</div> 
+					<div class="social-icons">
+						
+					</div>
+					<div class="copy-right">
+								<p> &#169; 2018 EDEM. All Rights Reserved | Design by EDEM</p>
+					</div>
+				</div>
+			</div> 
+				<!-- //footer-->
 	
 </body>
 </html>
