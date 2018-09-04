@@ -53,12 +53,16 @@ public class UpdateUsersController {
 		MultipartFile multi = u.getUploadFile();
 		String path = request.getRealPath("resources/image");
 		System.out.println("path:"+path);
+		System.out.println("multi:"+multi);
+		
 		String OldFname = u.getUser_fname();
+		System.out.println("oldFname:"+OldFname);
 		String fname="";
 		
 		if(multi != null && !multi.equals("")) {
 			try {
 				fname = multi.getOriginalFilename();
+				System.out.println("fname:"+fname);
 				byte data[] = multi.getBytes();
 				u.setUser_fname(fname);
 				FileOutputStream fos = new FileOutputStream(path + "/" + fname);
@@ -69,7 +73,11 @@ public class UpdateUsersController {
 				// TODO: handle exception
 				System.out.println(e.getMessage());
 			}
+		}else if(multi == null)
+		{
+			System.out.println("multi is empty");
 		}
+		
 		
 		int re =dao.editProfile(u);
 		if(re<1)
