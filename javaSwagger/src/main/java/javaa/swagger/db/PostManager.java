@@ -1,6 +1,7 @@
 package javaa.swagger.db;
 
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -74,4 +75,20 @@ public class PostManager {
 		 session.close();
 		 return no;
 	 }
+
+	public static List<PostVo> readPostByHash(HashMap map) {
+		 List<PostVo> list;
+		 SqlSession s = factory.openSession();
+		 list = s.selectList("post.readPostByHash",map);
+		 s.close();
+		 return list;
+	}
+
+	public static int autoDelete() {
+		// TODO Auto-generated method stub
+		int re = -1;
+		SqlSession s = factory.openSession();
+		re = s.delete("post.autoDelete");
+		return re;
+	}
 }

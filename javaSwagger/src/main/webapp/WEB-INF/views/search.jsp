@@ -24,9 +24,9 @@
 <script type="text/javascript">
 	$(function() {
 		
-		<%String user_ID = request.getParameter("user_ID");%>//url 아이디
+		<%String keyword = request.getParameter("keyword");%>//url 아이디
 	//	var user_SessionID="${user_ID}"//세션 아이디
-		
+	
 		$("#btnUserProfile").click(function() {
 				location.href="profile/userProfile?user_ID=${user_ID}"
 		})
@@ -47,7 +47,7 @@
 					})
 					
 					$.ajax({ //검색 
-					url:"searchList?user_ID=<%=user_ID%>",
+					url:"searchList?user_ID=<%=keyword%>",
 					success:function(data){
 						list=eval("("+data+")")
 						$.each(list, function(idx, s) {
@@ -196,10 +196,5 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
 </body>
 </html>

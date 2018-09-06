@@ -57,12 +57,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.0/imagesloaded.pkgd.min.js"></script>
 <!--masonry  -->
 <script type="text/javascript">
-	$(function() {
-		<% String sesseing_id=(String)session.getAttribute("user_ID"); %>
-		$("#btnUserProfile").click(function() {
-			location.href="profile/userProfile?user_ID=<%=sesseing_id%>";
-		})
-		$(".btn-outline-secondary").click(function(){
+$(function() {
+	<%String keyword = request.getParameter("keyword");%>//검색어
+	
+	$("#btnUserProfile").click(function() {
+		location.href="profile/userProfile?user_ID=${user_ID}";
+	})
+	
+	$(".btn-outline-secondary").click(function(){
 			var keyword = $("#keyword").val();
 			if(keyword.indexOf("#") >= 0){
 				var key = keyword.substr(1, keyword.length);
@@ -72,78 +74,69 @@
 				$("#F").attr("action","search");
 			}
 		})
-			
-		$.ajax({
-			url:'timeLinePost',
-			success:function(data){
-				list = eval("("+data+")");
-				$.each(list, function(idx, p) {
-					var fname=p.post_fname
-					
-					if(fname!=null) //파일이 없으면 이미지 생성 x
-					{
-						var img = $("<img id='pImg'/>").attr({
-					 		src:"resources/image/"+fname
-					 	})	
-					}
-				 	
-				 	var detail_a=$("<a></a>").attr({
-						href: "#",
-						no: p.post_no
-					})
-					
-					$(detail_a).append(img)
-				 	$(".item").append(detail_a);
-				 	
-				 	$(detail_a).click(function() {
-						no=$(this).attr("no");
-						$("#col_comment_content").empty();
-						$.ajax({url:"detailPost?post_no="+no,success:function(data){ //게시글 상세
-							detail=eval("("+data+")")
-							//alert(data)
-							$('#post_no').val(detail.post_no);
-							$('#detail_Img').attr("src", "resources/image/"+detail.post_fname);
-							$('#h3_detail_userID').html(detail.user_ID);
-							
-							$('#small_detail_content').html(detail.post_hash);
-							$.ajax({ //댓글 리스트
-								url:"listComment.do?post_no="+detail.post_no,
-								success:function(data){
-									var arr = eval("("+data+")")
-									//alert(arr)
-									$.each(arr, function(i,p){
-										var h6 = $("<h6></h6>").html(p.user_ID+" ");
-										var small = $("<small></small>").html(p.comment_content);
-										$(h6).append(small);
-										$("#col_comment_content").append(h6);
-					
-									}) 
-								}})
-							
-						}})
-						$('#detail_Dialog').modal('show')
-					})
-					
-					$imgs=$(".item").imagesLoaded(function(){
-						$imgs.masonry({
-							itemSelector : 'img', // img 태그를 대상으로 masonry 적용
-							fitWidth : true // 내용물을 가운데 정렬하기, CSS margin:0 auto; 설정이 필요함
-						});
-					});  
+		
+	$.ajax({
+		url:'hashtagPost?keyword=<%=keyword%>',
+		success:function(data){
+			list = eval("("+data+")");
+			$.each(list, function(idx, p) {
+				var fname=p.post_fname
+				
+				if(fname!=null) //파일이 없으면 이미지 생성 x
+				{
+					var img = $("<img id='pImg'/>").attr({
+				 		src:"resources/image/"+fname
+				 	})	
+				}
+			 	
+			 	var detail_a=$("<a></a>").attr({
+					href: "#",
+					no: p.post_no
 				})
 				
-
-			}})//ajax end
-			
-		
-	})
-
-
+				$(detail_a).append(img)
+			 	$(".item").append(detail_a);
+			 	
+			 	$(detail_a).click(function() {
+					no=$(this).attr("no");
+					$("#col_comment_content").empty();
+					$.ajax({url:"detailPost?post_no="+no,success:function(data){ //게시글 상세
+						detail=eval("("+data+")")
+						//alert(data)
+						$('#post_no').val(detail.post_no);
+						$('#detail_Img').attr("src", "resources/image/"+detail.post_fname);
+						$('#h3_detail_userID').html(detail.user_ID);
+						$('#small_detail_content').html(detail.post_hash);
+						$.ajax({ //댓글 리스트
+							url:"listComment.do?post_no="+detail.post_no,
+							success:function(data){
+								var arr = eval("("+data+")")
+								//alert(arr)
+								$.each(arr, function(i,p){
+									var h6 = $("<h6></h6>").html(p.user_ID+" ");
+									var small = $("<small></small>").html(p.comment_content);
+									$(h6).append(small);
+									$("#col_comment_content").append(h6);
+				
+								}) 
+							}})
+						
+					}})
+					$('#detail_Dialog').modal('show')
+				})
+				
+				$imgs=$(".item").imagesLoaded(function(){
+					$imgs.masonry({
+						itemSelector : 'img', // img 태그를 대상으로 masonry 적용
+						fitWidth : true // 내용물을 가운데 정렬하기, CSS margin:0 auto; 설정이 필요함
+					});
+				});  
+			})
+		}})//ajax end
+})
 </script>
-
 </head>
 <body>
-<!--  네비게이션  -->
 	<nav class="navbar">
 	<div class="container">
 			<div class="col-4">
@@ -163,23 +156,8 @@
 			      </div>
 			    </form>
 			</div>
-			<!-- 
-			<div class="col-4">
-				<form class="navbar-form navbar-center" action="search">
-			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
-			        <div class="input-group-append">
-			          <button class="btn btn-outline-secondary" type="submit" >
-							<img src="resources/icon/search2.png" width="18" height="18">
-					  </button>
-			        </div>
-			      </div>
-			    </form>
-			</div>
-			 -->
 			<div class="col-4 d-flex justify-content-end align-items-center">
 	            <div class="btn-group">
-	            
 			    <button type="button" class="btn btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
 			    <button type="button" class="btn btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			    </button>
@@ -191,7 +169,6 @@
 	        </div>
 		</div> <!-- 컨테이너  -->
 	</nav>
-	
 	<!-- 게시글  -->
 	<div class="container">
 		 <div class="row">
@@ -200,8 +177,6 @@
 			</div>
 		</div> 
 	</div>
-	
-	
 	<!-- detail modal -->
 	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
 		<div class="modal-dialog modal-dialog-center"  role="document">
@@ -234,7 +209,6 @@
 										  <div class="form-row align-items-left">
 										  	<div class="col-auto">
 										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
-										  		<input type="hidden" name="vn" value="timeLine">
 										  	</div>
 										  	<div class="col-auto">
 										  		<input type="hidden" name="post_no" id="post_no">
@@ -253,7 +227,6 @@
 									</div>
 								</div>
 							</div>
-							
 						</div>
 					</div>
 				</div>

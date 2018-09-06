@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="comment">
 	<insert id="insertComment">
-		insert into comments values(#{comment_no},#{post_no},#{user_ID},sysdate,#{comment_content})
+		insert into comments values(#{comment_no},#{post_no},#{comment_content},sysdate,#{user_ID})
 	</insert>
 
 	<delete id="deleteComment">
@@ -19,7 +19,7 @@
 	</update>
 
 	<select id="readComment" resultType="commentVo">
-		select * from comments where post_no = #{post_no} order by comment_time
+		select * from comments where post_no = #{post_no} order by comment_date
 	</select>
 	
 	<select id="nextNo" resultType="java.lang.Integer">

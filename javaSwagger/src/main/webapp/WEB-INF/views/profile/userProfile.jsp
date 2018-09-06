@@ -51,13 +51,24 @@
 		var arr;
 		<% String get_id=(String)request.getParameter("user_ID"); %> //사용자
 		
+		$(".btn-outline-secondary").click(function(){
+			var keyword = $("#keyword").val();
+			if(keyword.indexOf("#") >= 0){
+				var key = keyword.substr(1, keyword.length);
+				$("#keyword").val(key);
+				$("#F").attr("action","../hashtag");
+			} else {
+				$("#F").attr("action","../search");
+			}
+		})
+		
 		var user_SessionID="${user_ID}"
 		var guestID=$("#jumboUserID").html()
 		
 		if(user_SessionID!=guestID){$("#write").hide();} // 글쓰기 권한 로그인한 사용자 전용
 		
 		$("#btnUserProfile").click(function() {
-			location.href="../profile/userProfile?user_ID="+user_SessionID+""
+			location.href="../userProfile?user_ID="+user_SessionID+""
 		})
 		if(user_SessionID==guestID){$("#btn_Follow").hide()}
 				
@@ -176,7 +187,7 @@
 				var div_col_md_4 = $("<div></div>").addClass("col-md-4");
 				var div_card_mb4_box = $("<div></div>").addClass("card mb-4 box-shadow");
 				var div_card_body = $("<div></div>").addClass("card-body");
-				var p_card_text =$("<p></p>").addClass("card-text").html(p.post_content);
+				var p_card_text =$("<p></p>").addClass("card-text").html(p.post_hash);
 				var d_flex = $("<div></div>").addClass("d-flex justify-content-between align-items-center")
 				var btn_group = $("<div></div>").addClass("btn-group")
 				var btn_delete  = $("<button type='button'></button>").addClass("btn btn-sm btn-outline-secondary").html("Delete")
@@ -230,10 +241,9 @@
 					
 					$.ajax({url:"../detailPost?post_no="+no,success:function(data){
 						detail=eval("("+data+")")
-						//alert(detail.post_no)
 						$('#post_content').html(detail.post_content);
+						$('#oldFname').val(detail.post_fname);
 						$('#updatate_Post_no').val(detail.post_no)
-
 					}})
 				})
 				
@@ -253,7 +263,7 @@
 						$('#post_no').val(detail.post_no);
 						$('#detail_Img').attr("src", "../resources/image/"+detail.post_fname);
 						$('#h3_detail_userID').html(detail.user_ID);
-						$('#small_detail_content').html(detail.post_content);
+						$('#small_detail_content').html(detail.post_hash);
 						$.ajax({ //댓글 리스트
 							url:"../listComment.do?post_no="+detail.post_no,
 							success:function(data){
@@ -324,13 +334,27 @@
 					<h1><a class="navbar-brand" href="../timeLine">Eden</a></h1>
 				</div>
 			</div>
+			<!-- 
 			<div class="col-4">
 				<form class="navbar-form navbar-center" action="../search">
 			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
+			        <input type="text" class="form-control" placeholder="Search" name="keyword">
 			        <div class="input-group-append">
 			          <button class="btn btn-outline-secondary" type="submit" >
 							<img src="../resources/icon/search2.png" width="18" height="18">
+					  </button>
+			        </div>
+			      </div>
+			    </form>
+			</div>
+			 -->
+			<div class="col-4">
+				<form class="navbar-form navbar-center" id="F">
+			      <div class="input-group">
+			        <input type="text" class="form-control" placeholder="Search" id="keyword" name="keyword">
+			        <div class="input-group-append">
+			          <button class="btn btn-outline-secondary" type="submit" >
+							<img src="resources/icon/search2.png" width="18" height="18">
 					  </button>
 			        </div>
 			      </div>
@@ -432,6 +456,7 @@
 	        	<textarea class="form-control" rows="5" id="post_content" name="post_content" placeholder="내용을 입력하세요"></textarea>
 	        </div>
 	        <div class="form-group">
+	        	<input type="hidden" class="form-contorl-file" id="oldFname" name="oldFname">
 	        	<input type="file" class="form-contorl-file" name="uploadFile">
 	        </div>
 	      </div>
@@ -479,6 +504,7 @@
 										  <div class="form-row align-items-left">
 										  	<div class="col-auto">
 										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
+										  		<input type="hidden" name="vn" value="profile">
 										  	</div>
 										  	<div class="col-auto">
 										  		<input type="hidden" name="post_no" id="post_no">

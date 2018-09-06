@@ -67,12 +67,12 @@ public class CommentController {
 //	}
 	
 	@RequestMapping(value="insertComment",method=RequestMethod.POST) // ajax 방식으로 자료 받아오기
-	public ModelAndView newComment(CommentVo cv) {
+	public ModelAndView newComment(CommentVo cv, String vn) {
 		
 		System.out.println(cv.getComment_no());
-		System.out.println(cv.getUser_ID());
 		System.out.println(cv.getPost_no());
 		System.out.println(cv.getComment_content());
+		System.out.println(cv.getUser_ID());
 		/*System.out.println(cv.getUser_ID());*/
 		
 		ModelAndView mav = new ModelAndView();
@@ -88,7 +88,11 @@ public class CommentController {
 			mav.addObject("msg", "댓글 등록에 실패하였습니다.");
 			mav.setViewName("error.do");
 		} else {
-			mav.setViewName("redirect:/profile/userProfile?user_ID="+cv.getUser_ID());
+			if(vn.equals("timeLine")) {
+				mav.setViewName("redirect:/timeLine");
+			}else {
+				mav.setViewName("redirect:/profile/userProfile?user_ID="+cv.getUser_ID());
+			}
 		}
 		return mav;
 	}

@@ -31,4 +31,14 @@ public class PostDao {
 	   {
 		   return PostManager.getNextNo();
 	   }
+
+	public List<PostVo> readPostByHash(HashMap map) {
+		// TODO Auto-generated method stub
+		return PostManager.readPostByHash(map);
+	}
+
+	public int autoDelete() {
+		// TODO Auto-generated method stub
+		return PostManager.autoDelete();
+	}
 }

@@ -3,6 +3,8 @@ package javaa.swagger.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,9 +55,11 @@ public class PostController {
 //		return mav;
 //	}
 	
-
-
-
+	@Scheduled(cron = "* * * * * *")
+	public int autoDelete() {
+		return dao.autoDelete();
+	}
+	
 	@RequestMapping("detailPost.do")
 	public ModelAndView detailPost(@RequestParam(value="post_no") int post_no) {
 		
@@ -86,6 +91,36 @@ public class PostController {
 		return str;
 	}
 	
+	@RequestMapping(value = "/hashtagPost", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String hashtag(@RequestParam(value="keyword") String keyword) {
+		ArrayList<PostVo> listt = new ArrayList<PostVo>();
+		String hashtag = "#" + keyword;		
+		HashMap map = new HashMap();
+		map.put("hashtag",hashtag);
+		List<PostVo> list = dao.readPostByHash(map);
+		for(PostVo p : list) {
+			listt.add(p);
+		}
+		String str = "";
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(listt);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		System.out.println(listt.size());
+		return str;
+	}
+	
+	@RequestMapping(value = "/hashtag",produces="text/plain;charset=utf-8")
+	public ModelAndView hashtagForm(@RequestParam(value="keyword") String keyword) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("keyword", keyword);
+		mav.setViewName("hashtag");
+		return mav;
+	}
 	
 	
 //	**** AJAX 방식 필요시 위에 MAV방식 메서드 지우고 요 녀석 주석 풀어서 사용 ****
@@ -107,6 +142,35 @@ public class PostController {
 	
 	
 	
+//	@RequestMapping(value="/insertPost.do",method=RequestMethod.POST)
+//	public ModelAndView insertPost(PostVo pv, HttpServletRequest request) {
+//		MultipartFile multi = pv.getUploadFile();
+//		String path = request.getRealPath("resources/image");
+//		System.out.println(path);
+//		if(multi != null) {
+//			try {
+//				String fname = multi.getOriginalFilename();
+//				byte data[] = multi.getBytes();
+//				pv.setPost_fname(fname);
+//				FileOutputStream fos = new FileOutputStream(path + "/" + fname);
+//				fos.write(data);
+//				fos.close();
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				System.out.println(e.getMessage());
+//			}
+//		}
+//		int no = dao.getNextNo();
+//		pv.setPost_no(no);
+//		HashMap map = new HashMap();
+//		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+pv.getUser_ID());
+//		map.put("pv", pv);
+//		mav.addObject("tof", dao.newPost(map)); // 반환값 어떻게 처리할까요?
+//		
+//		return mav;
+//	}
+	
+	// 해쉬코드 버전 인서트
 	@RequestMapping(value="/insertPost.do",method=RequestMethod.POST)
 	public ModelAndView insertPost(PostVo pv, HttpServletRequest request) {
 		MultipartFile multi = pv.getUploadFile();
@@ -127,6 +191,8 @@ public class PostController {
 		}
 		int no = dao.getNextNo();
 		pv.setPost_no(no);
+		String post_hash = getHashs(pv.getPost_content());
+		pv.setPost_hash(post_hash);
 		HashMap map = new HashMap();
 		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+pv.getUser_ID());
 		map.put("pv", pv);
@@ -135,9 +201,10 @@ public class PostController {
 		return mav;
 	}
 	
+
+	
 	@RequestMapping(value="/board/insertPost.do",method=RequestMethod.GET)
 	public void insertPostForm() {
-		
 	}
 	
 	
@@ -171,10 +238,43 @@ public class PostController {
 		return str;
 	}
 	
+//	@RequestMapping(value="updatePost.do", method=RequestMethod.POST)
+//	public ModelAndView updatePost(PostVo pv) {
+//		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+pv.getUser_ID());
+//		HashMap map = new HashMap();
+//		map.put("pv", pv);
+//		mav.addObject("tof", dao.updatePost(map));
+//		return mav;
+//	}
+	
 	@RequestMapping(value="updatePost.do", method=RequestMethod.POST)
-	public ModelAndView updatePost(PostVo pv) {
+	public ModelAndView updatePost(PostVo pv, HttpServletRequest request, @RequestParam("oldFname") String oldFname) {
 		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+pv.getUser_ID());
 		HashMap map = new HashMap();
+		String post_hash = getHashs(pv.getPost_content());
+		MultipartFile multi = pv.getUploadFile();
+		System.out.println(multi);
+		String path = request.getRealPath("resources/image");
+		if(multi != null) {
+			try {
+				String fname = multi.getOriginalFilename();
+				if(!fname.equals(oldFname)) {
+					File file = new File(path+"/"+oldFname);
+					file.delete();
+				}
+				byte data[] = multi.getBytes();
+				pv.setPost_fname(fname);
+				FileOutputStream fos = new FileOutputStream(path + "/" + fname);
+				fos.write(data);
+				fos.close();
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println(e.getMessage());
+			}
+		} else {
+			pv.setPost_fname(oldFname);
+		}
+		pv.setPost_hash(post_hash);
 		map.put("pv", pv);
 		mav.addObject("tof", dao.updatePost(map));
 		return mav;
@@ -189,4 +289,23 @@ public class PostController {
 //		mav.addObject("pv", pv);
 //		return mav;
 //	}
+	
+	// 해쉬태그 추출용 메서드
+	public static String getHashs(String post_content){
+		if(post_content.contains("#")) {
+			String[] arrContents = post_content.split(" ");
+			String[] arrHash = null;
+			for(int i = 0; i < arrContents.length; i++) {
+				if(arrContents[i].contains("#")) {
+					arrHash = arrContents[i].split("#");
+					for(int j = 0; j < arrHash.length; j++) {
+						if(!arrHash[j].trim().isEmpty()) {
+							post_content = post_content.replace("#" + arrHash[j], "<a href='../hashtag?keyword=" + arrHash[j].trim() + "'>#" + arrHash[j].trim() + "</a>");
+						}
+					}
+				}
+			}
+		}
+		return post_content;
+	}
 }
