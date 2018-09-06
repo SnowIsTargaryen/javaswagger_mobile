@@ -71,6 +71,7 @@ public class PostController {
 		return mav;
 	}
 	
+	
 //	**** AJAX 방식 필요시 위에 MAV방식 메서드 지우고 요 녀석 주석 풀어서 사용 ****
 	@RequestMapping(value="/board/listPost", produces="text/plain;charset=utf-8")
 	@ResponseBody

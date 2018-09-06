@@ -32,6 +32,8 @@ public class CommentController {
 		this.dao = dao;
 	}
 	
+	
+	
 //	ajax방식
 	@RequestMapping(value="listComment.do", produces="text/plain;charset=utf-8")
 	@ResponseBody // ajax 반환
