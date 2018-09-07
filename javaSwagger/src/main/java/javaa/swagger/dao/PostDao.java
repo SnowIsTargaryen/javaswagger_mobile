@@ -31,4 +31,9 @@ public class PostDao {
 	   {
 		   return PostManager.getNextNo();
 	   }
+
+	   public List<PostVo> searchByHash(HashMap map) {
+		   // TODO Auto-generated method stub
+		   return PostManager.hashtagPost(map);
+	   }
 }

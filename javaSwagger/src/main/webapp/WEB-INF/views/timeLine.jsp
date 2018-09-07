@@ -60,7 +60,6 @@
 	$(function() {
 		var user_SessionID="${user_ID}"
 		$("#btnUserProfile").click(function() {
-			
 			 location.href="profile/userProfile?user_ID="+user_SessionID;
 		})
 		
@@ -70,9 +69,9 @@
 			if(keyword.indexOf("#") >= 0){
 				var key = keyword.substr(1, keyword.length);
 				$("#keyword").val(key);
-				$("#F").attr("action","../hashtag");
+				$("#F").attr("action","hashtag");
 			} else {
-				$("#F").attr("action","../search");
+				$("#F").attr("action","search");
 			}
 		})
 		
@@ -557,6 +556,7 @@
 										  <div class="form-row align-items-left">
 										  	<div class="col-auto">
 										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
+										  		<input type="hidden" name="vn" id="vn" value="timeLine">
 										  	</div>
 										  	<div class="col-auto">
 										  		<input type="hidden" name="post_no" id="post_no">

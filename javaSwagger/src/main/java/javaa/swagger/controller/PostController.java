@@ -221,6 +221,8 @@ public class PostController {
 		return mav;
 	}
 	
+	@RequestMapping()
+	
 //	해쉬버전 업데이트
 //	@RequestMapping(value="updatePost.do", method=RequestMethod.POST)
 //	public ModelAndView updatePost(PostVo pv, HttpServletRequest request, @RequestParam("oldFname") String oldFname) {
@@ -267,23 +269,26 @@ public class PostController {
 //		return mav;
 //	}
 	
-
 	// 해쉬태그 추출용 메서드
 	public static String getHashs(String post_content){
-		if(post_content.contains("#")) {
-			String[] arrContents = post_content.split(" ");
-			String[] arrHash = null;
-			for(int i = 0; i < arrContents.length; i++) {
-				if(arrContents[i].contains("#")) {
-					arrHash = arrContents[i].split("#");
-					for(int j = 0; j < arrHash.length; j++) {
-						if(!arrHash[j].trim().isEmpty()) {
-							post_content = post_content.replace("#" + arrHash[j], "<a href='../hashtag?keyword=" + arrHash[j].trim() + "'>#" + arrHash[j].trim() + "</a>");
+		if(post_content != null) {
+			if(post_content.contains("#")) {
+				String[] arrContents = post_content.split(" ");
+				String[] arrHash = null;
+				for(int i = 0; i < arrContents.length; i++) {
+					if(arrContents[i].contains("#")) {
+						arrHash = arrContents[i].split("#");
+						for(int j = 0; j < arrHash.length; j++) {
+							if(!arrHash[j].trim().isEmpty()) {
+								post_content = post_content.replace("#" + arrHash[j], "<a href='../hashtag?keyword=" + arrHash[j].trim() + "'>#" + arrHash[j].trim() + "</a>");
+							}
 						}
 					}
 				}
 			}
+			return post_content;
+		} else {
+			return "";
 		}
-		return post_content;
 	}
 }
