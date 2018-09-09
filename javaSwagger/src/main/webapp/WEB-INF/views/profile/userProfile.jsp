@@ -590,42 +590,26 @@
 <body>
 <!--  네비게이션  -->
 	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    	<span class="navbar-toggler-icon"></span>
- 	 </button>
- 	 
-				<div class="navbar-header navbar-center mx-auto">
-					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Eden</a>
-				</div>
-
-	  
-	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
-	
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="../logout">로그아웃</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    	<span class="navbar-toggler-icon"></span>
+	 	 </button>
+	 	 
+			<div class="navbar-header navbar-center mx-auto">
+				<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Eden</a>
 			</div>
-		</div>
-	 </div>
-			<!-- 검색부분 old
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" action="../search">
-			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
-			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" type="submit" >
-							<img src="../resources/icon/search2.png" width="18" height="18">
-					  </button>
-			        </div>
-			      </div>
-			    </form>
-			 </div>
-			  -->   
-			 <!-- 검색부분 new -->
+	
+		  
+			<div class="navbar-nav mx-4 my-2 d-block d-sm-none">
+			    <div class="btn-group">  
+					<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
+					<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></button>
+					<div class="dropdown-menu">
+					  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+					  <a class="dropdown-item" href="../logout">로그아웃</a>
+					</div>
+				</div>
+			</div>
+			
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<form class="form-inline my-lg-0 mx-auto" id="F">
 			      <div class="input-group">
@@ -638,22 +622,21 @@
 			      </div>
 			    </form>
 			 </div>   
-			 
-			 
-			
-	<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
-	
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="../logout">로그아웃</a>
-			</div>
-		</div>
-	 </div>
-</nav>
+				 
+				
+			 <div class="navbar-nav mx-4 my-2 d-none d-sm-block">
+			     <div class="btn-group">  
+					<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
+					<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					</button>
+					<div class="dropdown-menu">
+					  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+					  <a class="dropdown-item" href="../data/weatherData">날 씨</a>
+					  <a class="dropdown-item" href="../logout">로그아웃</a>
+					</div>
+				</div>
+			 </div> 
+	</nav>
 	
 	
 <!--   Header 사용자 프로필 -->
