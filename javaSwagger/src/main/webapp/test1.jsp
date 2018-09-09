@@ -44,6 +44,7 @@
 </head>
 <body>
 
+	<img src="resources/image/¹Úº¸¿µ.gif">
 <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
