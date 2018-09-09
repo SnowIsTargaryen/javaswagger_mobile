@@ -110,7 +110,6 @@
 					url:"../insertComment",
 					data:params,
 					type:'post',
-					async:false,
 					success:function(data)
 					{
 						alert(data)
@@ -133,12 +132,12 @@
 					if(l.post_no!=null)
 					{
 						like_post_no[i]=l.post_no;
-						console.log("postNo "+like_post_no)
+						//console.log("postNo "+like_post_no)
 					}
 					if(l.comment_no!=null)
 					{
 						like_cmt_no[i]=l.comment_no;
-						console.log("cmtNo "+like_cmt_no)
+						//console.log("cmtNo "+like_cmt_no)
 					}
 				})// eachEnd
 				
@@ -505,7 +504,7 @@
 				list=eval("("+data+")")
 				$.each(list, function(idx, f) {
 					user_List[idx]=f.user_ID
-					console.log(user_List[idx])
+					
 				})
 			}
 		})
