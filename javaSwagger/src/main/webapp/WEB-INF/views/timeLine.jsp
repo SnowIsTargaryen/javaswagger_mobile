@@ -60,8 +60,19 @@
 	$(function() {
 		var user_SessionID="${user_ID}"
 		$("#btnUserProfile").click(function() {
-			
 			 location.href="profile/userProfile?user_ID="+user_SessionID;
+		})
+		
+		
+		$(".btn-outline-success").click(function(){
+			var keyword = $("#keyword").val();
+			if(keyword.indexOf("#") >= 0){
+				var key = keyword.substr(1, keyword.length);
+				$("#keyword").val(key);
+				$("#F").attr("action","hashtag");
+			} else {
+				$("#F").attr("action","search");
+			}
 		})
 		
 		var l_post_no=[];
@@ -453,11 +464,26 @@
 			</div>
 		</div>
 	 </div>
-				
+			<!-- 검색부분 old 	
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<form class="form-inline my-lg-0 mx-auto" action="search">
 			      <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
+			        <div class="input-group-append">
+			          <button class="btn btn-outline-success" type="submit" >
+							<img src="resources/icon/search2.png" width="18" height="18">
+					  </button>
+			        </div>
+			      </div>
+			    </form>
+			 </div>   
+			  -->
+			  
+			<!-- 검색부분 new -->
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<form class="form-inline my-lg-0 mx-auto" id="F">
+			      <div class="input-group">
+			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
 			        <div class="input-group-append">
 			          <button class="btn btn-outline-success" type="submit" >
 							<img src="resources/icon/search2.png" width="18" height="18">
@@ -530,6 +556,7 @@
 										  <div class="form-row align-items-left">
 										  	<div class="col-auto">
 										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
+										  		<input type="hidden" name="vn" id="vn" value="timeLine">
 										  	</div>
 										  	<div class="col-auto">
 										  		<input type="hidden" name="post_no" id="post_no">
