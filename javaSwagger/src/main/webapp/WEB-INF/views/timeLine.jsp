@@ -70,9 +70,9 @@
 			if(keyword.indexOf("#") >= 0){
 				var key = keyword.substr(1, keyword.length);
 				$("#keyword").val(key);
-				$("#F").attr("action","../hashtag");
+				$("#F").attr("action","hashtag");
 			} else {
-				$("#F").attr("action","../search");
+				$("#F").attr("action","search");
 			}
 		})
 		
@@ -284,7 +284,7 @@
 									$('#post_no').val(detail.post_no);
 									$('#detail_Img').attr("src", "resources/img/"+detail.post_fname);
 									$('#h3_detail_userID').html(detail.user_ID);
-									$('#small_detail_content').html(detail.post_content);
+									$('#small_detail_content').html(detail.post_hash);
 									$.ajax({ //댓글 리스트
 										url:"listComment.do?post_no="+detail.post_no,
 										success:function(data){
