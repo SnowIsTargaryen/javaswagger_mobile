@@ -28,5 +28,6 @@
     <mapper resource="javaa/swagger/db/usersMapper.xml"/> 
     <mapper resource="javaa/swagger/db/followMapper.xml"/> 
     <mapper resource="javaa/swagger/db/likeMapper.xml"/> 
+    <mapper resource="javaa/swagger/db/findUsersInfoMapper.xml"/> 
   </mappers>
 </configuration>

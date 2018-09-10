@@ -304,15 +304,6 @@ $("#mailck").click(function(){//메일 인증-----------------------------------
 	});
 	 
 
-	//$("#btnPrimary").click(function () {
-	//	inpCode = $("#btnPrimary").val();
-	//	$("#inpCode").val(inpCode);
-	//	$("#conCode").val(conCode);
-	//	if(inpCode == conCode){
-	//		$(this).attr("data-dismiss","modal");
-	//	}
-	//})
-	
 	$("#btnPrimary").click(function () {
 		inpCode = $("#inputNum").val();
 		
@@ -372,13 +363,6 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 </head>
 <body>
 
-	<!--   <form action="../account/create" method="post">
-		아이디:<input type="text" name="user_ID"><br>
-		비밀번호:<input type="text" name="user_Password"><br>
-		이메일:<input type="text" name="user_Email"><br>
-		폰:<input type="text" name="user_Phone"><br>
-		<input type="submit" value="등록">
-	</form>   -->	
 
 
 <div class="container" >
