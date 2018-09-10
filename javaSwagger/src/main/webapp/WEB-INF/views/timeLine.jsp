@@ -202,9 +202,7 @@
 										success:function(data){
 											$(icon_like).attr({src:"resources/icon/like_0.png"})	
 											like = cntLike(p.post_no,null);
-											(p_like_cnt).html("likes  "+like);
-						
-											
+											(p_like_cnt).html("likes  "+like);		
 									}})
 									state=0
 									return;
@@ -284,7 +282,7 @@
 									detail=eval("("+data+")")
 									//alert(data)
 									$('#post_no').val(detail.post_no);
-									$('#detail_Img').attr("src", "resources/image/"+detail.post_fname);
+									$('#detail_Img').attr("src", "resources/img/"+detail.post_fname);
 									$('#h3_detail_userID').html(detail.user_ID);
 									$('#small_detail_content').html(detail.post_content);
 									$.ajax({ //댓글 리스트

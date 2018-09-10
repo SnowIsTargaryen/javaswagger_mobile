@@ -198,7 +198,7 @@
 							})
 							
 							var img = $("<img/>").addClass("card-img-top").attr({
-								src :"../resources/image/"+p.post_fname,
+								src :"../resources/img/"+p.post_fname,
 								alt : "Card image cap"
 							})
 							var state=0;
@@ -330,7 +330,7 @@
 									detail=eval("("+data+")")
 									//alert(data)
 									$('#post_no').val(detail.post_no);
-									$('#detail_Img').attr("src", "../resources/image/"+detail.post_fname);
+									$('#detail_Img').attr("src", "../resources/img/"+detail.post_fname);
 									$('#h3_detail_userID').html(detail.user_ID);
 									$('#small_detail_content').html(detail.post_content);
 									$.ajax({ //댓글 리스트

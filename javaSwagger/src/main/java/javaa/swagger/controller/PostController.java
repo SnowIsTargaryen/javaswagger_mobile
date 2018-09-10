@@ -73,7 +73,7 @@ public class PostController {
 	}
 	
 //	자동 삭제위해서 임시로 만든겁니다요.
-//	@Scheduled(cron=" * * * * * * ")
+//	@Scheduled(cron="* 0/1 * * * *")
 //	public int autoDelete() {
 //		int re = dao.autoDelete();
 //		return re;
@@ -148,7 +148,7 @@ public class PostController {
 		@RequestMapping(value="/insertPost.do",method=RequestMethod.POST)
 		public ModelAndView insertPost(PostVo pv, HttpServletRequest request) {
 			MultipartFile multi = pv.getUploadFile();
-			String path = request.getRealPath("resources/image");
+			String path = request.getRealPath("resources/img");
 			System.out.println(path);
 			if(multi != null) {
 				try {
@@ -186,7 +186,7 @@ public class PostController {
 	public String deletePost(int post_no,String user_ID,HttpServletRequest request) {
 		String str="";
 		HashMap map = new HashMap();
-		String path = request.getRealPath("resources/image");
+		String path = request.getRealPath("resources/img");
 		PostVo pv = new PostVo();
 		map.put("post_no", post_no);
 		map.put("user_ID", user_ID);

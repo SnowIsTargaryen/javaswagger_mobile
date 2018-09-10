@@ -53,7 +53,6 @@
 	
 	<insert id="doLike">
 		insert into likes values(
-		#{user_ID},
 		<choose>
 			<when test="post_no != null">
 				#{post_no},
@@ -64,12 +63,13 @@
 		</choose>
 		<choose>
 			<when test="comment_no != null">
-				#{comment_no})
+				#{comment_no},
 			</when>
 			<when test="comment_no == null">
-				null)
+				null,
 			</when>
 		</choose>		
+		#{user_ID})
 	</insert>
 	
 	<delete id="deleteLikePost">
