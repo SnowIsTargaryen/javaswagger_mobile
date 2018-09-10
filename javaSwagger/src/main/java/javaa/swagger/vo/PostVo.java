@@ -74,7 +74,7 @@ public class PostVo {
 		this.post_fname = post_fname;
 	}
 	public String getPost_hash() {
-		return post_hash;
+		return post_fname;
 	}	
 	public void setPost_hash(String post_hash) {
 		this.post_hash = post_hash;

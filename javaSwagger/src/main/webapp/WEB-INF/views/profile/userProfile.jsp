@@ -332,7 +332,7 @@
 									$('#post_no').val(detail.post_no);
 									$('#detail_Img').attr("src", "../resources/img/"+detail.post_fname);
 									$('#h3_detail_userID').html(detail.user_ID);
-									$('#small_detail_content').html(detail.post_hash);
+									$('#small_detail_content').html(detail.post_content);
 									$.ajax({ //댓글 리스트
 										url:"../listComment.do?post_no="+detail.post_no,
 										success:function(data){
@@ -771,7 +771,6 @@
 										  <div class="form-row align-items-left">
 										  	<div class="col-auto">
 										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
-										  		<input type="hidden" name="vn" id="vn" value="up">
 										  	</div>
 										  	<div class="col-auto">
 										  		<input type="hidden" name="post_no" id="post_no">

@@ -29,9 +29,7 @@
 		select nvl(max(post_no),0)+1 from post
 	</select>
 
-	<select id="searchByHash" resultType="postVo">
-		select * from post where post_content like '%' || #{keyword} || '%'
-	</select>
+
 
 	
 	
