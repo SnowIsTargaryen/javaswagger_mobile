@@ -6,13 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javaa.swagger.dao.PostDao;
 import javaa.swagger.dao.UsersDao;
 import javaa.swagger.vo.PostVo;
 
@@ -23,16 +21,9 @@ public class SearchController {
 	@Autowired
 	private UsersDao dao;
 	
-	@Autowired
-	private PostDao pdao;
-	
 	
 	public void setDao(UsersDao dao) {
 		this.dao = dao;
-	}
-	
-	public void setPdao(PostDao pdao) {
-		this.pdao = pdao; 
 	}
 	
 	
@@ -73,5 +64,6 @@ public class SearchController {
 			System.out.println(e.getMessage());
 		}
 		return str;
+		
 	}
 }

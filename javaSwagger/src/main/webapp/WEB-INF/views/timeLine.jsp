@@ -60,6 +60,7 @@
 	$(function() {
 		var user_SessionID="${user_ID}"
 		$("#btnUserProfile").click(function() {
+			
 			 location.href="profile/userProfile?user_ID="+user_SessionID;
 		})
 		
@@ -69,9 +70,9 @@
 			if(keyword.indexOf("#") >= 0){
 				var key = keyword.substr(1, keyword.length);
 				$("#keyword").val(key);
-				$("#F").attr("action","hashtag");
+				$("#F").attr("action","../hashtag");
 			} else {
-				$("#F").attr("action","search");
+				$("#F").attr("action","../search");
 			}
 		})
 		
@@ -201,9 +202,7 @@
 										success:function(data){
 											$(icon_like).attr({src:"resources/icon/like_0.png"})	
 											like = cntLike(p.post_no,null);
-											(p_like_cnt).html("likes  "+like);
-						
-											
+											(p_like_cnt).html("likes  "+like);		
 									}})
 									state=0
 									return;
@@ -283,7 +282,7 @@
 									detail=eval("("+data+")")
 									//alert(data)
 									$('#post_no').val(detail.post_no);
-									$('#detail_Img').attr("src", "resources/image/"+detail.post_fname);
+									$('#detail_Img').attr("src", "resources/img/"+detail.post_fname);
 									$('#h3_detail_userID').html(detail.user_ID);
 									$('#small_detail_content').html(detail.post_content);
 									$.ajax({ //댓글 리스트
@@ -556,7 +555,6 @@
 										  <div class="form-row align-items-left">
 										  	<div class="col-auto">
 										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
-										  		<input type="hidden" name="vn" id="vn" value="timeLine">
 										  	</div>
 										  	<div class="col-auto">
 										  		<input type="hidden" name="post_no" id="post_no">

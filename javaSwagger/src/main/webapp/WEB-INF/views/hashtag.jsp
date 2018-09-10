@@ -1,69 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>TimeLine</title>
-<style type="text/css">
-	 #pImg{
-		  	height: 300px;
-		  	width: 300px;
-	}
-	 
-	.item img{
-		margin: 3px;
-	}
-	
-	.item {
-		margin: 0 auto;
-	   display: grid;
-	   grid-gap: 10px;
-	   grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
-	}
-	
-		.modal-dialog{
-		max-width: 60% !important; 
-		
-	}
-	#content{
-		height: 650px;
-	}
-	
-	.modal.modal-center { 
-	
-		text-align: center;
-		text-align: left;
-		top:15%;
-		right:10%
-		left: 15%;
-	}
-
-	.container-fluid{
-	
-		padding-left: 0 !important;
-		padding-right: 0 !important;
-	}
-		
-</style>
+<title>검색</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+	integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"
+	integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	crossorigin="anonymous"></script>
 <!--부트 스트랩 CDN  -->
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.0/imagesloaded.pkgd.min.js"></script>
-<!--masonry  -->
 <script type="text/javascript">
 $(function() {
-	<%String keyword = request.getParameter("keyword");
-	System.out.println(keyword);
-	%>//검색어
+	<%String keyword = request.getParameter("keyword");%>//검색어
 	
 	$("#btnUserProfile").click(function() {
-		location.href="profile/userProfile?user_ID=${user_ID}";
+		location.href="../profile/userProfile?user_ID=${user_ID}";
 	})
 	
 	$(".btn-outline-secondary").click(function(){
@@ -143,7 +106,7 @@ $(function() {
 	<div class="container">
 			<div class="col-4">
 				<div class="navbar-header navbar-left">
-					<h1><a class="navbar-brand" href="timeLine">Eden</a></h1>
+					<h1><a class="navbar-brand" href="../timeLine">Eden</a></h1>
 				</div>
 			</div>
 			<div class="col-4">
@@ -211,7 +174,6 @@ $(function() {
 										  <div class="form-row align-items-left">
 										  	<div class="col-auto">
 										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
-										  		<input type="hidden" name="vn" id="vn" value="<%=keyword %>">
 										  	</div>
 										  	<div class="col-auto">
 										  		<input type="hidden" name="post_no" id="post_no">

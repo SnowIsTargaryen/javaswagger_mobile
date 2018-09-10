@@ -74,13 +74,4 @@ public class PostManager {
 		 session.close();
 		 return no;
 	 }
-
-	public static List<PostVo> hashtagPost(HashMap map) {
-		// TODO Auto-generated method stub
-		List<PostVo> list;
-		SqlSession s = factory.openSession();
-		list = s.selectList("post.searchByHash",map);
-		s.close();
-		return list;
-	}
 }

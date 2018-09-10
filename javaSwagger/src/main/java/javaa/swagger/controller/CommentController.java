@@ -77,7 +77,7 @@ public class CommentController {
 //	}
 	
 	@RequestMapping(value="insertComment",method=RequestMethod.POST) // ajax 방식으로 자료 받아오기
-	public ModelAndView newComment(CommentVo cv, @RequestParam(value="vn") String vn) {
+	public ModelAndView newComment(CommentVo cv, String vn) {
 		
 		System.out.println(cv.getComment_no());
 		System.out.println(cv.getUser_ID());
@@ -94,18 +94,14 @@ public class CommentController {
 		map.put("cv", cv);
 		int re = dao.newComment(map);
 		
-		System.out.println("vn = " + vn);
-		
 		if(re <= 0) {
 			mav.addObject("msg", "댓글 등록에 실패하였습니다.");
 			mav.setViewName("error.do");
 		} else {
 			if(vn.equals("timeLine")) {
 				mav.setViewName("redirect:/timeLine");
-			}else if(vn.equals("up")){
+			}else {
 				mav.setViewName("redirect:/profile/userProfile?user_ID="+cv.getUser_ID());
-			} else {
-				mav.setViewName("redirect:/hashtag?keyword=" + (String)vn);
 			}
 		}
 		return mav;
