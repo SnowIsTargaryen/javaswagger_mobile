@@ -98,7 +98,7 @@ public class SmsContoller {
 	      strSRCData = strData;
 	    }
 
-	    //접근자 인라인 함수(아니, 메소드)들입니다.
+	    //접근자 인라인 메소드들입니다.
 	    public String getEncryptData(){return strENCData;}
 	    public String getSourceData(){return strSRCData;}
 
