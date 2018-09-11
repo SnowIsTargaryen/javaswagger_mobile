@@ -25,22 +25,19 @@
 			location.href="../login";
 		}) 
 		
+		
+		$("#msg").click(function(){
+			alert("확인 버튼을 눌러 확인하세요");
+		})
 		var user_email = $("#user_email").val();
 	
 		var user_phone = $("#user_phone").val();
 		
 		$("#findUserID").click(function(){
 			var userid = $("#userid").val();
-			alert("ID찾기 결과:\n"+userid);
+			alert("ID찾기 결과: "+userid);
 			
 		})
-		
-		 /*  $("#findUserID").click(function(){
-				var userid = $("#userid").val();
-					alert("ID찾기 결과:\n"+userid);
-					
-			}); */
-		
 	})
 	
 </script>
@@ -65,7 +62,8 @@
                 <input type="text" id="user_phone" name="user_phone" class="form-control" placeholder="등록된 핸드폰번호 입력" required>
               </div>
    				 <br class="my-3">
-              <button class="btn btn-lg btn-primary btn-block text-uppercase"  type="submit">ID 찾기</button>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" id="msg" type="submit">ID 찾기</button>
+              <button class="btn btn-defualt" id="findUserID">ID확인</button>
               <br class="my-2">
               <a id="login" href="#">Login</a>
              
@@ -73,7 +71,7 @@
                <a id="findUserPwd" href="#">Forgot your Password?</a>
             </form>
             <div ><input id="userid" type="hidden" value="${u.user_ID}"></div>
-            <button id="findUserID">ID확인</button>
+            
           </div>
         </div>
       </div>
