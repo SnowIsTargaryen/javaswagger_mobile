@@ -42,6 +42,7 @@ public class FindUsersInfoManager {
 		SqlSession session =factory.openSession();
 		UsersVo u = session.selectOne("findUsersInfo.findId", map);
 		System.out.println("manager map:"+map);
+		System.out.println("u:"+u.getUser_ID());
 		session.close();
 		
 		return u;
