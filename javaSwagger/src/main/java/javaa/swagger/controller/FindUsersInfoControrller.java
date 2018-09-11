@@ -65,9 +65,8 @@ public class FindUsersInfoControrller {
 		map.put("user_phone", user_phone);
 		
 		UsersVo u = dao.findPwd(map);
-		System.out.println("controller map:"+map);
 		mav.addObject("u", u);
-		System.out.println("dd:"+u.getUser_ID());
+		
 		
 		return mav;
 	}
