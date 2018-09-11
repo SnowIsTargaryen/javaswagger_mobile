@@ -24,7 +24,37 @@
 		$("#login").click(function() {
 			location.href="../login";
 		}) 
+		
+		var user_email = $("#user_email").val();
+		var user_phone = $("#user_phone").val();
+		$("#findUserID").click(function(){
+			 
+			/* $.ajax({
+					type:"post", 
+					url : "findUserId",
+					async : false,
+					data : {user_email:user_email,user_phone:user_phone} ,
+					dataType : "json",
+					success: function(data){    
+						alert();
+						alert(user_email);
+						},
+					   error : function (data) {
+					    alert('죄송합니다. 잠시 후 다시 시도해주세요.');
+					    return false;
+					   }   
+				}) */
+			
+		})
+		
+		  $("#findUserID").click(function(){
+				var userid = $("#userid").val();
+					alert("ID찾기 결과:\n"+userid);
+					
+			});
+		
 	})
+	
 </script>
 
 <title>Find your ID</title>
@@ -47,14 +77,14 @@
                 <input type="text" id="user_phone" name="user_phone" class="form-control" placeholder="등록된 핸드폰번호 입력" required>
               </div>
    				 <br class="my-3">
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">ID 찾기</button>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" id="findUserID" type="submit">ID 찾기</button>
               <br class="my-2">
               <a id="login" href="#">Login</a>
              
               <hr class="my-3">
                <a id="findUserPwd" href="#">Forgot your Password?</a>
             </form>
-            
+            <p id="userid">${u.user_ID}</p>
           </div>
         </div>
       </div>
