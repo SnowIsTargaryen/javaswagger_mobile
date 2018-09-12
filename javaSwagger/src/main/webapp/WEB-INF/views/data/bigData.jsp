@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	test
+	<img src="../resources/chat/${fname }">
 </body>
 </html>

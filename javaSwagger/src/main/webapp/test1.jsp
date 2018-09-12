@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta charset="utf-8">
 <title>Insert title here</title>
 
 <style type="text/css">
@@ -41,10 +42,42 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <!--부트 스트랩 CDN  -->
-</head>
-<body>
+<script type="text/javascript">
 
-	<img src="resources/image/박보영.gif">
+	$(function() {
+		
+		
+		//pie
+		var ctxP = document.getElementById("pieChart").getContext('2d');
+		var myPieChart = new Chart(ctxP, {
+		    type: 'pie',
+		    data: {
+		        labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+		        datasets: [
+		            {
+		                data: [300, 50, 100, 40, 120],
+		                backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+		                hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+		            }
+		        ]
+		    },
+		    options: {
+		        responsive: true
+		    }
+		});
+		
+	})
+
+</script>
+
+</head>
+<body>	
+	<canvas id="pieChart"></canvas>
+
+
+
+	<%-- <iframe width="350" height="300" scrolling="no" src="http://127.0.0.1:22426/custom/googleVis/PieChartID2b4c72c720f8.html"></iframe>
+	<c:import url="http://127.0.0.1:22426/custom/googleVis/PieChartID2b4c72c720f8.html"></c:import> --%>
 <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
