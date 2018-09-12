@@ -7,7 +7,7 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- icon을 위한link -->
-
+<link rel="stylesheet" href="../resources/css/footerBar.css" />
 <title>EditProfile</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
@@ -48,133 +48,6 @@
 		$(this).siblings('.upload-name').val(filename); 
 		}); 
 	}); 
-
-	
-	$("#mailck").click(function(){//메일 인증-----------------------------------------------------
-		
-		 
-		var user_email = $("#user_Email").val()
-			
-				$.ajax({
-					url:"mailTest.do?user_email="+user_email,
-					success:function(data){
-						var cd = eval("("+data+")")
-						$("#code").val(data)
-						conCode = cd;
-					}
-				});
-					
-				 $(function() {
-						var time = 179;
-						var interv = setInterval(function() {
-							var m = time/60;
-							if(m >= 2) { m = 2 }
-							else if(m >= 1) { m = 1 }
-							else { m = 0 }
-							
-							var s = time%60;
-							$("#second").html("남은 인증시간:"+m+"분"+s+"초");
-							time -= 1;
-							if(time == -1)
-							{
-								clearInterval(interv);
-								alert("인증 시간 3분이 모두 지났습니다. 다시 메일을 인증하세요")
-								$("#checkEmil").modal("hide")
-							}
-							$("#clearInter").click(function(){
-								clearInterval(interv);
-								console.log(clearInterval(interv));
-							})
-
-						}, 1000);
-						
-			setTimeout(function(){
-					
-					$("<span></span>").html("메일인증 시간 3분이 모두 지났습니다.").appendTo("mailCheck");
-					$("#second").remove;
-				}, 180000);
-			});	 
-		
-		$("#btnPrimary").click(function () {
-			inpCode = $("#inputNum").val();
-			
-			if(conCode == inpCode){
-				$(this).attr("data-dismiss","modal");
-				$("#isMail").val(1)
-				$("#msg").html("인증에 성공");
-				$("#user_Mail_span").empty();
-			} else {
-				$(this).attr("data-dismiss","modal");
-				$("#isMail").val(2)
-				$("#msg").html("인증에 실패")
-				$("#user_Mail_span").empty();
-				
-			}
-			
-			if($("#isMail").val()==1)
-			{
-				$("#join").attr("disabled", false);
-				$("#announce").hide()
-			}
-		});
-	}); //메일 인증----------------------------------------------------- 
-	 
-	
-	function checkMail() {//mail 중복처리--------------------------------------------------------
-	    
-	    var useremail = $("#user_Email").val();
-	   sessionStorage.setItem("user_email", useremail);
-	//alert(useremail)
-	    $.ajax({
-	    async: true,
-	    type : 'post',
-	    data : useremail,
-	    url : "emailCheck.do",
-	    dataType : "json",
-	    contentType: "application/json; charset=UTF-8",
-	    success : function(data){
-	    	var arr = eval(data)
-	    	var inpMail = sessionStorage.getItem("user_email");
-	   		console.log(arr)
-	   		$("#user_Mail_span").empty();
-	   		
-	   		var regex=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;   
-	     
-	     if(regex.test(useremail) === false ) {  
-	    	 //email형식확인
-	    	 $("#user_Email").css("background-color", "#FFCECE");
-	  	 	  $("#user_Mail_span").empty();
-	  	 	$("#mailck").hide()
-	  	 	var w = $("<span>올바른 Email 형식을 입력하세요.</span>");
-	  	 	$("#user_Mail_span").append(w);
-	   		 } 
-	   		
-	   		if(arr == 1 ){
-				//이메일이 중복됨
-				 $("#user_Email").css("background-color", "#FFCECE");
-			    	
-			    	var warning = $("<span>이미등록된 Email입니다.</span>");
-			    	
-			    	$("#mailck").hide()
-			    	
-			    	$("#user_Mail_span").empty();
-			    	$("#user_Mail_span").append(warning);
-			} else if(arr != 1 && regex.test(useremail) === true){
-				//이메일 사용 가능	
-				
-				$("#user_Mail_span").empty();
-	        	$("#user_Email").css("background-color", "#B0F6AC");
-	        	
-	        	 var a = $("<span>사용가능한 Email입니다.</span>");
-	        	 $("#mailck").show()
-	        	$("#user_Mail_span").append(a);
-			} 
-	    }
-	  });
-		     
-	}//mail 중복처리--------------------------------------------------------
-	    
-
 
 </script>
 
@@ -360,7 +233,8 @@
 						  </div>
 						  
 						  <div class="form-group .col-5 col-sm-12 col-md-10  col-lg-7">
-						    <label for="user_Password ">Phone</label>
+						    <label for="user_Password ">Phone:</label>
+						    <span>${profile.user_Phone}</span>
 						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 Phone 번호를 입력하세요">
 						  </div>
 						  <button type="submit" class="btn btn-success .col-5 col-sm-12 col-md-10 col-lg-7">회원정보 변경</button>
@@ -402,29 +276,14 @@
 		</div>
 	</div>
 	
-	<!-- /footer-->
-			<div class="footer">
-				<div class="footer-content">
-					<div class="footer-main">
-						<div class="col-md-6 footer-logo ">
-							<div class="logo two">
-							    <a href="../timeLine"><h3>EDEM</h3></a>
-						     </div>
-						</div> 
-						<div class="col-md-6 footer-button">
-							<div class="footer-button"><a href="#">download</a></div>
-						</div> 
-						<div class="clearfix"> </div>  
-					</div> 
-					<div class="social-icons">
-						
-					</div>
-					<div class="copy-right">
-								<p> &#169; 2018 EDEM. All Rights Reserved | Design by EDEM</p>
-					</div>
-				</div>
-			</div> 
-				<!-- //footer-->
+
+<div class="icon-bar">
+  <a href="timeLine"><i class="fa fa-home"></i></a> 
+  <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
+  <a href="#"><i class="fa fa-send"></i></a>
+  <a href="userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
+  <a href="editProfile"><i class="fa fa-cog"></i></a> 
+</div>
 	
 </body>
 </html>

@@ -21,6 +21,17 @@
 		$("#login").click(function() {
 			location.href="../login";
 		}) 
+		
+		$("#findUserPwd").click(function(){
+			var userpwd = $("#userPwd").val();
+			alert("password: "+userpwd);
+			
+		})
+		$("#announce").click(function(){
+		
+			alert("확인 버튼을 눌러 확인하세요");
+			
+		})
 	})
 </script>
 
@@ -49,12 +60,14 @@
                 <input type="text" id="user_phone" name="user_phone" class="form-control" placeholder="등록된 핸드폰번호 입력" required>
               </div>
    				 <br class="my-4">
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">ID 찾기</button>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" id="announce" type="submit">Password 찾기</button>
+              <button class="btn btn-defualt" id="findUserPwd">Password 확인</button>
               <br class="my-3">
-              <a id="login" href="#">Login</a>
+             
               <hr class="my-4">
+               <a id="login" href="#">Login</a>
             </form>
-            
+            <div ><input id="userPwd" type="hidden" value="${u.user_Password}"></div>
           </div>
         </div>
       </div>

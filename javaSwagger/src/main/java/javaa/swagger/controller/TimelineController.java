@@ -26,16 +26,13 @@ public class TimelineController {
 		this.dao = dao;
 	}
 	
-/*	@RequestMapping("/timeLine")
-	public ModelAndView listTimeline() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", dao.getTimeline());
-		mav.setViewName("timeLine");
-		return mav;
-	}*/
-	
 	@RequestMapping(value="/timeLine")
 	public void timeLineForm()
+	{
+		
+	}
+	@RequestMapping(value="/timeLineSearch")
+	public void timeLineSearchForm()
 	{
 		
 	}
