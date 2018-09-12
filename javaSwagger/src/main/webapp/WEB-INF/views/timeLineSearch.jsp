@@ -9,6 +9,38 @@
 <link rel="stylesheet" href="resources/css/footerBar.css" />
 <title>TimeLine</title>
 <style type="text/css">
+/* footer menu */
+	body {margin:0;}
+
+.icon-bar {
+    width: 100%;
+    background-color: #555;
+    overflow: auto;
+    bottom:0;
+    position: fixed;
+}
+
+.icon-bar a {
+    float: left;
+    width: 20%;
+    text-align: center;
+    padding: 12px 0;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 20px;
+}
+
+.icon-bar a:hover {
+    background-color: #000;
+}
+
+.active {
+    background-color: #4CAF50;
+    color: white;
+}
+    
+}
+/* footer menu end */	
 	 #pImg{
 		  	height: 300px;
 		  	width: 300px;
@@ -471,7 +503,7 @@
 			
 	<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
 	
-	     <div class="btn-group">  
+	    <%--  <div class="btn-group">  
 			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
 			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			</button>
@@ -479,7 +511,7 @@
 			  <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
 			  <a class="dropdown-item" href="logout">로그아웃</a>
 			</div>
-		</div>
+		</div> --%>
 	 </div>
 	</nav>
 	
@@ -563,7 +595,7 @@
   <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="#"><i class="fa fa-send"></i></a>
   <a href="profile/userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
-  <a href="profile/editProfile"><i class="fa fa-cog"></i></a> 
+  <a href="#"><i class="fa fa-sign-out"></i></a> 
 </div>
 	
 

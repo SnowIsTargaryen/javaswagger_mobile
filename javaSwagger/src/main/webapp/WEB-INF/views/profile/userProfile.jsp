@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- icon을 위한link -->
+<link rel="stylesheet" href="../resources/css/footerBar.css" />
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <style type="text/css">
 	#modal-detail{
@@ -804,6 +806,15 @@
 		<div class="row" id="row1">
 	     </div>
      </div>
+     
+<div class="icon-bar">
+  <a href="timeLine"><i class="fa fa-home"></i></a> 
+  <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
+  <a href="#"><i class="fa fa-send"></i></a>
+  <a href="profile/userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
+  <a href="profile/editProfile"><i class="fa fa-cog"></i></a> 
+</div>
+	
      
    
 	
