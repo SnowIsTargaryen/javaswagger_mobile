@@ -88,10 +88,10 @@ public class DataController {
 			code.addRCode("keyword=data.frame(keyword)");
 			code.addRCode("wordcount=table(keyword)");
 			
-			code.addRCode("top5=head(sort(wordcount,decreasing=T),5)");
-			code.addRCode("top5=list(top5)");
-			code.addRCode("t5=data.frame(top5)");
-			code.addRCode("write.csv(t5,'top5.csv',fileEncoding='euc-kr')");
+			code.addRCode("top10=head(sort(wordcount,decreasing=T),10)");
+			code.addRCode("top10=list(top10)");
+			code.addRCode("t10=data.frame(top10)");
+			code.addRCode("write.csv(t10,'top10.csv',fileEncoding='euc-kr')");
 			
 		
 			code.addRCode("palete = brewer.pal(9,\"Set3\")");
@@ -100,7 +100,7 @@ public class DataController {
 			caller.setRCode(code);
 			caller.runOnly();
 			
-			File csvfile = new File("C:\\r_temp\\top5.csv");
+			File csvfile = new File("C:\\r_temp\\top10.csv");
 			String line = null;
 			List<String> list = new ArrayList<String>();
 			try 
