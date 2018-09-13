@@ -21,8 +21,13 @@
 		$("#btnAccount").click(function() {
 			location.href="account/create";
 		}) 
+		$("#findId").click(function() {
+			location.href="account/findUserId";
+		}) 
 	})
 
+	
+	
 	  //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
     Kakao.init('38955ba5e6e80c1506a5e481d7b1c00b');
@@ -64,9 +69,13 @@
               <div class="custom-control custom-checkbox mb-3">
                 <input type="checkbox" class="custom-control-input" id="customCheck1">
                 <label class="custom-control-label" for="customCheck1">Remember password</label>
+                
               </div>
+              
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
+              <a id="findId" href="#">Forgot your ID/Password?</a>
               <hr class="my-4">
+              
               
              <!--  <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> -->
             </form>
