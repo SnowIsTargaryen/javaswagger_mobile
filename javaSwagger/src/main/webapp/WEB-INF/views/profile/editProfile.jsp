@@ -278,10 +278,10 @@
 	
 
 <div class="icon-bar">
-  <a href="timeLine"><i class="fa fa-home"></i></a> 
-  <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
-  <a href="#"><i class="fa fa-send"></i></a>
-  <a href="userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
+  <a href="../timeLine"><i class="fa fa-home"></i></a> 
+  <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
+  <a href="userProfile?user_ID=${user_ID}"><i class="fa fa-send"></i></a>
+  <a href="userProfile?user_ID=${user_ID}"><i class="fa fa-user-circle-o"></i></a> 
   <a href="editProfile"><i class="fa fa-cog"></i></a> 
 </div>
 	
