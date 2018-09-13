@@ -148,7 +148,7 @@ public class PostController {
 		@RequestMapping(value="/insertPost.do",method=RequestMethod.POST)
 		public ModelAndView insertPost(PostVo pv, HttpServletRequest request) {
 			MultipartFile multi = pv.getUploadFile();
-			String path = request.getRealPath("resources/img");
+			String path = request.getRealPath("resources/image");
 			System.out.println(path);
 			if(multi != null) {
 				try {

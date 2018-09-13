@@ -199,7 +199,7 @@
 							})
 							
 							var img = $("<img/>").addClass("card-img-top").attr({
-								src :"../resources/img/"+p.post_fname,
+								src :"../resources/image/"+p.post_fname,
 								alt : "Card image cap"
 							})
 							var state=0;
@@ -331,9 +331,9 @@
 									detail=eval("("+data+")")
 									//alert(data)
 									$('#post_no').val(detail.post_no);
-									$('#detail_Img').attr("src", "../resources/img/"+detail.post_fname);
+									$('#detail_Img').attr("src", "../resources/image/"+detail.post_fname);
 									$('#h3_detail_userID').html(detail.user_ID);
-									$('#small_detail_content').html(detail.post_content);
+									$('#small_detail_content').html(detail.post_hash);
 									$.ajax({ //댓글 리스트
 										url:"../listComment.do?post_no="+detail.post_no,
 										success:function(data){
@@ -607,6 +607,7 @@
 					<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></button>
 					<div class="dropdown-menu">
 					  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+					  <a class="dropdown-item" href="../data/bigData">빅데이터</a>
 					  <a class="dropdown-item" href="../logout">로그아웃</a>
 					</div>
 				</div>
@@ -633,7 +634,7 @@
 					</button>
 					<div class="dropdown-menu">
 					  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-					  <a class="dropdown-item" href="../data/weatherData">날 씨</a>
+					  <a class="dropdown-item" href="../data/bigData">빅데이터</a>
 					  <a class="dropdown-item" href="../logout">로그아웃</a>
 					</div>
 				</div>

@@ -32,4 +32,12 @@ public class TimelineManager {
 		return list;
 	}
 
+	public static List<PostVo> searchByHash(HashMap map) {
+		// TODO Auto-generated method stub
+		SqlSession s = factory.openSession();
+		List<PostVo> list = s.selectList("timeline.searchByHash",map);
+		s.close();
+		return list;
+	}
+
 }
