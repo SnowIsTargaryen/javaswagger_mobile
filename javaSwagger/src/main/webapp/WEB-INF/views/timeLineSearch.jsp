@@ -9,38 +9,6 @@
 <link rel="stylesheet" href="resources/css/footerBar.css" />
 <title>TimeLine</title>
 <style type="text/css">
-/* footer menu */
-	body {margin:0;}
-
-.icon-bar {
-    width: 100%;
-    background-color: #555;
-    overflow: auto;
-    bottom:0;
-    position: fixed;
-}
-
-.icon-bar a {
-    float: left;
-    width: 20%;
-    text-align: center;
-    padding: 12px 0;
-    transition: all 0.3s ease;
-    color: white;
-    font-size: 20px;
-}
-
-.icon-bar a:hover {
-    background-color: #000;
-}
-
-.active {
-    background-color: #4CAF50;
-    color: white;
-}
-    
-}
-/* footer menu end */	
 	 #pImg{
 		  	height: 300px;
 		  	width: 300px;
@@ -57,10 +25,6 @@
 	   grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
 	}
 	
-		.modal-dialog{
-		max-width: 60% !important; 
-		
-	}
 	#content{
 		height: 650px;
 	}
@@ -453,12 +417,12 @@
 <body>
 <!--  네비게이션  -->
 	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     	<span class="navbar-toggler-icon"></span>
- 	 </button>
+ 	 </button> -->
  	 
 				<div class="navbar-header navbar-center mx-auto">
-					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Eden</a>
+					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Edem</a>
 				</div>
 				
 <%-- 	<ul class="navbar-nav mx-4 my-2 d-block d-sm-none">
@@ -475,7 +439,7 @@
       </ul>
 	  --%>
 	  
-	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
+	<%--    <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
 	
 	     <div class="btn-group">  
 			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
@@ -486,9 +450,9 @@
 			  <a class="dropdown-item" href="logout">로그아웃</a>
 			</div>
 		</div>
-	 </div>
+	 </div> --%>
 				
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<div class="" id="navbarSupportedContent">
 				<form class="form-inline my-lg-0 mx-auto" action="search">
 			      <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
@@ -500,10 +464,10 @@
 			      </div>
 			    </form>
 			 </div>   
-			
+	<%-- 		
 	<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
 	
-	    <%--  <div class="btn-group">  
+	    <div class="btn-group">  
 			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
 			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			</button>
@@ -511,8 +475,8 @@
 			  <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
 			  <a class="dropdown-item" href="logout">로그아웃</a>
 			</div>
-		</div> --%>
-	 </div>
+		</div> 
+	 </div> --%>
 	</nav>
 	
 	<!-- <!-- 게시글  -->
@@ -530,6 +494,68 @@
 			
 	     </div>
      </div>
+	
+	<!-- 글쓰기 Modal -->
+	<div class="modal fade " id="insertPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document" >
+	    <div class="modal-content"> 
+	    <form class="form"  action="../insertPost.do" method="post" enctype="multipart/form-data">
+	      <div class="modal-header">
+	         <h5 class="modal-title">새 글 쓰기</h5>
+	      </div>
+	      <div class="modal-body">
+	        <div class="form-group">
+	        	<input type="hidden" class="form-contorl" id="user_ID" name="user_ID" value="${profile.user_ID }">
+	        </div>
+	        <div class="form-group">
+	        	<textarea class="form-control" rows="5" name="post_content" placeholder="내용을 입력하세요"></textarea>
+	        </div>
+	         <div class="form-group">
+	        	<input type="file" class="form-contorl-file" name="uploadFile">
+	        </div>
+	      </div>
+	       <div class="modal-footer">
+	        <button type="reset" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="submit" class="btn btn-primary">글쓰기</button>
+	      </div>
+	      </form> 
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- 글 수정 Modal -->
+	<div class="modal fade" id="updatePost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document" >
+	    <div class="modal-content"> 
+	    <form class="form"  action="../updatePost.do" method="post" enctype="multipart/form-data">
+	      <div class="modal-header">
+	        <h5 class="modal-title">글 수정</h5>
+	      	<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>  post_no-->
+	      </div>
+	      <div class="modal-body">
+	        <div class="form-group">
+	        	<input type="hidden" class="form-contorl" id="updatate_Post_no" name="post_no">
+	        </div>
+	        <div class="form-group">
+	        	<input type="hidden" class="form-contorl" id="user_ID" name="user_ID" value="${profile.user_ID }">
+	        </div>
+	        <div class="form-group">
+	        	<textarea class="form-control" rows="5" id="post_content" name="post_content" placeholder="내용을 입력하세요"></textarea>
+	        </div>
+	        <div class="form-group">
+	        	<input type="file" class="form-contorl-file" name="uploadFile">
+	        </div>
+	      </div>
+	       <div class="modal-footer">
+	        <button type="reset" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="submit" class="btn btn-primary">수정하기</button>
+	      </div>
+	      </form> 
+	    </div>
+	  </div>
+	</div> 
 	
 	
 	<!-- detail modal -->
@@ -593,7 +619,7 @@
 <div class="icon-bar">
   <a href="timeLine"><i class="fa fa-home"></i></a> 
   <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
-  <a href="#"><i class="fa fa-send"></i></a>
+  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
   <a href="profile/userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
   <a href="#"><i class="fa fa-sign-out"></i></a> 
 </div>
