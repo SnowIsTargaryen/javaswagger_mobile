@@ -9,6 +9,38 @@
 <link rel="stylesheet" href="resources/css/footerBar.css" />
 <title>TimeLine</title>
 <style type="text/css">
+/* footer menu */
+	body {margin:0;}
+
+.icon-bar {
+    width: 100%;
+    background-color: #555;
+    overflow: auto;
+    bottom:0;
+    position: fixed;
+}
+
+.icon-bar a {
+    float: left;
+    width: 20%;
+    text-align: center;
+    padding: 12px 0;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 20px;
+}
+
+.icon-bar a:hover {
+    background-color: #000;
+}
+
+.active {
+    background-color: #4CAF50;
+    color: white;
+}
+    
+}
+/* footer menu end */	
 	 #pImg{
 		  	height: 300px;
 		  	width: 300px;
@@ -64,18 +96,6 @@
 		$("#btnUserProfile").click(function() {
 			
 			 location.href="profile/userProfile?user_ID="+user_SessionID;
-		})
-		
-		
-		$(".btn-outline-success").click(function(){
-			var keyword = $("#keyword").val();
-			if(keyword.indexOf("#") >= 0){
-				var key = keyword.substr(1, keyword.length);
-				$("#keyword").val(key);
-				$("#F").attr("action","hashtag");
-			} else {
-				$("#F").attr("action","search");
-			}
 		})
 		
 		var l_post_no=[];
@@ -204,7 +224,9 @@
 										success:function(data){
 											$(icon_like).attr({src:"resources/icon/like_0.png"})	
 											like = cntLike(p.post_no,null);
-											(p_like_cnt).html("likes  "+like);		
+											(p_like_cnt).html("likes  "+like);
+						
+											
 									}})
 									state=0
 									return;
@@ -286,7 +308,7 @@
 									$('#post_no').val(detail.post_no);
 									$('#detail_Img').attr("src", "resources/image/"+detail.post_fname);
 									$('#h3_detail_userID').html(detail.user_ID);
-									$('#small_detail_content').html(detail.post_hash);
+									$('#small_detail_content').html(detail.post_content);
 									$.ajax({ //댓글 리스트
 										url:"listComment.do?post_no="+detail.post_no,
 										success:function(data){
@@ -465,7 +487,7 @@
 			</div>
 		</div>
 	 </div>
-			<!-- 검색부분 old 	
+				
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<form class="form-inline my-lg-0 mx-auto" action="search">
 			      <div class="input-group">
@@ -478,25 +500,10 @@
 			      </div>
 			    </form>
 			 </div>   
-			  -->
-			  
-			<!-- 검색부분 new -->
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" id="F">
-			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
-			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" type="submit" >
-							<img src="resources/icon/search2.png" width="18" height="18">
-					  </button>
-			        </div>
-			      </div>
-			    </form>
-			 </div>   
 			
 	<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
 	
-	     <div class="btn-group">  
+	    <%--  <div class="btn-group">  
 			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
 			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			</button>
@@ -504,7 +511,7 @@
 			  <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
 			  <a class="dropdown-item" href="logout">로그아웃</a>
 			</div>
-		</div>
+		</div> --%>
 	 </div>
 	</nav>
 	
@@ -588,7 +595,7 @@
   <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="#"><i class="fa fa-send"></i></a>
   <a href="profile/userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
-  <a href="profile/editProfile"><i class="fa fa-cog"></i></a> 
+  <a href="#"><i class="fa fa-sign-out"></i></a> 
 </div>
 	
 
