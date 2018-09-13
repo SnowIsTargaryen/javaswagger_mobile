@@ -628,28 +628,12 @@
 <header></header>
 <!--  네비게이션  -->
 	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
-	<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    	<span class="navbar-toggler-icon"></span>
- 	 </button> -->
  	 
-				<div class="navbar-header navbar-center mx-auto">
-					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
-				</div>
-
-<%-- 	  
-	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
-	
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="../logout">로그아웃</a>
-			</div>
+		<div class="navbar-header navbar-center mx-auto">
+			<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
 		</div>
-	 </div> --%>
-				
+ 		<a href="settings"><i class="fa fa-cogs"></i></a> 
+
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<form class="form-inline my-lg-0 mx-auto" action="../search">
 			      <div class="input-group">
@@ -662,19 +646,6 @@
 			      </div>
 			    </form>
 			 </div>   
-			
-	<%--<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
-	 
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="../logout">로그아웃</a>
-			</div>
-		</div>
-	 </div> --%>
 </nav>
 	
 	
@@ -870,7 +841,7 @@
   <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
   <a href="userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
-  <a href="editProfile"><i class="fa fa-cog"></i></a> 
+  <a href="editProfile"><i class="fa fa-cog"></i></a>
 </div>
 	
      

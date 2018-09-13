@@ -194,7 +194,7 @@
 			</div>
 		</div>
 	 </div> --%>
-	 <a href="#<!-- 설정 창 만들것 -->"><i class="fa fa-cog"></i></a> 
+	 <a href="settings"><i class="fa fa-cogs"></i></a> 
 </nav>
 <!--사용자 프로필  -->
 
@@ -217,7 +217,7 @@
   </div>
 </div><!-- JumboTron end -->
 	
-	<div class="container justify-content-center mx-auto">
+	<div class="container justify-content-center mx-auto"  align="center">
 		<div class="row justify-content-center mx-auto">
 			<div class="col justify-content-center mx-auto">
 				<div class="tab-content">
@@ -239,14 +239,14 @@
 							</div>
 
 						  <div class="form-group .col-3 col-sm-8 col-md-8 col-lg-5">
-						    <label for="user_Password ">Email:</label>
+						    <label for="user_Password " class="fa fa-envelope-square"></label>
 						  	<span id="user_Mail_span">${profile.user_Email}</span>
 						  </div>
 						  
 						  <div class="form-group .col-3 col-sm-8 col-md-8  col-lg-5">
-						    <label for="user_Password ">Phone:</label>
+						    <label for="user_Password "><i class="fas fa-phone-square"></i> </label>
 						    <span>${profile.user_Phone}</span>
-						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 Phone 번호를 입력하세요">
+						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 번호 입력">
 						  </div>
 						  <button type="submit" class="btn btn-success .col-3 col-sm-8 col-md-8  col-lg-5">회원정보 변경</button>
 						</form>
@@ -288,13 +288,13 @@
 	</div>
 	
 
-<div class="icon-bar d-sm-none"><!-- d-sm-none : display-sm-none -->
+<%-- <div class="icon-bar d-sm-none"><!-- d-sm-none : display-sm-none -->
   <a href="../timeLine"><i class="fa fa-home"></i></a> 
   <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="userProfile?user_ID=${user_ID}"><i class="fa fa-send"></i></a>
   <a href="userProfile?user_ID=${user_ID}"><i class="fa fa-user-circle-o"></i></a> 
   <a href="editProfile"><i class="fa fa-cog"></i></a> 
-</div>
+</div> --%>
 	
 </body>
 </html>

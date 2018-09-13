@@ -18,7 +18,6 @@ import javaa.swagger.dao.UsersDao;
 import javaa.swagger.vo.UsersVo;
 
 @Controller
-@RequestMapping("/profile/editProfile")
 public class UpdateUsersController {
 
 	@Autowired
@@ -28,8 +27,13 @@ public class UpdateUsersController {
 		this.dao = dao;
 	}
 	
+	@RequestMapping(value="/profile/settings",method=RequestMethod.GET)
+	public void settings(HttpSession session)
+	{
+		
+	}
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value="/profile/editProfile",method=RequestMethod.GET)
 	public ModelAndView profile(HttpSession session)
 	{
 		String user_ID=(String)session.getAttribute("user_ID");
@@ -45,7 +49,7 @@ public class UpdateUsersController {
 		
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(value="/profile/editProfile",method=RequestMethod.POST)
 	public ModelAndView edit(UsersVo u,HttpServletRequest request) 
 	{
 		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+u.getUser_ID());
