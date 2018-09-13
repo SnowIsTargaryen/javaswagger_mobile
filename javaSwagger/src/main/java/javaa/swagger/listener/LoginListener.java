@@ -27,9 +27,9 @@ public class LoginListener implements HttpSessionListener {
     public LoginListener(HttpServletRequest request) {
         // TODO Auto-generated constructor stub
     	
-    	user_ID = (String)((HttpServletRequest)request).getSession().getAttribute("user_ID");
-		
-    	path=request.getRealPath("webapp/resources/log");
+//    	user_ID = (String)((HttpServletRequest)request).getSession().getAttribute("user_ID");
+//		
+//    	path=request.getRealPath("webapp/resources/log");
     }
 
 	/**
@@ -38,10 +38,10 @@ public class LoginListener implements HttpSessionListener {
     public void sessionCreated(HttpSessionEvent se)  { 
          // TODO Auto-generated method stub
     
-    	System.out.println("no,접속자,접속시간,종료시간");
-    	System.out.println("listener: "+user_ID);
-    	System.out.println(se.getSession().getAttribute("user_ID"));
-    	System.out.println(se.getSession().getId());
+//    	System.out.println("no,접속자,접속시간,종료시간");
+//    	System.out.println("listener: "+user_ID);
+//    	System.out.println(se.getSession().getAttribute("user_ID"));
+//    	System.out.println(se.getSession().getId());
     	//System.out.println(path);
     }
 

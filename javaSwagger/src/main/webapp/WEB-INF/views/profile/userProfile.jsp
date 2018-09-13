@@ -69,6 +69,17 @@
 		var arr;
 		<% String get_id=(String)request.getParameter("user_ID"); %> //사용자
 		
+		$(".btn-outline-success").click(function(){
+			var keyword = $("#keyword").val();
+			if(keyword.indexOf("#") >= 0){
+				var key = keyword.substr(1, keyword.length);
+				$("#keyword").val(key);
+				$("#F").attr("action","../hashtag");
+			} else {
+				$("#F").attr("action","../search");
+			}
+		})
+		
 		var user_SessionID="${user_ID}"
 		var guestID=$("#guestID").html()
 		
@@ -101,7 +112,6 @@
 					url:"../insertComment",
 					data:params,
 					type:'post',
-					async:false,
 					success:function(data)
 					{
 						alert(data)
@@ -124,12 +134,12 @@
 					if(l.post_no!=null)
 					{
 						like_post_no[i]=l.post_no;
-						console.log("postNo "+like_post_no)
+						//console.log("postNo "+like_post_no)
 					}
 					if(l.comment_no!=null)
 					{
 						like_cmt_no[i]=l.comment_no;
-						console.log("cmtNo "+like_cmt_no)
+						//console.log("cmtNo "+like_cmt_no)
 					}
 				})// eachEnd
 				
@@ -281,17 +291,29 @@
 									}})
 							})
 							
-							$(btn_edit).click(function() { //게시글 수정
-							 	var no=$(this).attr("no");
-								
-								$.ajax({url:"../detailPost?post_no="+no,success:function(data){
-									detail=eval("("+data+")")
-									//alert(detail.post_no)
-									$('#post_content').html(detail.post_content);
-									$('#updatate_Post_no').val(detail.post_no)
-			
-								}})
-							})
+							
+						//	$(btn_edit).click(function() { //게시글 수정
+						//	 	var no=$(this).attr("no");
+						//		
+						//		$.ajax({url:"../detailPost?post_no="+no,success:function(data){
+						//			detail=eval("("+data+")")
+						//			//alert(detail.post_no)
+						//			$('#post_content').html(detail.post_content);
+						//			$('#updatate_Post_no').val(detail.post_no)
+						//	
+						//		}})
+						//	})
+						
+						$(btn_edit).click(function() { //게시글 수정 new
+						 	var no=$(this).attr("no");
+							
+							$.ajax({url:"../detailPost?post_no="+no,success:function(data){
+								detail=eval("("+data+")")
+								$('#post_content').html(detail.post_content);
+								$('#oldFname').val(detail.post_fname);
+								$('#updatate_Post_no').val(detail.post_no)
+							}})
+						})
 							
 			
 							
@@ -311,7 +333,7 @@
 									$('#post_no').val(detail.post_no);
 									$('#detail_Img').attr("src", "../resources/image/"+detail.post_fname);
 									$('#h3_detail_userID').html(detail.user_ID);
-									$('#small_detail_content').html(detail.post_content);
+									$('#small_detail_content').html(detail.post_hash);
 									$.ajax({ //댓글 리스트
 										url:"../listComment.do?post_no="+detail.post_no,
 										success:function(data){
@@ -484,7 +506,7 @@
 				list=eval("("+data+")")
 				$.each(list, function(idx, f) {
 					user_List[idx]=f.user_ID
-					console.log(user_List[idx])
+					
 				})
 			}
 		})
@@ -570,6 +592,15 @@
 <body>
 <!--  네비게이션  -->
 	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    	<span class="navbar-toggler-icon"></span>
+	 	 </button>
+	 	 
+			<div class="navbar-header navbar-center mx-auto">
+				<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Eden</a>
+			</div>
+
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     	<span class="navbar-toggler-icon"></span>
  	 </button>
@@ -580,22 +611,28 @@
 
 <%-- 	  
 	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
-	
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="../logout">로그아웃</a>
+
+		  
+			<div class="navbar-nav mx-4 my-2 d-block d-sm-none">
+			    <div class="btn-group">  
+					<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
+					<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></button>
+					<div class="dropdown-menu">
+					  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+					  <a class="dropdown-item" href="../data/bigData">빅데이터</a>
+					  <a class="dropdown-item" href="../logout">로그아웃</a>
+					</div>
+				</div>
 			</div>
+
 		</div>
 	 </div> --%>
 				
+
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" action="../search">
+				<form class="form-inline my-lg-0 mx-auto" id="F">
 			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
+			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
 			        <div class="input-group-append">
 			          <button class="btn btn-outline-success" type="submit" >
 							<img src="../resources/icon/search2.png" width="18" height="18">
@@ -604,6 +641,22 @@
 			      </div>
 			    </form>
 			 </div>   
+
+				
+			 <div class="navbar-nav mx-4 my-2 d-none d-sm-block">
+			     <div class="btn-group">  
+					<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
+					<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					</button>
+					<div class="dropdown-menu">
+					  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+					  <a class="dropdown-item" href="../data/bigData">빅데이터</a>
+					  <a class="dropdown-item" href="../logout">로그아웃</a>
+					</div>
+				</div>
+			 </div> 
+	</nav>
+
 			
 	<%--<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
 	 
@@ -618,6 +671,7 @@
 		</div>
 	 </div> --%>
 </nav>
+
 	
 	
 <!--   Header 사용자 프로필 -->
@@ -686,6 +740,7 @@
 	        	<textarea class="form-control" rows="5" id="post_content" name="post_content" placeholder="내용을 입력하세요"></textarea>
 	        </div>
 	        <div class="form-group">
+	        	<input type="hidden" class="form-contorl-file" id="oldFname" name="oldFname">
 	        	<input type="file" class="form-contorl-file" name="uploadFile">
 	        </div>
 	      </div>

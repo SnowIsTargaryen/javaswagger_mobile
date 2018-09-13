@@ -62,6 +62,18 @@
 			 location.href="profile/userProfile?user_ID="+user_SessionID;
 		})
 		
+		
+		$(".btn-outline-success").click(function(){
+			var keyword = $("#keyword").val();
+			if(keyword.indexOf("#") >= 0){
+				var key = keyword.substr(1, keyword.length);
+				$("#keyword").val(key);
+				$("#F").attr("action","hashtag");
+			} else {
+				$("#F").attr("action","search");
+			}
+		})
+		
 		var l_post_no=[];
 		var like_cmt_no=[];
 		var like_post_no=[];
@@ -188,9 +200,7 @@
 										success:function(data){
 											$(icon_like).attr({src:"resources/icon/like_0.png"})	
 											like = cntLike(p.post_no,null);
-											(p_like_cnt).html("likes  "+like);
-						
-											
+											(p_like_cnt).html("likes  "+like);		
 									}})
 									state=0
 									return;
@@ -272,7 +282,7 @@
 									$('#post_no').val(detail.post_no);
 									$('#detail_Img').attr("src", "resources/image/"+detail.post_fname);
 									$('#h3_detail_userID').html(detail.user_ID);
-									$('#small_detail_content').html(detail.post_content);
+									$('#small_detail_content').html(detail.post_hash);
 									$.ajax({ //댓글 리스트
 										url:"listComment.do?post_no="+detail.post_no,
 										success:function(data){
@@ -451,8 +461,7 @@
 			</div>
 		</div>
 	 </div>
-				 --%>
-			<!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
 				<form class="form-inline my-lg-0 mx-auto" action="search">
 			      <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
@@ -463,7 +472,26 @@
 			        </div>
 			      </div>
 			    </form>
-			 </div>    -->
+
+			 </div>   
+			  
+			  
+			<!-- 검색부분 new -->
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<form class="form-inline my-lg-0 mx-auto" id="F">
+			      <div class="input-group">
+			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
+			        <div class="input-group-append">
+			          <button class="btn btn-outline-success" type="submit" >
+							<img src="resources/icon/search2.png" width="18" height="18">
+					  </button>
+			        </div>
+			      </div>
+			    </form>
+			 </div>   
+
+			 </div>   
+
 			
 	<%-- <div class="navbar-nav mx-4 my-2 d-none d-sm-block">
 	
