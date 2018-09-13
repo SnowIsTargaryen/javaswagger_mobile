@@ -119,17 +119,75 @@
 			 </div> 
 	</nav>
 
-	<img src="../resources/chat/${fname }">
-	<div id="chartContainer" style="height: 370px; width: 500px;"></div>
-	<%-- <c:forEach var="r" varStatus="ri" items="${rank }">
-		<c:if test="${ri.index%2==0 }">
-			<h2 id="keyword">${r }</h2>
-		</c:if>
-		<c:if test="${ri.index%2!=0 }">
-			<p id="keywordCnt">${r }</p>
-		</c:if>
-	</c:forEach> --%>
+	<div class="container">
+		<div class="row justify-content-md-center"">
+			<div class="col-md-auto">
+				<img src="../resources/chat/${fname }">
+			</div>
+			<div class="col-md-auto">
+				<div id="chartContainer" style="height: 370px; width: 500px; margin-top: 50px;"></div>
+			</div>
+			<div class="col-md-auto">
+				<div class="row placeholders mb-3">
+	                <div class="col-6 col-sm-2 placeholder text-center">
+	                    <img src="//placehold.it/200/dddddd/fff?text=1" class="mx-auto img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+	                    <h4>Responsive</h4> 
+	                </div>
+	                <div class="col-6 col-sm-2 placeholder text-center">
+	                    <img src="//placehold.it/200/e4e4e4/fff?text=2" class="mx-auto img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+	                    <h4>Frontend</h4>
+	                </div>
+	                <div class="col-6 col-sm-2 placeholder text-center">
+	                    <img src="//placehold.it/200/d6d6d6/fff?text=3" class="mx-auto img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+	                    <h4>HTML5</h4>
+	                </div>
+	                <div class="col-6 col-sm-2 placeholder text-center">
+	                    <img src="//placehold.it/200/e0e0e0/fff?text=4" class="center-block img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+	                    <h4>Framework</h4>
+	                </div>
+	                <div class="col-6 col-sm-2 placeholder text-center">
+	                    <img src="//placehold.it/200/e0e0e0/fff?text=5" class="center-block img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+	                    <h4>Framework</h4>
+	                </div>
+	                <div class="col-6 col-sm-2 placeholder text-center">
+	                    <img src="//placehold.it/200/e0e0e0/fff?text=6" class="center-block img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+	                    <h4>Framework</h4>
+	                </div>
+            	</div>
+			</div>
+			<div class="col-md-auto">
+				<div class="row placeholders mb-3">
+	                <div class="col-6 col-sm-3 placeholder text-center">
+	                    <img src="//placehold.it/200/dddddd/fff?text=7" class="mx-auto img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+	                    <h4>Responsive</h4> 
+	                </div>
+	                <div class="col-6 col-sm-3 placeholder text-center">
+	                    <img src="//placehold.it/200/e4e4e4/fff?text=8" class="mx-auto img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+	                    <h4>Frontend</h4>
+	                </div>
+	                <div class="col-6 col-sm-3 placeholder text-center">
+	                    <img src="//placehold.it/200/d6d6d6/fff?text=9" class="mx-auto img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+	                    <h4>HTML5</h4>
+	                </div>
+	                <div class="col-6 col-sm-3 placeholder text-center">
+	                    <img src="//placehold.it/200/e0e0e0/fff?text=10" class="center-block img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+	                    <h4>Framework</h4>
+	                </div>
+	                <!-- <div class="col-6 col-sm-2 placeholder text-center">
+	                    <img src="//placehold.it/200/e0e0e0/fff?text=5" class="center-block img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+	                    <h4>Framework</h4>
+	                </div>
+	              	<div class="col-6 col-sm-2 placeholder text-center">
+	                    <img src="//placehold.it/200/e0e0e0/fff?text=6" class="center-block img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+	                    <h4>Framework</h4>
+	                </div> -->
+            	</div>
+			</div>
+		</div>
+	</div>
 	
+	
+
 	
 </body>
 </html>

@@ -605,6 +605,7 @@
 					<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></button>
 					<div class="dropdown-menu">
 					  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+					  <a class="dropdown-item" href="../data/bigData">빅데이터</a>
 					  <a class="dropdown-item" href="../logout">로그아웃</a>
 					</div>
 				</div>
