@@ -657,18 +657,7 @@
 		</div>
  		<a href="settings"><i class="fa fa-cogs"></i></a> 
 
-	
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    	<span class="navbar-toggler-icon"></span>
-	 	 </button>
- 	 
-				<div class="navbar-header navbar-center mx-auto">
-					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
-				</div>
-
-
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<form class="form-inline my-lg-0 mx-auto" id="F">
 			      <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
