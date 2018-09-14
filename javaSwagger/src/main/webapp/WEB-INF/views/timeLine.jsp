@@ -512,7 +512,7 @@
 		</div>
 	</div>
 
-<div class="icon-bar  d-sm-none">
+<div class="icon-bar ">
   <a href="timeLine"><i class="fa fa-home"></i></a> 
   <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>

@@ -33,13 +33,13 @@ public class AutoDelete {
 		this.ldao = ldao;
 	}
 	
-	Date today = new Date();
 	
 	@Scheduled(cron=" 0 * * * * * ")
 	public void autoDelete() {
 		int c = cdao.autoDelete();
 		int l = ldao.autoDelete();
 		int p = pdao.autoDelete();
+		Date today = new Date();
 		System.out.println(today.toString() + " : " +  p + "개의 게시물에 관련된 " + c + "개의 댓글과 " + l + "개의 좋아요 정보가 삭제되었습니다.");
 	}
 }

@@ -286,7 +286,7 @@
 	</div>
 	
 
- <div class="icon-bar d-sm-none"><!-- d-sm-none : display-sm-none -->
+ <div class="icon-bar "><!-- d-sm-none : display-sm-none -->
   <a href="../timeLine"><i class="fa fa-home"></i></a> 
   <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="userProfile?user_ID=${user_ID}"><i class="fa fa-send"></i></a>

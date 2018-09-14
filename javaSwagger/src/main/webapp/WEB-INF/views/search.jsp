@@ -16,7 +16,7 @@
 	$(function() {
 		
 		<%String user_ID = request.getParameter("user_ID");%>//url 아이디
-		<%String keyword = request.getParameter("keyword");%>//url 아이디
+		<%String keyword = request.getParameter("keyword");%>//url keyword
 	//	var user_SessionID="${user_ID}"//세션 아이디
 		
 		$(".btn-outline-secondary").click(function(){
