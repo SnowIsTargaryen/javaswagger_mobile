@@ -8,6 +8,20 @@
 <link rel="stylesheet" href="../resources/css/footerBar.css" />
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <style type="text/css">
+	
+  header {
+	  position: fixed; 
+	  top: 0; 
+	  left: 0; 
+	  width: 100%; 
+	  height: 1px; 
+	 /*  background: #f5b335;  */
+	  transition: top 0.2s ease-in-out; 
+	  }  
+	  .nav-up { 
+	  top: -40px; 
+	   }
+	
 	#modal-detail{
 		max-width: 50% !important; 
 		
@@ -66,6 +80,49 @@
 
 <script type="text/javascript">
 	$(function() {
+
+		// Hide Header on on scroll down 
+		var didScroll; 
+		var lastScrollTop = 0; 
+		var delta = 5; 
+		var navbarHeight = $('header').outerHeight(); 
+		
+		$(window).scroll(function(event){ 
+			didScroll = true; 
+		}); 
+		
+		setInterval(function() { 
+			if (didScroll) { 
+				hasScrolled(); 
+				didScroll = false; 
+		} 
+		}, 250); 
+		
+		function hasScrolled() { 
+			var st = $(this).scrollTop(); 
+			
+			// Make sure they scroll more than delta 
+			if(Math.abs(lastScrollTop - st) <= delta) return; 
+			
+			// If they scrolled down and are past the navbar, add class .nav-up. 
+			// This is necessary so you never see what is "behind" the navbar. 
+			if (st > lastScrollTop && st > navbarHeight){ 
+				
+				// Scroll Down 
+				 $( '.icon-bar' ).fadeOut();
+			}
+			else { 
+			
+			// Scroll Up 
+			if(st + $(window).height() < $(document).height()) { 
+				 $( '.icon-bar' ).fadeIn(); 
+				} 
+			} 
+			
+			lastScrollTop = st;
+			
+		}
+		
 		var arr;
 		<% String get_id=(String)request.getParameter("user_ID"); %> //사용자
 		
@@ -590,16 +647,16 @@
 
 </head>
 <body>
+<header></header>
 <!--  네비게이션  -->
 	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
 
-		<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    	<span class="navbar-toggler-icon"></span>
-	 	 </button>
-	 	 
-			<div class="navbar-header navbar-center mx-auto">
-				<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Eden</a>
-			</div> -->
+ 	 
+		<div class="navbar-header navbar-center mx-auto">
+			<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
+		</div>
+ 		<a href="settings"><i class="fa fa-cogs"></i></a> 
+
 	
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    	<span class="navbar-toggler-icon"></span>
@@ -609,25 +666,7 @@
 					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
 				</div>
 
-<%-- 	  
-	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
 
-		  
-			<div class="navbar-nav mx-4 my-2 d-block d-sm-none">
-			    <div class="btn-group">  
-					<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-					<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></button>
-					<div class="dropdown-menu">
-					  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-					  <a class="dropdown-item" href="../data/bigData">빅데이터</a>
-					  <a class="dropdown-item" href="../logout">로그아웃</a>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	 </div> --%>
-				
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<form class="form-inline my-lg-0 mx-auto" id="F">
@@ -642,7 +681,6 @@
 			    </form>
 			 </div>   
 
-				
 			 <div class="navbar-nav mx-4 my-2 d-none d-sm-block">
 			     <div class="btn-group">  
 					<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
@@ -658,24 +696,12 @@
 	</nav>
 
 			
-	<%--<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
-	 
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="../logout">로그아웃</a>
-			</div>
-		</div>
-	 </div> --%>
 </nav>
 
 	
 	
 <!--   Header 사용자 프로필 -->
-    <header class="py-5 bg-image-full text-white text-center" style="background-image: url('../resources/image/rain.gif');" id="profileHeader">
+    <div class="py-5 bg-image-full text-white text-center" style="background-image: url('../resources/image/rain.gif');" id="profileHeader">
       <img class="img-fluid d-block mx-auto rounded-circle" src="../resources/image/${profile.user_fname }" id="profileImg">
       <div class="btn-group" role="group">
       	<button type="button" class="btn btn-sm btn-outline-secondary border-0 text-white" data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</button>
@@ -687,7 +713,7 @@
        -->
       <p>${profile.user_Email }</p>
       <h2 id="guestID">${profile.user_ID }</h2>
-    </header>
+    </div>
 	
 
 	<!-- 글쓰기 Modal -->
@@ -863,12 +889,12 @@
 	     </div>
      </div>
      
-<div class="icon-bar">
+<div class="icon-bar d-sm-none">
   <a href="../timeLine"><i class="fa fa-home"></i></a> 
   <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
   <a href="userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
-  <a href="editProfile"><i class="fa fa-cog"></i></a> 
+  <a href="editProfile"><i class="fa fa-cog"></i></a>
 </div>
 	
      

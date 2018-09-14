@@ -9,6 +9,23 @@
 <link rel="stylesheet" href="resources/css/footerBar.css" />
 <title>TimeLine</title>
 <style type="text/css">
+	body { 
+		/* padding-top: 40px; */ 
+	 } 
+	 header {
+	  position: fixed; 
+	  top: 0; 
+	  left: 0; 
+	  width: 100%; 
+	  height: 1px; 
+	 /*  background: #f5b335;  */
+	  transition: top 0.2s ease-in-out; 
+	  }  
+	  .nav-up { 
+	  top: -40px; 
+	   }
+
+	
 	 #pImg{
 		  	height: 300px;
 		  	width: 300px;
@@ -55,7 +72,49 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.0/imagesloaded.pkgd.min.js"></script>
 <!--masonry  -->
 <script type="text/javascript">
+
 	$(function() {
+		// Hide Header on on scroll down 
+		var didScroll; 
+		var lastScrollTop = 0; 
+		var delta = 5; 
+		var navbarHeight = $('header').outerHeight(); 
+		
+		$(window).scroll(function(event){ 
+			didScroll = true; 
+		}); 
+		
+		setInterval(function() { 
+			if (didScroll) { 
+				hasScrolled(); 
+				didScroll = false; 
+		} 
+		}, 250); 
+		
+		function hasScrolled() { 
+			var st = $(this).scrollTop(); 
+			
+			// Make sure they scroll more than delta 
+			if(Math.abs(lastScrollTop - st) <= delta) return; 
+			
+			// If they scrolled down and are past the navbar, add class .nav-up. 
+			// This is necessary so you never see what is "behind" the navbar. 
+			if (st > lastScrollTop && st > navbarHeight){ 
+				
+				// Scroll Down 
+				 $( '.icon-bar' ).fadeOut();
+			}
+			else { 
+			
+			// Scroll Up 
+			if(st + $(window).height() < $(document).height()) { 
+				 $( '.icon-bar' ).fadeIn(); 
+				} 
+			} 
+			
+			lastScrollTop = st;
+			
+		}		
 		var user_SessionID="${user_ID}"
 		$("#btnUserProfile").click(function() {
 			
@@ -212,69 +271,19 @@
 							
 							$(div_f_left).append(p_like_cnt,a_comment)
 							$(btn_like).append(icon_like)
-					//		$(btn_delete).append(icon_delete)
-					//		$(btn_edit).append(icon_update)
 							
 							$(btn_group).append(btn_like)
-							
-		
 							$(detail_a).append(img)
 							$(div_card_body).append(p_card_text)
 							$(div_card_footer).append(div_f_left,btn_group)
 							$(div_card_mb4_box).append(div_card_header,detail_a,div_card_body,div_card_footer)
 							
 							$(div_col_md_4).append(div_card_mb4_box)
-							
-							/* if(user_SessionID!=guestID){ // 버튼별 권한 로그인한 사람이 아닐때
-								$(btn_delete).hide() 
-								$(btn_edit).hide() 
-							} */
-							//else{$(btn_like).hide() } // 로그인한 사람일때
-							
-							
-							
-							
-							/* $(btn_delete).click(function() { //게시글 삭제
-								var no=$(this).attr("no");
-								$.ajax({url:"deletePost",
-									type:"post",
-									data:{"post_no":no,"user_ID":user_SessionID},
-									success:function(data){
-										if(data>=1)
-										{
-											 alert("삭제되었습니다.")
-											 $(div_col_md_4).empty()
-										}
-										else
-										{
-											alert("삭제에 실패했습니다")
-										}
-									}})
-							})
-							
-							$(btn_edit).click(function() { //게시글 수정
-							 	var no=$(this).attr("no");
-								
-								$.ajax({url:"detailPost?post_no="+no,success:function(data){
-									detail=eval("("+data+")")
-									//alert(detail.post_no)
-									$('#post_content').html(detail.post_content);
-									$('#updatate_Post_no').val(detail.post_no)
-			
-								}})
-							}) */
-							
-			
-							
-						/* 	$("#commentSumbit").click(function() { //댓글 달기 ajax
-										insertComment();
-									})	 */
-							
+														
 							$(detail_a).click(function() { //게시글 상세
 								var no=$(this).attr("no");
 								$("#col_comment_content").empty();
-								
-								
+
 								$.ajax({url:"detailPost?post_no="+no,success:function(data){ 
 									
 									detail=eval("("+data+")")
@@ -334,76 +343,7 @@
 					});
 				}}); //게시물 생성 ajax
 				
-		}})//ajax islikeEnd
-		
-		/* $imgs=$("#row1").imagesLoaded(function(){
-			$imgs.masonry({
-				itemSelector : '#cols', // img 태그를 대상으로 masonry 적용
-				fitWidth : true // 내용물을 가운데 정렬하기, CSS margin:0 auto; 설정이 필요함
-			});
-		});   */
-		
-			
-		/* $.ajax({
-			url:'timeLinePost',
-			success:function(data){
-				list = eval("("+data+")");
-				$.each(list, function(idx, p) {
-					var fname=p.post_fname
-					
-					if(fname!=null) //파일이 없으면 이미지 생성 x
-					{
-						var img = $("<img id='pImg'/>").attr({
-					 		src:"resources/image/"+fname
-					 	})	
-					}
-				 	
-				 	var detail_a=$("<a></a>").attr({
-						href: "#",
-						no: p.post_no
-					})
-					
-					$(detail_a).append(img)
-				 	$(".item").append(detail_a);
-				 	
-				 	$(detail_a).click(function() {
-						no=$(this).attr("no");
-						$("#col_comment_content").empty();
-						$.ajax({url:"detailPost?post_no="+no,success:function(data){ //게시글 상세
-							detail=eval("("+data+")")
-							//alert(data)
-							$('#post_no').val(detail.post_no);
-							$('#detail_Img').attr("src", "resources/image/"+detail.post_fname);
-							$('#h3_detail_userID').html(detail.user_ID);
-							$('#small_detail_content').html(detail.post_content);
-							$.ajax({ //댓글 리스트
-								url:"listComment.do?post_no="+detail.post_no,
-								success:function(data){
-									var arr = eval("("+data+")")
-									//alert(arr)
-									$.each(arr, function(i,p){
-										var h6 = $("<h6></h6>").html(p.user_ID+" ");
-										var small = $("<small></small>").html(p.comment_content);
-										$(h6).append(small);
-										$("#col_comment_content").append(h6);
-					
-									}) 
-								}})
-							
-						}})
-						$('#detail_Dialog').modal('show')
-					})
-					
-					$imgs=$(".item").imagesLoaded(function(){
-						$imgs.masonry({
-							itemSelector : 'img', // img 태그를 대상으로 masonry 적용
-							fitWidth : true // 내용물을 가운데 정렬하기, CSS margin:0 auto; 설정이 필요함
-						});
-					});  
-				})
-				
-				
-			}})//ajax end */
+		}})
 			
 			function cntLike(postNo,commentNo)
 			{ //좋아요 카운트 함수
@@ -420,94 +360,20 @@
 			
 	})
 
-
 </script>
 
 </head>
+
 <body>
+<header></header>
 <!--  네비게이션  -->
-	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
-	<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    	<span class="navbar-toggler-icon"></span>
- 	 </button> -->
- 	 
+	<nav class="nav navbar navbar-expand-sm navbar-light bg-light navbar-fixed-top mb-3">
 				<div class="navbar-header navbar-center mx-auto">
 					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Edem</a>
 				</div>
-				
-<%-- 	<ul class="navbar-nav mx-4 my-2 d-block d-sm-none">
-		<li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ${user_ID }
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="../logout">로그아웃</a>
-        </div>
-      </li>
-      </ul>
-	  --%>
-<%-- 	  
-	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
-	
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="logout">로그아웃</a>
-			</div>
-		</div>
-	 </div>
-
-				<form class="form-inline my-lg-0 mx-auto" action="search">
-			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
-			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" type="submit" >
-							<img src="resources/icon/search2.png" width="18" height="18">
-					  </button>
-			        </div>
-			      </div>
-			    </form>
-
-			 </div>   
-			  
-			  
-			<!-- 검색부분 new -->
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" id="F">
-			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
-			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" type="submit" >
-							<img src="resources/icon/search2.png" width="18" height="18">
-					  </button>
-			        </div>
-			      </div>
-			    </form>
-			 </div>   
-
-			 </div>   
-
-			
-	<%-- <div class="navbar-nav mx-4 my-2 d-none d-sm-block">
-	
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="logout">로그아웃</a>
-			</div>
-		</div>
-	 </div> --%>
 	</nav>
 	
-	<!-- <!-- 게시글  -->
+	<!-- 게시글  -->
 	<div class="container">
 		 <div class="row">
 			<div class="col-md-12" id="masonry_col"> 
@@ -646,7 +512,7 @@
 		</div>
 	</div>
 
-<div class="icon-bar">
+<div class="icon-bar  d-sm-none">
   <a href="timeLine"><i class="fa fa-home"></i></a> 
   <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>

@@ -17,6 +17,49 @@
 <!--부트 스트랩 CDN  -->
 <script type="text/javascript">
 	$(function() {
+
+		// Hide Header on on scroll down 
+		var didScroll; 
+		var lastScrollTop = 0; 
+		var delta = 5; 
+		var navbarHeight = $('header').outerHeight(); 
+		
+		$(window).scroll(function(event){ 
+			didScroll = true; 
+		}); 
+		
+		setInterval(function() { 
+			if (didScroll) { 
+				hasScrolled(); 
+				didScroll = false; 
+		} 
+		}, 250); 
+		
+		function hasScrolled() { 
+			var st = $(this).scrollTop(); 
+			
+			// Make sure they scroll more than delta 
+			if(Math.abs(lastScrollTop - st) <= delta) return; 
+			
+			// If they scrolled down and are past the navbar, add class .nav-up. 
+			// This is necessary so you never see what is "behind" the navbar. 
+			if (st > lastScrollTop && st > navbarHeight){ 
+				
+				// Scroll Down 
+				 $( '.icon-bar' ).fadeOut();
+			}
+			else { 
+			
+			// Scroll Up 
+			if(st + $(window).height() < $(document).height()) { 
+				 $( '.icon-bar' ).fadeIn(); 
+				} 
+			} 
+			
+			lastScrollTop = st;
+			
+		}
+		
 		<% String sesseing_id=(String)session.getAttribute("user_ID"); %>
 
 		/* $("#btnUserProfile").click(function() {
@@ -52,6 +95,19 @@
 </script>
 
 <style type="text/css">
+	 header {
+	  position: fixed; 
+	  top: 0; 
+	  left: 0; 
+	  width: 100%; 
+	  height: 1px; 
+	 /*  background: #f5b335;  */
+	  transition: top 0.2s ease-in-out; 
+	  }  
+	  .nav-up { 
+	  top: -40px; 
+	   }
+	
 	#proPhoto{
 		width: 120px;
 	    height:120px;
@@ -105,73 +161,41 @@
 </style>
 </head>
 <body>
-
+<header></header>
 <!--  네비게이션  -->
 <nav class="nav navbar navbar-expand-sm navbar-light bg-light">
- 
- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    	<span class="navbar-toggler-icon"></span>
- </button>
- <div class="navbar-header navbar-center mx-auto">
-	<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Eden</a>
- </div>
- 
-<%--  <ul class="navbar-nav mx-4 my-2 d-block d-sm-none">
-		<li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ${user_ID }
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="../logout">로그아웃</a>
-        </div>
-      </li>
- </ul> --%>
- 
- <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
-	
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="../logout">로그아웃</a>
+ <div class="navbar-header navbar-center mx-2">
+	<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
+ </div>    
+	<div class="collapse navbar-collapse " id="navbarSupportedContent">	
+		<form class="form-inline my-lg-0 mx-auto" action="#">
+			<div class="input-group">
+				<input type="text" class="form-control " placeholder="Search" type="search" aria-label="Search">
+				 <div class="input-group-append">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit" >
+					<img src="../resources/icon/search2.png" width="18" height="18">
+				</button>
+				</div>
 			</div>
-		</div>
- </div>
-      
-    
-<div class="collapse navbar-collapse " id="navbarSupportedContent">	
-	
-	<form class="form-inline my-lg-0 mx-auto" action="#">
-		<div class="input-group">
-			<input type="text" class="form-control " placeholder="Search" type="search" aria-label="Search">
-			 <div class="input-group-append">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit" >
-				<img src="../resources/icon/search2.png" width="18" height="18">
-			</button>
-			</div>
-		</div>
-	</form>
+		</form>
 	 </div>	
-	<div class="navbar-nav mx-2 my-2 d-none d-sm-block">
+<%-- 	<div class="navbar-nav mx-2 my-2 d-none d-sm-block">
 	
 	     <div class="btn-group">  
 			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
 			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			</button>
 			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+			 
+			  <a class="dropdown-item" href="#editProfile" role="tab" data-toggle="pill">프로필 수정</a>
+			  <a class="dropdown-item" href="#pwdChange" role="tab" data-toggle="pill">비밀번호 변경</a>
+			  <a class="dropdown-item" href="#dropUser" role="tab" data-toggle="pill">회원탈퇴</a>
 			  <a class="dropdown-item" href="../logout">로그아웃</a>
 			</div>
 		</div>
-	 </div>
-	
+	 </div> --%>
+	 <a href="settings"><i class="fa fa-cogs"></i></a> 
 </nav>
-	
-	
 <!--사용자 프로필  -->
 
 <!-- Jumbotrons -->
@@ -193,22 +217,9 @@
   </div>
 </div><!-- JumboTron end -->
 	
-	<div class="container mx-0">
-		<div class="row justify-content-between">
-			<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar ">
-	          <ul class="nav nav-pills flex-column" role="tablist">
-	            <li class="nav-item">
-	              <a class="nav-link active" href="#editProfile" role="tab" data-toggle="pill">프로필 수정</a>
-	            </li>
-	            <li class="nav-item">
-	              <a class="nav-link" href="#pwdChange" role="tab" data-toggle="pill">비밀번호 변경</a>
-	            </li>
-	            <li class="nav-item">
-	              <a class="nav-link" href="#dropUser" role="tab" data-toggle="pill">회원탈퇴</a>
-	            </li>
-	          </ul>
-	        </nav> 
-			<div class="col-sm-9">
+	<div class="container justify-content-center mx-auto"  align="center">
+		<div class="row justify-content-center mx-auto">
+			<div class="col justify-content-center mx-auto">
 				<div class="tab-content">
 					<!--프로필 수정  -->
 					<div class="tab-pane container active" id="editProfile">
@@ -217,7 +228,6 @@
 						   <img id="proPhoto" data-target="#updatePost" style="display: none;" src="../resources/image/${profile.user_fname }">
 						   
 						    <input type="hidden" class="form-control" id="user_ID" name="user_ID" value="${profile.user_ID }">
-						    <input type="hidden" class="form-control" id="user_Password" name="user_Password" value="${profile.user_Password}">
 						    <input type="hidden" class="form-control" id="user_fname" name="user_fname" value="${profile.user_fname}">
 						  </div> 
 					 
@@ -227,17 +237,18 @@
 								<input type="file" id="ex_filename" class="upload-hidden" name="uploadFile"> 
 							</div>
 
-						  <div class="form-group .col-5 col-sm-12 col-md-10  col-lg-7">
-						    <label for="user_Password ">Email:</label>
+						  <div class="form-group .col-3 col-sm-8 col-md-8 col-lg-5">
+						    <label for="user_Email " class="fa fa-envelope-square"></label>
+						    <input type="hidden" class="form-control" id="user_Email" name="user_Email" value="${profile.user_Email}">
 						  	<span id="user_Mail_span">${profile.user_Email}</span>
 						  </div>
 						  
-						  <div class="form-group .col-5 col-sm-12 col-md-10  col-lg-7">
-						    <label for="user_Password ">Phone:</label>
+						  <div class="form-group .col-3 col-sm-8 col-md-8  col-lg-5">
+						    <label for="user_Password "><i class="fas fa-phone-square"></i> </label>
 						    <span>${profile.user_Phone}</span>
-						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 Phone 번호를 입력하세요">
+						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 번호 입력">
 						  </div>
-						  <button type="submit" class="btn btn-success .col-5 col-sm-12 col-md-10 col-lg-7">회원정보 변경</button>
+						  <button type="submit" class="btn btn-success .col-3 col-sm-8 col-md-8  col-lg-5">회원정보 변경</button>
 						</form>
 					</div>
 					<!-- 비밀번호 변경  -->
@@ -270,20 +281,18 @@
 						</form>
 					</div>
 				</div>
-
 			</div>
-			
 		</div>
 	</div>
 	
 
-<div class="icon-bar">
+<%-- <div class="icon-bar d-sm-none"><!-- d-sm-none : display-sm-none -->
   <a href="../timeLine"><i class="fa fa-home"></i></a> 
   <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="userProfile?user_ID=${user_ID}"><i class="fa fa-send"></i></a>
   <a href="userProfile?user_ID=${user_ID}"><i class="fa fa-user-circle-o"></i></a> 
   <a href="editProfile"><i class="fa fa-cog"></i></a> 
-</div>
+</div> --%>
 	
 </body>
 </html>
