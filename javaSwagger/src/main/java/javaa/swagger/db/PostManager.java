@@ -74,4 +74,12 @@ public class PostManager {
 		 session.close();
 		 return no;
 	 }
+
+	 public static int autoDelete() {
+			int re = 0;
+			SqlSession s = factory.openSession(true);
+			re = s.delete("post.autoDelete");
+			s.close();
+			return re;
+		}
 }

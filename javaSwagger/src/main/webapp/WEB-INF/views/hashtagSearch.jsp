@@ -58,9 +58,9 @@
 	$(function() {
 		var user_SessionID="${user_ID}"
 		$("#btnUserProfile").click(function() {
-			
 			 location.href="profile/userProfile?user_ID="+user_SessionID;
 		})
+		<%String keyword = request.getParameter("keyword");%>
 		
 		$("#navbarSupportedContent").click(function(){
 			var keyword = $("#keyword").val();
@@ -98,7 +98,7 @@
 				})// eachEnd
 				
 				//게시글 리스트
-				$.ajax({url:"timeLinePost",
+				$.ajax({url:'hashtagPost?keyword=<%=keyword%>',
 						data:{"user_ID":"${user_ID}"},
 						success:function(data){
 

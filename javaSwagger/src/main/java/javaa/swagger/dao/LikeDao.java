@@ -45,4 +45,14 @@ public class LikeDao {
 		// TODO Auto-generated method stub
 		return LikeManager.isLike(map);
 	}
+
+	public int deltimeSetup(HashMap map) {
+		// TODO Auto-generated method stub
+		return LikeManager.deltimeSetup(map);
+	}
+	
+	public int autoDelete() {
+		// TODO Auto-generated method stub
+		return LikeManager.autoDelete();
+	}
 }

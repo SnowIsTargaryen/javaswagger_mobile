@@ -32,4 +32,9 @@ public class CommentDao {
 	   {
 		   return CommentManager.getNextNo();
 	   }
+	   
+	   public int autoDelete() {
+			// TODO Auto-generated method stub
+			return CommentManager.autoDelete();
+		}
 }

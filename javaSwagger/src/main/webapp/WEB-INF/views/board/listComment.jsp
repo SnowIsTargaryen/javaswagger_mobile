@@ -127,6 +127,7 @@
 							  	</div>
 							  	<div class="col-auto">
 							  		<input type="hidden" name="post_no" id="post_no" value=${post_no }>
+							  		<input type="hidden" name="vn" id="vn" value="lc">
 							  	</div>
 							  	<!-- <div class="form-group col-md-10 align-self-center"> -->
 							  	<div class="form-group col align-self-center">

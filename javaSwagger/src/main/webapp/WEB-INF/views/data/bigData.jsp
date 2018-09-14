@@ -60,6 +60,11 @@
 						{ y: keywordCnt[5], label: keyword[4] },
 						{ y: keywordCnt[7], label: keyword[6] },
 						{ y: keywordCnt[9], label: keyword[8] },
+						{ y: keywordCnt[11], label: keyword[10] },
+						{ y: keywordCnt[13], label: keyword[12] },
+						{ y: keywordCnt[15], label: keyword[14] },
+						{ y: keywordCnt[17], label: keyword[16] },
+						{ y: keywordCnt[19], label: keyword[18] },
 						
 					]
 				}]
@@ -125,7 +130,7 @@
 				<img src="../resources/chat/${fname }">
 			</div>
 			<div class="col-md-auto">
-				<div id="chartContainer" style="height: 370px; width: 500px; margin-top: 50px;"></div>
+				<div id="chartContainer" style="height: 400px; width: 500px; margin-top: 50px;"></div>
 			</div>
 			<div class="col-md-auto">
 				<div class="row placeholders mb-3">
