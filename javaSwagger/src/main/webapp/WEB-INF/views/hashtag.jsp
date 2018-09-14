@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="resources/css/footerBar.css" />
 <title>TimeLine</title>
 <style type="text/css">
 	 #pImg{
@@ -23,10 +25,6 @@
 	   grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
 	}
 	
-		.modal-dialog{
-		max-width: 60% !important; 
-		
-	}
 	#content{
 		height: 650px;
 	}
@@ -60,10 +58,23 @@
 	$(function() {
 		var user_SessionID="${user_ID}"
 		$("#btnUserProfile").click(function() {
-			 location.href="profile/userProfile?user_ID="+user_SessionID;
+			location.href="profile/userProfile?user_ID="+user_SessionID;
 		})
-		
+			
 		<%String keyword = request.getParameter("keyword");%>
+			
+		$("#navbarSupportedContent").click(function(){
+			var keyword = $("#keyword").val();
+			if(keyword.indexOf("#") >= 0){
+				var key = keyword.substr(1, keyword.length);
+				$("#keyword").val(key);
+				$("#F").attr("action","hashtag");
+			} else {
+				$("#F").attr("action","search");
+			}
+		})
+			
+		
 		
 		$(".btn-outline-success").click(function(){
 			var keyword = $("#keyword").val();
@@ -102,6 +113,7 @@
 				
 				//게시글 리스트
 				$.ajax({url:'hashtagPost?keyword=<%=keyword%>',
+						data:{"user_ID":"${user_ID}"},
 						success:function(data){
 
 						var list = eval("("+data+")") //게시물 리스트
@@ -271,8 +283,7 @@
 										insertComment();
 									})	 */
 							
-							//게시글 상세
-							$(detail_a).click(function() { 
+							$(detail_a).click(function() { //게시글 상세
 								var no=$(this).attr("no");
 								$("#col_comment_content").empty();
 								
@@ -282,7 +293,7 @@
 									detail=eval("("+data+")")
 									//alert(data)
 									$('#post_no').val(detail.post_no);
-									$('#detail_Img').attr("src", "resources/img/"+detail.post_fname);
+									$('#detail_Img').attr("src", "resources/image/"+detail.post_fname);
 									$('#h3_detail_userID').html(detail.user_ID);
 									$('#small_detail_content').html(detail.post_hash);
 									$.ajax({ //댓글 리스트
@@ -429,12 +440,12 @@
 <body>
 <!--  네비게이션  -->
 	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     	<span class="navbar-toggler-icon"></span>
- 	 </button>
+ 	 </button> -->
  	 
 				<div class="navbar-header navbar-center mx-auto">
-					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Eden</a>
+					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Edem</a>
 				</div>
 				
 <%-- 	<ul class="navbar-nav mx-4 my-2 d-block d-sm-none">
@@ -450,7 +461,7 @@
       </li>
       </ul>
 	  --%>
-	  
+<%-- 	  
 	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
 	
 	     <div class="btn-group">  
@@ -463,8 +474,7 @@
 			</div>
 		</div>
 	 </div>
-			<!-- 검색부분 old 	
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
 				<form class="form-inline my-lg-0 mx-auto" action="search">
 			      <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
@@ -475,8 +485,9 @@
 			        </div>
 			      </div>
 			    </form>
+
 			 </div>   
-			  -->
+			  
 			  
 			<!-- 검색부분 new -->
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -491,8 +502,11 @@
 			      </div>
 			    </form>
 			 </div>   
+
+			 </div>   
+
 			
-	<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
+	<%-- <div class="navbar-nav mx-4 my-2 d-none d-sm-block">
 	
 	     <div class="btn-group">  
 			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
@@ -503,7 +517,7 @@
 			  <a class="dropdown-item" href="logout">로그아웃</a>
 			</div>
 		</div>
-	 </div>
+	 </div> --%>
 	</nav>
 	
 	<!-- <!-- 게시글  -->
@@ -521,6 +535,68 @@
 			
 	     </div>
      </div>
+	
+	<!-- 글쓰기 Modal -->
+	<div class="modal fade " id="insertPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document" >
+	    <div class="modal-content"> 
+	    <form class="form"  action="insertPost.do" method="post" enctype="multipart/form-data">
+	      <div class="modal-header">
+	         <h5 class="modal-title">새 글 쓰기</h5>
+	      </div>
+	      <div class="modal-body">
+	        <div class="form-group">
+	        	<input type="hidden" class="form-contorl" id="user_ID" name="user_ID" value="${user_ID }">
+	        </div>
+	        <div class="form-group">
+	        	<textarea class="form-control" rows="5" name="post_content" placeholder="내용을 입력하세요"></textarea>
+	        </div>
+	         <div class="form-group">
+	        	<input type="file" class="form-contorl-file" name="uploadFile">
+	        </div>
+	      </div>
+	       <div class="modal-footer">
+	        <button type="reset" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="submit" class="btn btn-primary">글쓰기</button>
+	      </div>
+	      </form> 
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- 글 수정 Modal -->
+	<div class="modal fade" id="updatePost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document" >
+	    <div class="modal-content"> 
+	    <form class="form"  action="../updatePost.do" method="post" enctype="multipart/form-data">
+	      <div class="modal-header">
+	        <h5 class="modal-title">글 수정</h5>
+	      	<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>  post_no-->
+	      </div>
+	      <div class="modal-body">
+	        <div class="form-group">
+	        	<input type="hidden" class="form-contorl" id="updatate_Post_no" name="post_no">
+	        </div>
+	        <div class="form-group">
+	        	<input type="hidden" class="form-contorl" id="user_ID" name="user_ID" value="${profile.user_ID }">
+	        </div>
+	        <div class="form-group">
+	        	<textarea class="form-control" rows="5" id="post_content" name="post_content" placeholder="내용을 입력하세요"></textarea>
+	        </div>
+	        <div class="form-group">
+	        	<input type="file" class="form-contorl-file" name="uploadFile">
+	        </div>
+	      </div>
+	       <div class="modal-footer">
+	        <button type="reset" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="submit" class="btn btn-primary">수정하기</button>
+	      </div>
+	      </form> 
+	    </div>
+	  </div>
+	</div> 
 	
 	
 	<!-- detail modal -->
@@ -558,6 +634,8 @@
 										  	</div>
 										  	<div class="col-auto">
 										  		<input type="hidden" name="post_no" id="post_no">
+										  		<!-- vn 추가한 거 -->
+										  		<input type="hidden" name="vn" id="vn" value="timeLine">
 										  	</div>
 										  	<div class="col-sm-10">
 										  		<div class="input-group mb-3">
@@ -580,8 +658,14 @@
 			</div>
 		</div>
 	</div>
-			
-	
+
+<div class="icon-bar">
+  <a href="timeLine"><i class="fa fa-home"></i></a> 
+  <a href="hashtagSearch?keyword=<%=keyword%>"><i class="fa fa-search"></i></a> 
+  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
+  <a href="profile/userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
+  <a href="profile/editProfile"><i class="fa fa-cog"></i></a> 
+</div>
 	
 
 	

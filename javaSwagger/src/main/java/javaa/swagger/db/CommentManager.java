@@ -23,6 +23,15 @@ public class CommentManager {
 	        System.out.println(e.getMessage());
 	    }
 	 }
+	
+	public static int autoDelete() {
+		// TODO Auto-generated method stub
+		int re = 0;
+		SqlSession s = factory.openSession(true);
+		re = s.delete("comment.autoDelete");
+		s.close();
+		return re;
+	}
 	 
 	 public static List<CommentVo> readComment(HashMap map){
 		 List<CommentVo> list;

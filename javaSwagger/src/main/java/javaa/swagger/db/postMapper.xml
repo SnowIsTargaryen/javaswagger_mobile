@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="post">
 	<insert id="insertPost" parameterType="postVo">
-		insert into post values(#{post_no},#{user_ID},sysdate,sysdate+(INTERVAL '1' YEAR),#{post_content},#{post_fname},#{post_hash})
+		insert into post values(#{post_no},#{user_ID},sysdate,sysdate+(INTERVAL '1' MONTH),#{post_content},#{post_fname},#{post_hash})
 	</insert>
 	
 	<delete id="deletePost">
@@ -29,8 +29,10 @@
 		select nvl(max(post_no),0)+1 from post
 	</select>
 
+	<delete id="autoDelete">
+		<![CDATA[
+			delete post where post_deltime <= sysdate
+		]]>
+	</delete>
 
-
-	
-	
 </mapper>

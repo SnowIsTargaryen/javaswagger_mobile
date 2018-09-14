@@ -100,8 +100,13 @@ public class CommentController {
 		} else {
 			if(vn.equals("timeLine")) {
 				mav.setViewName("redirect:/timeLine");
-			}else {
+			} else if(vn.equals("profile")){
 				mav.setViewName("redirect:/profile/userProfile?user_ID="+cv.getUser_ID());
+			} else if(vn.equals("lc")) {
+				mav.setViewName("redirect:/board/listComment?post_no="+cv.getPost_no());
+			}
+			else {
+				mav.setViewName("redirect:/hashtag?keyword=" + (String)vn);
 			}
 		}
 		return mav;

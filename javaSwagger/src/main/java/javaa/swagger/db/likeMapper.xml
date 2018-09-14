@@ -72,6 +72,10 @@
 		</choose>		
 	</insert>
 	
+	<update id="deltimeSetup">
+		update post set post_deltime = post_deltime - interval '5' minute where post_no = #{post_no}
+	</update>
+	
 	<delete id="deleteLikePost">
 		delete likes where post_no=#{post_no}
 	</delete>
@@ -92,4 +96,10 @@
 	<select id="getPno" resultType="java.lang.Integer">
 		select distinct(c.post_no) from comments c, likes l where l.comment_no = #{comment_no} and c.comment_no = l.comment_no
 	</select>
+	
+	<delete id="autoDelete">
+		<![CDATA[
+			delete likes where post_no in (select post_no from post where post_deltime <= sysdate)
+		]]>
+	</delete>
 </mapper>

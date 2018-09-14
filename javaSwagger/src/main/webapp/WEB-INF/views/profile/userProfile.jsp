@@ -791,6 +791,7 @@
 										  	</div>
 										  	<div class="col-auto">
 										  		<input type="hidden" name="post_no" id="post_no">
+										  		<input type="hidden" name="vn" id="vn" value="profile">
 										  	</div>
 										  	<div class="col-sm-10">
 										  		<div class="input-group mb-3">

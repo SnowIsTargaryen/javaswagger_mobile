@@ -16,15 +16,26 @@
 	$(function() {
 		
 		<%String user_ID = request.getParameter("user_ID");%>//url 아이디
+		<%String keyword = request.getParameter("keyword");%>//url 아이디
 	//	var user_SessionID="${user_ID}"//세션 아이디
 		
+		$(".btn-outline-secondary").click(function(){
+			var keyword = $("#keyword").val();
+			if(keyword.indexOf("#") >= 0){
+				var key = keyword.substr(1, keyword.length);
+				$("#keyword").val(key);
+				$("#F").attr("action","hashtag");
+			} else {
+				$("#F").attr("action","search");
+			}
+		})	
+	
+	
 		$("#btnUserProfile").click(function() {
 				location.href="profile/userProfile?user_ID=${user_ID}"
 		})
 		
 		var user_List=[];
-		
-		
 		
 			$.ajax({//팔로우 버튼 확인용
 				url:"following.do",
@@ -38,7 +49,7 @@
 					})
 					
 					$.ajax({ //검색 
-					url:"searchList?user_ID=<%=user_ID%>",
+					url:"searchList?user_ID=<%=keyword%>",
 					success:function(data){
 						list=eval("("+data+")")
 						$.each(list, function(idx, s) {
@@ -129,10 +140,9 @@
 				</div>
 			</div>
 			<div class="col-4">
-				<form class="navbar-form navbar-center" action="search">
+				<form class="navbar-form navbar-center" id="F">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search"
-							name="user_ID">
+						<input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
 						<div class="input-group-append">
 							<button class="btn btn-outline-secondary" type="submit">
 								<img src="resources/icon/search2.png" width="18" height="18">
