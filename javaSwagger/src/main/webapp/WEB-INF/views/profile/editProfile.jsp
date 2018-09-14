@@ -228,7 +228,6 @@
 						   <img id="proPhoto" data-target="#updatePost" style="display: none;" src="../resources/image/${profile.user_fname }">
 						   
 						    <input type="hidden" class="form-control" id="user_ID" name="user_ID" value="${profile.user_ID }">
-						    <input type="hidden" class="form-control" id="user_Password" name="user_Password" value="${profile.user_Password}">
 						    <input type="hidden" class="form-control" id="user_fname" name="user_fname" value="${profile.user_fname}">
 						  </div> 
 					 
@@ -239,7 +238,8 @@
 							</div>
 
 						  <div class="form-group .col-3 col-sm-8 col-md-8 col-lg-5">
-						    <label for="user_Password " class="fa fa-envelope-square"></label>
+						    <label for="user_Email " class="fa fa-envelope-square"></label>
+						    <input type="hidden" class="form-control" id="user_Email" name="user_Email" value="${profile.user_Email}">
 						  	<span id="user_Mail_span">${profile.user_Email}</span>
 						  </div>
 						  
@@ -281,9 +281,7 @@
 						</form>
 					</div>
 				</div>
-
 			</div>
-			
 		</div>
 	</div>
 	

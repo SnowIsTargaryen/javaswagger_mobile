@@ -21,7 +21,6 @@
 	}); 
 
 </script>
-
 <style type="text/css">
 	nav{
 		background-color: #555;
@@ -33,29 +32,48 @@
 <!--  네비게이션  -->
 <nav class="nav navbar navbar-expand-sm navbar-light bg-light">
  <div class="navbar-header navbar-center mx-2">
- 	<a href="userProfile?user_ID=${user_ID}"><i class="fa fa-arrow-left"></i></a>
-	<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Settings</a>
+	<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="#">비밀번호 변경</a>
  </div>    
-</nav> 
-<div class="list-group">
-  <a href="settingPassword" class="list-group-item list-group-item-action">비밀번호 변경</a>
-  <a href="settingWithdrawUser" class="list-group-item list-group-item-action">회원탈퇴</a>
-  <a href="../logout" class="list-group-item list-group-item-action">로그아웃</a>
-</div>
-
-
-<!-- <div class="container">
-	<a href="settingPassword"></a>비밀번호 변경
-</div> -->
-
-<%-- <!--사용자 프로필  -->
-	<div class="container justify-content-center mx-auto">
+<a href="editProfile"><i class="fa fa-cog"></i></a> 
+	 
+</nav>
+<div class="container justify-content-center mx-auto"  align="center">
 		<div class="row justify-content-center mx-auto">
 			<div class="col justify-content-center mx-auto">
 				<div class="tab-content">
+					<!--프로필 수정  -->
+					<div class="tab-pane container fade" id="editProfile">
+						<form action="../profile/settingPassword" method="post" enctype="multipart/form-data">
+						  <div class="form-group col-md-7 ">
+						   <img id="proPhoto" data-target="#updatePost" style="display: none;" src="../resources/image/${profile.user_fname }">
+						   
+						    <input type="hidden" class="form-control" id="user_ID" name="user_ID" value="${profile.user_ID }">
+						    <input type="hidden" class="form-control" id="user_Password" name="user_Password" value="${profile.user_Password}">
+						    <input type="hidden" class="form-control" id="user_fname" name="user_fname" value="${profile.user_fname}">
+						  </div> 
+					 
+							 <div class="filebox"> <!-- 새로운 파일 처리를 할 부분 -->
+								<label for="ex_filename" class="fa fa-photo"></label> 
+								<input class="upload-name" value="파일선택" disabled="disabled">
+								<input type="file" id="ex_filename" class="upload-hidden" name="uploadFile"> 
+							</div>
+
+						  <div class="form-group .col-3 col-sm-8 col-md-8 col-lg-5">
+						    <label for="user_Password " class="fa fa-envelope-square"></label>
+						  	<span id="user_Mail_span">${profile.user_Email}</span>
+						  </div>
+						  
+						  <div class="form-group .col-3 col-sm-8 col-md-8  col-lg-5">
+						    <label for="user_Password "><i class="fas fa-phone-square"></i> </label>
+						    <span>${profile.user_Phone}</span>
+						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 번호 입력">
+						  </div>
+						  <button type="submit" class="btn btn-success .col-3 col-sm-8 col-md-8  col-lg-5">회원정보 변경</button>
+						</form>
+					</div>
 					<!-- 비밀번호 변경  -->
-					<div class="tab-pane container fade" id="pwdChange">
-						<form action="../profile/editProfile" method="post" enctype="multipart/form-data">
+					<div class="tab-pane container active " id="pwdChange">
+						<form action="../profile/settingPassword" method="post" enctype="multipart/form-data">
 						  <div class="form-group col-md-7">
 						    <label for="user_ID">${profile.user_ID }</label>
 						    <input type="hidden" class="form-control" id="user_ID" name="user_ID" value="${profile.user_ID }">
@@ -82,6 +100,35 @@
 						  <button type="submit" class="btn btn-success col-md-7">회원정보 탈퇴</button>
 						</form>
 					</div>
+				</div>
+
+			</div>
+			
+		</div>
+	</div>
+
+
+<%-- <!--사용자 프로필  -->
+	<div class="container justify-content-center mx-auto">
+		<div class="row justify-content-center mx-auto">
+			<div class="col justify-content-center mx-auto">
+				<div class="tab-content">
+					<!-- 비밀번호 변경  -->
+					<div class="tab-pane container active mt-3" id="pwdChange">
+						<form action="../profile/editProfile" method="post" enctype="multipart/form-data">
+						  <div class="form-group col-md-7">
+						    <label for="user_ID">사용자 ID: ${profile.user_ID }</label>
+						    <input type="hidden" class="form-control" id="user_ID" name="user_ID" value="${profile.user_ID }">
+						  </div>
+						  <div class="form-group col-md-7">
+						    <label for="user_Password ">암호</label>
+						    <input type="password" class="form-control" id="user_Password" name="user_Password" placeholder="변경 할 비밀번호를 입력하세요">
+						  </div>
+						  <button type="submit" class="btn btn-success col-md-7">회원정보 변경</button>
+						</form>
+					</div>
+					
+					
 				</div>
 
 			</div>
