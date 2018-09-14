@@ -117,7 +117,7 @@
 			 location.href="profile/userProfile?user_ID="+user_SessionID;
 		})
 		
-		$("#navbarSupportedContent").click(function(){
+		$(".btn-outline-success").click(function(){
 			var keyword = $("#keyword").val();
 			if(keyword.indexOf("#") >= 0){
 				var key = keyword.substr(1, keyword.length);
@@ -488,12 +488,10 @@
 	<div class="navbar-header navbar-left mx-auto">
 		<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Edem</a>
 	</div>
-				
-				
 
-			<div class="collapse navbar-collapse d-none d-sm-block" id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" action="../search">
-
+			<!-- <div class="collapse navbar-collapse d-none d-sm-block" id="navbarSupportedContent"> -->
+			<div class=" " id="navbarSupportedContent">
+				<form class="form-inline my-lg-0 mx-auto" id="F">
 			      <div class="input-group">
 			        <!-- <input type="text" class="form-control" placeholder="Search" name="user_ID">  -->
 			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
@@ -506,18 +504,18 @@
 			    </form>
 			 </div>     
 			 
-			 <div class=" d-sm-none" id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" action="../search">
+<!-- 			 <div class=" d-sm-none" id="navbarSupportedContent">
+				<form class="form-inline my-lg-0 mx-auto" id="FM">
 			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
+			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keywordM">
 			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" type="submit" >
+			          <button class="btn btn-outline-success" id="BM" type="submit" >
 							<img src="resources/icon/search2.png" width="18" height="18">
 					  </button>
 			        </div>
 			      </div>
 			    </form>
-			 </div>     
+			 </div>      -->
 	</nav>
 	
 	<!-- <!-- 게시글  -->
@@ -657,7 +655,7 @@
 		</div>
 	</div>
 
-<div class="icon-bar  d-sm-none">
+<div class="icon-bar ">
   <a href="timeLine"><i class="fa fa-home"></i></a> 
   <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
