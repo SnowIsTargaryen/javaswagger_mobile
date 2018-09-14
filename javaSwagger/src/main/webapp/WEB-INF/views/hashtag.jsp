@@ -63,7 +63,7 @@
 			
 		<%String keyword = request.getParameter("keyword");%>
 			
-		$("#navbarSupportedContent").click(function(){
+		$(".btn-outline-success").click(function(){
 			var keyword = $("#keyword").val();
 			if(keyword.indexOf("#") >= 0){
 				var key = keyword.substr(1, keyword.length);

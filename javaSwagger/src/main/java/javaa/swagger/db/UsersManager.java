@@ -77,12 +77,14 @@ public class UsersManager {
 	//프로필 수정
 	public static int editProfile(UsersVo u) {
 		int re=-1;
-		
+		System.out.println("manager");
 		SqlSession session = factory.openSession();
 		re=session.update("users.edit", u);
+		System.out.println("manager re:"+re);
 		if(re>0)
 		{
 			session.commit();
+			System.out.println("if문 작동함");
 		}
 		session.close();
 

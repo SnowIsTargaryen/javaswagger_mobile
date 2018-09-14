@@ -9,6 +9,19 @@
 <link rel="stylesheet" href="resources/css/footerBar.css" />
 <title>TimeLine</title>
 <style type="text/css">
+	  header {
+	  position: fixed; 
+	  top: 0; 
+	  left: 0; 
+	  width: 100%; 
+	  height: 1px; 
+	 /*  background: #f5b335;  */
+	  transition: top 0.2s ease-in-out; 
+	  }  
+	  .nav-up { 
+	  top: -40px; 
+	   }
+	 
 	 #pImg{
 		  	height: 300px;
 		  	width: 300px;
@@ -56,13 +69,55 @@
 <!--masonry  -->
 <script type="text/javascript">
 	$(function() {
+		
+		// Hide Header on on scroll down 
+		var didScroll; 
+		var lastScrollTop = 0; 
+		var delta = 5; 
+		var navbarHeight = $('header').outerHeight(); 
+		
+		$(window).scroll(function(event){ 
+			didScroll = true; 
+		}); 
+		
+		setInterval(function() { 
+			if (didScroll) { 
+				hasScrolled(); 
+				didScroll = false; 
+		} 
+		}, 250); 
+		
+		function hasScrolled() { 
+			var st = $(this).scrollTop(); 
+			
+			// Make sure they scroll more than delta 
+			if(Math.abs(lastScrollTop - st) <= delta) return; 
+			
+			// If they scrolled down and are past the navbar, add class .nav-up. 
+			// This is necessary so you never see what is "behind" the navbar. 
+			if (st > lastScrollTop && st > navbarHeight){ 
+				
+				// Scroll Down 
+				 $( '.icon-bar' ).fadeOut();
+			}
+			else { 
+			
+			// Scroll Up 
+			if(st + $(window).height() < $(document).height()) { 
+				 $( '.icon-bar' ).fadeIn(); 
+				} 
+			} 
+			
+			lastScrollTop = st;
+			
+		}
 		var user_SessionID="${user_ID}"
 		$("#btnUserProfile").click(function() {
 			
 			 location.href="profile/userProfile?user_ID="+user_SessionID;
 		})
 		
-		$("#navbarSupportedContent").click(function(){
+		$(".btn-outline-success").click(function(){
 			var keyword = $("#keyword").val();
 			if(keyword.indexOf("#") >= 0){
 				var key = keyword.substr(1, keyword.length);
@@ -426,44 +481,16 @@
 
 </head>
 <body>
+<header></header>
 <!--  네비게이션  -->
-	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
-	<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    	<span class="navbar-toggler-icon"></span>
- 	 </button> -->
+	<nav class="nav navbar navbar-expand-sm navbar-light bg-light mb-3">
  	 
-				<div class="navbar-header navbar-center mx-auto">
-					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Edem</a>
-				</div>
-				
-<%-- 	<ul class="navbar-nav mx-4 my-2 d-block d-sm-none">
-		<li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ${user_ID }
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="../logout">로그아웃</a>
-        </div>
-      </li>
-      </ul>
-	  --%>
-	  
-	<%--    <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
-	
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="logout">로그아웃</a>
-			</div>
-		</div>
-	 </div> --%>
-				
-			<div class="" id="navbarSupportedContent">
+	<div class="navbar-header navbar-left mx-auto">
+		<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Edem</a>
+	</div>
+
+			<!-- <div class="collapse navbar-collapse d-none d-sm-block" id="navbarSupportedContent"> -->
+			<div class=" " id="navbarSupportedContent">
 				<form class="form-inline my-lg-0 mx-auto" id="F">
 			      <div class="input-group">
 			        <!-- <input type="text" class="form-control" placeholder="Search" name="user_ID">  -->
@@ -475,20 +502,20 @@
 			        </div>
 			      </div>
 			    </form>
-			 </div>   
-	<%-- 		
-	<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
-	
-	    <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="logout">로그아웃</a>
-			</div>
-		</div> 
-	 </div> --%>
+			 </div>     
+			 
+<!-- 			 <div class=" d-sm-none" id="navbarSupportedContent">
+				<form class="form-inline my-lg-0 mx-auto" id="FM">
+			      <div class="input-group">
+			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keywordM">
+			        <div class="input-group-append">
+			          <button class="btn btn-outline-success" id="BM" type="submit" >
+							<img src="resources/icon/search2.png" width="18" height="18">
+					  </button>
+			        </div>
+			      </div>
+			    </form>
+			 </div>      -->
 	</nav>
 	
 	<!-- <!-- 게시글  -->
@@ -628,12 +655,12 @@
 		</div>
 	</div>
 
-<div class="icon-bar">
+<div class="icon-bar ">
   <a href="timeLine"><i class="fa fa-home"></i></a> 
   <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
   <a href="profile/userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
-  <a href="#"><i class="fa fa-sign-out"></i></a> 
+   <a href="profile/editProfile"><i class="fa fa-cog"></i></a> 
 </div>
 	
 

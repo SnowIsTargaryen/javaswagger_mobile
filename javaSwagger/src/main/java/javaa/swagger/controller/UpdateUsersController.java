@@ -18,7 +18,6 @@ import javaa.swagger.dao.UsersDao;
 import javaa.swagger.vo.UsersVo;
 
 @Controller
-@RequestMapping("/profile/editProfile")
 public class UpdateUsersController {
 
 	@Autowired
@@ -28,8 +27,34 @@ public class UpdateUsersController {
 		this.dao = dao;
 	}
 	
+	@RequestMapping(value="/profile/settings",method=RequestMethod.GET)
+	public void settings(HttpSession session)
+	{
+		
+	}
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value="/profile/settingPassword",method=RequestMethod.GET)
+	public ModelAndView settingPassword(HttpSession session)
+	{
+		String user_ID=(String)session.getAttribute("user_ID");
+		ModelAndView mav = new ModelAndView();
+		HashMap map = new HashMap();
+		map.put("user_ID", user_ID);
+		mav.addObject("profile", dao.profile(map));
+		
+		return mav;
+		
+	}
+	@RequestMapping(value="/profile/settingPassword",method=RequestMethod.POST)
+	public ModelAndView settingPassword(UsersVo u,HttpServletRequest request) 
+	{
+		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+u.getUser_ID());
+		int re =dao.editProfile(u);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/profile/editProfile",method=RequestMethod.GET)
 	public ModelAndView profile(HttpSession session)
 	{
 		String user_ID=(String)session.getAttribute("user_ID");
@@ -45,7 +70,7 @@ public class UpdateUsersController {
 		
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(value="/profile/editProfile",method=RequestMethod.POST)
 	public ModelAndView edit(UsersVo u,HttpServletRequest request) 
 	{
 		ModelAndView mav = new ModelAndView("redirect:/profile/userProfile?user_ID="+u.getUser_ID());
@@ -80,9 +105,11 @@ public class UpdateUsersController {
 		
 		
 		int re =dao.editProfile(u);
+		System.out.println("controller:"+re);
 		if(re<1)
 		{
 			mav.addObject("msg", "프로필 수정 실패");
+			System.out.println("프로필 수정실패");
 			mav.setViewName("../error");
 		}
 		if(re > 0 && !OldFname.equals("") && fname != null && !fname.equals(""))
