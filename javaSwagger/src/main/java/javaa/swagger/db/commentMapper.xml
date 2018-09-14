@@ -25,4 +25,10 @@
 	<select id="nextNo" resultType="java.lang.Integer">
 		select nvl(max(comment_no),0)+1 from comments
 	</select>
+	
+	<delete id="autoDelete">
+		<![CDATA[
+			delete comments where post_no in (select post_no from post where post_deltime <= sysdate)
+		]]>
+	</delete>
 </mapper>

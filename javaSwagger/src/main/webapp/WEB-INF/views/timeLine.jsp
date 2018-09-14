@@ -121,6 +121,18 @@
 			 location.href="profile/userProfile?user_ID="+user_SessionID;
 		})
 		
+		
+		$(".btn-outline-success").click(function(){
+			var keyword = $("#keyword").val();
+			if(keyword.indexOf("#") >= 0){
+				var key = keyword.substr(1, keyword.length);
+				$("#keyword").val(key);
+				$("#F").attr("action","hashtag");
+			} else {
+				$("#F").attr("action","search");
+			}
+		})
+		
 		var l_post_no=[];
 		var like_cmt_no=[];
 		var like_post_no=[];
@@ -247,9 +259,7 @@
 										success:function(data){
 											$(icon_like).attr({src:"resources/icon/like_0.png"})	
 											like = cntLike(p.post_no,null);
-											(p_like_cnt).html("likes  "+like);
-						
-											
+											(p_like_cnt).html("likes  "+like);		
 									}})
 									state=0
 									return;
@@ -281,7 +291,7 @@
 									$('#post_no').val(detail.post_no);
 									$('#detail_Img').attr("src", "resources/image/"+detail.post_fname);
 									$('#h3_detail_userID').html(detail.user_ID);
-									$('#small_detail_content').html(detail.post_content);
+									$('#small_detail_content').html(detail.post_hash);
 									$.ajax({ //댓글 리스트
 										url:"listComment.do?post_no="+detail.post_no,
 										success:function(data){
@@ -383,13 +393,13 @@
 	<div class="modal fade " id="insertPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document" >
 	    <div class="modal-content"> 
-	    <form class="form"  action="../insertPost.do" method="post" enctype="multipart/form-data">
+	    <form class="form"  action="insertPost.do" method="post" enctype="multipart/form-data">
 	      <div class="modal-header">
 	         <h5 class="modal-title">새 글 쓰기</h5>
 	      </div>
 	      <div class="modal-body">
 	        <div class="form-group">
-	        	<input type="hidden" class="form-contorl" id="user_ID" name="user_ID" value="${profile.user_ID }">
+	        	<input type="hidden" class="form-contorl" id="user_ID" name="user_ID" value="${user_ID }">
 	        </div>
 	        <div class="form-group">
 	        	<textarea class="form-control" rows="5" name="post_content" placeholder="내용을 입력하세요"></textarea>
@@ -477,6 +487,8 @@
 										  	</div>
 										  	<div class="col-auto">
 										  		<input type="hidden" name="post_no" id="post_no">
+										  		<!-- vn 추가한 거 -->
+										  		<input type="hidden" name="vn" id="vn" value="timeLine">
 										  	</div>
 										  	<div class="col-sm-10">
 										  		<div class="input-group mb-3">
