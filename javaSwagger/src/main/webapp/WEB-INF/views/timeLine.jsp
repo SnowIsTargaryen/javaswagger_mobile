@@ -309,6 +309,14 @@
 									//alert(data)
 									$('#post_no').val(detail.post_no);
 									$('#detail_Img').attr("src", "resources/image/"+detail.post_fname);
+									
+									$.get("resources/image/"+detail.post_fname).done(function() {
+										
+									}).fail(function() {
+										$('#detail_Img').attr({
+											src :"resources/image/error404.jpg"
+										})
+									})
 									$('#h3_detail_userID').html(detail.user_ID);
 									$('#small_detail_content').html(detail.post_hash);
 									$.ajax({ //댓글 리스트
@@ -485,12 +493,12 @@
 	
 	<!-- detail modal -->
 	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
-		<div class="modal-dialog modal-dialog-center"  role="document">
+		<div class="modal-dialog modal-dialog-center mx-auto"  role="document">
 			<div class="modal-content h-100 d-flex no-gutters" id="content">
 				<div class="container-fluid no-gutters" id="detailModalContainer">
 					<div class="row d-flex no-gutters">
-						<div class="col-md-8 box-shadow h-100" >
-						<img  id="detail_Img" class="img-fluid d-inline-block">
+						<div class="col-md-8" >
+						<img  id="detail_Img" class="img-fluid d-inline-block h-100 w-100">
 						</div>
 						<div class="col-md-4">	
 							<div class="modal-header">

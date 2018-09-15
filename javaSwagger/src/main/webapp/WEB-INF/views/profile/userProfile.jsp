@@ -787,13 +787,13 @@
 	</div> 
 	
 	<!-- detail modal -->
-	<div class="modal modal-center fade no-gutters" id="detail_Dialog" role="dialog"  tabindex="-1">
-		<div class="modal-dialog modal-dialog-center" id="modal-detail" role="document">
+	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
+		<div class="modal-dialog modal-dialog-center mx-auto"  role="document">
 			<div class="modal-content h-100 d-flex no-gutters" id="content">
-				<div class="container-fluid">
+				<div class="container-fluid no-gutters" id="detailModalContainer">
 					<div class="row d-flex no-gutters">
-						<div class="col-md-8 box-shadow h-100 w-100" >
-						<img  id="detail_Img" class="img-fluid d-inline-block">
+						<div class="col-md-8" >
+						<img  id="detail_Img" class="img-fluid d-inline-block h-100 w-100">
 						</div>
 						<div class="col-md-4 fluid h-100 w-100 no-gutters">	
 							<div class="modal-header">
