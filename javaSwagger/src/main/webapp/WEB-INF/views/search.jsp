@@ -12,6 +12,21 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <!--부트 스트랩 CDN  -->
+<style type="text/css">
+  header {
+	  position: fixed; 
+	  top: 0; 
+	  left: 0; 
+	  width: 100%; 
+	  height: 1px; 
+	 /*  background: #f5b335;  */
+	  transition: top 0.2s ease-in-out; 
+	  }  
+	  .nav-up { 
+	  top: -40px; 
+	   }
+	 
+</style>
 <script type="text/javascript">
 	$(function() {
 		
@@ -129,6 +144,7 @@
 </script>
 </head>
 <body>
+<header></header>
 	<!--  네비게이션  -->
 	<nav class="navbar">
 		<div class="container">
@@ -139,7 +155,7 @@
 					</h1>
 				</div>
 			</div>
-			<div class="col-4">
+			<div class="">
 				<form class="navbar-form navbar-center" id="F">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
@@ -151,7 +167,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-4 d-flex justify-content-end align-items-center">
+			<%-- <div class="col-4 d-flex justify-content-end align-items-center">
 				<div class="btn-group">
 
 					<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
@@ -163,7 +179,7 @@
 							class="dropdown-item" href="logout">로그아웃</a>
 					</div>
 				</div>
-			</div>
+			</div> --%>
 		</div>
 		<!-- 컨테이너  -->
 	</nav>
@@ -194,9 +210,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
 
 
 </body>

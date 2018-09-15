@@ -8,6 +8,7 @@
 
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- icon을 위한link -->
 <link rel="stylesheet" href="../resources/css/footerBar.css" />
+<link rel="stylesheet" href="../resources/css/jumbotron.css" />
 <title>EditProfile</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
@@ -158,6 +159,9 @@
 		 appearance: none;
 	}
 
+	.bg-cover{
+		background-image: url(../resources/image/background.jpg);
+	}
 </style>
 </head>
 <body>
@@ -199,7 +203,7 @@
 <!--사용자 프로필  -->
 
 <!-- Jumbotrons -->
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid bg-cover">
   <div class="container" align="center">
     <p class="lead" >회원정보 수정</p>
     <hr>
@@ -244,9 +248,9 @@
 						  </div>
 						  
 						  <div class="form-group .col-3 col-sm-8 col-md-8  col-lg-5">
-						    <label for="user_Password "><i class="fas fa-phone-square"></i> </label>
+						    <label for="user_Phone "><i class="fas fa-phone-square"></i> </label>
 						    <span>${profile.user_Phone}</span>
-						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 번호 입력">
+						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 번호 입력" required>
 						  </div>
 						  <button type="submit" class="btn btn-success .col-3 col-sm-8 col-md-8  col-lg-5">회원정보 변경</button>
 						</form>
