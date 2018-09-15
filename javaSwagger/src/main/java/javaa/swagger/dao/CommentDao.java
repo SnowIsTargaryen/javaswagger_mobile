@@ -41,4 +41,9 @@ public class CommentDao {
 			// TODO Auto-generated method stub
 			return CommentManager.autoDelete();
 		}
+
+	public int cntComment(HashMap map) {
+		// TODO Auto-generated method stub
+		return CommentManager.cntComment(map);
+	}
 }

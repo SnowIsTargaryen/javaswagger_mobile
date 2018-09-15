@@ -88,4 +88,11 @@ public class CommentManager {
 		 session.close();
 		 return no;
 	 }
+
+	public static int cntComment(HashMap map) {
+		SqlSession s = factory.openSession(); 
+		int re = s.selectOne("comment.cntComment", map);
+		s.close();
+		return re;
+	}
 }
