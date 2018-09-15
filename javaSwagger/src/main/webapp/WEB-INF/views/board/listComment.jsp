@@ -26,7 +26,8 @@
 			data:{"post_no":postNo},
 			success:function(data){
 				var p=eval("("+data+")")
-				
+				alert(p.user_fname)
+				$("#postImage").attr({src:"../resources/image/"+p.user_fname+""});
 				$("#postWriter").html(p.user_ID);
 				$("#postContent").html(p.post_content)
 			
@@ -110,7 +111,7 @@
 				 
 				  <div class="card-body" id="col_comment_content">
 				  	<div class="d-flex align-items-center p-3 my-3 text-black-50 bg-purple rounded shadow-sm">
-				        <img class="mr-3" src="../resources/image/hayeonsoo3.jpg" width="48" height="48">
+				        <img class="mr-3" id="postImage" width="48" height="48">
 				        <div class="lh-100">
 				          <h6 class="mb-0 text-black lh-100" id="postWriter"></h6>
 				          <small id="postContent"></small>
