@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import javaa.swagger.vo.CommentVo;
+import javaa.swagger.vo.CommentVo2;
 
 public class CommentManager {
 	private static SqlSessionFactory factory;
@@ -37,6 +38,13 @@ public class CommentManager {
 		 List<CommentVo> list;
 		 SqlSession s = factory.openSession();
 		 list = s.selectList("comment.readComment",map);
+		 s.close();
+		 return list;
+	 }
+	 public static List<CommentVo2> readComment2(HashMap map){
+		 List<CommentVo2> list;
+		 SqlSession s = factory.openSession();
+		 list = s.selectList("comment.readComment2",map);
 		 s.close();
 		 return list;
 	 }

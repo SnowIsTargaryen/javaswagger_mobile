@@ -22,7 +22,7 @@
 	</select>
 	
 	<select id="detailPost" resultType="postVo"> <!-- 하나의 포스트 보는 sql -->
-		select * from post where post_no=#{post_no}
+		select p.post_no, p.user_id, p.post_time, p.post_deltime, p.post_content, p.post_fname, u.user_fname from post p, users u where post_no=#{post_no} and p.user_id=u.user_id
 	</select>
 	
 	<select id="nextNo" resultType="java.lang.Integer">
