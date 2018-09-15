@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import javaa.swagger.vo.CommentVo;
+import javaa.swagger.vo.CommentVo2;
 
 public class CommentManager {
 	private static SqlSessionFactory factory;
@@ -23,11 +24,27 @@ public class CommentManager {
 	        System.out.println(e.getMessage());
 	    }
 	 }
+	
+	public static int autoDelete() {
+		// TODO Auto-generated method stub
+		int re = 0;
+		SqlSession s = factory.openSession(true);
+		re = s.delete("comment.autoDelete");
+		s.close();
+		return re;
+	}
 	 
 	 public static List<CommentVo> readComment(HashMap map){
 		 List<CommentVo> list;
 		 SqlSession s = factory.openSession();
 		 list = s.selectList("comment.readComment",map);
+		 s.close();
+		 return list;
+	 }
+	 public static List<CommentVo2> readComment2(HashMap map){
+		 List<CommentVo2> list;
+		 SqlSession s = factory.openSession();
+		 list = s.selectList("comment.readComment2",map);
 		 s.close();
 		 return list;
 	 }
@@ -71,4 +88,11 @@ public class CommentManager {
 		 session.close();
 		 return no;
 	 }
+
+	public static int cntComment(HashMap map) {
+		SqlSession s = factory.openSession(); 
+		int re = s.selectOne("comment.cntComment", map);
+		s.close();
+		return re;
+	}
 }

@@ -11,7 +11,10 @@ public class PostVo {
 	private Date post_delTime;   
 	private String post_content;
 	private String post_fname;
+	private String user_fname;
+	
 	private String post_hash;
+	
 	private MultipartFile uploadFile;
 	
 	public MultipartFile getUploadFile() {
@@ -26,7 +29,7 @@ public class PostVo {
 		// TODO Auto-generated constructor stub
 	}
 	public PostVo(int post_no, String user_ID, Date post_time, Date post_delTime, String post_content,
-			String post_fname, String post_hash, MultipartFile uploadFile) {
+			String post_fname, String post_hash,String user_fname, MultipartFile uploadFile) {
 		super();
 		this.post_no = post_no;
 		this.user_ID = user_ID;
@@ -35,6 +38,7 @@ public class PostVo {
 		this.post_content = post_content;
 		this.post_fname = post_fname;
 		this.post_hash = post_hash;
+		this.user_fname = user_fname;
 		this.uploadFile = uploadFile;
 	}
 	public int getPost_no() {
@@ -78,6 +82,12 @@ public class PostVo {
 	}	
 	public void setPost_hash(String post_hash) {
 		this.post_hash = post_hash;
+	}
+	public String getUser_fname() {
+		return user_fname;
+	}
+	public void setUser_fname(String user_fname) {
+		this.user_fname = user_fname;
 	}
 	
 }

@@ -8,6 +8,20 @@
 <link rel="stylesheet" href="../resources/css/footerBar.css" />
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <style type="text/css">
+	
+  header {
+	  position: fixed; 
+	  top: 0; 
+	  left: 0; 
+	  width: 100%; 
+	  height: 1px; 
+	 /*  background: #f5b335;  */
+	  transition: top 0.2s ease-in-out; 
+	  }  
+	  .nav-up { 
+	  top: -40px; 
+	   }
+	
 	#modal-detail{
 		max-width: 50% !important; 
 		
@@ -66,6 +80,49 @@
 
 <script type="text/javascript">
 	$(function() {
+
+		// Hide Header on on scroll down 
+		var didScroll; 
+		var lastScrollTop = 0; 
+		var delta = 5; 
+		var navbarHeight = $('header').outerHeight(); 
+		
+		$(window).scroll(function(event){ 
+			didScroll = true; 
+		}); 
+		
+		setInterval(function() { 
+			if (didScroll) { 
+				hasScrolled(); 
+				didScroll = false; 
+		} 
+		}, 250); 
+		
+		function hasScrolled() { 
+			var st = $(this).scrollTop(); 
+			
+			// Make sure they scroll more than delta 
+			if(Math.abs(lastScrollTop - st) <= delta) return; 
+			
+			// If they scrolled down and are past the navbar, add class .nav-up. 
+			// This is necessary so you never see what is "behind" the navbar. 
+			if (st > lastScrollTop && st > navbarHeight){ 
+				
+				// Scroll Down 
+				 $( '.icon-bar' ).fadeOut();
+			}
+			else { 
+			
+			// Scroll Up 
+			if(st + $(window).height() < $(document).height()) { 
+				 $( '.icon-bar' ).fadeIn(); 
+				} 
+			} 
+			
+			lastScrollTop = st;
+			
+		}
+		
 		var arr;
 		<% String get_id=(String)request.getParameter("user_ID"); %> //사용자
 		
@@ -91,7 +148,7 @@
 		if(profileImg==null || profileImg=='') // 사진없으면 박보영 나옴
 		{
 			$("#profileImg").attr({
-				src:"../resources/image/박보영.gif"
+				src:"../resources/icon/user2.png"
 			})
 		}
 
@@ -100,7 +157,7 @@
 		}) */
 
 		$("#btnUserProfile").click(function() {
-			alert("ok")
+			//alert("ok")
 			/* location.href="../profile/userProfile?user_ID="+user_SessionID; */
 		})
 
@@ -169,7 +226,7 @@
 							var btn_group = $("<div></div>").addClass("btn-group")
 							
 							var div_f_left = $("<div></div>").addClass("float-left")
-							var s_comment = $("<small></small>").html("댓글보기 ")
+							var s_comment = $("<small></small>")
 							var a_comment = $("<a data-role='button' data-transition='slide'></a>").addClass("d-block").attr({
 								href : '../board/listComment?post_no='+p.post_no,	
 							})
@@ -202,6 +259,14 @@
 								src :"../resources/image/"+p.post_fname,
 								alt : "Card image cap"
 							})
+							
+							$.get("../resources/image/"+p.post_fname).done(function() {
+								
+							}).fail(function() {
+								$(img).attr({
+									src :"../resources/image/error404.jpg"
+								})
+							})
 							var state=0;
 							$.each(like_post_no, function(i, no) {
 								if(no==p.post_no)
@@ -212,8 +277,16 @@
 							})
 							
 							var like = cntLike(p.post_no,null);  //게시글 좋아요 값 저장
-							
 							(p_like_cnt).html("Like  "+like); //좋아요 설정
+							
+							var cntComment = cntCommnet(p.post_no);
+							//alert(cntComment)
+							$(s_comment).html("댓글보기  ")
+							if(cntComment!=0)
+							{
+								$(s_comment).html("댓글보기  " +cntComment)
+							}
+							
 							
 							$(btn_like).on("click",function() {
 								var no=$(this).attr("no");
@@ -292,18 +365,6 @@
 							})
 							
 							
-						//	$(btn_edit).click(function() { //게시글 수정
-						//	 	var no=$(this).attr("no");
-						//		
-						//		$.ajax({url:"../detailPost?post_no="+no,success:function(data){
-						//			detail=eval("("+data+")")
-						//			//alert(detail.post_no)
-						//			$('#post_content').html(detail.post_content);
-						//			$('#updatate_Post_no').val(detail.post_no)
-						//	
-						//		}})
-						//	})
-						
 						$(btn_edit).click(function() { //게시글 수정 new
 						 	var no=$(this).attr("no");
 							
@@ -584,52 +645,37 @@
 			
 			return result;
 		}
+		
+		function cntCommnet(postNo)
+		{ //좋아요 카운트 함수
+			var result;
+			$.ajax({
+				url:"../cntComment.do",
+				async: false,
+				data:{"post_no":postNo},
+				success:function(data){
+					result=data;
+			}})
+			return result;
+		}
+		
 	});
 
 </script>
 
 </head>
 <body>
+<header></header>
 <!--  네비게이션  -->
 	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
 
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    	<span class="navbar-toggler-icon"></span>
-	 	 </button>
-	 	 
-			<div class="navbar-header navbar-center mx-auto">
-				<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Eden</a>
-			</div>
-
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    	<span class="navbar-toggler-icon"></span>
- 	 </button>
  	 
-				<div class="navbar-header navbar-center mx-auto">
-					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
-				</div>
-
-<%-- 	  
-	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
-
-		  
-			<div class="navbar-nav mx-4 my-2 d-block d-sm-none">
-			    <div class="btn-group">  
-					<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-					<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></button>
-					<div class="dropdown-menu">
-					  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-					  <a class="dropdown-item" href="../data/bigData">빅데이터</a>
-					  <a class="dropdown-item" href="../logout">로그아웃</a>
-					</div>
-				</div>
-			</div>
-
+		<div class="navbar-header navbar-center mx-auto">
+			<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
 		</div>
-	 </div> --%>
-				
+ 		<a href="settings"><i class="fa fa-cogs"></i></a> 
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<form class="form-inline my-lg-0 mx-auto" id="F">
 			      <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
@@ -642,7 +688,6 @@
 			    </form>
 			 </div>   
 
-				
 			 <div class="navbar-nav mx-4 my-2 d-none d-sm-block">
 			     <div class="btn-group">  
 					<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
@@ -658,24 +703,12 @@
 	</nav>
 
 			
-	<%--<div class="navbar-nav mx-4 my-2 d-none d-sm-block">
-	 
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="../logout">로그아웃</a>
-			</div>
-		</div>
-	 </div> --%>
 </nav>
 
 	
 	
 <!--   Header 사용자 프로필 -->
-    <header class="py-5 bg-image-full text-white text-center" style="background-image: url('../resources/image/rain.gif');" id="profileHeader">
+    <div class="py-5 bg-image-full text-white text-center" style="background-image: url('../resources/image/rain.gif');" id="profileHeader">
       <img class="img-fluid d-block mx-auto rounded-circle" src="../resources/image/${profile.user_fname }" id="profileImg">
       <div class="btn-group" role="group">
       	<button type="button" class="btn btn-sm btn-outline-secondary border-0 text-white" data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</button>
@@ -687,7 +720,7 @@
        -->
       <p>${profile.user_Email }</p>
       <h2 id="guestID">${profile.user_ID }</h2>
-    </header>
+    </div>
 	
 
 	<!-- 글쓰기 Modal -->
@@ -791,6 +824,7 @@
 										  	</div>
 										  	<div class="col-auto">
 										  		<input type="hidden" name="post_no" id="post_no">
+										  		<input type="hidden" name="vn" id="vn" value="profile">
 										  	</div>
 										  	<div class="col-sm-10">
 										  		<div class="input-group mb-3">
@@ -862,12 +896,12 @@
 	     </div>
      </div>
      
-<div class="icon-bar">
+<div class="icon-bar ">
   <a href="../timeLine"><i class="fa fa-home"></i></a> 
   <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
   <a href="userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
-  <a href="editProfile"><i class="fa fa-cog"></i></a> 
+  <a href="editProfile"><i class="fa fa-cog"></i></a>
 </div>
 	
      

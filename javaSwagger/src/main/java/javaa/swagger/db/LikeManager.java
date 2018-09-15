@@ -77,4 +77,21 @@ public class LikeManager {
 		s.close();
 		return list;
 	}
+
+	public static int deltimeSetup(HashMap map) {
+		// TODO Auto-generated method stub
+		SqlSession s = factory.openSession(true);
+		int re = s.update("like.deltimeSetup", map);
+		s.close();
+		return re;
+	}
+	
+	public static int autoDelete() {
+		// TODO Auto-generated method stub
+		int re = 0;
+		SqlSession s = factory.openSession(true);
+		re = s.delete("like.autoDelete");
+		s.close();
+		return re;
+	}
 }

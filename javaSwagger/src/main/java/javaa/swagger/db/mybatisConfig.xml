@@ -6,6 +6,7 @@
    <typeAliases>
       <typeAlias type="javaa.swagger.vo.PostVo" alias="postVo"/>
       <typeAlias type="javaa.swagger.vo.CommentVo" alias="commentVo"/>
+      <typeAlias type="javaa.swagger.vo.CommentVo2" alias="commentVo2"/>
       <typeAlias type="javaa.swagger.vo.UsersVo" alias="userVo"/>
       <typeAlias type="javaa.swagger.vo.FollowVo" alias="followVo"/>
       <typeAlias type="javaa.swagger.vo.LikeVo" alias="likeVo"/>

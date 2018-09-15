@@ -81,7 +81,20 @@ public class UsersControrller {
 		
 	}
 	
-	@RequestMapping(value="/profile/withdrawUser",method=RequestMethod.POST)
+	@RequestMapping(value="/profile/settingWithdrawUser",method=RequestMethod.GET)
+	public ModelAndView settingPassword(HttpSession session)
+	{
+		String user_ID=(String)session.getAttribute("user_ID");
+		ModelAndView mav = new ModelAndView();
+		HashMap map = new HashMap();
+		map.put("user_ID", user_ID);
+		mav.addObject("profile", dao.profile(map));
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping(value="/profile/settingWithdrawUser",method=RequestMethod.POST)
 	public ModelAndView withdrawUser(String user_ID, String user_Password)
 	{
 		ModelAndView mav = new ModelAndView();
@@ -90,7 +103,7 @@ public class UsersControrller {
 		map.put("user_Password", user_Password);
 //		System.out.println(user_ID);
 		int re=dao.withdrawUser(map);
-		
+		System.out.println("Å»Åð¿©ºÎ:"+re);
 		if(re>0)
 		{
 			mav.setViewName("redirect:/login");

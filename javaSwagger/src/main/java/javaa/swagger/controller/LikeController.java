@@ -94,6 +94,7 @@ public class LikeController {
 			map.put("post_no", null);			
 		}else {
 			map.put("post_no", post_no);
+			dao.deltimeSetup(map);
 		}
 		
 		if(comment_no == null) {

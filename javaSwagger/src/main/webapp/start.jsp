@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<!-- <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/> -->
+ <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
 <link rel="stylesheet" href="resources/css/createPage.css" />
 </head>

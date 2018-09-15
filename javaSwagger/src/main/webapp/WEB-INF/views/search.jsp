@@ -12,19 +12,45 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <!--부트 스트랩 CDN  -->
+<style type="text/css">
+  header {
+	  position: fixed; 
+	  top: 0; 
+	  left: 0; 
+	  width: 100%; 
+	  height: 1px; 
+	 /*  background: #f5b335;  */
+	  transition: top 0.2s ease-in-out; 
+	  }  
+	  .nav-up { 
+	  top: -40px; 
+	   }
+	 
+</style>
 <script type="text/javascript">
 	$(function() {
 		
 		<%String user_ID = request.getParameter("user_ID");%>//url 아이디
+		<%String keyword = request.getParameter("keyword");%>//url keyword
 	//	var user_SessionID="${user_ID}"//세션 아이디
 		
+		$(".btn-outline-secondary").click(function(){
+			var keyword = $("#keyword").val();
+			if(keyword.indexOf("#") >= 0){
+				var key = keyword.substr(1, keyword.length);
+				$("#keyword").val(key);
+				$("#F").attr("action","hashtag");
+			} else {
+				$("#F").attr("action","search");
+			}
+		})	
+	
+	
 		$("#btnUserProfile").click(function() {
 				location.href="profile/userProfile?user_ID=${user_ID}"
 		})
 		
 		var user_List=[];
-		
-		
 		
 			$.ajax({//팔로우 버튼 확인용
 				url:"following.do",
@@ -38,30 +64,33 @@
 					})
 					
 					$.ajax({ //검색 
-					url:"searchList?user_ID=<%=user_ID%>",
+					url:"searchList?user_ID=<%=keyword%>",
 					success:function(data){
 						list=eval("("+data+")")
 						$.each(list, function(idx, s) {
-							
-							
-							var tr = $("<tr></tr>")
-							var th = $("<th></th>").html(idx)
-							var a_userID = $("<a></a>").attr({
-								href:"profile/userProfile?user_ID="+s.user_ID
-							}).html(s.user_ID).addClass("a_userID")
-							var td_userID = $("<td></td>")
-							var td_email = $("<td></td>").html(s.user_Email)
-							var td_btn=$("<td></td>")
-							var btn_follow = $("<button></button>").addClass("btn")
-							
 							var state=0;
-							$(btn_follow).html("follow").addClass("btn-outline-primary")
+											
+							var div_follow=$("<div class='media text-muted pt-3'></div>")
+							var img_follow=$("<img data-src='"+s.user_fname+"' alt='32x32' class='mr-2 rounded' src='resources/image/"+s.user_fname+"' data-holder-rendered='true' style='width: 32px; height: 32px;'/>")
+							var div_body=$("<div class='media-body pb-3 mb-0 small lh-125 border-bottom border-gray'></div>")
+							var div_dfle=$("<div class='d-flex justify-content-between align-items-center w-100'></div>")
+							var a_follow=$('<a href="#">Follow</a>')
+							var strong_follow=$("<strong class='d-block text-gray-dark'></strong>").html(s.user_ID)
+							var a_userPage=$("<a></a>").attr({
+								href:"profile/userProfile?user_ID="+s.user_ID
+							})
+							var span_follow=$("<span class='d-block'></span>").html(s.user_Email);
+							
+							
+							if(s.user_fname==null){$(img_follow).attr({src:"resources/icon/user2.png"})}
+							
+				
 							
 							$.each(user_List, function(i, b) {
 								if(b==s.user_ID)
 								{
-									console.log(b+"/"+s.user_ID)
-									$(btn_follow).html("following").addClass("btn-primary").removeClass("btn-outline-primary")
+									//console.log(b+"/"+s.user_ID)
+									$(a_follow).html("following")
 									state=1;
 								
 								}
@@ -72,39 +101,38 @@
 								} */
 							})
 							
-							$(btn_follow).on("click",function() {
-										if(state==0)
-										{	
-											$.ajax({url:"follow.do",
-												type:"post",
-												data:{"user_ID":s.user_ID,"follower_ID":"${user_ID}"},
-												success:function(data){
-													//alert(data)
-													$(btn_follow).removeClass("btn-outline-primary").addClass("btn-primary").html("following");
-												}})
-											state=1
-											return;
-										}//if end
-										else if(state==1)
-										{
-											$.ajax({url:"unFollow.do",
-												type:"post",
-												data:{"user_ID":s.user_ID,"follower_ID":"${user_ID}"},
-												success:function(data){
-													$(btn_follow).removeClass("btn-primary").addClass("btn-outline-primary").html("follow");
-														
-												}})
-											state=0
-											return;
-										}
+							$(a_follow).on("click",function() {
+								if(state==0)
+								{	
+									$.ajax({url:"follow.do",
+										type:"post",
+										data:{"user_ID":s.user_ID,"follower_ID":"${user_ID}"},
+										success:function(data){
+											//alert(data)
+											$(a_follow).html("following");
+										}})
+									state=1
+									return;
+								}//if end
+								else if(state==1)
+								{
+									$.ajax({url:"unFollow.do",
+										type:"post",
+										data:{"user_ID":s.user_ID,"follower_ID":"${user_ID}"},
+										success:function(data){
+											$(a_follow).html("follow");
+												
+										}})
+									state=0
+									return;
+								}
 							})//팔로우 버튼
-	
+							$(a_userPage).append(strong_follow)		
+							$(div_dfle).prepend(a_userPage,a_follow); //첫번째 순서로 붙힘 prepend
+							$(div_body).append(div_dfle,span_follow)
+							$(div_follow).append(img_follow,div_body);
+							$('#userList').append(div_follow);
 							
-							
-							$(td_userID).append(a_userID)
-							$(td_btn).append(btn_follow)
-							if(s.user_ID!="${user_ID}"){$(tr).append(th,td_userID,td_email,td_btn)}	//
-							$("#listTbody").append(tr)
 							
 						})
 					}})
@@ -118,6 +146,7 @@
 </script>
 </head>
 <body>
+<header></header>
 	<!--  네비게이션  -->
 	<nav class="navbar">
 		<div class="container">
@@ -128,11 +157,10 @@
 					</h1>
 				</div>
 			</div>
-			<div class="col-4">
-				<form class="navbar-form navbar-center" action="search">
+			<div class="">
+				<form class="navbar-form navbar-center" id="F">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search"
-							name="user_ID">
+						<input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
 						<div class="input-group-append">
 							<button class="btn btn-outline-secondary" type="submit">
 								<img src="resources/icon/search2.png" width="18" height="18">
@@ -141,7 +169,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-4 d-flex justify-content-end align-items-center">
+			<%-- <div class="col-4 d-flex justify-content-end align-items-center">
 				<div class="btn-group">
 
 					<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
@@ -153,40 +181,15 @@
 							class="dropdown-item" href="logout">로그아웃</a>
 					</div>
 				</div>
-			</div>
+			</div> --%>
 		</div>
 		<!-- 컨테이너  -->
 	</nav>
-	<!--테이블 검색 유저 목록  -->
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">ID</th>
-							<th scope="col">이메일</th>
-							<th scope="col">#</th>
-						</tr>
-					</thead>
-					<tbody id="listTbody">
-						<%-- <c:forEach var="v" items="${list }" varStatus="status">
-							<tr>
-								<th scope="row">${status.count }</th>
-								<td><a id="a_userID" href="profile/userProfile?user_ID=${v.user_ID }">${v.user_ID }</a></td>
-								<td>${v.user_Email }</td>
-								<td><button type="button" class="btn btn-outline-primary">Follow</button></td>
-							</tr>
-						</c:forEach> --%>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+	<!-- 유저 리스트 -->
+	<div id="userList" class="my-3 p-3 bg-white rounded shadow-sm">
+        <h6 class="border-bottom border-gray pb-2 mb-0">사용자 목록</h6>
 
-
-
+    </div>
 
 
 </body>

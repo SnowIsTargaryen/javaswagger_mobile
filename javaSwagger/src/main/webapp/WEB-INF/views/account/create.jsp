@@ -186,7 +186,7 @@ $("#phoneck").click(function(){//sms핸드폰 인증모달 버튼 누를 때 문
 	         data:user_phone,
 	         success:function(data){
 			 var da = eval("("+data+")")
-				alert(da)
+				
 			
 			 	$("#btnPhone").click(function () { 
 					var inputPhone = $("#inputPhone").val();
@@ -387,9 +387,9 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 					    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="email을 입력하세요" oninput="checkMail()" required="required">
 					     <span id="user_Mail_span"></span>
 					     
-					    <input type="button" value="메일인증" id="mailck" data-toggle="modal" data-target="#checkEmil">
-					    <input type="hidden" id="isMail" value="0"> <!-- 메일 통과 했는지 마는지 -->
-					  	<span id="msg"></span>
+					   <!--  <input type="button" value="메일인증" id="mailck" data-toggle="modal" data-target="#checkEmil">
+					    <input type="hidden" id="isMail" value="0"> 메일 통과 했는지 마는지
+					  	<span id="msg"></span> -->
 				  </div>
 				  <div class="form-group">
 				    <label for="user_Password ">Phone</label>
