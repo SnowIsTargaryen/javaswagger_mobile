@@ -148,7 +148,7 @@
 		if(profileImg==null || profileImg=='') // 사진없으면 박보영 나옴
 		{
 			$("#profileImg").attr({
-				src:"../resources/image/박보영.gif"
+				src:"../resources/icon/user2.png"
 			})
 		}
 
@@ -157,7 +157,7 @@
 		}) */
 
 		$("#btnUserProfile").click(function() {
-			alert("ok")
+			//alert("ok")
 			/* location.href="../profile/userProfile?user_ID="+user_SessionID; */
 		})
 
@@ -259,6 +259,14 @@
 								src :"../resources/image/"+p.post_fname,
 								alt : "Card image cap"
 							})
+							
+							$.get("../resources/image/"+p.post_fname).done(function() {
+								
+							}).fail(function() {
+								$(img).attr({
+									src :"../resources/image/error404.jpg"
+								})
+							})
 							var state=0;
 							$.each(like_post_no, function(i, no) {
 								if(no==p.post_no)
@@ -349,18 +357,6 @@
 							})
 							
 							
-						//	$(btn_edit).click(function() { //게시글 수정
-						//	 	var no=$(this).attr("no");
-						//		
-						//		$.ajax({url:"../detailPost?post_no="+no,success:function(data){
-						//			detail=eval("("+data+")")
-						//			//alert(detail.post_no)
-						//			$('#post_content').html(detail.post_content);
-						//			$('#updatate_Post_no').val(detail.post_no)
-						//	
-						//		}})
-						//	})
-						
 						$(btn_edit).click(function() { //게시글 수정 new
 						 	var no=$(this).attr("no");
 							
