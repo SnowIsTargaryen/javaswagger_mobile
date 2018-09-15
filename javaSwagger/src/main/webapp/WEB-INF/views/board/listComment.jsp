@@ -27,19 +27,21 @@
 			success:function(data){
 				var p=eval("("+data+")")
 				
-				$("#postWriter").html(p.user_ID)
+				$("#postWriter").html(p.user_ID);
 				$("#postContent").html(p.post_content)
 			
 		}})
 		
 		$.ajax({ //댓글 리스트
-			url:"../listComment.do?post_no=${post_no}",
+			url:"../listComment2.do?post_no=${post_no}",
 			success:function(data){
+				
 				var arr = eval("("+data+")")
 				//alert(arr)
 				$.each(arr, function(i,p){
+					//alert(p)
 					var div_comment=$("<div class='media text-muted pt-3'></div>")
-					var img_comment=$("<img data-src='holder.js/32x32?theme=thumb&amp;bg=e83e8c&amp;fg=e83e8c&amp;size=1' alt='32x32' class='mr-2 rounded' src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_165a026da79%20text%20%7B%20fill%3A%23e83e8c%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_165a026da79%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23e83e8c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2211.546875%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E' data-holder-rendered='true' style='width: 32px; height: 32px;'/>")
+					var img_comment=$("<img data-src='"+p.user_fname+"' alt='32x32' class='mr-2 rounded' src='../resources/image/"+p.user_fname+"' data-holder-rendered='true' style='width: 32px; height: 32px;'/>")
 					var p_comment=$("<p class='media-body pb-3 mb-0 small lh-125 border-bottom border-gray'></p>").html(p.comment_content);
 					var strong_comment=$("<strong class='d-block text-gray-dark'></strong>").html(p.user_ID)
 					
@@ -53,8 +55,8 @@
 					
 					if(user_SessionID!=p.user_ID){$(btn_DeleteComment).hide()}
 					$(h6).append(small);
-					$(h6).attr({
-						id:"h6_"+i
+					$(div_comment).attr({
+						id:"c_"+i
 					})
 					$(btn_DeleteComment).attr("idx", i)
 					
@@ -71,7 +73,7 @@
 								if(data>=1)
 								{
 									 alert("삭제되었습니다.");
-									 $("#h6_"+h).remove()
+									 $("#c_"+h).remove()
 								}
 								else
 								{
