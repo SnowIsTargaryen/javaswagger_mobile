@@ -85,7 +85,7 @@ public class InsertUserController {
 		@RequestMapping("account/idCheck.do")
 	    @ResponseBody
 	    public String idcheck(@RequestBody String user_id) {
-	        
+	        System.out.println("userid"+user_id);
 			String str="";
 	        int count = 0;
 	        ObjectMapper mapper = new ObjectMapper();

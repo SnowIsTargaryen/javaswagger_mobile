@@ -68,6 +68,10 @@
 		 -moz-appearance: none; 
 		 appearance: none;
 	}
+  
+  .bg-cover{
+		background-image: url(../resources/image/background.jpg);
+	}
 
 </style>
 
@@ -75,6 +79,8 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- icon을 위한link -->
 <link rel="stylesheet" href="../resources/css/footerBar.css" />
+<link rel="stylesheet" href="../resources/css/jumbotron.css" />
+<title>EditProfile</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
@@ -172,7 +178,6 @@
 
 </script>
 
-
 </head>
 <body>
 <header></header>
@@ -213,7 +218,7 @@
 <!--사용자 프로필  -->
 
 <!-- Jumbotrons -->
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid bg-cover">
   <div class="container" align="center">
     <p class="lead" >회원정보 수정</p>
     <hr>
@@ -257,9 +262,9 @@
 						  </div>
 						  
 						  <div class="form-group .col-3 col-sm-8 col-md-8  col-lg-5">
-						    <label for="user_Password "><i class="fas fa-phone-square"></i> </label>
+						    <label for="user_Phone "><i class="fas fa-phone-square"></i> </label>
 						    <span>${profile.user_Phone}</span>
-						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 번호 입력">
+						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 번호 입력" required>
 						  </div>
 						  <button type="submit" class="btn btn-success .col-3 col-sm-8 col-md-8  col-lg-5">회원정보 변경</button>
 						</form>
