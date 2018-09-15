@@ -226,7 +226,7 @@
 							var btn_group = $("<div></div>").addClass("btn-group")
 							
 							var div_f_left = $("<div></div>").addClass("float-left")
-							var s_comment = $("<small></small>").html("댓글보기 ")
+							var s_comment = $("<small></small>")
 							var a_comment = $("<a data-role='button' data-transition='slide'></a>").addClass("d-block").attr({
 								href : '../board/listComment?post_no='+p.post_no,	
 							})
@@ -277,8 +277,16 @@
 							})
 							
 							var like = cntLike(p.post_no,null);  //게시글 좋아요 값 저장
-							
 							(p_like_cnt).html("Like  "+like); //좋아요 설정
+							
+							var cntComment = cntCommnet(p.post_no);
+							//alert(cntComment)
+							$(s_comment).html("댓글보기  ")
+							if(cntComment!=0)
+							{
+								$(s_comment).html("댓글보기  " +cntComment)
+							}
+							
 							
 							$(btn_like).on("click",function() {
 								var no=$(this).attr("no");
@@ -637,6 +645,20 @@
 			
 			return result;
 		}
+		
+		function cntCommnet(postNo)
+		{ //좋아요 카운트 함수
+			var result;
+			$.ajax({
+				url:"../cntComment.do",
+				async: false,
+				data:{"post_no":postNo},
+				success:function(data){
+					result=data;
+			}})
+			return result;
+		}
+		
 	});
 
 </script>
