@@ -490,7 +490,7 @@
 			        <!-- <input type="text" class="form-control" placeholder="Search" name="user_ID">  -->
 			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
 			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" type="submit" >
+			          <button class="btn btn-outline-success border-left-0" style="border-color: #ced4da;" type="submit"  >
 							<img src="resources/icon/search2.png" width="18" height="18">
 					  </button>
 			        </div>

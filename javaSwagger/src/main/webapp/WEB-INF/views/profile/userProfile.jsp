@@ -78,6 +78,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <!--부트 스트랩 CDN  -->
 
+    <!-- Bootstrap Core CSS -->
+    <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="../resources/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../resources/css/stylish-portfolio.min.css" rel="stylesheet">
+
 <script type="text/javascript">
 	$(function() {
 
@@ -665,7 +676,28 @@
 
 </head>
 <body>
-<header></header>
+
+
+    <!-- Navigation -->
+    <a class="menu-toggle rounded" href="#">
+      <i class="fas fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a class="js-scroll-trigger" href="#page-top">Menu</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="../data/bigData">빅데이터</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="../logout">Logout</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="#contact">Contact</a>
+        </li>
+      </ul>
+    </nav>
 <!--  네비게이션  -->
 	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
 
@@ -673,37 +705,21 @@
 		<div class="navbar-header navbar-center mx-auto">
 			<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
 		</div>
- 		<a href="settings"><i class="fa fa-cogs"></i></a> 
+ 		<!-- <a href="settings"><i class="fa fa-cogs"></i></a>  -->
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<form class="form-inline my-lg-0 mx-auto" id="F">
 			      <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
 			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" type="submit" >
-							<img src="../resources/icon/search2.png" width="18" height="18">
+			          <button  class="btn btn-outline-success border-left-0" style="border-color: #ced4da;" type="submit" >
+							<img class="img" src="../resources/icon/search2.png" width="18" height="18">
 					  </button>
 			        </div>
 			      </div>
 			    </form>
 			 </div>   
-
-			 <div class="navbar-nav mx-4 my-2 d-none d-sm-block">
-			     <div class="btn-group">  
-					<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-					<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-					</button>
-					<div class="dropdown-menu">
-					  <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-					  <a class="dropdown-item" href="../data/bigData">빅데이터</a>
-					  <a class="dropdown-item" href="../logout">로그아웃</a>
-					</div>
-				</div>
-			 </div> 
 	</nav>
-
-			
-</nav>
 
 	
 	
@@ -896,14 +912,21 @@
 	     </div>
      </div>
      
-<div class="icon-bar ">
-  <a href="../timeLine"><i class="fa fa-home"></i></a> 
-  <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
-  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
-  <a href="userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
-  <a href="editProfile"><i class="fa fa-cog"></i></a>
-</div>
+	<div class="icon-bar ">
+	  <a href="../timeLine"><i class="fa fa-home"></i></a> 
+	  <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
+	  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
+	  <a href="userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
+	  <a href="editProfile"><i class="fa fa-cog"></i></a>
+	</div>
 	
+	<!-- Bootstrap core JavaScript -->
+    <script src="../resources/vendor/jquery/jquery.min.js"></script>
+    <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for this template -->
+    <script src="../resources/js/stylish-portfolio.min.js"></script>
      
    
 	
