@@ -10,51 +10,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <!-- 부트 스트랩 CDN  -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="../resources/css/create.css">
-<style type="text/css">
-	.filebox input[type="file"]{ 
-		position: absolute; 
-		width: 1px; 
-		height: 1px; 
-		padding: 0; 
-		margin: -1px; 
-		overflow: hidden; 
-		clip:rect(0,0,0,0); 
-		border: 0; 
-		padding-left: 54px; 
-	} 
-	.filebox label {
-		 position: absolute; 
-		 display: inline-block; 
-		 padding: .5em .75em; 
-		 color: #999; 
-		 font-size: inherit; 
-		 line-height: 1.6; 
-		 vertical-align: middle; 
-		 background-color: #fdfdfd; 
-		 cursor: pointer; 
-		 border: 1px solid #ebebeb ; 
-		 border-bottom-color: #e2e2e2; 
-		 border-radius: .25em; 
-		 
-	 } /* named upload */ 
-	 .filebox .upload-name { 
-		 display: inline-block; 
-		 padding: .5em .75em; /* label의 패딩값과 일치 */ 
-		 font-size: inherit; 
-		 font-family: inherit; 
-		 line-height: 1.8; 
-		 vertical-align: middle; 
-		 background-color: #f5f5f5; 
-		 border: 1px solid #ebebeb; 
-		 border-bottom-color: #e2e2e2; 
-		 border-radius: .25em ; 
-		 -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
-		 -moz-appearance: none; 
-		 appearance: none;
-	}
-</style>
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 <script type="text/javascript">
 
 var phoneArr;
@@ -196,14 +152,14 @@ $(function() {
             	
             	$("#user_ID").css("background-color", "#FFCECE");
             	
-            	var warning = $("<span style='color:white;'>다른아이디를 입력하세요.</span>");
+            	var warning = $("<span>다른아이디를 입력하세요.</span>");
             	$("#user_ID_span").empty();
             	$("#user_ID_span").append(warning);
           
                 } else {
                 	$("#user_ID_span").empty();
                 	$("#user_ID").css("background-color", "#B0F6AC");
-                	var a = $("<span style='color:white;'>사용가능한 아이디입니다.</span>");
+                	var a = $("<span>사용가능한 아이디입니다.</span>");
                 	$("#user_ID_span").append(a);
                  	idck = 1;
                  
@@ -404,29 +360,30 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 <title>회원가입</title>
 </head>
 <body>
- <div class="modal-dialog text-center">
-     	<div class="col-sm-8 main-section">
-     		<div class="modal-content">
-			<h3 style="color:white;">회원가입</h3>
+<div class="container" >
+	<div class="row" >
+		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
 			<form action="../account/create" id="userInfo" method="post" enctype="multipart/form-data">
 			  <div class="form-group ">
+			    <label for="user_ID">아이디</label>
 			    <input type="text" class="form-control" id="user_ID" name="user_ID" placeholder="아이디를 입력하세요" required="required">
-			    <button type="button" class="btn" id="idck">중복확인</button>
+			    <input type="button" value="중복확인"  id="idck">
 			    <span id="user_ID_span"></span>
 			  </div>
 				
 			   <div class="form-group">
-				  
+				    <label for="user_Password">비밀번호</label>
 				    <input type="password" class="form-control" id="user_Password" name="user_Password" placeholder="비밀번호를 입력하세요" required="required">
 				  </div>
 				   <div class="form-group">
-				  
+				  <label for="repwd">비밀번호 확인</label> 
 		            <input type="password"  placeholder="비밀번호를 다시 입력하세요" name="repwd" 
 		               class="form-control" required class="pass" id="repwd" oninput="checkPwd()"> 
 		          		<span id="pwdcheck"></span>
 		          </div>
 		        
 				  <div class="form-group">
+				  	    <label for="user_Password ">Email</label>
 					    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="email을 입력하세요" oninput="checkMail()" required="required">
 					     <span id="user_Mail_span"></span>
 					     
@@ -435,26 +392,21 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 					  	<span id="msg"></span> -->
 				  </div>
 				  <div class="form-group">
+				    <label for="user_Password ">Phone</label>
 				    <input type="text" class="form-control" id="user_Phone" name="user_Phone" oninput="checkPhone()" placeholder="핸드폰 번호 입력 (-없이 입력해주세요!)" required="required">
-				    <button type="button" class="btn" id="phoneck" data-toggle="modal" data-target="#checkPhone">핸드폰인증</button>
 				    <span id="user_Phone_span"></span>
-				    <input type="hidden" id="isPhone" value="0"> <!-- 유효성검사 통과 했는지 마는지 -->
-					<span id="pmsg"></span>
+				    
+				     <input type="button" value="핸드폰인증" id="phoneck" data-toggle="modal" data-target="#checkPhone">
+					    <input type="hidden" id="isPhone" value="0"> <!-- 유효성검사 통과 했는지 마는지 -->
+					  	<span id="pmsg"></span>
 				  </div>
 								   
-				 <!--  <div class="filebox">
-				    <label for="user_Photo" style="color:white;"><i class="far fa-image"></i></label>
+				  <div class="form-group">
+				    <label for="user_Password ">Profile Photo</label>
 	        		<input type="file" class="form-contorl-file" name="uploadFile">
-	        	 </div> -->
-	        	 
-	        	  <div class="filebox"> <!-- 새로운 파일 처리를 할 부분 -->
-								<label for="ex_filename" class="far fa-image"></label> 
-								<input class="upload-name" value="          파일선택" disabled="disabled">
-								<input type="file" id="ex_filename" class="upload-hidden" name="uploadFile"> 
-							</div>
-	        	 
-				  <button type="submit" class="btn" id="join" disabled="true">회원가입</button>
-				  <p id="announce" style="color:white;">*인증완료시 버튼이 활성화</p>
+	        	 </div>
+				  <button type="submit" class="btn btn-success col-md-4" id="join" disabled="true">회원가입</button>
+				  <span id="announce">*인증완료시 버튼이 활성화 됩니다.</span>
 				</form>
 			</div>
 		</div>
