@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- icon을 위한link -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link rel="stylesheet" href="../resources/css/footerBar.css" />
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <style type="text/css">
@@ -18,6 +18,10 @@
 	 /*  background: #f5b335;  */
 	  transition: top 0.2s ease-in-out; 
 	  }  
+	  .nav{
+	  	background-color: #27c2a5;
+	  	color: white;
+	  }
 	  .nav-up { 
 	  top: -40px; 
 	   }
@@ -646,6 +650,11 @@
 			return result;
 		}
 		
+
+		$("#settings").click(function(){
+			location.href="settings";
+		});
+
 		function cntCommnet(postNo)
 		{ //좋아요 카운트 함수
 			var result;
@@ -658,7 +667,6 @@
 			}})
 			return result;
 		}
-		
 	});
 
 </script>
@@ -667,13 +675,13 @@
 <body>
 <header></header>
 <!--  네비게이션  -->
-	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
+	<nav class="nav navbar navbar-expand-sm">
 
  	 
 		<div class="navbar-header navbar-center mx-auto">
 			<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
 		</div>
- 		<a href="settings"><i class="fa fa-cogs"></i></a> 
+ 		<i class="fas fa-cogs" id="settings"></i> 
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<form class="form-inline my-lg-0 mx-auto" id="F">
@@ -787,13 +795,13 @@
 	</div> 
 	
 	<!-- detail modal -->
-	<div class="modal modal-center fade no-gutters" id="detail_Dialog" role="dialog"  tabindex="-1">
-		<div class="modal-dialog modal-dialog-center" id="modal-detail" role="document">
+	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
+		<div class="modal-dialog modal-dialog-center mx-auto" id="modal-detail" role="document">
 			<div class="modal-content h-100 d-flex no-gutters" id="content">
-				<div class="container-fluid">
+				<div class="container-fluid no-gutters" id="detailModalContainer">
 					<div class="row d-flex no-gutters">
-						<div class="col-md-8 box-shadow h-100 w-100" >
-						<img  id="detail_Img" class="img-fluid d-inline-block">
+						<div class="col-md-8" >
+						<img  id="detail_Img" class="img-fluid d-inline-block h-100 w-100">
 						</div>
 						<div class="col-md-4 fluid h-100 w-100 no-gutters">	
 							<div class="modal-header">
@@ -899,8 +907,8 @@
 <div class="icon-bar ">
   <a href="../timeLine"><i class="fa fa-home"></i></a> 
   <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
-  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
-  <a href="userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
+  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fas fa-pencil-alt"></i></a>
+  <a href="profile/userProfile?user_ID=${user_ID }"><i class="fas fa-user-circle"></i></a> 
   <a href="editProfile"><i class="fa fa-cog"></i></a>
 </div>
 	
