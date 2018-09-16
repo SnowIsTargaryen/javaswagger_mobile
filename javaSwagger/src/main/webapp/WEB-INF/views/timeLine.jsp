@@ -500,63 +500,21 @@
 	
 	
 	<!-- detail modal -->
-	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
-		<div class="modal-dialog modal-dialog-center mx-auto" id="modal-detail"  role="document">
-			<div class="modal-content h-100 w-100 d-flex no-gutters" id="content">
-				<div class="container-fluid no-gutters" id="detailModalContainer">
-					<div class="row d-flex no-gutters">
-						<div class="col-md-8" >
-						<img  id="detail_Img" class="img-fluid d-inline-block h-100 w-100">
-						</div>
-						<div class="col-md-4">	
-							<div class="modal-header">
-								<h3 id="h3_detail_userID"></h3>
-							</div>
-							<div class="modal-body" style="overflow:auto">
-								<div class="row" id="detail_content">
-									<div class="col-sm-12">
-										<h6 id="h6_detail_userID"><small id="small_detail_content">내용</small></h6>
-									</div>
-								</div>
-								<div class="row" id="row_comment_content">
-									<div class="col-sm-12" id="col_comment_content">
-										<h6><small></small></h6>
-									</div>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<div class="row">
-									<div class="col-sm-12">
-										<form action="insertComment.do" method="post">
-										  <div class="form-row align-items-left">
-										  	<div class="col-auto">
-										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
-										  	</div>
-										  	<div class="col-auto">
-										  		<input type="hidden" name="post_no" id="post_no">
-										  		<!-- vn 추가한 거 -->
-										  		<input type="hidden" name="vn" id="vn" value="timeLine">
-										  	</div>
-										  	<div class="col-sm-10">
-										  		<div class="input-group mb-3">
-										  			<input type="text" class="form-control" id="comment_content" name="comment_content" placeholder="댓글 달기">
-													<div class="input-group-append">
-														<button type="submit" class="btn btn-primary">등록</button>
-													</div>
-										  		</div>
-										  	</div>
-										  	
-										  </div>				
-										</form>
-									</div>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	
+	<div class="modal fade" id="detail_Dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="h3_detail_userID"></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+       		<img  id="detail_Img" class="img-fluid d-inline-block h-100 w-100">
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
 <div class="icon-bar ">
