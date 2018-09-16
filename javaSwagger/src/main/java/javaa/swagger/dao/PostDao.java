@@ -31,4 +31,9 @@ public class PostDao {
 	   {
 		   return PostManager.getNextNo();
 	   }
+	   
+	   public int autoDelete() {
+			// TODO Auto-generated method stub
+			return PostManager.autoDelete();
+		}
 }

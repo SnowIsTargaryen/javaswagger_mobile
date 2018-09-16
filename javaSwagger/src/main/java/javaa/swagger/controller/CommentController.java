@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javaa.swagger.dao.CommentDao;
 import javaa.swagger.vo.CommentVo;
+import javaa.swagger.vo.CommentVo2;
 import javaa.swagger.vo.PostVo;
 
 @Controller
@@ -65,6 +66,45 @@ public class CommentController {
 		//System.out.println(str);
 		return str;
 	}
+	//user_fname 까지
+	@RequestMapping(value="listComment2.do", produces="text/plain;charset=utf-8")
+	@ResponseBody // ajax 반환
+	public String readComment2(@RequestParam(value="post_no") int post_no) {
+		ArrayList<CommentVo2> list = new ArrayList<CommentVo2>();
+//		System.out.println(post_no);
+		HashMap map = new HashMap();
+		map.put("post_no", post_no);
+		List<CommentVo2> listt = dao.readComment2(map);
+		for(CommentVo2 c : listt) {
+			list.add(c);
+		}
+		String str = "";
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(list);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		//System.out.println(str);
+		return str;
+	}
+	
+	@RequestMapping(value="cntComment.do", produces="text/plain;charset=utf-8")
+	@ResponseBody // ajax 반환
+	public String cntComment(String post_no) {
+		HashMap map = new HashMap();
+		String str = "";
+		ObjectMapper mapper = new ObjectMapper();
+		map.put("post_no", post_no);
+		//int re = dao.cntLike(map);
+		try {
+		str=mapper.writeValueAsString(dao.cntComment(map));
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return str;
+	}
 	
 //	// MAV 방식으로 진행시에는 하나의 게시물을 클릭 했을때 코멘트가 뜨므로 서비스명을 detailPost로 했습니다.
 //	@RequestMapping("detailPost.do")
@@ -77,7 +117,7 @@ public class CommentController {
 //	}
 	
 	@RequestMapping(value="insertComment",method=RequestMethod.POST) // ajax 방식으로 자료 받아오기
-	public ModelAndView newComment(CommentVo cv) {
+	public ModelAndView newComment(CommentVo cv, String vn) {
 		
 		System.out.println(cv.getComment_no());
 		System.out.println(cv.getUser_ID());
@@ -98,7 +138,16 @@ public class CommentController {
 			mav.addObject("msg", "댓글 등록에 실패하였습니다.");
 			mav.setViewName("error.do");
 		} else {
-			mav.setViewName("redirect:/board/listComment?post_no="+cv.getPost_no());
+			if(vn.equals("timeLine")) {
+				mav.setViewName("redirect:/timeLine");
+			} else if(vn.equals("profile")){
+				mav.setViewName("redirect:/profile/userProfile?user_ID="+cv.getUser_ID());
+			} else if(vn.equals("lc")) {
+				mav.setViewName("redirect:/board/listComment?post_no="+cv.getPost_no());
+			}
+			else {
+				mav.setViewName("redirect:/hashtag?keyword=" + (String)vn);
+			}
 		}
 		return mav;
 	}

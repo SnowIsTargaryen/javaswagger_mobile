@@ -45,9 +45,7 @@
 	</if>
 	where user_ID=#{user_ID}
   </update>
-  
-  
-  
+
   <delete id="withDraw">
   	delete users where user_ID=#{user_ID} and user_Password=#{user_Password}
   </delete>

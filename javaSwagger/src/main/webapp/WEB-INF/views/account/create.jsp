@@ -127,8 +127,6 @@ function checkPhone() {//phone 중복처리------------oninput 으로  한글자
 	     
 }//phone 중복처리--------------------------------------------------------
 
-//------------------------------------------------------------------------------------
-
 //아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )--------------------------------------
 var idck = 0;
 $(function() {
@@ -188,7 +186,7 @@ $("#phoneck").click(function(){//sms핸드폰 인증모달 버튼 누를 때 문
 	         data:user_phone,
 	         success:function(data){
 			 var da = eval("("+data+")")
-				alert(da)
+				
 			
 			 	$("#btnPhone").click(function () { 
 					var inputPhone = $("#inputPhone").val();
@@ -304,15 +302,6 @@ $("#mailck").click(function(){//메일 인증-----------------------------------
 	});
 	 
 
-	//$("#btnPrimary").click(function () {
-	//	inpCode = $("#btnPrimary").val();
-	//	$("#inpCode").val(inpCode);
-	//	$("#conCode").val(conCode);
-	//	if(inpCode == conCode){
-	//		$(this).attr("data-dismiss","modal");
-	//	}
-	//})
-	
 	$("#btnPrimary").click(function () {
 		inpCode = $("#inputNum").val();
 		
@@ -371,16 +360,6 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 <title>회원가입</title>
 </head>
 <body>
-
-	<!--   <form action="../account/create" method="post">
-		아이디:<input type="text" name="user_ID"><br>
-		비밀번호:<input type="text" name="user_Password"><br>
-		이메일:<input type="text" name="user_Email"><br>
-		폰:<input type="text" name="user_Phone"><br>
-		<input type="submit" value="등록">
-	</form>   -->	
-
-
 <div class="container" >
 	<div class="row" >
 		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -408,9 +387,9 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 					    <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="email을 입력하세요" oninput="checkMail()" required="required">
 					     <span id="user_Mail_span"></span>
 					     
-					    <input type="button" value="메일인증" id="mailck" data-toggle="modal" data-target="#checkEmil">
-					    <input type="hidden" id="isMail" value="0"> <!-- 메일 통과 했는지 마는지 -->
-					  	<span id="msg"></span>
+					   <!--  <input type="button" value="메일인증" id="mailck" data-toggle="modal" data-target="#checkEmil">
+					    <input type="hidden" id="isMail" value="0"> 메일 통과 했는지 마는지
+					  	<span id="msg"></span> -->
 				  </div>
 				  <div class="form-group">
 				    <label for="user_Password ">Phone</label>

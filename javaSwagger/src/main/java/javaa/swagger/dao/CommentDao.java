@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javaa.swagger.db.CommentManager;
 import javaa.swagger.vo.CommentVo;
+import javaa.swagger.vo.CommentVo2;
 @Repository
 public class CommentDao {
 		public int newComment(HashMap map){
@@ -27,9 +28,22 @@ public class CommentDao {
 	   public List<CommentVo> readComment(HashMap map){
 	      return CommentManager.readComment(map);
 	   }
+	   public List<CommentVo2> readComment2(HashMap map){
+		   return CommentManager.readComment2(map);
+	   }
 	   
 	   public int getNextNo()
 	   {
 		   return CommentManager.getNextNo();
 	   }
+	   
+	   public int autoDelete() {
+			// TODO Auto-generated method stub
+			return CommentManager.autoDelete();
+		}
+
+	public int cntComment(HashMap map) {
+		// TODO Auto-generated method stub
+		return CommentManager.cntComment(map);
+	}
 }

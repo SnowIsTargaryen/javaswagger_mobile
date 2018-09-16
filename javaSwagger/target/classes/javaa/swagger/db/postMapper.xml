@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="post">
 	<insert id="insertPost" parameterType="postVo">
-		insert into post values(#{post_no},#{user_ID},sysdate,sysdate+(INTERVAL '1' YEAR),#{post_content},#{post_fname})
+		insert into post values(#{post_no},#{user_ID},sysdate,sysdate+(INTERVAL '1' MONTH),#{post_content},#{post_fname},#{post_hash})
 	</insert>
 	
 	<delete id="deletePost">
@@ -22,15 +22,17 @@
 	</select>
 	
 	<select id="detailPost" resultType="postVo"> <!-- 하나의 포스트 보는 sql -->
-		select * from post where post_no=#{post_no}
+		select p.post_no, p.user_id, p.post_time, p.post_deltime, p.post_content, p.post_fname, u.user_fname from post p, users u where post_no=#{post_no} and p.user_id=u.user_id
 	</select>
 	
 	<select id="nextNo" resultType="java.lang.Integer">
 		select nvl(max(post_no),0)+1 from post
 	</select>
 
+	<delete id="autoDelete">
+		<![CDATA[
+			delete post where post_deltime <= sysdate
+		]]>
+	</delete>
 
-
-	
-	
 </mapper>
