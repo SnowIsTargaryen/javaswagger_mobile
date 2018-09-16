@@ -34,8 +34,7 @@
 		else //일간 검색기록수
 		{
 			keywordCnt[i]=data;
-			//console.log(keywordCnt[i])
-			//alert(data)	
+
 		}
 		
 		
@@ -45,11 +44,9 @@
 	})
 	
 	$.each(keyword, function(i, elt) {
-		//alert(i+"/"+elt)
-		/* var j = 1; */
 		if(i%2==0 && i<9)
 		{
-			alert(elt)
+
  			var div = $("<div></div>").addClass("col-6 col-sm-2 placeholder text-center")
 			var img = $("<img alt='Generic placeholder thumbnail'>").attr({src:"//placehold.it/200/dddddd/fff?text="+j}).addClass("mx-auto img-fluid rounded-circle")
 			var h4 = $("<h4></h4>").html(elt)
@@ -155,8 +152,8 @@
 			<div class="col-md-auto">
 				<div id="chartContainer" style="height: 400px; width: 500px; margin-top: 50px;"></div>
 			</div>
-			<div class="col-md-auto">
-				<div class="row placeholders mb-3" id="keywordList">
+			<div class="col-md-auto" id="hashtagKeyWord" >
+				<div class="row placeholders mb-3 d-flex justify-content-center" id="keywordList">
 	                <!-- <div class="col-6 col-sm-2 placeholder text-center">
 	                    <img src="//placehold.it/200/dddddd/fff?text=1" class="mx-auto img-fluid rounded-circle" alt="Generic placeholder thumbnail">
 	                    <h4>Responsive</h4> 
