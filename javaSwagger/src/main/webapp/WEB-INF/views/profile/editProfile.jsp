@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
+
 <style type="text/css">
 	 header {
 	  position: fixed; 
@@ -72,15 +73,20 @@
   .bg-cover{
 		background-image: url(../resources/image/background.jpg);
 	}
-
 </style>
 
 <title>EditProfile</title>
+
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- icon을 위한link -->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- icon을 위한link -->
+
 <link rel="stylesheet" href="../resources/css/footerBar.css" />
 <link rel="stylesheet" href="../resources/css/jumbotron.css" />
 <title>EditProfile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
@@ -88,7 +94,6 @@
 <!--부트 스트랩 CDN  -->
 <script type="text/javascript">
 	$(function() {
-
 		// Hide Header on on scroll down 
 		var didScroll; 
 		var lastScrollTop = 0; 
@@ -132,30 +137,14 @@
 		}
 		
 		<% String sesseing_id=(String)session.getAttribute("user_ID"); %>
-
 		/* $("#btnUserProfile").click(function() {
 			alert("ok")
 			location.href="../profile/userProfile?user_ID="+user_SessionID;
 		}) */
-		
-		
-		
-
-		
-	
-		var pFname='${profile.user_fname }'
-		if(pFname==null || pFname=='')
-		{
-			$("#proPhoto").attr({src:"../resources/icon/user2.png"})
-		}
-		 
-	
-
 		$("#btnUserProfile").click(function() {
 			
 			 location.href="../profile/userProfile?user_ID=";
 		})
-
 	})
 	
 	$(document).ready(function(){ 
@@ -175,8 +164,76 @@
 		$(this).siblings('.upload-name').val(filename); 
 		}); 
 	}); 
-
 </script>
+
+
+<style type="text/css">
+	 header {
+	  position: fixed; 
+	  top: 0; 
+	  left: 0; 
+	  width: 100%; 
+	  height: 1px; 
+	 /*  background: #f5b335;  */
+	  transition: top 0.2s ease-in-out; 
+	  }  
+	  .nav-up { 
+	  top: -40px; 
+	   }
+	
+	#proPhoto{
+		width: 120px;
+	    height:120px;
+	    border-radius: 60px; /* 이미지 반크기만큼 반경을 잡기*/
+	}
+	#modalProPhoto{
+		width: 120px;
+	    height:120px;
+	    border-radius: 60px; /* 이미지 반크기만큼 반경을 잡기*/
+	}
+	
+	.filebox input[type="file"]{ 
+		position: absolute; 
+		width: 1px; 
+		height: 1px; 
+		padding: 0; 
+		margin: -1px; 
+		overflow: hidden; 
+		clip:rect(0,0,0,0); 
+		border: 0; 
+	} 
+	.filebox label {
+		 display: inline-block; 
+		 padding: .5em .75em; 
+		 color: #999; 
+		 font-size: inherit; 
+		 line-height: 1.6; 
+		 vertical-align: middle; 
+		 background-color: #fdfdfd; 
+		 cursor: pointer; 
+		 border: 1px solid #ebebeb ; 
+		 border-bottom-color: #e2e2e2; 
+		 border-radius: .25em; 
+	 } /* named upload */ 
+	 .filebox .upload-name { 
+		 display: inline-block; 
+		 padding: .5em .75em; /* label의 패딩값과 일치 */ 
+		 font-size: inherit; 
+		 font-family: inherit; 
+		 line-height: 1.8; 
+		 vertical-align: middle; 
+		 background-color: #f5f5f5; 
+		 border: 1px solid #ebebeb; 
+		 border-bottom-color: #e2e2e2; 
+		 border-radius: .25em ; 
+		 -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+		 -moz-appearance: none; 
+		 appearance: none;
+	}
+	.bg-cover{
+		background-image: url(../resources/image/background.jpg);
+	}
+</style>
 
 </head>
 <body>
@@ -225,7 +282,8 @@
     <div class="tab-pane container active" id="editProfile">
 					
 						  <div class=" ">
-						  	<img id="proPhoto" data-target="#updatePost" src="../resources/image/${profile.user_fname }">
+						   	<img id="proPhoto" data-target="#updatePost" src="../resources/image/${profile.user_fname }">
+						   
 							<p for="user_ID" >${profile.user_ID}</p>
 						    <input type="hidden" class="form-control" id="user_ID" name="user_ID" value="${profile.user_ID }">
 						  </div>

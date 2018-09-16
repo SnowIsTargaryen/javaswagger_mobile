@@ -20,7 +20,15 @@
 	  height: 1px; 
 	 /*  background: #f5b335;  */
 	  transition: top 0.2s ease-in-out; 
+
 	  }  
+
+	  } 
+	  .nav{
+	  	background-color: #27c2a5;
+	  	color: white;
+	  }
+
 	  .nav-up { 
 	  top: -40px; 
 	   }
@@ -411,7 +419,11 @@
 <body>
 <header></header>
 <!--  네비게이션  -->
+
 	<nav class="nav navbar navbar-expand-sm navbar-light bg-light navbar-fixed-top mb-3">
+
+	<nav class="nav navbar navbar-expand-sm navbar-fixed-top mb-3">
+
 				<div class="navbar-header navbar-center mx-auto">
 					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Edem</a>
 				</div>
