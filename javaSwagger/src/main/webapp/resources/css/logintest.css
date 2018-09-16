@@ -3,7 +3,11 @@
 body{
 	font-family: 'Roboto', sans-serif;
 	background: url(../image/login_bg.jpg) no-repeat center center fixed;
+
 	background-size: 450px 900px;
+
+	background-size: cover; /*mobile 450px 700px*/
+
 	background-color: #E0F8F7;
 }
 .main-section{
@@ -83,3 +87,6 @@ button{
 .forgot a{
 	color: #c2fbfe;
 }
+
+}
+

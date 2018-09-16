@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body{
+	font-family: 'Roboto', sans-serif;
+	/* background: url(../image/login_bg.jpg) no-repeat center center fixed; */
+	background-size: cover; /*mobile 450px 700px*/
+	background-color: white;
+}
+.main-section{
+	margin: 0 auto;
+	margin-top: 10px;
+	padding: 0;
+}
+.modal-content{
+	background-color: #3b4652;
+	opacity: .95;
+	paddging: 0 18px;
+	box-shadow: 0px 0px 3px #848484;
+}
+.user-img{
+	margin-top: -50px;
+	margin-bottom: 35px;
+}
+.user-img img {
+	height: 100px;
+	width: 150px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 2pxx #3b4652;
+} 
+.foem-group{
+	margin-bottom: 10px;
+}
+.form-group input {
+	height: 100px;
+	width: 350px;
+	height: 42px;
+	border-radius: 5px;
+	border:0;
+	font-size: 15px;
+	margin-left: 15px;
+	margin-right: 10px;
+	/* padding-left: 54px; */
+}
+button{  
+	 width: 50%;
+	 margin: 5px 0 5px;
+}
+.btn{
+	background-color: #27c2a5;
+	color: #fff;
+	font-size: 19px;
+	padding: 3px 10px;
+	border-radius: 5px;
+	border-bottom: 4px solid #219882;
+}
+.btn:hover, .btn:focus{
+	background-color: #25a890!important;
+	border-bottom: 4px solid #25a890!important;
+}
+.svg-inline--fa {
+	font-size: 20px;
+	margin-right: 7px;
+}
+

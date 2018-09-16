@@ -1,0 +1,13 @@
+/.metadata/
+RemoteSystemsTempFiles/.project
+Servers/.project
+Servers/.settings/org.eclipse.wst.server.core.prefs
+Servers/Tomcat v8.5 Server at localhost-config/catalina.policy
+Servers/Tomcat v8.5 Server at localhost-config/catalina.properties
+Servers/Tomcat v8.5 Server at localhost-config/context.xml
+Servers/Tomcat v8.5 Server at localhost-config/server.xml
+Servers/Tomcat v8.5 Server at localhost-config/tomcat-users.xml
+Servers/Tomcat v8.5 Server at localhost-config/web.xml
+/.recommenders/
+javaSwagger/target/m2e-wtp/web-resources/META-INF/maven/com.bit/controller/pom.properties
+.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/write.lock
