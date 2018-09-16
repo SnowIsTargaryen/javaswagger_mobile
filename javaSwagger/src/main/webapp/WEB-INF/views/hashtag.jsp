@@ -43,9 +43,6 @@
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}
-	.card-img-top{
-		height: 350px;
-	}
 		
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -174,15 +171,6 @@
 								src :"resources/image/"+p.post_fname,
 								alt : "Card image cap"
 							})
-							
-							$.get("resources/image/"+p.post_fname).done(function() {
-								
-							}).fail(function() {
-								$(img).attr({
-									src :"resources/image/error404.jpg"
-								})
-							})
-							
 							var state=0;
 							$.each(like_post_no, function(i, no) {
 								if(no==p.post_no)
