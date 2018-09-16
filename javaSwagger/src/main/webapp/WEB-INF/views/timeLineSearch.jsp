@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link rel="stylesheet" href="resources/css/footerBar.css" />
 <title>TimeLine</title>
 <style type="text/css">
@@ -18,6 +19,10 @@
 	 /*  background: #f5b335;  */
 	  transition: top 0.2s ease-in-out; 
 	  }  
+	  .nav{
+	  	background-color: #27c2a5;
+	  	color: white;
+	  }
 	  .nav-up { 
 	  top: -40px; 
 	   }
@@ -481,41 +486,33 @@
 
 </head>
 <body>
+<<<<<<< HEAD
+=======
 <header></header>
 <!--  네비게이션  -->
-	<nav class="nav navbar navbar-expand-sm navbar-light bg-light mb-3">
+	<nav class="nav navbar navbar-expand-sm mb-3">
  	 
 	<div class="navbar-header navbar-left mx-auto">
 		<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Edem</a>
 	</div>
+>>>>>>> 19309213abb8dcffbfa8abc8df931e88e367f247
 
-			<!-- <div class="collapse navbar-collapse d-none d-sm-block" id="navbarSupportedContent"> -->
-			<div class=" " id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" id="F">
-			      <div class="input-group">
+<!--  네비게이션  -->
+	<nav class="nav navbar navbar-expand-sm navbar-light bg-light mb-3 d-flex justify-content-center">
+			<div class="nav justify-content-center  w-100 mw-100" id="navbarSupportedContent">
+				<form class="form-inline mx-auto w-100 mw-100" id="F">
+			      <div class="input-group mx-auto mw-100">
 			        <!-- <input type="text" class="form-control" placeholder="Search" name="user_ID">  -->
 			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
 			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" type="submit" >
-							<img src="resources/icon/search2.png" width="18" height="18">
+			          <button class="btn" type="submit" >
+							<i class="fas fa-search"></i>
+							<!-- <img src="resources/icon/search2.png" width="18" height="18"> -->
 					  </button>
 			        </div>
 			      </div>
 			    </form>
 			 </div>     
-			 
-<!-- 			 <div class=" d-sm-none" id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" id="FM">
-			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keywordM">
-			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" id="BM" type="submit" >
-							<img src="resources/icon/search2.png" width="18" height="18">
-					  </button>
-			        </div>
-			      </div>
-			    </form>
-			 </div>      -->
 	</nav>
 	
 	<!-- <!-- 게시글  -->
@@ -658,8 +655,8 @@
 <div class="icon-bar ">
   <a href="timeLine"><i class="fa fa-home"></i></a> 
   <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
-  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
-  <a href="profile/userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
+  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fas fa-pencil-alt"></i></a>
+  <a href="profile/userProfile?user_ID=${user_ID }"><i class="fas fa-user-circle"></i></a> 
    <a href="profile/editProfile"><i class="fa fa-cog"></i></a> 
 </div>
 	

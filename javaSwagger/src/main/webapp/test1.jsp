@@ -72,6 +72,46 @@
 
 </head>
 <body>	
+
+<!--  네비게이션  -->
+	<nav class="navbar">
+		<div class="container-fluid">
+			<div class="col-4">
+				<div class="navbar-header navbar-left">
+					<h1><a class="navbar-brand" href="../timeLine">Eden</a></h1>
+				</div>
+			</div>
+			<div class="col-4">
+				<form class="navbar-form navbar-center" action="../search">
+			      <div class="input-group">
+			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
+			        <div class="input-group-append">
+			          <button class="btn btn-outline-secondary" type="submit" >
+							<img src="resources/icon/search2.png" width="18" height="18">
+					  </button>
+			        </div>
+			      </div>
+			    </form>
+			</div>
+			<div class="col-4 d-flex justify-content-end align-items-center">
+	            <div class="btn-group">
+	            <button type="button" class="btn btn-sm btn-outline-secondary border-0" id="btnUserProfile"><img src="resources/icon/analysis24b.png"  width="18" height="18"></button>
+			    <button type="button" class="btn btn-sm btn-outline-secondary border-0"><img src="resources/icon/logout24b.png"  width="18" height="18"></button>
+	           <!--  <div class="btn-group" role="group">
+		      	<button type="button" class="btn btn-sm btn-outline-secondary border-0 text-white" data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</button>
+		      	<button type="button" class="btn btn-sm btn-outline-secondary border-0 text-white" data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</button>
+		      	<button type="button" class="btn btn-sm btn-outline-secondary border-0" data-toggle="modal" data-target="#insertPost" id="write" ><img  src="../resources/icon/quill-drawing-a-line24w.png"></button>
+		      </div> -->
+			    
+			   <!--  <div class="dropdown-menu">
+			      <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
+			      <a class="dropdown-item" href="../logout">로그아웃</a>
+			    </div> -->
+			  </div>
+	        </div>
+		</div> <!-- 컨테이너  -->
+	</nav>
+
 	<div class="my-3 p-3 bg-white rounded shadow-sm">
         <h6 class="border-bottom border-gray pb-2 mb-0">Suggestions</h6>
         <div class="media text-muted pt-3">

@@ -30,6 +30,48 @@
 <script type="text/javascript">
 	$(function() {
 		
+		// Hide Header on on scroll down 
+		var didScroll; 
+		var lastScrollTop = 0; 
+		var delta = 5; 
+		var navbarHeight = $('header').outerHeight(); 
+		
+		$(window).scroll(function(event){ 
+			didScroll = true; 
+		}); 
+		
+		setInterval(function() { 
+			if (didScroll) { 
+				hasScrolled(); 
+				didScroll = false; 
+		} 
+		}, 250); 
+		
+		function hasScrolled() { 
+			var st = $(this).scrollTop(); 
+			
+			// Make sure they scroll more than delta 
+			if(Math.abs(lastScrollTop - st) <= delta) return; 
+			
+			// If they scrolled down and are past the navbar, add class .nav-up. 
+			// This is necessary so you never see what is "behind" the navbar. 
+			if (st > lastScrollTop && st > navbarHeight){ 
+				
+				// Scroll Down 
+				 $( '.icon-bar' ).fadeOut();
+			}
+			else { 
+			
+			// Scroll Up 
+			if(st + $(window).height() < $(document).height()) { 
+				 $( '.icon-bar' ).fadeIn(); 
+				} 
+			} 
+			
+			lastScrollTop = st;
+			
+		}
+		
 		<%String user_ID = request.getParameter("user_ID");%>//url 아이디
 		<%String keyword = request.getParameter("keyword");%>//url keyword
 	//	var user_SessionID="${user_ID}"//세션 아이디
@@ -148,18 +190,10 @@
 <body>
 <header></header>
 	<!--  네비게이션  -->
-	<nav class="navbar">
-		<div class="container">
-			<div class="col-4">
-				<div class="navbar-header navbar-left">
-					<h1>
-						<a class="navbar-brand" href="timeLine">Eden</a>
-					</h1>
-				</div>
-			</div>
-			<div class="">
-				<form class="navbar-form navbar-center" id="F">
-					<div class="input-group">
+	<nav class="nav navbar navbar-expand-sm navbar-light bg-light mb-3 d-flex justify-content-center">
+			<div class="nav justify-content-center w-100 mw-100">
+				<form class="form-inline mx-auto w-100 mw-100" id="F">
+					<div class="input-group mx-auto mw-100">
 						<input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
 						<div class="input-group-append">
 							<button class="btn btn-outline-secondary" type="submit">
@@ -169,27 +203,22 @@
 					</div>
 				</form>
 			</div>
-			<%-- <div class="col-4 d-flex justify-content-end align-items-center">
-				<div class="btn-group">
-
-					<button type="button" class="btn btn-outline-primary" id="btnUserProfile">${user_ID }</button>
-					<button type="button"
-						class="btn btn btn-outline-primary btn-sm dropdown-toggle"
-						data-toggle="dropdown" aria-expanded="false"></button>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="profile/editProfile">프로필 설정</a> <a
-							class="dropdown-item" href="logout">로그아웃</a>
-					</div>
-				</div>
-			</div> --%>
-		</div>
-		<!-- 컨테이너  -->
 	</nav>
+
+
 	<!-- 유저 리스트 -->
 	<div id="userList" class="my-3 p-3 bg-white rounded shadow-sm">
         <h6 class="border-bottom border-gray pb-2 mb-0">사용자 목록</h6>
-
     </div>
+    <!-- 하단바-->
+    <div class="icon-bar ">
+	  <a href="timeLine"><i class="fa fa-home"></i></a> 
+	  <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
+	  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
+	  <a href="profile/userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
+	   <a href="profile/editProfile"><i class="fa fa-cog"></i></a> 
+	</div>
+	
 
 
 </body>

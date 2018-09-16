@@ -25,10 +25,10 @@
      			</div>
      				
      			<form class="col-12">
-					<div class="form-group" id="userid">
+					<div class="form-group" id="user_ID">
 						<input type="text" class="form-control" placeholder="Enter ID">	
 					</div>  			
-					<div class="form-group" id="pwd">
+					<div class="form-group" id="user_Password">
 						<input type="password" class="form-control" placeholder="Enter Password">	
 					</div>  			
 					<button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Login</button>
