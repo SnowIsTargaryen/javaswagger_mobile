@@ -26,8 +26,9 @@
 			data:{"post_no":postNo},
 			success:function(data){
 				var p=eval("("+data+")")
-				alert(p.user_fname)
+				//alert(p.user_fname)
 				$("#postImage").attr({src:"../resources/image/"+p.user_fname+""});
+				if(p.user_fname==null){$("#postImage").attr({src:"../resources/icon/user2.png"});}
 				$("#postWriter").html(p.user_ID);
 				$("#postContent").html(p.post_content)
 			
@@ -38,24 +39,20 @@
 			success:function(data){
 				
 				var arr = eval("("+data+")")
-				//alert(arr)
+				
 				$.each(arr, function(i,p){
-					//alert(p)
+					
 					var div_comment=$("<div class='media text-muted pt-3'></div>")
 					var img_comment=$("<img data-src='"+p.user_fname+"' alt='32x32' class='mr-2 rounded' src='../resources/image/"+p.user_fname+"' data-holder-rendered='true' style='width: 32px; height: 32px;'/>")
+					if(p.user_fname==null){$(img_comment).attr({src:"../resources/icon/user2.png"})}
 					var p_comment=$("<p class='media-body pb-3 mb-0 small lh-125 border-bottom border-gray'></p>").html(p.comment_content);
 					var strong_comment=$("<strong class='d-block text-gray-dark'></strong>").html(p.user_ID)
-					
-					var h6 = $("<h6 class='d-inline float-left'></h6>").html(p.user_ID+" ");
-					var small = $("<small></small>").html(p.comment_content);
-					
+			
 					var btn_DeleteComment=$("<button type='button' class='close float-right' aria-label='Close'><span aria-hidden='true'>&times;</span></button>")
 					
-					//<div class="col-sm-12"><h6 class="d-inline float-left">tiger<small>tt</small></h6><button type='button' class='close float-right' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>
-
 					
 					if(user_SessionID!=p.user_ID){$(btn_DeleteComment).hide()}
-					$(h6).append(small);
+
 					$(div_comment).attr({
 						id:"c_"+i
 					})
@@ -104,9 +101,9 @@
 			<div class="col col-md-6">
 			
 				<div class="card">
-				  <div class="card-header ">
+				  <div class="card-header d-flex justify-content-between">
 				    	<button type="button" class="btn flot-right btn-sm btn-outline-secondary border-0" id="back"><img src="../resources/icon/left-arrow.png" ></button>
-				    	<p class="mx-auto text-center">댓글목록</p>
+				    	<p class="mx-auto text-center" style="margin-top: 10px;">댓글목록</p>
 				  </div>
 				 
 				  <div class="card-body" id="col_comment_content">

@@ -90,6 +90,22 @@ public class CommentController {
 		return str;
 	}
 	
+	@RequestMapping(value="cntComment.do", produces="text/plain;charset=utf-8")
+	@ResponseBody // ajax 반환
+	public String cntComment(String post_no) {
+		HashMap map = new HashMap();
+		String str = "";
+		ObjectMapper mapper = new ObjectMapper();
+		map.put("post_no", post_no);
+		//int re = dao.cntLike(map);
+		try {
+		str=mapper.writeValueAsString(dao.cntComment(map));
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return str;
+	}
+	
 //	// MAV 방식으로 진행시에는 하나의 게시물을 클릭 했을때 코멘트가 뜨므로 서비스명을 detailPost로 했습니다.
 //	@RequestMapping("detailPost.do")
 //	public ModelAndView readComment(String post_no) {

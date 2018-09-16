@@ -189,7 +189,7 @@
 							var btn_group = $("<div></div>").addClass("btn-group")
 							
 							var div_f_left = $("<div></div>").addClass("float-left")
-							var s_comment = $("<small></small>").html("댓글보기 ")
+							var s_comment = $("<small></small>")
 							var a_comment = $("<a data-role='button' data-transition='slide'></a>").addClass("d-block").attr({
 								href : 'board/listComment?post_no='+p.post_no,	
 							})
@@ -222,6 +222,17 @@
 								src :"resources/image/"+p.post_fname,
 								alt : "Card image cap"
 							})
+							
+							
+							$.get("resources/image/"+p.post_fname).done(function() {
+								
+							}).fail(function() {
+								$(img).attr({
+									src :"resources/image/error404.jpg"
+								})
+							})
+							
+							
 							var state=0;
 							$.each(like_post_no, function(i, no) {
 								if(no==p.post_no)
@@ -232,8 +243,16 @@
 							})
 							
 							var like = cntLike(p.post_no,null);  //게시글 좋아요 값 저장
+							$(p_like_cnt).html("likes  "+like); //좋아요 설정
 							
-							(p_like_cnt).html("likes  "+like); //좋아요 설정
+							var cntComment = cntCommnet(p.post_no);
+							//alert(cntComment)
+							$(s_comment).html("댓글보기  ")
+							if(cntComment!=0)
+							{
+								$(s_comment).html("댓글보기  " +cntComment)
+							}
+							
 							
 							$(div_card_header).click(function() {
 								var followId=$(this).html();
@@ -294,6 +313,14 @@
 									//alert(data)
 									$('#post_no').val(detail.post_no);
 									$('#detail_Img').attr("src", "resources/image/"+detail.post_fname);
+									
+									$.get("resources/image/"+detail.post_fname).done(function() {
+										
+									}).fail(function() {
+										$('#detail_Img').attr({
+											src :"resources/image/error404.jpg"
+										})
+									})
 									$('#h3_detail_userID').html(detail.user_ID);
 									$('#small_detail_content').html(detail.post_hash);
 									$.ajax({ //댓글 리스트
@@ -356,6 +383,18 @@
 					url:"cntLike.do",
 					async: false,
 					data:{"post_no":postNo,"comment_no":commentNo},
+					success:function(data){
+						result=data;
+				}})
+				return result;
+			}
+			function cntCommnet(postNo)
+			{ //좋아요 카운트 함수
+				var result;
+				$.ajax({
+					url:"cntComment.do",
+					async: false,
+					data:{"post_no":postNo},
 					success:function(data){
 						result=data;
 				}})
@@ -458,12 +497,12 @@
 	
 	<!-- detail modal -->
 	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
-		<div class="modal-dialog modal-dialog-center"  role="document">
+		<div class="modal-dialog modal-dialog-center mx-auto"  role="document">
 			<div class="modal-content h-100 d-flex no-gutters" id="content">
 				<div class="container-fluid no-gutters" id="detailModalContainer">
 					<div class="row d-flex no-gutters">
-						<div class="col-md-8 box-shadow h-100" >
-						<img  id="detail_Img" class="img-fluid d-inline-block">
+						<div class="col-md-8" >
+						<img  id="detail_Img" class="img-fluid d-inline-block h-100 w-100">
 						</div>
 						<div class="col-md-4">	
 							<div class="modal-header">
