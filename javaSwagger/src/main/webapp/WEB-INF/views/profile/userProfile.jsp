@@ -82,16 +82,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <!--부트 스트랩 CDN  -->
 
-    <!-- Bootstrap Core CSS -->
-    <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Core CSS -->
+<link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="../resources/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+<link href="../resources/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="../resources/css/stylish-portfolio.min.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="../resources/css/stylish-portfolio.min.css" rel="stylesheet">
 
 <script type="text/javascript">
 	$(function() {
@@ -155,9 +155,11 @@
 		var user_SessionID="${user_ID}"
 		var guestID=$("#guestID").html()
 		
-		var user_List=[]; // 팔로워 리시트 확인용 
+		var list_Following=[]; // 팔로잉 리시트 확인용 
+		var list_Follower=[]; //팔로워 리스트
 		
-		if(user_SessionID!=guestID){$("#write").hide();} // 글쓰기 권한 로그인한 사용자 전용
+		
+		if(user_SessionID==guestID){$("#b_follow").hide();} // 글쓰기 권한 로그인한 사용자 전용
 		var profileImg='${profile.user_fname}';
 		
 		if(profileImg==null || profileImg=='') // 사진없으면 박보영 나옴
@@ -186,7 +188,7 @@
 					type:'post',
 					success:function(data)
 					{
-						alert(data)
+						//alert(data)
 					}
 				})
 		}//댓글 ajax */
@@ -468,71 +470,33 @@
 		
 		
 		
-		$.ajax({ // 팔로우 중복 검사
-				url:"../isFollower.do",
-				type:"post",
-				data:{"user_ID":guestID,"follower_ID":user_SessionID},
-				success:function(data){
-					var state;
-					var arr = eval("("+data+")");
-					//alert(arr)
-								
-					if(arr==0){
-						$("#btn_Follow").html("follow").addClass("btn-outline-primary")
-						state=0;
-					}
-					else
-					{
-						$("#btn_Follow").html("following").addClass("btn-primary")
-						state=1;
-					}
-								
-					$("#btn_Follow").on("click",function() {
-							if(state==0)
-							{	
-								$.ajax({url:"../follow.do",
-								type:"post",
-								data:{"user_ID":guestID,"follower_ID":user_SessionID},
-								success:function(data){
-								//alert(data)
-								$("#btn_Follow").removeClass("btn-outline-primary").addClass("btn-primary").html("following");
-								}})
-									state=1
-									return;
-								}//if end
-							else if(state==1)
-							{
-								$.ajax({url:"../unFollow.do",
-								type:"post",
-								data:{"user_ID":guestID,"follower_ID":user_SessionID},
-								success:function(data){
-								$("#btn_Follow").removeClass("btn-primary").addClass("btn-outline-primary").html("follow");
-													
-							}})
-							state=0
-							return;
-						}
-					})
-	
-				}//isFollwer success end
-			})//isFollower end */ 
-		
-		
-
+			
 		$.ajax({ // 팔로잉 목록 받아옴
 			url:"../following.do",
 			type:"post",
 			data:{"follower_ID":guestID},
 			success:function(data)
 			{
-				var state=0;
+				
 				var f_List = eval("("+data+")")
 				$.each(f_List, function(i, f) {
+					list_Following[i]=f.user_ID;
 					var tr = $("<tr></tr>")
 					var td_ID = $("<td class='col-sm-8'></td>").html(f.user_ID)
 					var td_btn=$("<td class='col-sm-4'></td>")
-					var btn_f=$("<button class='btn btn-primary'></button>").html("팔로잉")
+					var btn_f=$("<button class='btn btn-outline-primary'></button>").html("팔로잉")
+					var state=0;
 					
+					$.each(list_Following, function(i, v) {
+						//alert(v)
+						console.log(v)
+						if(v==f.user_ID)
+						{
+							$("#a_Follow").attr({src:"../resources/icon/followers.png"})
+							state=1;
+						}
+					})
+					console.log(state)
 					
 					$(btn_f).click(function() {
 						if(state==0)
@@ -541,8 +505,8 @@
 								type:"post",
 								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
 								success:function(data){
-									$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로우");
-									
+									$(btn_f).removeClass("btn-outline-primary").addClass("btn-primary").html("팔로우");
+									$("#a_Follow").attr({src:"../resources/icon/follow24b.png"})
 								}})
 							state=1
 							return;
@@ -554,7 +518,37 @@
 								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
 								success:function(data){
 									//alert(data)
-									$(btn_f).removeClass("btn-outline-primary").addClass("btn-primary").html("팔로잉");
+									$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로잉");
+									$("#a_Follow").attr({src:"../resources/icon/followers.png"})
+								}})
+							state=0
+							return;
+							
+						}
+						
+					})
+					$("#b_follow").click(function() {
+						if(state==0)
+						{
+							$.ajax({url:"../unFollow.do",
+								type:"post",
+								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
+								success:function(data){
+									$(btn_f).removeClass("btn-outline-primary").addClass("btn-primary").html("팔로우");
+									$("#a_Follow").attr({src:"../resources/icon/follow24b.png"})
+								}})
+							state=1
+							return;
+						}
+						else if(state==1)
+						{
+							$.ajax({url:"../follow.do",
+								type:"post",
+								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
+								success:function(data){
+									//alert(data)
+									$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로잉");
+									$("#a_Follow").attr({src:"../resources/icon/followers.png"})
 								}})
 							state=0
 							return;
@@ -571,21 +565,7 @@
 		})
 		
 		
-		
-		
-		
-		$.ajax({//팔로우 버튼 확인용
-			url:"../following.do",
-			data:{"follower_ID":"${user_ID}"},
-			success:function(data)
-			{
-				list=eval("("+data+")")
-				$.each(list, function(idx, f) {
-					user_List[idx]=f.user_ID
-					
-				})
-			}
-		})
+
 		
 		
 		
@@ -595,22 +575,29 @@
 			data:{"user_ID":guestID},
 			success:function(data)
 			{
-				var state=1;
 				var f_List = eval("("+data+")")
 				$.each(f_List, function(i, f) {
+					//alert(f)
+					list_Follower[i]=f.follower_ID;
+					
+					var state=1;
 					var tr = $("<tr></tr>")
 					var td_ID = $("<td class='col-sm-8'></td>").html(f.follower_ID)
 					var td_btn=$("<td class='col-sm-4'></td>")
 					var btn_f=$("<button class='btn btn-primary'></button>").html("팔로우")
 					
-					$.each(user_List, function(i, v) {
+					$.each(list_Follower, function(i, v) {
+						
+						
 						if(v==f.follower_ID)
 						{
+							
 							$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로잉");
 							state=0;
 						}
+						
 					})
-					
+					//console.log(state)
 					$(btn_f).click(function() {
 						if(state==0)
 						{
@@ -618,7 +605,7 @@
 								type:"post",
 								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
 								success:function(data){
-									$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로우");
+									$(btn_f).removeClass("btn-outline-primary").addClass("btn-primary").html("팔로우");
 									
 								}})
 							state=1
@@ -631,7 +618,7 @@
 								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
 								success:function(data){
 									//alert(data)
-									$(btn_f).removeClass("btn-outline-primary").addClass("btn-primary").html("팔로잉");
+									$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로잉");
 								}})
 							state=0
 							return;
@@ -646,6 +633,7 @@
 			}
 		})
 	
+		
 		
 		function cntLike(postNo,commentNo)
 		{ //좋아요 카운트 함수
@@ -733,11 +721,9 @@
       <div class="btn-group" role="group">
       	<button type="button" class="btn btn-sm btn-outline-secondary border-0 text-white" data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</button>
       	<button type="button" class="btn btn-sm btn-outline-secondary border-0 text-white" data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</button>
-      	<button type="button" class="btn btn-sm btn-outline-secondary border-0" data-toggle="modal" data-target="#insertPost" id="write" ><img  src="../resources/icon/quill-drawing-a-line24w.png"></button>
+      	<button type="button" class="btn btn-sm btn-outline-secondary border-0 text-white" id="b_follow" ><img  id="a_Follow" src="../resources/icon/follow24w.png"></button>
+      	<!-- <button type="button" class="btn btn-sm btn-outline-secondary border-0" data-toggle="modal" data-target="#insertPost" id="write" ><img  src="../resources/icon/quill-drawing-a-line24w.png"></button> -->
       </div>
-      <!-- <span class="d-inline"><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>
-      <span class="d-inline"><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>
-       -->
       <p>${profile.user_Email }</p>
       <h2 id="guestID">${profile.user_ID }</h2>
     </div>
