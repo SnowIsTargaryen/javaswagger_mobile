@@ -63,7 +63,7 @@
 			
 		<%String keyword = request.getParameter("keyword");%>
 			
-		$(".btn-outline-success").click(function(){
+		$(".btn-outline-secondary").click(function(){
 			var keyword = $("#keyword").val();
 			if(keyword.indexOf("#") >= 0){
 				var key = keyword.substr(1, keyword.length);
@@ -72,8 +72,7 @@
 			} else {
 				$("#F").attr("action","search");
 			}
-		})
-			
+		})	
 		
 		
 		$(".btn-outline-success").click(function(){
@@ -349,74 +348,7 @@
 				
 		}})//ajax islikeEnd
 		
-		/* $imgs=$("#row1").imagesLoaded(function(){
-			$imgs.masonry({
-				itemSelector : '#cols', // img 태그를 대상으로 masonry 적용
-				fitWidth : true // 내용물을 가운데 정렬하기, CSS margin:0 auto; 설정이 필요함
-			});
-		});   */
 		
-			
-		/* $.ajax({
-			url:'timeLinePost',
-			success:function(data){
-				list = eval("("+data+")");
-				$.each(list, function(idx, p) {
-					var fname=p.post_fname
-					
-					if(fname!=null) //파일이 없으면 이미지 생성 x
-					{
-						var img = $("<img id='pImg'/>").attr({
-					 		src:"resources/image/"+fname
-					 	})	
-					}
-				 	
-				 	var detail_a=$("<a></a>").attr({
-						href: "#",
-						no: p.post_no
-					})
-					
-					$(detail_a).append(img)
-				 	$(".item").append(detail_a);
-				 	
-				 	$(detail_a).click(function() {
-						no=$(this).attr("no");
-						$("#col_comment_content").empty();
-						$.ajax({url:"detailPost?post_no="+no,success:function(data){ //게시글 상세
-							detail=eval("("+data+")")
-							//alert(data)
-							$('#post_no').val(detail.post_no);
-							$('#detail_Img').attr("src", "resources/image/"+detail.post_fname);
-							$('#h3_detail_userID').html(detail.user_ID);
-							$('#small_detail_content').html(detail.post_content);
-							$.ajax({ //댓글 리스트
-								url:"listComment.do?post_no="+detail.post_no,
-								success:function(data){
-									var arr = eval("("+data+")")
-									//alert(arr)
-									$.each(arr, function(i,p){
-										var h6 = $("<h6></h6>").html(p.user_ID+" ");
-										var small = $("<small></small>").html(p.comment_content);
-										$(h6).append(small);
-										$("#col_comment_content").append(h6);
-					
-									}) 
-								}})
-							
-						}})
-						$('#detail_Dialog').modal('show')
-					})
-					
-					$imgs=$(".item").imagesLoaded(function(){
-						$imgs.masonry({
-							itemSelector : 'img', // img 태그를 대상으로 masonry 적용
-							fitWidth : true // 내용물을 가운데 정렬하기, CSS margin:0 auto; 설정이 필요함
-						});
-					});  
-				})
-				
-				
-			}})//ajax end */
 			
 			function cntLike(postNo,commentNo)
 			{ //좋아요 카운트 함수
@@ -438,87 +370,25 @@
 
 </head>
 <body>
-<!--  네비게이션  -->
-	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
-	<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    	<span class="navbar-toggler-icon"></span>
- 	 </button> -->
- 	 
-				<div class="navbar-header navbar-center mx-auto">
-					<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Edem</a>
-				</div>
-				
-<%-- 	<ul class="navbar-nav mx-4 my-2 d-block d-sm-none">
-		<li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ${user_ID }
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="../profile/editProfile">프로필 설정</a>
-           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="../logout">로그아웃</a>
-        </div>
-      </li>
-      </ul>
-	  --%>
-<%-- 	  
-	   <div class="navbar-nav mx-4 my-2 d-block d-sm-none">
-	
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="logout">로그아웃</a>
+		<!--  네비게이션  -->
+	<nav class="nav navbar navbar-expand-sm navbar-light bg-light mb-3 d-flex justify-content-center">
+
+			<div class="nav justify-content-center w-100 mw-100">
+				<form class="form-inline mx-auto w-100 mw-100" id="F">
+					<div class="input-group mx-auto mw-100">
+						<input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary" type="submit">
+								<img src="resources/icon/search2.png" width="18" height="18">
+							</button>
+						</div>
+					</div>
+				</form>
 			</div>
-		</div>
-	 </div>
-
-				<form class="form-inline my-lg-0 mx-auto" action="search">
-			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="user_ID">
-			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" type="submit" >
-							<img src="resources/icon/search2.png" width="18" height="18">
-					  </button>
-			        </div>
-			      </div>
-			    </form>
-
-			 </div>   
-			  
-			  
-			<!-- 검색부분 new -->
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" id="F">
-			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
-			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" type="submit" >
-							<img src="resources/icon/search2.png" width="18" height="18">
-					  </button>
-			        </div>
-			      </div>
-			    </form>
-			 </div>   
-
-			 </div>   
-
-			
-	<%-- <div class="navbar-nav mx-4 my-2 d-none d-sm-block">
-	
-	     <div class="btn-group">  
-			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
-			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			</button>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="profile/editProfile">프로필 설정</a>
-			  <a class="dropdown-item" href="logout">로그아웃</a>
-			</div>
-		</div>
-	 </div> --%>
 	</nav>
+
+	
+	
 	
 	<!-- <!-- 게시글  -->
 	<div class="container">
@@ -661,7 +531,7 @@
 
 <div class="icon-bar">
   <a href="timeLine"><i class="fa fa-home"></i></a> 
-  <a href="hashtagSearch?keyword=<%=keyword%>"><i class="fa fa-search"></i></a> 
+  <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
   <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
   <a href="profile/userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
   <a href="profile/editProfile"><i class="fa fa-cog"></i></a> 

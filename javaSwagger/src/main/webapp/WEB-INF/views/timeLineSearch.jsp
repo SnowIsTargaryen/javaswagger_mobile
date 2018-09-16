@@ -481,18 +481,12 @@
 
 </head>
 <body>
-<header></header>
-<!--  네비게이션  -->
-	<nav class="nav navbar navbar-expand-sm navbar-light bg-light mb-3">
- 	 
-	<div class="navbar-header navbar-left mx-auto">
-		<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="timeLine">Edem</a>
-	</div>
 
-			<!-- <div class="collapse navbar-collapse d-none d-sm-block" id="navbarSupportedContent"> -->
-			<div class=" " id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" id="F">
-			      <div class="input-group">
+<!--  네비게이션  -->
+	<nav class="nav navbar navbar-expand-sm navbar-light bg-light mb-3 d-flex justify-content-center">
+			<div class="nav justify-content-center  w-100 mw-100" id="navbarSupportedContent">
+				<form class="form-inline mx-auto w-100 mw-100" id="F">
+			      <div class="input-group mx-auto mw-100">
 			        <!-- <input type="text" class="form-control" placeholder="Search" name="user_ID">  -->
 			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
 			        <div class="input-group-append">
@@ -503,19 +497,6 @@
 			      </div>
 			    </form>
 			 </div>     
-			 
-<!-- 			 <div class=" d-sm-none" id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" id="FM">
-			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keywordM">
-			        <div class="input-group-append">
-			          <button class="btn btn-outline-success" id="BM" type="submit" >
-							<img src="resources/icon/search2.png" width="18" height="18">
-					  </button>
-			        </div>
-			      </div>
-			    </form>
-			 </div>      -->
 	</nav>
 	
 	<!-- <!-- 게시글  -->

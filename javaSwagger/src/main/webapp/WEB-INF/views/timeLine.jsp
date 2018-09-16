@@ -46,6 +46,11 @@
 		height: 650px;
 	}
 	
+	#modal-detail{
+		max-width: 50% !important; 
+		
+	}
+	
 	.modal.modal-center { 
 	
 		text-align: center;
@@ -148,12 +153,12 @@
 					if(l.post_no!=null)
 					{
 						like_post_no[i]=l.post_no;
-						console.log("postNo "+like_post_no)
+						//console.log("postNo "+like_post_no)
 					}
 					if(l.comment_no!=null)
 					{
 						like_cmt_no[i]=l.comment_no;
-						console.log("cmtNo "+like_cmt_no)
+						//console.log("cmtNo "+like_cmt_no)
 					}
 				})// eachEnd
 				
@@ -493,8 +498,8 @@
 	
 	<!-- detail modal -->
 	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
-		<div class="modal-dialog modal-dialog-center mx-auto"  role="document">
-			<div class="modal-content h-100 d-flex no-gutters" id="content">
+		<div class="modal-dialog modal-dialog-center mx-auto" id="modal-detail"  role="document">
+			<div class="modal-content h-100 w-100 d-flex no-gutters" id="content">
 				<div class="container-fluid no-gutters" id="detailModalContainer">
 					<div class="row d-flex no-gutters">
 						<div class="col-md-8" >
