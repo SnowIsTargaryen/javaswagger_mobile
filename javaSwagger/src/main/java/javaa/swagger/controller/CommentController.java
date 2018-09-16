@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javaa.swagger.dao.CommentDao;
 import javaa.swagger.vo.CommentVo;
+import javaa.swagger.vo.CommentVo2;
 import javaa.swagger.vo.PostVo;
 
 @Controller
@@ -52,6 +53,29 @@ public class CommentController {
 		map.put("post_no", post_no);
 		List<CommentVo> listt = dao.readComment(map);
 		for(CommentVo c : listt) {
+			list.add(c);
+		}
+		String str = "";
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(list);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		//System.out.println(str);
+		return str;
+	}
+	//user_fname 까지
+	@RequestMapping(value="listComment2.do", produces="text/plain;charset=utf-8")
+	@ResponseBody // ajax 반환
+	public String readComment2(@RequestParam(value="post_no") int post_no) {
+		ArrayList<CommentVo2> list = new ArrayList<CommentVo2>();
+//		System.out.println(post_no);
+		HashMap map = new HashMap();
+		map.put("post_no", post_no);
+		List<CommentVo2> listt = dao.readComment2(map);
+		for(CommentVo2 c : listt) {
 			list.add(c);
 		}
 		String str = "";
