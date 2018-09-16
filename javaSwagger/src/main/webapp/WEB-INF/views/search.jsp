@@ -13,7 +13,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <!--부트 스트랩 CDN  -->
 <style type="text/css">
-  header {
+ 	header {
 	  position: fixed; 
 	  top: 0; 
 	  left: 0; 
@@ -21,11 +21,15 @@
 	  height: 1px; 
 	 /*  background: #f5b335;  */
 	  transition: top 0.2s ease-in-out; 
-	  }  
-	  .nav-up { 
+  	}  
+	  
+  	.nav-up { 
 	  top: -40px; 
-	   }
-	 
+   	}
+   	
+	.card-img-top{
+		height: 350px;
+	}
 </style>
 <script type="text/javascript">
 	$(function() {

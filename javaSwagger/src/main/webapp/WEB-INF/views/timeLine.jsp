@@ -20,12 +20,12 @@
 	  height: 1px; 
 	 /*  background: #f5b335;  */
 	  transition: top 0.2s ease-in-out; 
-	  }  
-	  .nav-up { 
-	  top: -40px; 
-	   }
+	  } 
+	   
+	.nav-up { 
+		top: -40px; 
+	 }
 
-	
 	 #pImg{
 		  	height: 300px;
 		  	width: 300px;
@@ -35,12 +35,12 @@
 		margin: 3px;
 	}
 	
-	.item {
-		margin: 0 auto;
-	   display: grid;
-	   grid-gap: 10px;
-	   grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
-	}
+/* 	.cols {
+		float: left;
+/*  	width: 80px;
+	  	height: 60px; */
+	  	/* border: 2px solid hsla(0, 0%, 0%, 0.5); */
+	} */
 	
 	#content{
 		height: 650px;
@@ -65,6 +65,13 @@
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}
+	#row1{
+		column-count: 3;
+	}
+	.card-img-top{
+		height: 350px;
+	}
+	
 		
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -76,6 +83,7 @@
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.0/imagesloaded.pkgd.min.js"></script>
 <!--masonry  -->
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <script type="text/javascript">
 
 	$(function() {
@@ -170,7 +178,7 @@
 						var list = eval("("+data+")") //게시물 리스트
 						
 						$.each(list, function(idx, p) { //게시글 생성
-							var div_col_md_4 = $("<div id='cols'></div>").addClass("col-md-4");
+							var div_col_md_4 = $("<div></div>").addClass("col-md-4");
 							var div_card_mb4_box = $("<div></div>").addClass("card mb-4 box-shadow");
 							var div_card_header = $("<div></div>").addClass("card-header").html(p.user_ID);
 							var div_card_body = $("<div></div>").addClass("card-body");
@@ -377,30 +385,39 @@
 				
 		}})
 			
-			function cntLike(postNo,commentNo)
-			{ //좋아요 카운트 함수
-				var result;
-				$.ajax({
-					url:"cntLike.do",
-					async: false,
-					data:{"post_no":postNo,"comment_no":commentNo},
-					success:function(data){
-						result=data;
-				}})
-				return result;
-			}
-			function cntCommnet(postNo)
-			{ //좋아요 카운트 함수
-				var result;
-				$.ajax({
-					url:"cntComment.do",
-					async: false,
-					data:{"post_no":postNo},
-					success:function(data){
-						result=data;
-				}})
-				return result;
-			}
+		function cntLike(postNo,commentNo)
+		{ //좋아요 카운트 함수
+			var result;
+			$.ajax({
+				url:"cntLike.do",
+				async: false,
+				data:{"post_no":postNo,"comment_no":commentNo},
+				success:function(data){
+					result=data;
+			}})
+			return result;
+		}
+		function cntCommnet(postNo)
+		{ //좋아요 카운트 함수
+			var result;
+			$.ajax({
+				url:"cntComment.do",
+				async: false,
+				data:{"post_no":postNo},
+				success:function(data){
+					result=data;
+			}})
+			return result;
+		}
+		
+/* 		$('#row').masonry({
+			  // options
+			  itemSelector: '.cols',
+			  fitWidth: true,
+			  horizontalOrder: true,
+			  originLeft: false,
+			  stagger: 30
+		}); */
 			
 	})
 
@@ -497,12 +514,29 @@
 	
 	
 	<!-- detail modal -->
-	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
+	
+	<div class="modal fade" id="detail_Dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="h3_detail_userID"></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+       		<img  id="detail_Img" class="img-fluid d-inline-block h-100 w-100">
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<%-- <div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
 		<div class="modal-dialog modal-dialog-center mx-auto" id="modal-detail"  role="document">
 			<div class="modal-content h-100 w-100 d-flex no-gutters" id="content">
 				<div class="container-fluid no-gutters" id="detailModalContainer">
 					<div class="row d-flex no-gutters">
-						<div class="col-md-8" >
+						<div class="col-md-12" >
 						<img  id="detail_Img" class="img-fluid d-inline-block h-100 w-100">
 						</div>
 						<div class="col-md-4">	
@@ -548,13 +582,12 @@
 									</div>
 								</div>
 							</div>
-							
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --%>
 
 <div class="icon-bar ">
   <a href="timeLine"><i class="fa fa-home"></i></a> 
@@ -563,6 +596,8 @@
   <a href="profile/userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
   <a href="profile/editProfile"><i class="fa fa-cog"></i></a> 
 </div>
+
+
 	
 
 	
