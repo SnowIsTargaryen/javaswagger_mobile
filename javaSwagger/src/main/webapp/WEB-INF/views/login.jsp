@@ -95,16 +95,28 @@
               <hr class="my-4">
               
               
+
+             <!--  <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> -->
+            </form>
+
               <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
             </form> -->
+
             
             <!-- <button class="btn btn-lg btn-account btn-block text-uppercase" id="btnAccount">회원가입</button>	
             <button class="btn btn-lg btn-account btn-block text-uppercase" data-toggle="modal" data-target=".account-modal-lg">회원가입</button>	
             <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> 구글 계정으로 로그인</button>
+
+	       	<!-- <a class="btn" id="custom-login-btn" href="javascript:loginWithKakao()">
+				<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="330"/>
+			</a> -->
+          </div>
+
 	       	<a class="btn" id="custom-login-btn" href="javascript:loginWithKakao()">
 				<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="330"/>
 			</a> -->
   <!--         </div>
+
         </div>
    		</div>
     </div>

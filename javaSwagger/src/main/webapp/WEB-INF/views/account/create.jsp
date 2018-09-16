@@ -404,10 +404,16 @@ function checkPwd(){//비밀번호 확인---------------------------------------
 <title>회원가입</title>
 </head>
 <body>
+
+<div class="container" >
+	<div class="row" >
+		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+
  <div class="modal-dialog text-center">
      	<div class="col-sm-8 main-section">
      		<div class="modal-content">
 			<h3 style="color:white;">회원가입</h3>
+
 			<form action="../account/create" id="userInfo" method="post" enctype="multipart/form-data">
 			  <div class="form-group ">
 			    <input type="text" class="form-control" id="user_ID" name="user_ID" placeholder="아이디를 입력하세요" required="required">

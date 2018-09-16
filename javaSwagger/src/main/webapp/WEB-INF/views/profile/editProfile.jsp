@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
+
 <style type="text/css">
 	 header {
 	  position: fixed; 
@@ -72,18 +73,20 @@
   .bg-cover{
 		background-image: url(../resources/image/background.jpg);
 	}
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </style>
 
 <title>EditProfile</title>
+
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- icon을 위한link -->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- icon을 위한link -->
 
 <link rel="stylesheet" href="../resources/css/footerBar.css" />
-<link rel="stylesheet" href="../resources/css/editProfile.css" />
 <link rel="stylesheet" href="../resources/css/jumbotron.css" />
 <title>EditProfile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
@@ -91,7 +94,6 @@
 <!--부트 스트랩 CDN  -->
 <script type="text/javascript">
 	$(function() {
-
 		// Hide Header on on scroll down 
 		var didScroll; 
 		var lastScrollTop = 0; 
@@ -135,30 +137,14 @@
 		}
 		
 		<% String sesseing_id=(String)session.getAttribute("user_ID"); %>
-
 		/* $("#btnUserProfile").click(function() {
 			alert("ok")
 			location.href="../profile/userProfile?user_ID="+user_SessionID;
 		}) */
-		
-		
-		
-
-		
-	
-		var pFname='${profile.user_fname }'
-		if(pFname==null || pFname=='')
-		{
-			$("#proPhoto").attr({src:"../resources/icon/user2.png"})
-		}
-		 
-	
-
 		$("#btnUserProfile").click(function() {
 			
 			 location.href="../profile/userProfile?user_ID=";
 		})
-
 	})
 	
 	$(document).ready(function(){ 
@@ -177,13 +163,10 @@
 		// 추출한 파일명 삽입 
 		$(this).siblings('.upload-name').val(filename); 
 		}); 
-		
-		$("#settings").click(function(){
-			location.href="settings";
-		});
 	}); 
-
 </script>
+
+
 <style type="text/css">
 	 header {
 	  position: fixed; 
@@ -194,10 +177,6 @@
 	 /*  background: #f5b335;  */
 	  transition: top 0.2s ease-in-out; 
 	  }  
-	  .nav{
-	  	background-color: #27c2a5;
-	  	color: white;
-	  }
 	  .nav-up { 
 	  top: -40px; 
 	   }
@@ -222,10 +201,8 @@
 		overflow: hidden; 
 		clip:rect(0,0,0,0); 
 		border: 0; 
-		padding-left: 54px; 
 	} 
 	.filebox label {
-		 position: absolute; 
 		 display: inline-block; 
 		 padding: .5em .75em; 
 		 color: #999; 
@@ -237,7 +214,6 @@
 		 border: 1px solid #ebebeb ; 
 		 border-bottom-color: #e2e2e2; 
 		 border-radius: .25em; 
-		 
 	 } /* named upload */ 
 	 .filebox .upload-name { 
 		 display: inline-block; 
@@ -258,11 +234,12 @@
 		background-image: url(../resources/image/background.jpg);
 	}
 </style>
+
 </head>
 <body>
 <header></header>
 <!--  네비게이션  -->
-<nav class="nav navbar navbar-expand-sm">
+<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
  <div class="navbar-header navbar-center mx-2">
 	<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
  </div>    
@@ -293,7 +270,7 @@
 			</div>
 		</div>
 	 </div> --%>
-	 <i class="fas fa-cogs" id="settings"></i> 
+	 <a href="settings"><i class="fa fa-cogs"></i></a> 
 </nav>
 <!--사용자 프로필  -->
 
@@ -305,7 +282,8 @@
     <div class="tab-pane container active" id="editProfile">
 					
 						  <div class=" ">
-						  	<img id="proPhoto" data-target="#updatePost" src="../resources/image/${profile.user_fname }">
+						   	<img id="proPhoto" data-target="#updatePost" src="../resources/image/${profile.user_fname }">
+						   
 							<p for="user_ID" >${profile.user_ID}</p>
 						    <input type="hidden" class="form-control" id="user_ID" name="user_ID" value="${profile.user_ID }">
 						  </div>
@@ -329,14 +307,9 @@
 						    <input type="hidden" class="form-control" id="user_fname" name="user_fname" value="${profile.user_fname}">
 						  </div> 
 					 
-							<!--  <div class="filebox"> 새로운 파일 처리를 할 부분
+							 <div class="filebox"> <!-- 새로운 파일 처리를 할 부분 -->
 								<label for="ex_filename" class="fa fa-photo"></label> 
 								<input class="upload-name" value="파일선택" disabled="disabled">
-								<input type="file" id="ex_filename" class="upload-hidden" name="uploadFile"> 
-							</div> -->
-							  <div class="filebox"> <!-- 새로운 파일 처리를 할 부분 -->
-								<label for="ex_filename" class="far fa-image"></label> 
-								<input class="upload-name" value="          파일선택" disabled="disabled">
 								<input type="file" id="ex_filename" class="upload-hidden" name="uploadFile"> 
 							</div>
 
@@ -351,7 +324,7 @@
 						    <span>${profile.user_Phone}</span>
 						    <input type="tel" class="form-control" id="user_Phone" name="user_Phone" placeholder="변경 할 번호 입력" required>
 						  </div>
-						  <button type="submit" class="btn">회원정보 변경</button>
+						  <button type="submit" class="btn btn-success .col-3 col-sm-8 col-md-8  col-lg-5">회원정보 변경</button>
 						</form>
 					</div>
 					<!-- 비밀번호 변경  -->
@@ -389,12 +362,12 @@
 	</div>
 	
 
-<div class="icon-bar ">
+ <div class="icon-bar "><!-- d-sm-none : display-sm-none -->
   <a href="../timeLine"><i class="fa fa-home"></i></a> 
   <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
-  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fas fa-pencil-alt"></i></a>
-  <a href="profile/userProfile?user_ID=${user_ID }"><i class="fas fa-user-circle"></i></a> 
-  <a href="editProfile"><i class="fa fa-cog"></i></a>
+  <a href="userProfile?user_ID=${user_ID}"><i class="fa fa-send"></i></a>
+  <a href="userProfile?user_ID=${user_ID}"><i class="fa fa-user-circle-o"></i></a> 
+  <a href="editProfile"><i class="fa fa-cog"></i></a> 
 </div>
 	
 </body>

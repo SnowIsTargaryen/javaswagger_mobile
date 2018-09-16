@@ -2,9 +2,14 @@
 .jumbotron {
   text-align: center;
   padding-top: 10rem;
+
+  padding-bottom: 10rem;
+  text-shadow: 2px 2px #000;
+
   padding-bottom: 0;
   text-shadow: 2px 2px #000;
   
+
 }
 
 .lead span {
@@ -18,7 +23,7 @@
   background-position: center center;
   position: relative;
   z-index: -2;
-  
+
 }
 
 .overlay {
