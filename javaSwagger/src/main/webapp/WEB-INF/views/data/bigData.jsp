@@ -23,11 +23,17 @@
 	 
 	$.each(${rank}, function(i, data)
  	{
-	
+		
+		var j=1;
 		if(i%2==0) //검색어만 
-		{
+		{	
+			
 			keyword[i]=data;
 			console.log(keyword[i])
+			var div = $("<div></div>").addClass("col-6 col-sm-2 placeholder text-center")
+			var img = $("<img alt='Generic placeholder thumbnail'>").attr({src:"//placehold.it/200/dddddd/fff?text="+j}).addClass("mx-auto img-fluid rounded-circle")
+			var h4 = $("<h4></h4>").html(keyword[i])
+			j++;
 		}
 		else //일간 검색기록수
 		{
@@ -36,7 +42,13 @@
 			//alert(data)	
 		}
 		
+		
+		$("#keywordList").append(div,img,h4);
+		
+
 	})
+	
+	
 	 
 	 var options = {
 				title: {
@@ -133,8 +145,8 @@
 				<div id="chartContainer" style="height: 400px; width: 500px; margin-top: 50px;"></div>
 			</div>
 			<div class="col-md-auto">
-				<div class="row placeholders mb-3">
-	                <div class="col-6 col-sm-2 placeholder text-center">
+				<div class="row placeholders mb-3" id="keywordList">
+	                <!-- <div class="col-6 col-sm-2 placeholder text-center">
 	                    <img src="//placehold.it/200/dddddd/fff?text=1" class="mx-auto img-fluid rounded-circle" alt="Generic placeholder thumbnail">
 	                    <h4>Responsive</h4> 
 	                </div>
@@ -153,14 +165,14 @@
 	                <div class="col-6 col-sm-2 placeholder text-center">
 	                    <img src="//placehold.it/200/e0e0e0/fff?text=5" class="center-block img-fluid rounded-circle" alt="Generic placeholder thumbnail">
 	                    <h4>Framework</h4>
-	                </div>
-	                <div class="col-6 col-sm-2 placeholder text-center">
+	                </div> -->
+<!-- 	                <div class="col-6 col-sm-2 placeholder text-center">
 	                    <img src="//placehold.it/200/e0e0e0/fff?text=6" class="center-block img-fluid rounded-circle" alt="Generic placeholder thumbnail">
 	                    <h4>Framework</h4>
-	                </div>
+	                </div> -->
             	</div>
 			</div>
-			<div class="col-md-auto">
+<!-- 			<div class="col-md-auto">
 				<div class="row placeholders mb-3">
 	                <div class="col-6 col-sm-3 placeholder text-center">
 	                    <img src="//placehold.it/200/dddddd/fff?text=7" class="mx-auto img-fluid rounded-circle" alt="Generic placeholder thumbnail">
@@ -178,16 +190,16 @@
 	                    <img src="//placehold.it/200/e0e0e0/fff?text=10" class="center-block img-fluid rounded-circle" alt="Generic placeholder thumbnail">
 	                    <h4>Framework</h4>
 	                </div>
-	                <!-- <div class="col-6 col-sm-2 placeholder text-center">
+	                <div class="col-6 col-sm-2 placeholder text-center">
 	                    <img src="//placehold.it/200/e0e0e0/fff?text=5" class="center-block img-fluid rounded-circle" alt="Generic placeholder thumbnail">
 	                    <h4>Framework</h4>
 	                </div>
 	              	<div class="col-6 col-sm-2 placeholder text-center">
 	                    <img src="//placehold.it/200/e0e0e0/fff?text=6" class="center-block img-fluid rounded-circle" alt="Generic placeholder thumbnail">
 	                    <h4>Framework</h4>
-	                </div> -->
+	                </div>
             	</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	
