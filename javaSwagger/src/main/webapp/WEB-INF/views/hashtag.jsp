@@ -25,6 +25,9 @@
 	   grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
 	}
 	
+	.card-img-top{
+		height: 350px;
+	}	
 	#content{
 		height: 650px;
 	}
@@ -171,6 +174,15 @@
 								src :"resources/image/"+p.post_fname,
 								alt : "Card image cap"
 							})
+							
+							$.get("resources/image/"+p.post_fname).done(function() {
+								
+							}).fail(function() {
+								$(img).attr({
+									src :"resources/image/error404.jpg"
+								})
+							})
+							
 							var state=0;
 							$.each(like_post_no, function(i, no) {
 								if(no==p.post_no)

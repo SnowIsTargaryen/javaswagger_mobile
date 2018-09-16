@@ -67,6 +67,10 @@
   	#profileHeader{
   		margin-bottom: 50px;
   	}
+  	
+	.card-img-top{
+		height: 350px;
+	}  	
 	
 </style> 
 

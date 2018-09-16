@@ -34,6 +34,9 @@
 	.item img{
 		margin: 3px;
 	}
+	.card-img-top{
+		height: 350px;
+	}
 	
 	.item {
 		margin: 0 auto;

@@ -31,6 +31,10 @@
 		margin: 3px;
 	}
 	
+	.card-img-top{
+		height: 350px;
+	}
+		
 	.item {
 		margin: 0 auto;
 	   display: grid;
@@ -213,6 +217,15 @@
 								src :"resources/image/"+p.post_fname,
 								alt : "Card image cap"
 							})
+							
+							$.get("resources/image/"+p.post_fname).done(function() {
+								
+							}).fail(function() {
+								$(img).attr({
+									src :"resources/image/error404.jpg"
+								})
+							})
+							
 							var state=0;
 							$.each(like_post_no, function(i, no) {
 								if(no==p.post_no)
