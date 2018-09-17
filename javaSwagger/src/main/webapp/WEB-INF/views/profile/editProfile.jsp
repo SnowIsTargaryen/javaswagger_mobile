@@ -250,7 +250,7 @@
 						  </div> 
 					 
 							 <div class="filebox"> <!-- 새로운 파일 처리를 할 부분 -->
-								<label for="ex_filename" class="fa fa-photo"></label> 
+								<label for="ex_filename" class="fas fa-image"></label> 
 								<input class="upload-name" value="파일선택" disabled="disabled">
 								<input type="file" id="ex_filename" class="upload-hidden" name="uploadFile"> 
 							</div>

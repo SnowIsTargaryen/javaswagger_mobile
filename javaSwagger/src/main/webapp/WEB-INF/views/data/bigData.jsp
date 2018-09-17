@@ -49,7 +49,8 @@
 
  			var div = $("<div></div>").addClass("col-6 col-sm-2 placeholder text-center")
 			var img = $("<img alt='Generic placeholder thumbnail'>").attr({src:"//placehold.it/200/dddddd/fff?text="+j}).addClass("mx-auto img-fluid rounded-circle")
-			var h4 = $("<h4></h4>").html(elt)
+			var hashs = $("<a></a>").html(elt).attr("href","../hashtag?keyword=" + elt)
+			var h4 = $("<h4></h4>").html(hashs)
 			$(div).append(img,h4)
 			j++; 
 		}
