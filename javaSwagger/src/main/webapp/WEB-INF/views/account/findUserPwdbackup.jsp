@@ -61,7 +61,7 @@
               </div>
    				 <br class="my-4">
               <button class="btn btn-lg btn-primary btn-block text-uppercase" id="announce" type="submit">Password 찾기</button>
-              <button class="btn btn-defualt" id="findUserPwd">Password 확인</button>
+              <button class="btn btn-defualt" id="findUserPwd">결과 확인</button>
               <br class="my-3">
              
               <hr class="my-4">

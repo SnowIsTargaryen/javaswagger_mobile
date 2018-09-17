@@ -68,7 +68,7 @@
                 <!-- <label class="custom-control-label" for="customCheck1">Remember password</label> -->
               </div>
               <button class="btn btn-lg btn-primary btn-block text-uppercase" id="msg" type="submit">ID 찾기</button>
-              <button class="btn btn-lg btn-account btn-block text-uppercase" id="findUserID">ID확인</button>
+              <button class="btn btn-lg btn-account btn-block text-uppercase" id="findUserID">결과확인</button>
               <hr class="my-4">
               	<a id="findUserPwd" href="#">Forgot your Password?</a><br>
               	<a href="../login">Login</a>

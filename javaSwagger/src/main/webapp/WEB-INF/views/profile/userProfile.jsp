@@ -95,6 +95,8 @@
 <script type="text/javascript">
 	$(function() {
 
+		 $("#Progress_Loading").hide();
+				
 		// Hide Header on on scroll down 
 		var didScroll; 
 		var lastScrollTop = 0; 
@@ -660,14 +662,45 @@
 			}})
 			return result;
 		}
-		
+		 $("#bigData").click(function(){
+			 $("#Progress_Loading").show();
+		 });
 	});
 
+	
+	
 </script>
 
 </head>
 <body>
+<style type="text/css"> <!-- 로딩바스타일 -->
+body
+{
+ text-align: center;
+ margin: 0 auto;
+}
 
+	#Progress_Loading
+	{
+	   width: 100%;
+	   height: 100%;
+	   top: 0;
+	   left: 0;
+	   position: fixed;
+	   display: block;
+	   opacity: 0.8;
+	   background: white;
+	   z-index: 99;
+	   text-align: center;
+   }
+   #Progress_Loading img{
+   		position: absolute;
+      	top: 50%;
+      	left: 50%;
+      	z-index: 100;
+   }
+}
+</style>
 
     <!-- Navigation -->
     <a class="menu-toggle rounded" href="#">
@@ -679,7 +712,7 @@
           <a class="js-scroll-trigger" href="#page-top">Menu</a>
         </li>
         <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="../data/bigData">빅데이터</a>
+          <a class="js-scroll-trigger" href="../data/bigData" id="bigData">빅데이터</a>
         </li>
         <li class="sidebar-nav-item">
           <a class="js-scroll-trigger" href="../logout">Logout</a>
@@ -691,8 +724,6 @@
     </nav>
 <!--  네비게이션  -->
 	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
-
- 	 
 		<div class="navbar-header navbar-center mx-auto">
 			<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
 		</div>
@@ -712,6 +743,9 @@
 			 </div>   
 	</nav>
 
+<div id ="Progress_Loading"><!-- 로딩바 -->
+	<img src="../resources/image/loading1.gif"/>
+</div>
 	
 	
 <!--   Header 사용자 프로필 -->
@@ -874,6 +908,7 @@
     <!-- Custom scripts for this template -->
     <script src="../resources/js/stylish-portfolio.min.js"></script>
      
+
    
 	
 </body>
