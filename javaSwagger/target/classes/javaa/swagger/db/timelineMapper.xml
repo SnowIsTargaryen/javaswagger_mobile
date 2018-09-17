@@ -7,7 +7,7 @@
 		select*from post order by post_time desc
 	</select>  -->
 	<select id="getTimeline" resultType="postVo">
-		select * from post where post_no in (select post_no from (select rownum, post_no from (select PP.post_no, count(*) like_cnt from likes right outer join (select post_no from post where user_id in (select user_id from follow where follower_id = #{user_ID})) PP on PP.post_no = likes.post_no group by PP.post_no order by like_cnt desc)))
+		select * from post where user_id in (select user_id from follow where follower_id = #{user_ID}) order by post_deltime
 	</select> 
 	
 	<select id="searchByHash" resultType="postVo">

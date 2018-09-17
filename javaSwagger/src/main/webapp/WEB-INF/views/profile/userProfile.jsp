@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- icon을 위한link -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link rel="stylesheet" href="../resources/css/footerBar.css" />
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <style type="text/css">
@@ -82,16 +82,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <!--부트 스트랩 CDN  -->
 
-    <!-- Bootstrap Core CSS -->
-    <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Core CSS -->
+<link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="../resources/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+<link href="../resources/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="../resources/css/stylish-portfolio.min.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="../resources/css/stylish-portfolio.min.css" rel="stylesheet">
 
 <script type="text/javascript">
 	$(function() {
@@ -155,9 +155,11 @@
 		var user_SessionID="${user_ID}"
 		var guestID=$("#guestID").html()
 		
-		var user_List=[]; // 팔로워 리시트 확인용 
+		var list_Following=[]; // 팔로잉 리시트 확인용 
+		var list_Follower=[]; //팔로워 리스트
 		
-		if(user_SessionID!=guestID){$("#write").hide();} // 글쓰기 권한 로그인한 사용자 전용
+		
+		if(user_SessionID==guestID){$("#b_follow").hide();} // 글쓰기 권한 로그인한 사용자 전용
 		var profileImg='${profile.user_fname}';
 		
 		if(profileImg==null || profileImg=='') // 사진없으면 박보영 나옴
@@ -186,7 +188,7 @@
 					type:'post',
 					success:function(data)
 					{
-						alert(data)
+						//alert(data)
 					}
 				})
 		}//댓글 ajax */
@@ -468,71 +470,33 @@
 		
 		
 		
-		$.ajax({ // 팔로우 중복 검사
-				url:"../isFollower.do",
-				type:"post",
-				data:{"user_ID":guestID,"follower_ID":user_SessionID},
-				success:function(data){
-					var state;
-					var arr = eval("("+data+")");
-					//alert(arr)
-								
-					if(arr==0){
-						$("#btn_Follow").html("follow").addClass("btn-outline-primary")
-						state=0;
-					}
-					else
-					{
-						$("#btn_Follow").html("following").addClass("btn-primary")
-						state=1;
-					}
-								
-					$("#btn_Follow").on("click",function() {
-							if(state==0)
-							{	
-								$.ajax({url:"../follow.do",
-								type:"post",
-								data:{"user_ID":guestID,"follower_ID":user_SessionID},
-								success:function(data){
-								//alert(data)
-								$("#btn_Follow").removeClass("btn-outline-primary").addClass("btn-primary").html("following");
-								}})
-									state=1
-									return;
-								}//if end
-							else if(state==1)
-							{
-								$.ajax({url:"../unFollow.do",
-								type:"post",
-								data:{"user_ID":guestID,"follower_ID":user_SessionID},
-								success:function(data){
-								$("#btn_Follow").removeClass("btn-primary").addClass("btn-outline-primary").html("follow");
-													
-							}})
-							state=0
-							return;
-						}
-					})
-	
-				}//isFollwer success end
-			})//isFollower end */ 
-		
-		
-
+			
 		$.ajax({ // 팔로잉 목록 받아옴
 			url:"../following.do",
 			type:"post",
 			data:{"follower_ID":guestID},
 			success:function(data)
 			{
-				var state=0;
+				
 				var f_List = eval("("+data+")")
 				$.each(f_List, function(i, f) {
+					list_Following[i]=f.user_ID;
 					var tr = $("<tr></tr>")
 					var td_ID = $("<td class='col-sm-8'></td>").html(f.user_ID)
 					var td_btn=$("<td class='col-sm-4'></td>")
-					var btn_f=$("<button class='btn btn-primary'></button>").html("팔로잉")
+					var btn_f=$("<button class='btn btn-outline-primary'></button>").html("팔로잉")
+					var state=0;
 					
+					$.each(list_Following, function(i, v) {
+						//alert(v)
+						console.log(v)
+						if(v==f.user_ID)
+						{
+							$("#a_Follow").attr({src:"../resources/icon/followers.png"})
+							state=1;
+						}
+					})
+					console.log(state)
 					
 					$(btn_f).click(function() {
 						if(state==0)
@@ -541,8 +505,8 @@
 								type:"post",
 								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
 								success:function(data){
-									$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로우");
-									
+									$(btn_f).removeClass("btn-outline-primary").addClass("btn-primary").html("팔로우");
+									$("#a_Follow").attr({src:"../resources/icon/follow24b.png"})
 								}})
 							state=1
 							return;
@@ -554,7 +518,37 @@
 								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
 								success:function(data){
 									//alert(data)
-									$(btn_f).removeClass("btn-outline-primary").addClass("btn-primary").html("팔로잉");
+									$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로잉");
+									$("#a_Follow").attr({src:"../resources/icon/followers.png"})
+								}})
+							state=0
+							return;
+							
+						}
+						
+					})
+					$("#b_follow").click(function() {
+						if(state==0)
+						{
+							$.ajax({url:"../unFollow.do",
+								type:"post",
+								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
+								success:function(data){
+									$(btn_f).removeClass("btn-outline-primary").addClass("btn-primary").html("팔로우");
+									$("#a_Follow").attr({src:"../resources/icon/follow24b.png"})
+								}})
+							state=1
+							return;
+						}
+						else if(state==1)
+						{
+							$.ajax({url:"../follow.do",
+								type:"post",
+								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
+								success:function(data){
+									//alert(data)
+									$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로잉");
+									$("#a_Follow").attr({src:"../resources/icon/followers.png"})
 								}})
 							state=0
 							return;
@@ -571,21 +565,7 @@
 		})
 		
 		
-		
-		
-		
-		$.ajax({//팔로우 버튼 확인용
-			url:"../following.do",
-			data:{"follower_ID":"${user_ID}"},
-			success:function(data)
-			{
-				list=eval("("+data+")")
-				$.each(list, function(idx, f) {
-					user_List[idx]=f.user_ID
-					
-				})
-			}
-		})
+
 		
 		
 		
@@ -595,22 +575,29 @@
 			data:{"user_ID":guestID},
 			success:function(data)
 			{
-				var state=1;
 				var f_List = eval("("+data+")")
 				$.each(f_List, function(i, f) {
+					//alert(f)
+					list_Follower[i]=f.follower_ID;
+					
+					var state=1;
 					var tr = $("<tr></tr>")
 					var td_ID = $("<td class='col-sm-8'></td>").html(f.follower_ID)
 					var td_btn=$("<td class='col-sm-4'></td>")
 					var btn_f=$("<button class='btn btn-primary'></button>").html("팔로우")
 					
-					$.each(user_List, function(i, v) {
+					$.each(list_Follower, function(i, v) {
+						
+						
 						if(v==f.follower_ID)
 						{
+							
 							$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로잉");
 							state=0;
 						}
+						
 					})
-					
+					//console.log(state)
 					$(btn_f).click(function() {
 						if(state==0)
 						{
@@ -618,7 +605,7 @@
 								type:"post",
 								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
 								success:function(data){
-									$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로우");
+									$(btn_f).removeClass("btn-outline-primary").addClass("btn-primary").html("팔로우");
 									
 								}})
 							state=1
@@ -631,7 +618,7 @@
 								data:{"user_ID":f.user_ID,"follower_ID":"${user_ID}"},
 								success:function(data){
 									//alert(data)
-									$(btn_f).removeClass("btn-outline-primary").addClass("btn-primary").html("팔로잉");
+									$(btn_f).removeClass("btn-primary").addClass("btn-outline-primary").html("팔로잉");
 								}})
 							state=0
 							return;
@@ -646,6 +633,7 @@
 			}
 		})
 	
+		
 		
 		function cntLike(postNo,commentNo)
 		{ //좋아요 카운트 함수
@@ -733,11 +721,9 @@
       <div class="btn-group" role="group">
       	<button type="button" class="btn btn-sm btn-outline-secondary border-0 text-white" data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</button>
       	<button type="button" class="btn btn-sm btn-outline-secondary border-0 text-white" data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</button>
-      	<button type="button" class="btn btn-sm btn-outline-secondary border-0" data-toggle="modal" data-target="#insertPost" id="write" ><img  src="../resources/icon/quill-drawing-a-line24w.png"></button>
+      	<button type="button" class="btn btn-sm btn-outline-secondary border-0 text-white" id="b_follow" ><img  id="a_Follow" src="../resources/icon/follow24w.png"></button>
+      	<!-- <button type="button" class="btn btn-sm btn-outline-secondary border-0" data-toggle="modal" data-target="#insertPost" id="write" ><img  src="../resources/icon/quill-drawing-a-line24w.png"></button> -->
       </div>
-      <!-- <span class="d-inline"><a data-toggle="modal" data-target="#followerList_Modal" id="a_Follower_List">팔로워</a></span>
-      <span class="d-inline"><a data-toggle="modal" data-target="#followingList_Modal" id="a_Following_List">팔로잉</a></span>
-       -->
       <p>${profile.user_Email }</p>
       <h2 id="guestID">${profile.user_ID }</h2>
     </div>
@@ -806,65 +792,22 @@
 	  </div>
 	</div> 
 	
-	<!-- detail modal -->
-	<div class="modal modal-center fade" id="detail_Dialog" role="dialog"  tabindex="-1">
-		<div class="modal-dialog modal-dialog-center mx-auto" id="modal-detail" role="document">
-			<div class="modal-content h-100 d-flex no-gutters" id="content">
-				<div class="container-fluid no-gutters" id="detailModalContainer">
-					<div class="row d-flex no-gutters">
-						<div class="col-md-8" >
-						<img  id="detail_Img" class="img-fluid d-inline-block h-100 w-100">
-						</div>
-						<div class="col-md-4 fluid h-100 w-100 no-gutters">	
-							<div class="modal-header">
-								<h3 id="h3_detail_userID"></h3>
-							</div>
-							<div class="modal-body" style="overflow:auto">
-								<div class="row" id="detail_content">
-									<div class="col-sm-12">
-										<h6 id="h6_detail_userID"><small id="small_detail_content">내용</small></h6>
-									</div>
-								</div>
-								<div class="row" id="row_comment_content">
-									<div class="col-sm-12" id="col_comment_content">
-										<h6><small></small></h6>
-									</div>
-								</div>
-							</div>
-
-			
-							<div class="modal-footer">
-								<div class="row">
-									<div class="col-sm-12">
-<!-- 								<form class="form-inline" action="../insertComment" method="post" id="insertCommentForm" onsubmit="return false;"> -->
-										<form action="../insertComment" method="post">
-										  <div class="form-row align-items-left">
-										  	<div class="col-auto">
-										  		<input type="hidden" name="user_ID" id="user_ID" value=${user_ID }>
-										  	</div>
-										  	<div class="col-auto">
-										  		<input type="hidden" name="post_no" id="post_no">
-										  		<input type="hidden" name="vn" id="vn" value="profile">
-										  	</div>
-										  	<div class="col-sm-10">
-										  		<div class="input-group mb-3">
-										  			<input type="text" class="form-control" id="comment_content" name="comment_content" placeholder="댓글 달기">
-													<div class="input-group-append">
-														<button type="submit" class="btn btn-primary">등록</button>
-													</div>
-										  		</div>
-										  	</div>
-										  </div>				
-										</form>
-									</div>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<!-- detail modal -->
+	
+	<div class="modal fade" id="detail_Dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="h3_detail_userID"></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+       		<img  id="detail_Img" class="img-fluid d-inline-block h-100 w-100">
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	
 	<!--following  -->
@@ -919,8 +862,8 @@
 	<div class="icon-bar ">
 	  <a href="../timeLine"><i class="fa fa-home"></i></a> 
 	  <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
-	  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
-	  <a href="userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
+	  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fas fa-pencil-alt"></i></a>
+	  <a href="userProfile?user_ID=${user_ID }"><i class="fas fa-user-astronaut"></i></a> 
 	  <a href="editProfile"><i class="fa fa-cog"></i></a>
 	</div>
 	
