@@ -191,48 +191,45 @@
 </head>
 <body>
 <header></header>
-<!-- Navigation -->
-    <a class="menu-toggle rounded" href="#">
-      <i class="fas fa-bars"></i>
-    </a>
-    <nav id="sidebar-wrapper">
-      <ul class="sidebar-nav">
-        <li class="sidebar-brand">
-          <a class="js-scroll-trigger" href="#page-top">Menu</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="../data/bigData">빅데이터</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="../logout">Logout</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#contact">Contact</a>
-        </li>
-      </ul>
-    </nav>
-<!--  네비게이션  -->
+ <!--  네비게이션  -->
+<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
+ <div class="navbar-header navbar-center mx-2">
+	<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
+ </div>    
+	<div class="collapse navbar-collapse " id="navbarSupportedContent">	
+		<form class="form-inline my-lg-0 mx-auto" action="#">
+			<div class="input-group">
+				<input type="text" class="form-control " placeholder="Search" type="search" aria-label="Search">
+				 <div class="input-group-append">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit" >
+					<img src="../resources/icon/search2.png" width="18" height="18">
+				</button>
+				</div>
+			</div>
+		</form>
+	 </div>	
+<%-- 	<div class="navbar-nav mx-2 my-2 d-none d-sm-block">
+	
+	     <div class="btn-group">  
+			<button type="button" class="btn btn-outline-primary" id="btnUserProfile"><a href="../profile/userProfile?user_ID=${user_ID }">${user_ID }</a></button>
+			<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			</button>
+			<div class="dropdown-menu">
+			 
+			  <a class="dropdown-item" href="#editProfile" role="tab" data-toggle="pill">프로필 수정</a>
+			  <a class="dropdown-item" href="#pwdChange" role="tab" data-toggle="pill">비밀번호 변경</a>
+			  <a class="dropdown-item" href="#dropUser" role="tab" data-toggle="pill">회원탈퇴</a>
+			  <a class="dropdown-item" href="../logout">로그아웃</a>
+			</div>
 	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
 
  	 
 		<div class="navbar-header navbar-center mx-auto">
 			<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
 		</div>
- 		<!-- <a href="settings"><i class="fa fa-cogs"></i></a>  -->
-
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<form class="form-inline my-lg-0 mx-auto" id="F">
-			      <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword">
-			        <div class="input-group-append">
-			          <button  class="btn btn-outline-success border-left-0" style="border-color: #ced4da;" type="submit" >
-							<img class="img" src="../resources/icon/search2.png" width="18" height="18">
-					  </button>
-			        </div>
-			      </div>
-			    </form>
-			 </div>   
-	</nav>
+	 </div> --%>
+	 <a href="settings"><i class="fa fa-cogs"></i></a> 
+</nav>
 <!--사용자 프로필  -->
 
 <!-- Jumbotrons -->
