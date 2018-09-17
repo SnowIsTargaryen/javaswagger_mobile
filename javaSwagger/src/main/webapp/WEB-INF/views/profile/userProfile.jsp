@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- icon을 위한link -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link rel="stylesheet" href="../resources/css/footerBar.css" />
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <style type="text/css">
@@ -862,8 +862,8 @@
 	<div class="icon-bar ">
 	  <a href="../timeLine"><i class="fa fa-home"></i></a> 
 	  <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
-	  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
-	  <a href="userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
+	  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fas fa-pencil-alt"></i></a>
+	  <a href="userProfile?user_ID=${user_ID }"><i class="fas fa-user-astronaut"></i></a> 
 	  <a href="editProfile"><i class="fa fa-cog"></i></a>
 	</div>
 	

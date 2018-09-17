@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link rel="stylesheet" href="resources/css/footerBar.css" />
 <title>TimeLine</title>
 <style type="text/css">
@@ -123,6 +123,7 @@
 		
 		$(".btn-outline-success").click(function(){
 			var keyword = $("#keyword").val();
+			sessionStorage.setItem("keyword", keyword);
 			if(keyword.indexOf("#") >= 0){
 				var key = keyword.substr(1, keyword.length);
 				$("#keyword").val(key);
@@ -612,11 +613,10 @@
 <div class="icon-bar ">
   <a href="timeLine"><i class="fa fa-home"></i></a> 
   <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
-  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
-  <a href="profile/userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
-   <a href="profile/editProfile"><i class="fa fa-cog"></i></a> 
+  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fas fa-pencil-alt"></i></a>
+  <a href="profile/userProfile?user_ID=${user_ID }"><i class="fas fa-user-astronaut"></i></a> 
+  <a href="profile/editProfile"><i class="fa fa-cog"></i></a> 
 </div>
-	
 
 	
 </body>
