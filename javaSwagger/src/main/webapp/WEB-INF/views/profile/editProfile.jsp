@@ -77,7 +77,7 @@
 
 <title>EditProfile</title>
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- icon을 위한link -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link rel="stylesheet" href="../resources/css/footerBar.css" />
 <link rel="stylesheet" href="../resources/css/jumbotron.css" />
 <title>EditProfile</title>
@@ -86,6 +86,16 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <!--부트 스트랩 CDN  -->
+<!-- Bootstrap Core CSS -->
+<link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+<link href="../resources/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="../resources/css/stylish-portfolio.min.css" rel="stylesheet">
 <script type="text/javascript">
 	$(function() {
 
@@ -181,7 +191,7 @@
 </head>
 <body>
 <header></header>
-<!--  네비게이션  -->
+ <!--  네비게이션  -->
 <nav class="nav navbar navbar-expand-sm navbar-light bg-light">
  <div class="navbar-header navbar-center mx-2">
 	<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
@@ -211,6 +221,11 @@
 			  <a class="dropdown-item" href="#dropUser" role="tab" data-toggle="pill">회원탈퇴</a>
 			  <a class="dropdown-item" href="../logout">로그아웃</a>
 			</div>
+	<nav class="nav navbar navbar-expand-sm navbar-light bg-light">
+
+ 	 
+		<div class="navbar-header navbar-center mx-auto">
+			<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Edem</a>
 		</div>
 	 </div> --%>
 	 <a href="settings"><i class="fa fa-cogs"></i></a> 
@@ -250,7 +265,7 @@
 						  </div> 
 					 
 							 <div class="filebox"> <!-- 새로운 파일 처리를 할 부분 -->
-								<label for="ex_filename" class="fa fa-photo"></label> 
+								<label for="ex_filename" class="fas fa-image"></label> 
 								<input class="upload-name" value="파일선택" disabled="disabled">
 								<input type="file" id="ex_filename" class="upload-hidden" name="uploadFile"> 
 							</div>
@@ -307,10 +322,19 @@
  <div class="icon-bar "><!-- d-sm-none : display-sm-none -->
   <a href="../timeLine"><i class="fa fa-home"></i></a> 
   <a href="../timeLineSearch"><i class="fa fa-search"></i></a> 
-  <a href="userProfile?user_ID=${user_ID}"><i class="fa fa-send"></i></a>
-  <a href="userProfile?user_ID=${user_ID}"><i class="fa fa-user-circle-o"></i></a> 
+  <a href="userProfile?user_ID=${user_ID}"><i class="fas fa-pencil-alt"></i></a>
+  <a href="userProfile?user_ID=${user_ID}"><i class="fas fa-user-astronaut"></i></a> 
   <a href="editProfile"><i class="fa fa-cog"></i></a> 
 </div>
+	
+<!-- Bootstrap core JavaScript -->
+  <script src="../resources/vendor/jquery/jquery.min.js"></script>
+  <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Custom scripts for this template -->
+  <script src="../resources/js/stylish-portfolio.min.js"></script>
+		
 	
 </body>
 </html>

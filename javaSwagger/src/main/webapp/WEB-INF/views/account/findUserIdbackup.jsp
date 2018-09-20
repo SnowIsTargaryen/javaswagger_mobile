@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 
-<link href="../resources/css/login.css" rel="stylesheet">
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
@@ -46,34 +46,32 @@
 </head>
 <body>
   <div class="container">
-  	
     <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="col col-xs-3 col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-signin my-5">
           <div class="card-body">
-            <h5 class="card-title text-center">ID 찾기</h5>
-           <form class="form-signin" action="findUserId" method="post">
-           
- 			<div class="form-label-group">
-                <input type="text" id="user_email" name=user_email class="form-control" placeholder="가입시 등록한  e-mail입력" required>
-              	<label for="user_email">Email</label>
+            <h5 class="card-title text-center">ID찾기</h5>
+            <form class="form-signin" action="findUserId" method="post">
+              <div class="form-label-group">
+                <label for="user_email">Email</label>
+                <input type="text" id="user_email" name=user_email class="form-control" placeholder="가입시 등록한  e-mail입력" required autofocus>
               </div>
-			  <div class="form-label-group">
-               <input type="text" id="user_phone" name="user_phone" class="form-control" placeholder="등록된 핸드폰번호 입력" required>
-              	<label for="user_phone">Phone</label>
+			<br class="my-3">
+              <div class="form-label-group">
+                <label for="user_phone">Phone</label>
+                <input type="text" id="user_phone" name="user_phone" class="form-control" placeholder="등록된 핸드폰번호 입력" required>
               </div>
-
-              <div class="custom-control custom-checkbox mb-3">
-                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                <!-- <label class="custom-control-label" for="customCheck1">Remember password</label> -->
-              </div>
+   				 <br class="my-3">
               <button class="btn btn-lg btn-primary btn-block text-uppercase" id="msg" type="submit">ID 찾기</button>
-              <button class="btn btn-lg btn-account btn-block text-uppercase" id="findUserID">결과확인</button>
-              <hr class="my-4">
-              	<a id="findUserPwd" href="#">Forgot your Password?</a><br>
-              	<a href="../login">Login</a>
+              <button class="btn btn-defualt" id="findUserID">ID확인</button>
+              <br class="my-2">
+              <a id="login" href="#">Login</a>
+             
+              <hr class="my-3">
+               <a id="findUserPwd" href="#">Forgot your Password?</a>
             </form>
             <div ><input id="userid" type="hidden" value="${u.user_ID}"></div>
+            
           </div>
         </div>
       </div>

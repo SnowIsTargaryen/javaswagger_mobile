@@ -33,7 +33,7 @@
 <!--  네비게이션  -->
 <nav class="nav navbar navbar-expand-sm navbar-light bg-light">
  <div class="navbar-header navbar-center mx-2">
- 	<a href="userProfile?user_ID=${user_ID}"><i class="fa fa-arrow-left"></i></a>
+ 	<a href="editProfile"><i class="fa fa-arrow-left"></i></a>
 	<a class="navbar-brand mb-0 h1 mx-3 my-2 " href="../timeLine">Settings</a>
  </div>    
 </nav> 

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link rel="stylesheet" href="resources/css/footerBar.css" />
 <title>TimeLine</title>
 <style type="text/css">
@@ -60,6 +60,13 @@
 <script type="text/javascript">
 	$(function() {
 		var user_SessionID="${user_ID}"
+		
+		/* sessionStorage key 값이 들어옴  저장된 값은 브라우저 종료시 삭제된다.*/
+		var keyword = sessionStorage.getItem("keyword");
+		var key = $("<h5></h5>").html(keyword);
+		$("#keyword-box").append(key);
+		
+		
 		$("#btnUserProfile").click(function() {
 			location.href="profile/userProfile?user_ID="+user_SessionID;
 		})
@@ -399,9 +406,11 @@
 			</div>
 	</nav>
 
-	
-	
-	
+	<header class="header col-md-12" >
+	 <div class="header-inner container" id="keyword-box">
+	 	<!-- sessionStoreage의 key값이 들어옴 -->
+ 	 </div>
+	</header>
 	<!-- <!-- 게시글  -->
 	<div class="container">
 		 <div class="row">
@@ -502,8 +511,8 @@
 <div class="icon-bar">
   <a href="timeLine"><i class="fa fa-home"></i></a> 
   <a href="timeLineSearch"><i class="fa fa-search"></i></a> 
-  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fa fa-send"></i></a>
-  <a href="profile/userProfile?user_ID=${user_ID }"><i class="fa fa-user-circle-o"></i></a> 
+  <a href="#" data-toggle="modal" data-target="#insertPost" id="write"><i class="fas fa-pencil-alt"></i></i></a>
+  <a href="profile/userProfile?user_ID=${user_ID }"><i class="fas fa-user-astronaut"></i></a> 
   <a href="profile/editProfile"><i class="fa fa-cog"></i></a> 
 </div>
 	
