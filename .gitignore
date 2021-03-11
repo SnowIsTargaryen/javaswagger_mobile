@@ -1,49 +1,7 @@
-/.metadata/
-RemoteSystemsTempFiles/.project
-Servers/.project
-Servers/.settings/org.eclipse.wst.server.core.prefs
-Servers/Tomcat v8.5 Server at localhost-config/catalina.policy
-Servers/Tomcat v8.5 Server at localhost-config/catalina.properties
-Servers/Tomcat v8.5 Server at localhost-config/context.xml
-Servers/Tomcat v8.5 Server at localhost-config/server.xml
-Servers/Tomcat v8.5 Server at localhost-config/tomcat-users.xml
-Servers/Tomcat v8.5 Server at localhost-config/web.xml
-
-
-javaSwagger/src/main/java/javaa/swagger/controller/HomeController.java
-javaSwagger/src/main/webapp/WEB-INF/views/home.jsp
-javaSwagger/target/classes/javaa/swagger/controller/HomeController.class
-
-
-.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.fdt
-.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.fdx
-.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.fnm
-.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.frq
-.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.nrm
-.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.prx
-.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.tii
-.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.tis
-.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/segments_1
 
 /.recommenders/
-Servers/Tomcat v8.0 Server at localhost-config/catalina.policy
-Servers/Tomcat v8.0 Server at localhost-config/catalina.properties
-Servers/Tomcat v8.0 Server at localhost-config/context.xml
-Servers/Tomcat v8.0 Server at localhost-config/server.xml
-Servers/Tomcat v8.0 Server at localhost-config/tomcat-users.xml
-Servers/Tomcat v8.0 Server at localhost-config/web.xml
-
-test/.classpath
-test/.project
-test/.settings/.jsdtscope
-test/.settings/org.eclipse.jdt.core.prefs
-test/.settings/org.eclipse.wst.common.component
-test/.settings/org.eclipse.wst.common.project.facet.core.xml
-test/.settings/org.eclipse.wst.jsdt.ui.superType.container
-test/.settings/org.eclipse.wst.jsdt.ui.superType.name
-test/WebContent/META-INF/MANIFEST.MF
-test/WebContent/test.jsp
-javaSwagger/target/m2e-wtp/web-resources/META-INF/maven/com.bit/controller/pom.properties
-javaSwagger/target/m2e-wtp/web-resources/META-INF/maven/com.bit/controller/pom.properties
-javaSwagger/target/m2e-wtp/web-resources/META-INF/maven/javaa.swagger/controller/pom.properties
-.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/segments.gen
+/javaSwagger/target/
+/.idea/
+/javaSwagger/.classpath
+/javaSwagger/.project
+/javaSwagger/.tern-project
