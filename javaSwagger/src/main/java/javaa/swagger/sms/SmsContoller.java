@@ -15,102 +15,99 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import kr.co.youiwe.webservice.ServiceSMSSoapProxy;
 
 @Controller
 public class SmsContoller {
-	
-	@RequestMapping("account/send.do")
-	@ResponseBody
-	public String send(@RequestBody String user_phone)
-	{
-		System.out.println(user_phone);
-		String r="";
-		String smsID= "rola";	
-		String smsPW="bit123400";
-		Random ran = new Random();
-		int n =0;
-		System.out.println(1);
-		while(n<=1000)
-		{
-			n=ran.nextInt(10000);
-		}
-		r=n+"";
-		System.out.println("r:"+r);
-		ServiceSMSSoapProxy sendsms = new ServiceSMSSoapProxy();
-		try{
-			System.out.println(3);
-		ObjectMapper mapper = new ObjectMapper();
-		r=mapper.writeValueAsString(r);
-		System.out.println("r:"+r);
-		String senderPhone= "01036517605";
-		String subnum = r.substring(1, r.lastIndexOf("\""));
-		
-		String receivePhone= user_phone;
-		String edem = "EveryDay EveryMoment!\n ÄÚµå¹øÈ£¸¦ ÀÎÁõÇØÁÖ¼¼¿ä :)\nÄÚµå¹øÈ£:";
-		String smsContent= edem+subnum;
-		String test1 = (smsID+smsPW+receivePhone);
-		CEncrypt encrypt = new CEncrypt("MD5",test1);
-		java.lang.String send=sendsms.sendSMS(smsID,encrypt.getEncryptData(), senderPhone, receivePhone, smsContent);
- 		System.out.println("°á°úÄÚµå:"+send);
- 		
-		}catch(Exception e){
-		System.out.println("Exception in main:" +e);
-		}
-		return r;
-		
-	}
-	
-	class CEncrypt
-	{
-	    MessageDigest md;
-	    String strSRCData = "";
-	    String strENCData = "";
 
-	    public CEncrypt(){}
-	    //ÀÎ½ºÅÏ½º ¸¸µé ¶§ ÇÑ¹æ¿¡ Ã³¸®ÇÒ ¼ö ÀÖµµ·Ï »ý¼ºÀÚ Áßº¹½ÃÄ×½À´Ï´Ù. 
-	    public CEncrypt(String EncMthd, String strData)
-	    {
-	        this.encrypt(EncMthd, strData);
-	    }
+    @RequestMapping("account/send.do")
+    @ResponseBody
+    public String send(@RequestBody String user_phone) {
+        System.out.println(user_phone);
+        String r = "";
+        String smsID = "rola";
+        String smsPW = "bit123400";
+        Random ran = new Random();
+        int n = 0;
+        System.out.println(1);
+        while (n <= 1000) {
+            n = ran.nextInt(10000);
+        }
+        r = n + "";
+        System.out.println("r:" + r);
+//		ServiceSMSSoapProxy sendsms = new ServiceSMSSoapProxy();
+        try {
+            System.out.println(3);
+            ObjectMapper mapper = new ObjectMapper();
+            r = mapper.writeValueAsString(r);
+            System.out.println("r:" + r);
+            String senderPhone = "01036517605";
+            String subnum = r.substring(1, r.lastIndexOf("\""));
 
-	    //¾ÏÈ£È­ ÀýÂ÷¸¦ ¼öÇàÇÏ´Â ¸Þ¼ÒµåÀÔ´Ï´Ù.
-	    public void encrypt(String EncMthd, String strData)
-	   {
-	       try
-	      {
-	          MessageDigest md = MessageDigest.getInstance(EncMthd); // "MD5" or "SHA1"
-	         byte[] bytData = strData.getBytes();
-	         md.update(bytData);
+            String receivePhone = user_phone;
+            String edem = "EveryDay EveryMoment!\n ì½”ë“œë²ˆí˜¸ë¥¼ ì¸ì¦í•´ì£¼ì„¸ìš” :)\nì½”ë“œë²ˆí˜¸:";
+            String smsContent = edem + subnum;
+            String test1 = (smsID + smsPW + receivePhone);
+            CEncrypt encrypt = new CEncrypt("MD5", test1);
+//		java.lang.String send=sendsms.sendSMS(smsID,encrypt.getEncryptData(), senderPhone, receivePhone, smsContent);
 
-	         byte[] digest = md.digest();
-	         StringBuffer sb = new StringBuffer();
-	         for(int i =0;i<digest.length;i++)
-	         {
-	        	 strENCData = sb.append(Integer.toString((digest[i]&0xff) + 0x100, 16).substring(1)).toString();
-	         }
-	       }catch(NoSuchAlgorithmException e)
-	      {
-	         System.out.print("¾ÏÈ£È­ ¾Ë°í¸®ÁòÀÌ ¾ø½À´Ï´Ù.");
-	      };
-	    
-	      //³ªÁß¿¡ ¿øº» µ¥ÀÌÅÍ°¡ ÇÊ¿äÇÒÁö ¸ô¶ó¼­ ÀúÀåÇØ µÓ´Ï´Ù.
-	      strSRCData = strData;
-	    }
+        } catch (Exception e) {
+            System.out.println("Exception in main:" + e);
+        }
+        return r;
 
-	    //Á¢±ÙÀÚ ÀÎ¶óÀÎ ¸Þ¼ÒµåµéÀÔ´Ï´Ù.
-	    public String getEncryptData(){return strENCData;}
-	    public String getSourceData(){return strSRCData;}
+    }
 
-	    //µ¥ÀÌÅÍ°¡ °°ÀºÁö ºñ±³ÇØÁÖ´Â ¸Þ¼ÒµåÀÔ´Ï´Ù.
-	    public boolean equal(String strData)
-	    {
-	      //¾ÏÈ£È­ µ¥ÀÌÅÍ¶û ºñ±³¸¦ ÇÏ´ø, ¿øº»ÀÌ¶û ºñ±³¸¦ ÇÏ´ø ¸¾´ë·Î....
-	      if(strData == strENCData) return true;
-	      return false;
-	    }
-		
-	}
+    class CEncrypt {
+        MessageDigest md;
+        String strSRCData = "";
+        String strENCData = "";
+
+        public CEncrypt() {
+        }
+
+        //ì¸ìŠ¤í„´ìŠ¤ ë§Œë“¤ ë•Œ í•œë°©ì— ì²˜ë¦¬í•  ìˆ˜ ìžˆë„ë¡ ìƒì„±ìž ì¤‘ë³µì‹œì¼°ìŠµë‹ˆë‹¤.
+        public CEncrypt(String EncMthd, String strData) {
+            this.encrypt(EncMthd, strData);
+        }
+
+        //ì•”í˜¸í™” ì ˆì°¨ë¥¼ ìˆ˜í–‰í•˜ëŠ” ë©”ì†Œë“œìž…ë‹ˆë‹¤.
+        public void encrypt(String EncMthd, String strData) {
+            try {
+                MessageDigest md = MessageDigest.getInstance(EncMthd); // "MD5" or "SHA1"
+                byte[] bytData = strData.getBytes();
+                md.update(bytData);
+
+                byte[] digest = md.digest();
+                StringBuffer sb = new StringBuffer();
+                for (int i = 0; i < digest.length; i++) {
+                    strENCData = sb.append(Integer.toString((digest[i] & 0xff) + 0x100, 16).substring(1)).toString();
+                }
+            } catch (NoSuchAlgorithmException e) {
+                System.out.print("ì•”í˜¸í™” ì•Œê³ ë¦¬ì¦˜ì´ ì—†ìŠµë‹ˆë‹¤.");
+            }
+            ;
+
+            //ë‚˜ì¤‘ì— ì›ë³¸ ë°ì´í„°ê°€ í•„ìš”í• ì§€ ëª°ë¼ì„œ ì €ìž¥í•´ ë‘¡ë‹ˆë‹¤.
+            strSRCData = strData;
+        }
+
+        //ì ‘ê·¼ìž ì¸ë¼ì¸ ë©”ì†Œë“œë“¤ìž…ë‹ˆë‹¤.
+        public String getEncryptData() {
+            return strENCData;
+        }
+
+        public String getSourceData() {
+            return strSRCData;
+        }
+
+        //ë°ì´í„°ê°€ ê°™ì€ì§€ ë¹„êµí•´ì£¼ëŠ” ë©”ì†Œë“œìž…ë‹ˆë‹¤.
+        public boolean equal(String strData) {
+            //ì•”í˜¸í™” ë°ì´í„°ëž‘ ë¹„êµë¥¼ í•˜ë˜, ì›ë³¸ì´ëž‘ ë¹„êµë¥¼ í•˜ë˜ ë§˜ëŒ€ë¡œ....
+            if (strData == strENCData) return true;
+            return false;
+        }
+
+    }
 
 
 }

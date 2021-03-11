@@ -26,86 +26,86 @@ import javaa.swagger.vo.PostVo;
 @Controller
 public class CommentController {
 
-	@Autowired
-	CommentDao dao;
+    @Autowired
+    CommentDao dao;
 
-	public void setDao(CommentDao dao) {
-		this.dao = dao;
-	}
-	
-	@RequestMapping(value="/board/listComment", method=RequestMethod.GET)
-	public ModelAndView commentList(@RequestParam(value="post_no") int post_no)
-	{
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("post_no", post_no);
-		
-		
-		return mav; 
-	}
-	
-//	ajax방식
-	@RequestMapping(value="listComment.do", produces="text/plain;charset=utf-8")
-	@ResponseBody // ajax 반환
-	public String readComment(@RequestParam(value="post_no") int post_no) {
-		ArrayList<CommentVo> list = new ArrayList<CommentVo>();
+    public void setDao(CommentDao dao) {
+        this.dao = dao;
+    }
+
+    @RequestMapping(value = "/board/listComment", method = RequestMethod.GET)
+    public ModelAndView commentList(@RequestParam(value = "post_no") int post_no) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("post_no", post_no);
+
+
+        return mav;
+    }
+
+    //	ajax방식
+    @RequestMapping(value = "listComment.do", produces = "text/plain;charset=utf-8")
+    @ResponseBody // ajax 반환
+    public String readComment(@RequestParam(value = "post_no") int post_no) {
+        ArrayList<CommentVo> list = new ArrayList<CommentVo>();
 //		System.out.println(post_no);
-		HashMap map = new HashMap();
-		map.put("post_no", post_no);
-		List<CommentVo> listt = dao.readComment(map);
-		for(CommentVo c : listt) {
-			list.add(c);
-		}
-		String str = "";
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			str = mapper.writeValueAsString(list);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
-		}
-		//System.out.println(str);
-		return str;
-	}
-	//user_fname 까지
-	@RequestMapping(value="listComment2.do", produces="text/plain;charset=utf-8")
-	@ResponseBody // ajax 반환
-	public String readComment2(@RequestParam(value="post_no") int post_no) {
-		ArrayList<CommentVo2> list = new ArrayList<CommentVo2>();
+        HashMap map = new HashMap();
+        map.put("post_no", post_no);
+        List<CommentVo> listt = dao.readComment(map);
+        for (CommentVo c : listt) {
+            list.add(c);
+        }
+        String str = "";
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            str = mapper.writeValueAsString(list);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+        }
+        //System.out.println(str);
+        return str;
+    }
+
+    //user_fname 까지
+    @RequestMapping(value = "listComment2.do", produces = "text/plain;charset=utf-8")
+    @ResponseBody // ajax 반환
+    public String readComment2(@RequestParam(value = "post_no") int post_no) {
+        ArrayList<CommentVo2> list = new ArrayList<CommentVo2>();
 //		System.out.println(post_no);
-		HashMap map = new HashMap();
-		map.put("post_no", post_no);
-		List<CommentVo2> listt = dao.readComment2(map);
-		for(CommentVo2 c : listt) {
-			list.add(c);
-		}
-		String str = "";
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			str = mapper.writeValueAsString(list);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
-		}
-		//System.out.println(str);
-		return str;
-	}
-	
-	@RequestMapping(value="cntComment.do", produces="text/plain;charset=utf-8")
-	@ResponseBody // ajax 반환
-	public String cntComment(String post_no) {
-		HashMap map = new HashMap();
-		String str = "";
-		ObjectMapper mapper = new ObjectMapper();
-		map.put("post_no", post_no);
-		//int re = dao.cntLike(map);
-		try {
-		str=mapper.writeValueAsString(dao.cntComment(map));
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return str;
-	}
-	
+        HashMap map = new HashMap();
+        map.put("post_no", post_no);
+        List<CommentVo2> listt = dao.readComment2(map);
+        for (CommentVo2 c : listt) {
+            list.add(c);
+        }
+        String str = "";
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            str = mapper.writeValueAsString(list);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+        }
+        //System.out.println(str);
+        return str;
+    }
+
+    @RequestMapping(value = "cntComment.do", produces = "text/plain;charset=utf-8")
+    @ResponseBody // ajax 반환
+    public String cntComment(String post_no) {
+        HashMap map = new HashMap();
+        String str = "";
+        ObjectMapper mapper = new ObjectMapper();
+        map.put("post_no", post_no);
+        //int re = dao.cntLike(map);
+        try {
+            str = mapper.writeValueAsString(dao.cntComment(map));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return str;
+    }
+
 //	// MAV 방식으로 진행시에는 하나의 게시물을 클릭 했을때 코멘트가 뜨므로 서비스명을 detailPost로 했습니다.
 //	@RequestMapping("detailPost.do")
 //	public ModelAndView readComment(String post_no) {
@@ -115,42 +115,41 @@ public class CommentController {
 //		mav.addObject("comment", dao.readComment(map));
 //		return mav;
 //	}
-	
-	@RequestMapping(value="insertComment",method=RequestMethod.POST) // ajax 방식으로 자료 받아오기
-	public ModelAndView newComment(CommentVo cv, String vn) {
-		
-		System.out.println(cv.getComment_no());
-		System.out.println(cv.getUser_ID());
-		System.out.println(cv.getPost_no());
-		System.out.println(cv.getComment_content());
-		/*System.out.println(cv.getUser_ID());*/
-		
-		ModelAndView mav = new ModelAndView();
-		HashMap map = new HashMap();
 
-		int no=dao.getNextNo();
-		cv.setComment_no(no);
-		
-		map.put("cv", cv);
-		int re = dao.newComment(map);
-		
-		if(re <= 0) {
-			mav.addObject("msg", "댓글 등록에 실패하였습니다.");
-			mav.setViewName("error.do");
-		} else {
-			if(vn.equals("timeLine")) {
-				mav.setViewName("redirect:/timeLine");
-			} else if(vn.equals("profile")){
-				mav.setViewName("redirect:/profile/userProfile?user_ID="+cv.getUser_ID());
-			} else if(vn.equals("lc")) {
-				mav.setViewName("redirect:/board/listComment?post_no="+cv.getPost_no());
-			}
-			else {
-				mav.setViewName("redirect:/hashtag?keyword=" + (String)vn);
-			}
-		}
-		return mav;
-	}
+    @RequestMapping(value = "insertComment", method = RequestMethod.POST) // ajax 방식으로 자료 받아오기
+    public ModelAndView newComment(CommentVo cv, String vn) {
+
+        System.out.println(cv.getComment_no());
+        System.out.println(cv.getUser_ID());
+        System.out.println(cv.getPost_no());
+        System.out.println(cv.getComment_content());
+        /*System.out.println(cv.getUser_ID());*/
+
+        ModelAndView mav = new ModelAndView();
+        HashMap map = new HashMap();
+
+        int no = dao.getNextNo();
+        cv.setComment_no(no);
+
+        map.put("cv", cv);
+        int re = dao.newComment(map);
+
+        if (re <= 0) {
+            mav.addObject("msg", "댓글 등록에 실패하였습니다.");
+            mav.setViewName("error.do");
+        } else {
+            if (vn.equals("timeLine")) {
+                mav.setViewName("redirect:/timeLine");
+            } else if (vn.equals("profile")) {
+                mav.setViewName("redirect:/profile/userProfile?user_ID=" + cv.getUser_ID());
+            } else if (vn.equals("lc")) {
+                mav.setViewName("redirect:/board/listComment?post_no=" + cv.getPost_no());
+            } else {
+                mav.setViewName("redirect:/hashtag?keyword=" + (String) vn);
+            }
+        }
+        return mav;
+    }
 	
 	/*@RequestMapping(value="/insertComment",produces="text/plain;charset=utf-8") // ajax 방식으로 자료 받아오기
 	@ResponseBody
@@ -189,37 +188,37 @@ public class CommentController {
 		mav.addObject("tof", dao.deleteComment(map));
 		return mav;
 	}*/
-	
-	@RequestMapping(value="/deleteComment", produces="text/plain;charset=utf-8")// ajax 방식으로 comment_no 받아오기
-	@ResponseBody
-	public String deleteComment(int comment_no,int post_no,HttpServletRequest request) {
-		String str="";
-		HashMap map = new HashMap();
-		PostVo pv = new PostVo();
-		map.put("comment_no", comment_no);
-		map.put("post_no", post_no);
-		//map.put("user_ID", user_ID);
 
-		ObjectMapper mapper = new ObjectMapper();
-		try {
+    @RequestMapping(value = "/deleteComment", produces = "text/plain;charset=utf-8")// ajax 방식으로 comment_no 받아오기
+    @ResponseBody
+    public String deleteComment(int comment_no, int post_no, HttpServletRequest request) {
+        String str = "";
+        HashMap map = new HashMap();
+        PostVo pv = new PostVo();
+        map.put("comment_no", comment_no);
+        map.put("post_no", post_no);
+        //map.put("user_ID", user_ID);
 
-			//cdao.deleteComment(map);
-			str=mapper.writeValueAsString(dao.deleteComment(map));
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		
-		return str;
-	}
-	
-	@RequestMapping("updateComment.do") // ajax 방식으로 자료 받아오기
-	public ModelAndView updateComment(CommentVo cv) {
-		ModelAndView mav = new ModelAndView();
-		HashMap map = new HashMap();
-		map.put("cv", cv);
-		mav.addObject("tof", dao.updateComment(map));
-		return mav;
-	}
-	
-	
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+
+            //cdao.deleteComment(map);
+            str = mapper.writeValueAsString(dao.deleteComment(map));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return str;
+    }
+
+    @RequestMapping("updateComment.do") // ajax 방식으로 자료 받아오기
+    public ModelAndView updateComment(CommentVo cv) {
+        ModelAndView mav = new ModelAndView();
+        HashMap map = new HashMap();
+        map.put("cv", cv);
+        mav.addObject("tof", dao.updateComment(map));
+        return mav;
+    }
+
+
 }

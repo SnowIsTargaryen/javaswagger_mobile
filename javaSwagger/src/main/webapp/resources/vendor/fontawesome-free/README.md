@@ -29,10 +29,12 @@ $ yarn add @fortawesome/fontawesome-free
 
 ## Documentation
 
-Get started [here](https://fontawesome.com/get-started). Continue your journey [here](https://fontawesome.com/how-to-use).
+Get started [here](https://fontawesome.com/get-started). Continue your
+journey [here](https://fontawesome.com/how-to-use).
 
 Or go straight to the [API documentation](https://fontawesome.com/how-to-use/font-awesome-api).
 
 ## Issues and support
 
-Start with [GitHub issues](https://github.com/FortAwesome/Font-Awesome/issues) and ping us on [Twitter](https://twitter.com/fontawesome) if you need to.
+Start with [GitHub issues](https://github.com/FortAwesome/Font-Awesome/issues) and ping us
+on [Twitter](https://twitter.com/fontawesome) if you need to.

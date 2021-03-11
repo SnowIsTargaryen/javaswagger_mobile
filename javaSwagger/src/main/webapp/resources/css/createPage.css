@@ -1,17 +1,19 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-body{
+
+body {
     background: #aff6d8;
     font-family: 'Ubuntu Mono', monospace;
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
 }
-.form-box{
+
+.form-box {
     width: 750px;
     height: 650px;
     background: white;
@@ -19,9 +21,10 @@ body{
     top: 50%;
     transform: translateY(-50%);
     border-radius: 15px;
-   
+
 }
-.left-box{
+
+.left-box {
     width: 40%;
     height: 676px;
     position: absolute;
@@ -34,7 +37,7 @@ body{
     text-align: center;
 }
 
-.left-box p{
+.left-box p {
     font-weight: bold;
     color: white;
     font-size: 40px;
@@ -42,7 +45,7 @@ body{
     display: block;
 }
 
-.left-box h5{
+.left-box h5 {
     font-family: sans-serif;
     font-weight: bold;
     color: #99fff6;
@@ -50,7 +53,7 @@ body{
     letter-spacing: 2px
 }
 
-.right-box{
+.right-box {
     width: 60%;
     height: 650px;
     padding: 140px 50px;
@@ -58,7 +61,8 @@ body{
     border-radius: 15px;
 
 }
-.right-box span{
+
+.right-box span {
     font-size: 45px;
     font-family: 'Ubuntu Mono', monospace;
     display: block;
@@ -82,11 +86,11 @@ body{
     font-family: 'Ubuntu Mono', monospace;
 }
 
-.right-box input:focus{
+.right-box input:focus {
     border-bottom: 2px solid #49cca2;
 }
 
-.right-box button{
+.right-box button {
     width: 160px;
     padding: 15px 20px;
     background: #ffd64a;

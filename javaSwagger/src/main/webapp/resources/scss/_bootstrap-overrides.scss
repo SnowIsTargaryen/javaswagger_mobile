@@ -1,5 +1,6 @@
 a {
   color: $primary;
+
   &:hover,
   &:focus,
   &:active {
@@ -11,6 +12,7 @@ a {
   background-color: $primary !important;
   border-color: $primary !important;
   color: $white !important;
+
   &:hover,
   &:focus,
   &:active {
@@ -23,6 +25,7 @@ a {
   background-color: $secondary !important;
   border-color: $secondary !important;
   color: $white !important;
+
   &:hover,
   &:focus,
   &:active {

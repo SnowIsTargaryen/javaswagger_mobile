@@ -13,46 +13,42 @@ import javaa.swagger.vo.LikeVo;
 @Repository
 public class LikeDao {
 
-	public List<LikeVo> whoLike(HashMap map)
-	{
-		return LikeManager.whoLike(map);
-	}
-	
-	public int cntLike(HashMap map) 
-	{
-		return LikeManager.cntLike(map);
-	}
-	
-	public int doLike(HashMap map)
-	{
-		return LikeManager.doLike(map);
-	}
-	
-	public int deleteLikePost(HashMap map)
-	{
-		return LikeManager.deleteLikePost(map);
-	}
-	public int cancelLike(HashMap map)
-	{
-		return LikeManager.cancelLike(map);
-	}
-	
-	public int getPno(String comment_NO) {
-		return LikeManager.getPno(comment_NO);
-	}
+    public List<LikeVo> whoLike(HashMap map) {
+        return LikeManager.whoLike(map);
+    }
 
-	public List<LikeVo> isLike(HashMap map) {
-		// TODO Auto-generated method stub
-		return LikeManager.isLike(map);
-	}
+    public int cntLike(HashMap map) {
+        return LikeManager.cntLike(map);
+    }
 
-	public int deltimeSetup(HashMap map) {
-		// TODO Auto-generated method stub
-		return LikeManager.deltimeSetup(map);
-	}
-	
-	public int autoDelete() {
-		// TODO Auto-generated method stub
-		return LikeManager.autoDelete();
-	}
+    public int doLike(HashMap map) {
+        return LikeManager.doLike(map);
+    }
+
+    public int deleteLikePost(HashMap map) {
+        return LikeManager.deleteLikePost(map);
+    }
+
+    public int cancelLike(HashMap map) {
+        return LikeManager.cancelLike(map);
+    }
+
+    public int getPno(String comment_NO) {
+        return LikeManager.getPno(comment_NO);
+    }
+
+    public List<LikeVo> isLike(HashMap map) {
+        // TODO Auto-generated method stub
+        return LikeManager.isLike(map);
+    }
+
+    public int deltimeSetup(HashMap map) {
+        // TODO Auto-generated method stub
+        return LikeManager.deltimeSetup(map);
+    }
+
+    public int autoDelete() {
+        // TODO Auto-generated method stub
+        return LikeManager.autoDelete();
+    }
 }

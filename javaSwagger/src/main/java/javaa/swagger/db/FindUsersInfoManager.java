@@ -13,16 +13,17 @@ import javaa.swagger.vo.UsersVo;
 
 
 public class FindUsersInfoManager {
-	private static SqlSessionFactory factory;
-	static {
-		try {
-		Reader reader = Resources.getResourceAsReader("javaa/swagger/db/mybatisConfig.xml");
-		factory = new SqlSessionFactoryBuilder().build(reader);
-		
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
+    private static SqlSessionFactory factory;
+
+    static {
+        try {
+            Reader reader = Resources.getResourceAsReader("javaa/swagger/db/mybatisConfig.xml");
+            factory = new SqlSessionFactoryBuilder().build(reader);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 	  /* public static UsersVo findId(Map map){
 		      // TODO Auto-generated method stub
 		      //boolean r = false;
@@ -36,23 +37,24 @@ public class FindUsersInfoManager {
 		      return uv;
 		      
 		   }*/
-	
-	public static UsersVo findId(Map map) {
-		// TODO Auto-generated method stub
-		SqlSession session =factory.openSession();
-		UsersVo u = session.selectOne("findUsersInfo.findId", map);
-		System.out.println("manager map:"+map);
-		System.out.println("u:"+u.getUser_ID());
-		session.close();
-		
-		return u;
-	}
-	public static UsersVo findPwd(Map map) {
-		// TODO Auto-generated method stub
-		SqlSession session =factory.openSession();
-		UsersVo u = session.selectOne("findUsersInfo.findPwd", map);
-		session.close();
-		
-		return u;
-	}
+
+    public static UsersVo findId(Map map) {
+        // TODO Auto-generated method stub
+        SqlSession session = factory.openSession();
+        UsersVo u = session.selectOne("findUsersInfo.findId", map);
+        System.out.println("manager map:" + map);
+        System.out.println("u:" + u.getUser_ID());
+        session.close();
+
+        return u;
+    }
+
+    public static UsersVo findPwd(Map map) {
+        // TODO Auto-generated method stub
+        SqlSession session = factory.openSession();
+        UsersVo u = session.selectOne("findUsersInfo.findPwd", map);
+        session.close();
+
+        return u;
+    }
 }

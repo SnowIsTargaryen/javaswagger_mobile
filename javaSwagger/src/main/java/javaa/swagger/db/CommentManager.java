@@ -9,90 +9,97 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+
 import javaa.swagger.vo.CommentVo;
 import javaa.swagger.vo.CommentVo2;
 
 public class CommentManager {
-	private static SqlSessionFactory factory;
-	static{
-		try{
-			Reader reader = Resources.getResourceAsReader("javaa/swagger/db/mybatisConfig.xml");
-	        factory = new SqlSessionFactoryBuilder().build(reader);
-	        reader.close();
-		}catch (Exception e){
-	       // TODO: handle exception
-	        System.out.println(e.getMessage());
-	    }
-	 }
-	
-	public static int autoDelete() {
-		// TODO Auto-generated method stub
-		int re = 0;
-		SqlSession s = factory.openSession(true);
-		re = s.delete("comment.autoDelete");
-		s.close();
-		return re;
-	}
-	 
-	 public static List<CommentVo> readComment(HashMap map){
-		 List<CommentVo> list;
-		 SqlSession s = factory.openSession();
-		 list = s.selectList("comment.readComment",map);
-		 s.close();
-		 return list;
-	 }
-	 public static List<CommentVo2> readComment2(HashMap map){
-		 List<CommentVo2> list;
-		 SqlSession s = factory.openSession();
-		 list = s.selectList("comment.readComment2",map);
-		 s.close();
-		 return list;
-	 }
-	 
-	 public static int newComment(HashMap map) {
-		 int re = 0;
-		 SqlSession s = factory.openSession(true);
-		 CommentVo cv = (CommentVo) map.get("cv");
-		 re = s.insert("comment.insertComment", cv);
-		 s.close();
-		 return re;
-	 }
-	 
-	 public static int deleteComment(HashMap map) {
-		 int re = 0;
-		 SqlSession s = factory.openSession(true);
-		 re = s.delete("comment.deleteComment", map);
-		 s.close();
-		 return re;
-	 }
-	 public static int deleteAllComment(HashMap map) {
-		 int re = 0;
-		 SqlSession s = factory.openSession(true);
-		 re = s.delete("comment.deleteAllComment", map);
-		 s.close();
-		 return re;
-	 }
-	 
-	 public static int updateComment(HashMap map) {
-		 int re = 0;
-		 SqlSession s = factory.openSession(true);
-		 re = s.update("comment.updateComment", map);
-		 s.close();
-		 return re;
-	 }
-	 
-	 public static int getNextNo() {
-		 int no=0;
-		 SqlSession session = factory.openSession();
-		 no=session.selectOne("comment.nextNo");
-		 session.close();
-		 return no;
-	 }
 
-	public static int cntComment(HashMap map) {
-		SqlSession s = factory.openSession(); 
-		int re = s.selectOne("comment.cntComment", map);
-		s.close();
-		return re;
-	}
+
+
+    private static SqlSessionFactory factory;
+
+    static {
+        try {
+            Reader reader = Resources.getResourceAsReader("javaa/swagger/db/mybatisConfig.xml");
+            factory = new SqlSessionFactoryBuilder().build(reader);
+            reader.close();
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static int autoDelete() {
+        // TODO Auto-generated method stub
+        int re = 0;
+        SqlSession s = factory.openSession(true);
+        re = s.delete("comment.autoDelete");
+        s.close();
+        return re;
+    }
+
+    public static List<CommentVo> readComment(HashMap map) {
+        List<CommentVo> list;
+        SqlSession s = factory.openSession();
+        list = s.selectList("comment.readComment", map);
+        s.close();
+        return list;
+    }
+
+    public static List<CommentVo2> readComment2(HashMap map) {
+        List<CommentVo2> list;
+        SqlSession s = factory.openSession();
+        list = s.selectList("comment.readComment2", map);
+        s.close();
+        return list;
+    }
+
+    public static int newComment(HashMap map) {
+        int re = 0;
+        SqlSession s = factory.openSession(true);
+        CommentVo cv = (CommentVo) map.get("cv");
+        re = s.insert("comment.insertComment", cv);
+        s.close();
+        return re;
+    }
+
+    public static int deleteComment(HashMap map) {
+        int re = 0;
+        SqlSession s = factory.openSession(true);
+        re = s.delete("comment.deleteComment", map);
+        s.close();
+        return re;
+    }
+
+    public static int deleteAllComment(HashMap map) {
+        int re = 0;
+        SqlSession s = factory.openSession(true);
+        re = s.delete("comment.deleteAllComment", map);
+        s.close();
+        return re;
+    }
+
+    public static int updateComment(HashMap map) {
+        int re = 0;
+        SqlSession s = factory.openSession(true);
+        re = s.update("comment.updateComment", map);
+        s.close();
+        return re;
+    }
+
+    public static int getNextNo() {
+        int no = 0;
+        SqlSession session = factory.openSession();
+        no = session.selectOne("comment.nextNo");
+        session.close();
+        return no;
+    }
+
+    public static int cntComment(HashMap map) {
+        SqlSession s = factory.openSession();
+        int re = s.selectOne("comment.cntComment", map);
+        s.close();
+        return re;
+    }
 }

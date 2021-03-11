@@ -13,14 +13,15 @@ import javaa.swagger.vo.UsersVo;
 @Repository
 public class FindUsersInfoDao {
 
-	public UsersVo findId(Map map) {
-		// TODO Auto-generated method stub
-		return FindUsersInfoManager.findId(map);
-	}
-	public UsersVo findPwd(Map map) {
-		// TODO Auto-generated method stub
-		return FindUsersInfoManager.findPwd(map);
-	}
+    public UsersVo findId(Map map) {
+        // TODO Auto-generated method stub
+        return FindUsersInfoManager.findId(map);
+    }
 
-	
+    public UsersVo findPwd(Map map) {
+        // TODO Auto-generated method stub
+        return FindUsersInfoManager.findPwd(map);
+    }
+
+
 }
